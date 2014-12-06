@@ -53,23 +53,23 @@ public interface ArticleService {
 	/**
 	 * @函数功能说明 根据文章Id删除
 	 * @修改作者名字 HECJ  
-	 * @修改时间 2014-12-4
+	 * @修改时间 2014-12-5
 	 * @修改内容
-	 * @参数： @param artNo    
+	 * @参数： @param pArticleNo    
 	 * @return void   
-	 * @throws
+	 * throws
 	 */
 	public void deleteArticle(String pArticleNo);
 	
 	/**
-	 * @函数功能说明 返回文章集合
+	 * @函数功能说明 分页查询文章集合
 	 * @修改作者名字 HECJ  
 	 * @修改时间 2014-12-5
 	 * @修改内容
-	 * @参数： @param params
-	 * @参数： @return    
-	 * @return List<Article>   
-	 * @throws
+	 * @参数： @param pParams{pagination:Pagination}<br>
+	 * @参数： @return{rArticleList:List<Article/>,pPagination:Pagination}    
+	 * @return Map<String,Object>   
+	 * throws
 	 */
 	public Map<String,Object> searchArticleList(Map<String,Object> pParams);
 }

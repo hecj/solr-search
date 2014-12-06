@@ -50,32 +50,58 @@
 	 <!-- spring配置文件 -->
   	<context-param>
     	<param-name>contextConfigLocation</param-name>
-    	<param-value>classpath:bean/applicationContext.xml</param-value>
+    	<param-value>classpath*:bean/applicationContext.xml</param-value>
   	</context-param>
 	
-	 
 	<!-- Spring config -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
-	<!-- spring web config -->
-	<servlet>  
-        <servlet-name>spring</servlet-name>  
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
-	    <init-param>
-	        <param-name>contextConfigLocation</param-name>
-	      <param-value>/WEB-INF/classes/bean/applicationContext.xml</param-value>
-	    </init-param>
-        <load-on-startup>1</load-on-startup>  
-    </servlet>  
-    <servlet-mapping>  
-        <servlet-name>spring</servlet-name>  
-        <url-pattern>*.htm</url-pattern>  
-    </servlet-mapping>  
 
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<!-- spring web config -->
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:bean/spring-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+	
+	<!-- init Index Page -->
+	<servlet>
+		<servlet-name>initIndexPageServlet</servlet-name>
+		<servlet-class>com.hecj.search.web.servlet.InitIndexPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>initIndexPageServlet</servlet-name>
+		<url-pattern>/servlet/initIndexPage.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- error 404 page -->
+	<error-page>
+    	<error-code>404</error-code>
+    	<location>/servlet/initIndexPage.do</location>
+	</error-page>
+	
+	<!-- error 500 page -->
+	<error-page>
+    	<error-code>500</error-code>
+    	<location>/servlet/initIndexPage.do</location>
+	</error-page>
+	
+	<!-- default Index Page -->
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/index.jsp</welcome-file>
+		<welcome-file>servlet/initIndexPage.do</welcome-file>
 	</welcome-file-list>
 
 </web-app>

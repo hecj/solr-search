@@ -82,7 +82,7 @@ public class ArticleServiceImp implements ArticleService{
 			String mQueryHql = "from Article a";
 			String mCountHql = "select count(a) from Article a ";
 			
-			List<Article> rArticleList = articleDAO.queryListByPagination(mQueryHql,(int) pPagination.startCursor(), pPagination.pageSize);
+			List<Article> rArticleList = articleDAO.queryListByPagination(mQueryHql,(int) pPagination.startCursor(), pPagination.getPageSize());
 			long mCountSize = Long.parseLong( articleDAO.queryUniqueResultByHQL(mCountHql).toString());
 			
 			pPagination.setCountSize(mCountSize);

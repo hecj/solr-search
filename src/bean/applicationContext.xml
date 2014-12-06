@@ -71,11 +71,11 @@
 	<!-- 包注解bean -->
 	<context:component-scan base-package="com.hecj.search.spring.aop,
 										  com.hecj.search.hibernate.dao.imp,
-										  com.hecj.search.services.imp,
-										  com.hecj.search.web.action"/>
+										  com.hecj.search.services.imp"/>
 	
-	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->  
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射   
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" /> 
+	-->
 	
 	<!-- 配置事务管理 -->    
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

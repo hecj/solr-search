@@ -1,4 +1,4 @@
-package com.hecj.search.web.action;
+package com.hecj.search.web.controller;
 
 import javax.annotation.Resource;
 
@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hecj.search.services.ArticleService;
+import com.hecj.search.web.controller.base.BaseController;
 
 @Controller
 @RequestMapping("/attachmen/attachmen.htm")
-public class AttachmentAction{
+public class AttachmentController extends BaseController{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -21,11 +22,10 @@ public class AttachmentAction{
 		this.articleService = articleService;
 	}
 	
-	@ResponseBody
-	@RequestMapping(params="method=search")
-	public String search(){
+	@RequestMapping(params="operator=add")
+	public String add(){
 		
-		return "search";
+		return "/WEB-INF/jsp/article/article_add.jsp";
 	}
 	
 	@ResponseBody

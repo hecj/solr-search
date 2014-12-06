@@ -10,11 +10,26 @@ package com.hecj.search.util;
  * @版本：V1.0
  */
 public class Pagination {
-
-	public long currPage = 1;
-	public long countPage;
-	public int pageSize = 15;
-	public long countSize;
+	/*
+	 * 当前页码
+	 */
+	private long currPage = 1;
+	/*
+	 * 每页条数
+	 */
+	private int pageSize = 15;
+	/*
+	 * 总条数
+	 */
+	private long countSize = 0;
+	/*
+	 * 显示分页器
+	 */
+	private String showPagination;
+	/*
+	 * 分页的baseURL
+	 */
+	private String pathURL ;
 
 	public Pagination() {
 		super();
@@ -29,11 +44,11 @@ public class Pagination {
 	}
 
 	public long getCountPage() {
-		return countPage;
-	}
-
-	public void setCountPage(long countPage) {
-		this.countPage = countPage;
+		if(this.getCountSize()%this.getPageSize() == 0){
+			return this.getCountSize()/this.getPageSize();
+		}else{
+			return this.getCountSize()/this.getPageSize() + 1;
+		}
 	}
 
 	public int getPageSize() {
@@ -53,7 +68,41 @@ public class Pagination {
 	}
 
 	public long startCursor() {
-		return (currPage - 1) * pageSize;
+		return (this.currPage - 1) * this.pageSize;
 	}
-
+	
+	public void setPathURL(String pathURL) {
+		this.pathURL = pathURL;
+	}
+	
+	public String getShowPagination(){
+		
+		StringBuffer showPage = new StringBuffer();
+		
+		if(this.getCurrPage() == 1 ){
+			showPage.append("首页&nbsp;&nbsp;");
+		}else{
+			showPage.append("<a href='"+this.pathURL+"1'>首页</a>&nbsp;&nbsp;");
+		}
+		
+		if(this.getCurrPage() > 1 && this.getCountPage() > 1 ){
+			showPage.append("<a href='"+this.pathURL+""+(this.getCurrPage()-1)+"'>上一页</a>&nbsp;&nbsp;");
+		}else{
+			showPage.append("上一页&nbsp;&nbsp;");
+		}
+		
+		if(this.getCurrPage() < this.getCountPage() && this.getCountPage() > 1 ){
+			showPage.append("<a href='"+this.pathURL+""+(this.getCurrPage()+1)+"'>下一页</a>&nbsp;&nbsp;");
+		}else{
+			showPage.append("下一页&nbsp;&nbsp;");
+		}
+		
+		if(this.getCurrPage() == this.getCountPage() || this.getCountPage() == 0 ){
+			showPage.append("尾页");
+		}else{
+			showPage.append("<a href='"+this.pathURL+""+this.getCountPage()+"'>尾页</a>&nbsp;&nbsp;");
+		}
+		showPagination = showPage.toString();
+		return showPagination;
+	}
 }

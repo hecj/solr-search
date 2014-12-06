@@ -1,7 +1,6 @@
 package com.hecj.search.hibernate.dao.imp;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.hecj.search.hibernate.HibernateSessionFactory;
@@ -23,76 +22,41 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	
 	@Override
 	public T findById(Serializable id) {
-		T t = null ;
-		System.out.println(entityClass);
-		try{
-			t = (T) getSession().get(entityClass, id);
-		} catch (Exception ex){
-			ex.printStackTrace();
-		} 
-		return  t ;
+		return (T)getSessionFactory().getCurrentSession().get(entityClass, id);
 	}
 	
 	@Override
 	public Serializable save(Object t) {
-		getSession().beginTransaction();
-		Serializable s = getSession().save(t);
-		getSession().getTransaction().commit();
-		return s;
+		
+		return getSessionFactory().getCurrentSession().save(t);
 	}
 	
 	@Override
 	public boolean persist(Object t) {
-		
-		try{
-			getSession().persist(t);
-			return true;
-		} catch (Exception ex){
-			ex.printStackTrace();
-		}
-		return false;
+		getSessionFactory().getCurrentSession().persist(t);
+		return true;
 	}
 	
 	@Override
 	public void merge(Object t) {
 		
-		getSession().merge(t);
+		getSessionFactory().getCurrentSession().merge(t);
 	}
 
 	@Override
 	public boolean delete(T t) {
-		try{
-			getSession().beginTransaction();
-			getSession().delete(t);
-			getSession().getTransaction().commit();
-			return true;
-		} catch (Exception ex){
-			ex.printStackTrace();
-		}
-		return false;
+		getSessionFactory().getCurrentSession().delete(t);
+		return true;
 	}
 
 	@Override
 	public List<T> queryListByPagination(String pHQL,int... pPagination){
-		List<T> rList = new ArrayList<T>();
-		try{
-			rList = getSession().createQuery(pHQL).setFirstResult(pPagination[0]).setMaxResults(pPagination[1]).list();
-			
-		} catch(Exception mException){
-			mException.printStackTrace();
-		}
-		return rList;
+		
+		return getSessionFactory().getCurrentSession().createQuery(pHQL).setFirstResult(pPagination[0]).setMaxResults(pPagination[1]).list();
 	}
 	
 	@Override
 	public Object queryUniqueResultByHQL(String pHQL){
-		Object mObject = new Object();
-		try{
-
-			mObject = getSession().createQuery(pHQL).uniqueResult();
-		} catch(Exception mException){
-			mException.printStackTrace();
-		}
-		return mObject;
+		return getSessionFactory().getCurrentSession().createQuery(pHQL).uniqueResult();
 	}
 }

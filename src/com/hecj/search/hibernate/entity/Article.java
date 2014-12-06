@@ -61,7 +61,7 @@ public class Article implements Serializable {
 	}
 
 	@Id
-	@Column(name="articleNo")
+	@Column(name="articleNo",length=30)
 	public String getArticleNo() {
 		return articleNo;
 	}
@@ -69,7 +69,7 @@ public class Article implements Serializable {
 	public void setArticleNo(String articleNo) {
 		this.articleNo = articleNo;
 	}
-	@Column(name="title")
+	@Column(name="title",length=300,nullable=false)
 	public String getTitle() {
 		return title;
 	}
@@ -77,7 +77,7 @@ public class Article implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	@Column(name="content")
+	@Column(name="content",length=5000)
 	public String getContent() {
 		return content;
 	}
@@ -85,7 +85,7 @@ public class Article implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	@Column(name="auther")
+	@Column(name="auther",length=100)
 	public String getAuther() {
 		return auther;
 	}

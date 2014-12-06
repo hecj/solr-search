@@ -56,7 +56,7 @@ public class Attachment implements Serializable {
 	}
 
 	@Id
-	@Column(name="attachmentNo")
+	@Column(name="attachmentNo",length=30)
 	public String getAttachmentNo() {
 		return attachmentNo;
 	}
@@ -64,7 +64,7 @@ public class Attachment implements Serializable {
 	public void setAttachmentNo(String attachmentNo) {
 		this.attachmentNo = attachmentNo;
 	}
-	@Column(name="title")
+	@Column(name="title",length=300)
 	public String getTitle() {
 		return title;
 	}
@@ -72,7 +72,7 @@ public class Attachment implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	@Column(name="content")
+	@Column(name="content",length=3000)
 	public String getContent() {
 		return content;
 	}

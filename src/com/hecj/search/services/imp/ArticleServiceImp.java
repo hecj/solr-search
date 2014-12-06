@@ -1,6 +1,8 @@
 package com.hecj.search.services.imp;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,7 @@ import com.hecj.search.util.Pagination;
  * @版本：V1.0
  */
 @Service("articleService")
+@Transactional
 public class ArticleServiceImp implements ArticleService{
 	
 	@Resource
@@ -51,7 +54,6 @@ public class ArticleServiceImp implements ArticleService{
 		articleDAO.save(article);
 	}
 	
-	@Transactional
 	@Override
 	public void addArticle(List<Article> pArticles) {
 		

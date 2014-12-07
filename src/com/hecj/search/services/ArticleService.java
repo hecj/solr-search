@@ -72,4 +72,16 @@ public interface ArticleService {
 	 * throws
 	 */
 	public Map<String,Object> searchArticleList(Map<String,Object> pParams);
+	
+	/**
+	 * @函数功能说明 从solr中查询文章集合
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-8
+	 * @修改内容
+	 * @参数： @param pParams
+	 * @参数： @return    
+	 * @return Map<String,Object>   
+	 * throws
+	 */
+	public Map<String,Object> searchArticleListBySolr(Map<String,Object> pParams);
 }

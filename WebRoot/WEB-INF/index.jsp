@@ -12,7 +12,12 @@
 		<table align="center" width="500">
 			<tr>
 				<td><a href="<%=basePath %>article/article.htm?operator=toAddArticle">添加</a></td>
-				<td>文章标题</td>
+				<td>
+					<form action="<%=basePath %>indexPage/indexPage.htm?m=init" method="post">
+						<input type="text" name="q" value="${showQ }"/>
+						<input type="submit"  value="查询"/>
+					</form>
+				</td>
 			</tr>
 			<tbody>
 				<c:if test="${articleList != null}">

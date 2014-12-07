@@ -23,7 +23,7 @@ public class TestArticleService {
 	
 	@Before
 	public void init(){
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean/applicationContext.xml");
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		articleService = (ArticleService) ctx.getBean("articleService");
 		sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
 	}
@@ -38,7 +38,7 @@ public class TestArticleService {
 		List<Article> mList = (List<Article>) rMap.get("rArticleList");
 		Pagination rPagination = (Pagination) rMap.get("pPagination");
 		for(Article mArticle : mList){
-			System.out.println(mArticle.getArticleNo()+"~"+mArticle.getAttachments().iterator().next().getAttachmentNo());
+			System.out.println(mArticle.getArticleNo()+"~"+mArticle.getTitle());
 		}
 		System.out.println(articleService);
 		System.out.println("总条数："+rPagination.getCountSize());
@@ -61,5 +61,23 @@ public class TestArticleService {
 			System.out.println(mArticle.getArticleNo());
 		}
 		session.close();
+	}
+	
+	@Test
+	public void testSearchArticleListBySolr(){
+		
+		Pagination mPagination = new Pagination();
+		Map mMap = new HashMap();
+		mMap.put("pagination", mPagination);
+		mMap.put("queryString", "标题");
+		Map rMap = articleService.searchArticleListBySolr(mMap);
+		List<Article> mList = (List<Article>) rMap.get("rArticleList");
+		Pagination rPagination = (Pagination) rMap.get("pPagination");
+		for(Article mArticle : mList){
+			System.out.println(mArticle.getArticleNo()+"~"+mArticle.getTitle());
+		}
+		System.out.println(articleService);
+		System.out.println("总条数："+rPagination.getCountSize());
+		
 	}
 }

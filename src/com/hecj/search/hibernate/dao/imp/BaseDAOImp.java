@@ -59,4 +59,11 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	public Object queryUniqueResultByHQL(String pHQL){
 		return getSessionFactory().getCurrentSession().createQuery(pHQL).uniqueResult();
 	}
+	
+	@Override
+	public int executeHQL(String pHQL){
+		
+		return getSessionFactory().getCurrentSession().createQuery(pHQL).executeUpdate();
+	}
+	
 }

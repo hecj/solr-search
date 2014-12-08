@@ -13,5 +13,15 @@ package com.hecj.search.services;
 public interface TempIndexService {
 	
 	
+	/**
+	 * @函数功能说明 临时表索引处理
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-8
+	 * @修改内容
+	 * @参数：     
+	 * @return void   
+	 * throws
+	 */
+	public void commitTempIndexSerivice();
 	
 }

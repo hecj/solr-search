@@ -15,7 +15,7 @@ import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
  */
 public class SolrServerUtil {
 
-	public static CommonsHttpSolrServer server = null;
+	private static CommonsHttpSolrServer server = null;
 	static {
 		try {
 			server = new CommonsHttpSolrServer(PropertiesUtil.getProperties().getProperty("SOLR_URL"));

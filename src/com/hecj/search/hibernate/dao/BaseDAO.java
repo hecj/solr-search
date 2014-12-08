@@ -98,4 +98,15 @@ public interface BaseDAO<T> {
 	 * @throws
 	 */
 	public Object queryUniqueResultByHQL(String pHQL);
+	
+	/**
+	 * @函数功能说明 执行HQL语句
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-8
+	 * @修改内容
+	 * @参数： @param pHQL    
+	 * @return void   
+	 * @throws
+	 */
+	public int executeHQL(String pHQL);
 }

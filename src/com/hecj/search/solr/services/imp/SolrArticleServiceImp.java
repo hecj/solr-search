@@ -30,7 +30,7 @@ public class SolrArticleServiceImp implements SolrArticleService {
 			document.addField("article_title", pArticleBean.getTitle());
 			document.addField("article_content", pArticleBean.getContent());
 			SolrServerUtil.getServer().add(document);
-			SolrServerUtil.getServer().commit();
+//			SolrServerUtil.getServer().commit();
 		
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

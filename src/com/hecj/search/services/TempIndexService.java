@@ -24,4 +24,15 @@ public interface TempIndexService {
 	 */
 	public void commitTempIndexSerivice();
 	
+	/**
+	 * @函数功能说明 简单重构索引
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-8
+	 * @修改内容
+	 * @参数：     
+	 * @return void   
+	 * throws
+	 */
+	public void refactorIndexService();
+	
 }

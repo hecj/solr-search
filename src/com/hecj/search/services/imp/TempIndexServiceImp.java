@@ -1,14 +1,25 @@
 package com.hecj.search.services.imp;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.stereotype.Service;
 
 import com.hecj.search.hibernate.dao.TempIndexDAO;
+import com.hecj.search.hibernate.entity.Article;
+import com.hecj.search.services.ArticleService;
 import com.hecj.search.services.TempIndexService;
+import com.hecj.search.solr.services.SolrArticleService;
+import com.hecj.search.solr.util.ConvertUtil;
 import com.hecj.search.solr.util.PropertiesUtil;
 import com.hecj.search.solr.util.SolrServerUtil;
+import com.hecj.search.util.Pagination;
 import com.hecj.search.util.StringUtil;
 
 @Service("tempIndexService")
@@ -18,8 +29,22 @@ public class TempIndexServiceImp implements TempIndexService {
 	@Resource
 	private TempIndexDAO tempIndexDAO ;
 	
+	@Resource
+	private ArticleService articleService;
+	
+	@Resource
+	private SolrArticleService solrArticleService;
+	
 	public void setTempIndexDAO(TempIndexDAO tempIndexDAO) {
 		this.tempIndexDAO = tempIndexDAO;
+	}
+	
+	public void setArticleService(ArticleService articleService) {
+		this.articleService = articleService;
+	}
+
+	public void setSolrArticleService(SolrArticleService solrArticleService) {
+		this.solrArticleService = solrArticleService;
 	}
 
 	@Override
@@ -59,6 +84,35 @@ public class TempIndexServiceImp implements TempIndexService {
 			
 			mException.printStackTrace();
 		}
+	}
+
+	@Override
+	public void refactorIndexService() {
+		
+		System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.refactorIndexService() start ...");
+
+		try {
+			Map<String, Object> mArticleMap = new HashMap<String, Object>();
+			Pagination mPagination = new Pagination();
+			mPagination.setPageSize(1000);
+			mArticleMap.put("pagination", mPagination);
+			Map<String,Object> rMap = articleService.searchArticleList(mArticleMap);
+			SolrServerUtil.getServer().deleteByQuery("*:*");
+			
+			List<Article> rArticles = (List<Article>) rMap.get("rArticleList");
+			for(Article a : rArticles){
+				solrArticleService.addArticleBeanIndex(ConvertUtil.articleToArticleBean(a));
+			}
+			SolrServerUtil.getServer().commit();
+			System.out.println("重构索引个数："+rArticles.size());
+			System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.refactorIndexService() success ...");
+
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
 	}
 
 

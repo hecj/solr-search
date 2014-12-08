@@ -17,6 +17,7 @@
 	<!-- spring自带定时任务 -->
 	<task:scheduled-tasks>
 		<task:scheduled ref="tempIndexTask" method="commitTempIndex" cron="0/30 * * * * ?" />
+		<task:scheduled ref="tempIndexTask" method="refactorIndex" cron="0 0/1 * * * ?" />
 	</task:scheduled-tasks>
 
 

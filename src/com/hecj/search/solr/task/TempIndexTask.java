@@ -24,4 +24,13 @@ public class TempIndexTask {
 		tempIndexService.commitTempIndexSerivice();
 		System.out.println("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() end ... ");
 	}
+	
+	/**
+	 * 重构索引
+	 */
+	public void refactorIndex(){
+		System.out.println("com.hecj.search.solr.task.TempIndexTask.refactorIndex() start ...");
+		tempIndexService.refactorIndexService();
+		System.out.println("com.hecj.search.solr.task.TempIndexTask.refactorIndex() end ...");
+	}
 }

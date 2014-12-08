@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	
-	<!--spring filter encode 
+	<!--spring filter encode --> 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -21,9 +21,9 @@
 		<filter-name>encodingFilter </filter-name>
 		<url-pattern>*.htm</url-pattern>
 	</filter-mapping>
-	-->
 	
-	<!-- filter encode -->
+	
+	<!-- filter encode 
 	<filter>
 		<filter-name>filterEncode</filter-name>
 		<filter-class>com.hecj.search.web.filter.FilterEncode</filter-class>
@@ -36,6 +36,7 @@
 		<filter-name>filterEncode</filter-name>
 		<url-pattern>*.htm</url-pattern>
 	</filter-mapping>
+	-->
 	
 	<!-- filter user -->
 	<filter>

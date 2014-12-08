@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hecj.search.hibernate.entity.Article;
 import com.hecj.search.services.ArticleService;
+import com.hecj.search.util.CodeConvertUtil;
 import com.hecj.search.util.Pagination;
+import com.hecj.search.util.StringUtil;
 import com.hecj.search.web.controller.base.BaseController;
 
 @Controller
@@ -46,14 +48,16 @@ public class IndexPageController extends BaseController {
 			 * 显示页面的内容
 			 * showQ
 			 */
-			String showQ = q;
-			if(q == null ||q.equals("")||q.trim().equals("")){
+			String showQ ;
+			if(StringUtil.isStrEmpty(q)){
 				showQ = "";
 				q = "*";
+			}else{
+				showQ = q ;
 			}
 			Pagination mPagination = new Pagination();
 			mPagination.setCurrPage(currPageNum);
-			mPagination.setPathURL(getBasePath()+"indexPage/indexPage.htm?m=init&q="+showQ+"&n=");
+			mPagination.setPathURL(getBasePath()+"indexPage/indexPage.htm?m=init&q="+CodeConvertUtil.encode(showQ)+"&n=");
 			
 			Map<String, Object> mArticleMap = new HashMap<String, Object>();
 			mArticleMap.put("pagination", mPagination);

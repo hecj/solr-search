@@ -1,6 +1,8 @@
 package test.hecj.search.solr;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -9,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.hecj.search.solr.bean.ArticleBean;
 import com.hecj.search.solr.services.SolrArticleService;
 import com.hecj.search.solr.util.PropertiesUtil;
+import com.hecj.search.solr.util.SolrServerUtil;
 
 public class SolrTest {
 
@@ -41,5 +44,16 @@ public class SolrTest {
 			System.out.println(a.getTitle()+"~"+a.getTitle());
 		}
 	}
-
+	
+	@Test
+	public void removeAllIndex(){
+		try {
+			SolrServerUtil.getServer().deleteByQuery("*:*");
+			SolrServerUtil.getServer().commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

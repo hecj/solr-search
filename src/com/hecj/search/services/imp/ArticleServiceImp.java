@@ -1,6 +1,5 @@
 package com.hecj.search.services.imp;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hecj.search.hibernate.dao.ArticleDAO;
 import com.hecj.search.hibernate.dao.AttachmentDAO;
+import com.hecj.search.hibernate.dao.TempIndexDAO;
 import com.hecj.search.hibernate.entity.Article;
+import com.hecj.search.hibernate.entity.TempIndex;
+import com.hecj.search.hibernate.util.UUIDUtil;
+import com.hecj.search.senum.EnumUtils;
 import com.hecj.search.services.ArticleService;
 import com.hecj.search.solr.bean.ArticleBean;
 import com.hecj.search.solr.services.SolrArticleService;
@@ -41,6 +44,9 @@ public class ArticleServiceImp implements ArticleService{
 	@Resource
 	private SolrArticleService solrArticleService ;
 	
+	@Resource
+	private TempIndexDAO tempIndexDAO ;
+	
 	public void setArticleDAO(ArticleDAO articleDAO) {
 		this.articleDAO = articleDAO;
 	}
@@ -52,6 +58,10 @@ public class ArticleServiceImp implements ArticleService{
 	public void setSolrArticleService(SolrArticleService solrArticleService) {
 		this.solrArticleService = solrArticleService;
 	}
+	
+	public void setTempIndexDAO(TempIndexDAO tempIndexDAO) {
+		this.tempIndexDAO = tempIndexDAO;
+	}
 
 	@Override
 	public Article searchArticleById(String articleNo) {
@@ -59,8 +69,16 @@ public class ArticleServiceImp implements ArticleService{
 	}
 	@Override
 	public void addArticle(Article article) {
-		
+		//添加文章对象到数据库
 		articleDAO.save(article);
+		//添加文章索引到临时索引表
+		TempIndex mTempIndex = new TempIndex();
+		mTempIndex.setId(UUIDUtil.autoUUID());
+		mTempIndex.setObjectId(article.getArticleNo());
+		mTempIndex.setObjectType(EnumUtils.ObjectType.Article.toString());
+		mTempIndex.setOperatorType(EnumUtils.OperatorType.ADD.toString());
+		tempIndexDAO.save(mTempIndex);
+		//添加文章索引到内存
 		solrArticleService.addArticleBeanIndex(ConvertUtil.articleToArticleBean(article));
 	}
 	

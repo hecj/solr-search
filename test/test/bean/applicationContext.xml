@@ -23,7 +23,10 @@
 										  
     <import resource="classpath:test/bean/spring_jdbc.xml"/>
     <import resource="classpath:test/bean/spring_tx.xml"/>
-    <import resource="classpath:test/bean/spring_aop.xml"/>
+    <import resource="classpath:test/bean/spring_beans.xml"/>
+    <import resource="classpath:test/bean/spring_mvc.xml"/>
+    <import resource="classpath:test/bean/spring_task.xml"/>
+    <import resource="classpath:test/bean/spring_tx.xml"/>
     
  </beans>
  

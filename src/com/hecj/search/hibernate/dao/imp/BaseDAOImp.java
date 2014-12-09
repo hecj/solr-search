@@ -3,6 +3,8 @@ package com.hecj.search.hibernate.dao.imp;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Query;
+
 import com.hecj.search.hibernate.HibernateSessionFactory;
 import com.hecj.search.hibernate.dao.BaseDAO;
 import com.hecj.search.hibernate.util.GenericsUtil;
@@ -45,6 +47,7 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 
 	@Override
 	public boolean delete(T t) {
+		
 		getSessionFactory().getCurrentSession().delete(t);
 		return true;
 	}
@@ -52,7 +55,36 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	@Override
 	public List<T> queryListByPagination(String pHQL,int... pPagination){
 		
-		return getSessionFactory().getCurrentSession().createQuery(pHQL).setFirstResult(pPagination[0]).setMaxResults(pPagination[1]).list();
+		if(pPagination.length == 0 ){
+			return getSessionFactory().getCurrentSession().createQuery(pHQL).list();
+		}else if(pPagination.length == 1) {
+			return getSessionFactory().getCurrentSession().createQuery(pHQL).setMaxResults(pPagination[0]).list();
+		}else{
+			return getSessionFactory().getCurrentSession().createQuery(pHQL).setFirstResult(pPagination[0]).setMaxResults(pPagination[1]).list();
+		}
+	}
+	
+	@Override
+	public List<T> queryListByParams(String pHQL,Object... pParams){
+		
+		Query query = getSessionFactory().getCurrentSession().createQuery(pHQL);
+		if(pParams.length>0){
+			for(int i = 0 ;i<pParams.length;i++){
+				query.setParameter(i, pParams[i]);
+			}
+		}
+		return query.list();
+	}
+	
+	@Override
+	public List<T> queryListByParamsAndPagination(String pHQL,int start,int rows,Object... pParams){
+		Query query = getSessionFactory().getCurrentSession().createQuery(pHQL);
+		if(pParams.length>0){
+			for(int i = 0 ;i<pParams.length;i++){
+				query.setParameter(i, pParams[i]);
+			}
+		}
+		return query.setFirstResult(start).setMaxResults(rows).list();
 	}
 	
 	@Override

@@ -86,6 +86,28 @@ public interface BaseDAO<T> {
 	 * @throws
 	 */
 	public List<T> queryListByPagination(String pHQL,int... pPagination);
+	/**
+	 * @函数功能说明 不分页
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-5
+	 * @修改内容
+	 * @参数： @param pagination
+	 * @参数： @return    
+	 * @return List<T>   
+	 * @throws
+	 */
+	public List<T> queryListByParams(String pHQL,Object... pParams);
+	/**
+	 * @函数功能说明 分页
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-5
+	 * @修改内容
+	 * @参数： @param pagination
+	 * @参数： @return    
+	 * @return List<T>   
+	 * @throws
+	 */
+	public List<T> queryListByParamsAndPagination(String pHQL,int start,int rows,Object... pParams);
 	
 	/**
 	 * @函数功能说明 统计总数

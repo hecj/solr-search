@@ -62,6 +62,11 @@
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
+	
+	<!-- 恢复临时索引监听器 -->
+	<listener>
+		<listener-class>com.hecj.search.web.listener.TempIndexRecoverListener</listener-class>
+	</listener>
 
 	<!-- spring web config -->
 	<servlet>

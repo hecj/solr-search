@@ -11,8 +11,10 @@ import javax.transaction.Transactional;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.stereotype.Service;
 
+import com.hecj.search.hibernate.dao.ArticleDAO;
 import com.hecj.search.hibernate.dao.TempIndexDAO;
 import com.hecj.search.hibernate.entity.Article;
+import com.hecj.search.senum.EnumUtils;
 import com.hecj.search.services.ArticleService;
 import com.hecj.search.services.TempIndexService;
 import com.hecj.search.solr.services.SolrArticleService;
@@ -33,6 +35,9 @@ public class TempIndexServiceImp implements TempIndexService {
 	private ArticleService articleService;
 	
 	@Resource
+	private ArticleDAO articleDAO;
+	
+	@Resource
 	private SolrArticleService solrArticleService;
 	
 	public void setTempIndexDAO(TempIndexDAO tempIndexDAO) {
@@ -45,6 +50,11 @@ public class TempIndexServiceImp implements TempIndexService {
 
 	public void setSolrArticleService(SolrArticleService solrArticleService) {
 		this.solrArticleService = solrArticleService;
+	}
+	
+
+	public void setArticleDAO(ArticleDAO articleDAO) {
+		this.articleDAO = articleDAO;
 	}
 
 	@Override
@@ -113,6 +123,30 @@ public class TempIndexServiceImp implements TempIndexService {
 			e.printStackTrace();
 		}
 	
+	}
+
+	@Override
+	public void recoverTempIndexService() {
+		
+		System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复服务器启动前未提交的索引 start ...");
+		try{
+			/*
+			 * 恢复上次的文章索引
+			 */
+			String mQueryArticleHQL = "select a from Article a where a.articleNo in (select t.objectId from TempIndex t where t.objectType= '"+EnumUtils.ObjectType.Article.toString()+"') ";
+			List<Article> rArticleList = articleDAO.queryListByPagination(mQueryArticleHQL,10000);
+			for(Article mArticle : rArticleList){
+				solrArticleService.addArticleBeanIndex(ConvertUtil.articleToArticleBean(mArticle));
+			}
+			SolrServerUtil.getServer().commit();
+			String mDeleteArticleHQL = "delete from Article a where a.articleNo in (select t.objectId from TempIndex t where t.objectType= '"+EnumUtils.ObjectType.Article.toString()+"') ";
+			tempIndexDAO.executeHQL(mDeleteArticleHQL);
+			System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复索引个数:"+rArticleList.size()+" success ...");
+		} catch(Exception mException){
+			System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复服务器启动前未提交的索引 fail ...");
+			mException.printStackTrace();
+		}
+		System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复服务器启动前未提交的索引 end ...");
 	}
 
 

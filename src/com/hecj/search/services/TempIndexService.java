@@ -35,4 +35,15 @@ public interface TempIndexService {
 	 */
 	public void refactorIndexService();
 	
+	/**
+	 * @函数功能说明 恢复服务器重启前未提交的索引
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-9
+	 * @修改内容
+	 * @参数：     
+	 * @return void   
+	 * @throws
+	 */
+	public void recoverTempIndexService();
+	
 }

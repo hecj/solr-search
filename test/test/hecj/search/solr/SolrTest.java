@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.hecj.search.senum.EnumUtils;
 import com.hecj.search.solr.bean.ArticleBean;
 import com.hecj.search.solr.services.SolrArticleService;
 import com.hecj.search.solr.util.PropertiesUtil;
@@ -55,5 +56,9 @@ public class SolrTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	@Test
+	public void test01(){
+		System.out.println(EnumUtils.ObjectType.Article.toString());
 	}
 }

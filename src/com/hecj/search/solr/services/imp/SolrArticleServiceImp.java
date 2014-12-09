@@ -31,7 +31,7 @@ public class SolrArticleServiceImp implements SolrArticleService {
 			document.addField("article_content", pArticleBean.getContent());
 			SolrServerUtil.getServer().add(document);
 //			SolrServerUtil.getServer().commit();
-		
+			System.out.println("SolrArticleServiceImp.addArticleBeanIndex: success");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			System.out.println("SolrArticleServiceImp.addArticleBeanIndex:"+pArticleBean.getArticleNo());

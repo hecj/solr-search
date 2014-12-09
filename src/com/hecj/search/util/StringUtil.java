@@ -3,7 +3,6 @@ package com.hecj.search.util;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
@@ -279,5 +278,13 @@ public class StringUtil {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public static boolean isObjectEmpty(Object obj){
+		if(obj == null ){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

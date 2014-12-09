@@ -1,8 +1,5 @@
 package com.hecj.search.senum;
 
-import com.hecj.search.hibernate.entity.Article;
-import com.hecj.search.hibernate.entity.Attachment;
-
 /**
  * @类功能说明：枚举类型工具类
  * @类修改者：
@@ -66,5 +63,37 @@ public class EnumUtils {
 			return String.valueOf(this.TYPE);
 		}
 	}
-
+	
+	
+	
+	/**
+	 * 枚举定时任务类及方法
+	 */
+	private static String[] tempIndexTask ={
+		"commitTempIndex","refactorIndex"
+	};
+	
+	public enum TaskClass{
+		
+		TempIndexTask(tempIndexTask);
+		public String[] taskClass;
+		TaskClass(String[] taskClass){
+			this.taskClass = taskClass;
+		}
+	}
+	
+	/**
+	 * 定时任务启动关闭枚举类
+	 */
+	public enum TaskRunStatus{
+		
+		ON("运行"),OFF("关闭"),PARSE("暂停");
+		
+		public String statusDesc ;
+		TaskRunStatus(String statusDesc){
+			this.statusDesc = statusDesc;
+		}
+	}
+	
+	
 }

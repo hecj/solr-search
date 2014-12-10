@@ -2,7 +2,7 @@ package com.hecj.search.solr.util;
 
 import java.net.MalformedURLException;
 
-import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
 
 /**
  * @类功能说明：简单封装SolrServer
@@ -15,18 +15,13 @@ import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
  */
 public class SolrServerUtil {
 
-	private static CommonsHttpSolrServer server = null;
+	private static HttpSolrServer server = null;
 	static {
-		try {
-			server = new CommonsHttpSolrServer(PropertiesUtil.getProperties().getProperty("SOLR_URL"));
-
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		server = new HttpSolrServer(PropertiesUtil.getProperties().getProperty("SOLR_URL"));
 
 	}
 
-	public static CommonsHttpSolrServer getServer() {
+	public static HttpSolrServer getServer() {
 		return server;
 	}
 }

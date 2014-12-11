@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<%=basePath%>css/index.css" />
 </head>
 <body>
-		<table align="center" width="500">
+		<table align="center" width="500" border="1">
 			<tr>
 				<td><a href="<%=basePath %>article/article.htm?operator=toAddArticle">添加</a></td>
 				<td>
@@ -26,6 +26,10 @@
 					<td>${status.count }</td>
 					<td>${mArticle.title }</td>
 				</tr>
+				<tr>
+					<td></td>
+					<td>${mArticle.content }</td>
+				</tr>
 				</c:forEach>	
 				</c:if>
 			</tbody>
@@ -36,10 +40,10 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						当前页${pagination.currPage }<br/>
-						总页数${pagination.countPage }<br/>
-						总条数${pagination.countSize }<br/>
-						页条数${pagination.pageSize}<br/>
+						当前页${pagination.currPage }&nbsp;&nbsp;
+						总页数${pagination.countPage }&nbsp;&nbsp;
+						总条数${pagination.countSize }&nbsp;&nbsp;
+						页条数${pagination.pageSize}&nbsp;&nbsp;
 					</td>
 				</tr>
 

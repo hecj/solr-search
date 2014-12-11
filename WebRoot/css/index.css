@@ -1,1 +1,7 @@
 @CHARSET "UTF-8";
+
+.hl_style {
+	color: yellow;
+	font-weight: bold;
+	background-color: #3597FA;
+}

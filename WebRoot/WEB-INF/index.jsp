@@ -6,24 +6,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>文章列表</title>
-<style type="text/css">
-
-	.hl_style{
-		color: yellow;
-		font-weight: bold;
-		background-color: #3597FA;
-	}
-</style>
-<link rel="stylesheet" type="text/css" href="<%=basePath%>css/index.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>css/index.css">
+<script type="text/javascript" src="<%=basePath %>js/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="<%=basePath %>js/util/StringUtils.js"></script>
+<script type="text/javascript" src="<%=basePath %>js/main/index.js"></script>
 </head>
 <body>
 		<table align="center" width="500" border="1">
 			<tr>
 				<td><a href="<%=basePath %>article/article.htm?operator=toAddArticle">添加</a></td>
 				<td>
-					<form action="<%=basePath %>indexPage/indexPage.htm?m=init" method="post">
+					<form action="<%=basePath %>indexPage/indexPage.htm?m=init" method="post" onSubmit="return check_qForm()" id="q_form">
 						<input type="text" name="q" value="${showQ }"/>
-						<input type="submit"  value="查询"/>
+						<input type="submit" value="查询"/>
 					</form>
 				</td>
 			</tr>

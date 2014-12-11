@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.hecj.search.solr.bean.ArticleBean;
 import com.hecj.search.solr.services.SolrArticleService;
 import com.hecj.search.solr.util.SolrServerUtil;
+import com.hecj.search.util.StringUtil;
 
 @Service("solrArticleService")
 public class SolrArticleServiceImp implements SolrArticleService {
@@ -55,6 +56,11 @@ public class SolrArticleServiceImp implements SolrArticleService {
 		List<ArticleBean> mArticleBeanList = new ArrayList<ArticleBean>();
 		
 		try {
+			query.setHighlight(true).setHighlightSimplePre
+				("<span class='hl_style'>").
+					setHighlightSimplePost("</span>");
+			//高亮字段
+			query.setParam("hl.fl", "article_title,article_content");
 			//分页查询
 			query.setStart(start);//多少条开始
 			query.setRows(rows); //每页多少条
@@ -62,13 +68,26 @@ public class SolrArticleServiceImp implements SolrArticleService {
 			SolrDocumentList documentList = response.getResults();
 			long countSize = documentList.getNumFound();
 			for(SolrDocument doc :documentList){
-				ArticleBean mArticleBean = new ArticleBean();
-				mArticleBean.setArticleNo((String)doc.getFieldValue("id"));
-				mArticleBean.setTitle((String)doc.getFieldValue("article_title"));
-				mArticleBean.setContent((String)doc.getFieldValue("article_content"));
-				mArticleBeanList.add(mArticleBean);
+				
+				String id = (String)doc.getFieldValue("id");
+				if(id != null){
+					List<String> titles = response.getHighlighting().get(id).get("article_title");
+					List<String> contents = response.getHighlighting().get(id).get("article_content");
+					ArticleBean mArticleBean = new ArticleBean();
+					mArticleBean.setArticleNo((String)doc.getFieldValue("id"));
+					if(!StringUtil.isObjectEmpty(titles)){
+						mArticleBean.setTitle(titles.toString());
+					}else{
+						mArticleBean.setTitle((String)doc.getFieldValue("article_title"));
+					}
+					if(!StringUtil.isObjectEmpty(contents)){
+						mArticleBean.setContent(contents.toString());
+					}else{
+						mArticleBean.setContent((String)doc.getFieldValue("article_content"));
+					}
+					mArticleBeanList.add(mArticleBean);
+				}
 			}
-			
 			mList.add(0,mArticleBeanList);
 			mList.add(1,countSize);
 			

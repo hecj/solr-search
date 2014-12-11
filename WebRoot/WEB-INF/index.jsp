@@ -6,6 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>文章列表</title>
+<style type="text/css">
+
+	.hl_style{
+		color: yellow;
+		font-weight: bold;
+		background-color: #3597FA;
+	}
+</style>
 <link rel="stylesheet" type="text/css" href="<%=basePath%>css/index.css" />
 </head>
 <body>

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.hecj.search.solr.bean.ArticleBean;
 import com.hecj.search.solr.services.SolrArticleService;
 import com.hecj.search.solr.util.SolrServerUtil;
+import com.hecj.search.util.Log4jUtil;
 import com.hecj.search.util.StringUtil;
 
 @Service("solrArticleService")
@@ -24,7 +25,7 @@ public class SolrArticleServiceImp implements SolrArticleService {
 	@Override
 	public void addArticleBeanIndex(ArticleBean pArticleBean) {
 		
-		System.out.println("SolrArticleServiceImp.addArticleBeanIndex:"+pArticleBean.getArticleNo());
+		Log4jUtil.log("com.hecj.search.solr.services.imp.SolrArticleServiceImp.addArticleBeanIndex() begin "+pArticleBean.getArticleNo());
 		try {
 			SolrInputDocument document = new SolrInputDocument();
 			document.addField("id", pArticleBean.getArticleNo());
@@ -32,15 +33,15 @@ public class SolrArticleServiceImp implements SolrArticleService {
 			document.addField("article_content", pArticleBean.getContent());
 			SolrServerUtil.getServer().add(document);
 //			SolrServerUtil.getServer().commit();
-			System.out.println("SolrArticleServiceImp.addArticleBeanIndex: success");
+			Log4jUtil.log("com.hecj.search.solr.services.imp.SolrArticleServiceImp.addArticleBeanIndex() end "+pArticleBean.getArticleNo());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			System.out.println("SolrArticleServiceImp.addArticleBeanIndex:"+pArticleBean.getArticleNo());
+			Log4jUtil.error("com.hecj.search.solr.services.imp.SolrArticleServiceImp.addArticleBeanIndex() fail "+pArticleBean.getArticleNo());
 		} catch (SolrServerException e) {
 			e.printStackTrace();
-			System.out.println("SolrArticleServiceImp.addArticleBeanIndex:"+pArticleBean.getArticleNo());
+			Log4jUtil.error("com.hecj.search.solr.services.imp.SolrArticleServiceImp.addArticleBeanIndex() fail "+pArticleBean.getArticleNo());
 		} catch (IOException e) {
-			System.out.println("SolrArticleServiceImp.addArticleBeanIndex:"+pArticleBean.getArticleNo());
+			Log4jUtil.error("com.hecj.search.solr.services.imp.SolrArticleServiceImp.addArticleBeanIndex() fail "+pArticleBean.getArticleNo());
 			e.printStackTrace();
 		}
 		
@@ -49,7 +50,7 @@ public class SolrArticleServiceImp implements SolrArticleService {
 	@Override
 	public List<Object> queryArticleBeanList(String queryString, int start,
 			int rows) {
-		System.out.println("SolrArticleServiceImp.searchArticleBeanList:"+queryString);
+		Log4jUtil.info("com.hecj.search.solr.services.imp.SolrArticleServiceImp.queryArticleBeanList() begin "+queryString);
 		SolrQuery query = new SolrQuery("article_all:"+queryString);
 		
 		List<Object> mList = new ArrayList<Object>();
@@ -85,13 +86,16 @@ public class SolrArticleServiceImp implements SolrArticleService {
 					}else{
 						mArticleBean.setContent((String)doc.getFieldValue("article_content"));
 					}
+					System.out.println(mArticleBean.getContent());
 					mArticleBeanList.add(mArticleBean);
 				}
 			}
 			mList.add(0,mArticleBeanList);
 			mList.add(1,countSize);
-			
+			Log4jUtil.info("com.hecj.search.solr.services.imp.SolrArticleServiceImp.queryArticleBeanList() end "+queryString);
+
 		} catch (SolrServerException e) {
+			Log4jUtil.error("com.hecj.search.solr.services.imp.SolrArticleServiceImp.queryArticleBeanList() fail "+queryString);
 			e.printStackTrace();
 			mList.clear();
 			mList.add(0,mArticleBeanList);

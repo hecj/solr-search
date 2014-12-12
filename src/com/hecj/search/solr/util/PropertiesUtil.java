@@ -10,7 +10,7 @@ public class PropertiesUtil {
 	private final static void setProperties(){
 		props = new Properties();
 		try {
-			props.load(PropertiesUtil.class.getResourceAsStream("/solr/config/solr.properties"));
+			props.load(PropertiesUtil.class.getResourceAsStream("/server/config/server.properties"));
 		} catch (IOException e) {
 			props = null;
 			e.printStackTrace();

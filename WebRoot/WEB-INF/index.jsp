@@ -14,7 +14,7 @@
 <body>
 		<table align="center" width="500" border="1">
 			<tr>
-				<td><a href="<%=basePath %>article/article.htm?operator=toAddArticle">添加</a></td>
+				<td width="40"><a href="<%=basePath %>article/article.htm?operator=toAddArticle">添加</a></td>
 				<td>
 					<form action="<%=basePath %>indexPage/indexPage.htm?m=init" method="post" onSubmit="return check_qForm()" id="q_form">
 						<input type="text" name="q" value="${showQ }"/>

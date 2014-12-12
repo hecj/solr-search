@@ -1,6 +1,7 @@
 package com.hecj.search.hibernate.dao.imp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.Query;
 import com.hecj.search.hibernate.HibernateSessionFactory;
 import com.hecj.search.hibernate.dao.BaseDAO;
 import com.hecj.search.hibernate.util.GenericsUtil;
+import com.hecj.search.util.Log4jUtil;
 /**
  * @类功能说明：DAO base实现类
  * @类修改者：
@@ -30,72 +32,169 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	@Override
 	public Serializable save(Object t) {
 		
-		return getSessionFactory().getCurrentSession().save(t);
+		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.save() begin");
+		Serializable mSerializable = null;
+		try {
+			mSerializable = getSessionFactory().getCurrentSession().save(t);
+			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.save() end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.save() error");
+			ex.printStackTrace();
+			throw ex;
+		}
+		return mSerializable;
 	}
 	
 	@Override
 	public boolean persist(Object t) {
-		getSessionFactory().getCurrentSession().persist(t);
+		
+		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.persist() begin");
+		try {
+			getSessionFactory().getCurrentSession().persist(t);
+			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.persist() end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.persist() error");
+			ex.printStackTrace();
+			throw ex;
+		}
 		return true;
 	}
 	
 	@Override
 	public void merge(Object t) {
 		
-		getSessionFactory().getCurrentSession().merge(t);
+		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.merge() begin");
+		try {
+			getSessionFactory().getCurrentSession().merge(t);
+			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.merge() end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.merge() error");
+			ex.printStackTrace();
+			throw ex;
+		}
 	}
 
 	@Override
 	public boolean delete(T t) {
 		
-		getSessionFactory().getCurrentSession().delete(t);
+		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.delete() begin");
+		try {
+			getSessionFactory().getCurrentSession().delete(t);
+			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.delete() end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.delete() error");
+			ex.printStackTrace();
+			throw ex;
+		}
 		return true;
 	}
 
 	@Override
 	public List<T> queryListByPagination(String pHQL,int... pPagination){
-		
-		if(pPagination.length == 0 ){
-			return getSessionFactory().getCurrentSession().createQuery(pHQL).list();
-		}else if(pPagination.length == 1) {
-			return getSessionFactory().getCurrentSession().createQuery(pHQL).setMaxResults(pPagination[0]).list();
-		}else{
-			return getSessionFactory().getCurrentSession().createQuery(pHQL).setFirstResult(pPagination[0]).setMaxResults(pPagination[1]).list();
-		}
-	}
-	
-	@Override
-	public List<T> queryListByParams(String pHQL,Object... pParams){
-		
-		Query query = getSessionFactory().getCurrentSession().createQuery(pHQL);
-		if(pParams.length>0){
-			for(int i = 0 ;i<pParams.length;i++){
-				query.setParameter(i, pParams[i]);
+		java.net.ConnectException d;
+		List<T> mList = new ArrayList<T>();
+		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByPagination() begin");
+		try {
+			if(pPagination.length == 0 ){
+				Log4jUtil.showSQL(pHQL);
+				mList = getSessionFactory().getCurrentSession().createQuery(pHQL).list();
+			}else if(pPagination.length == 1) {
+				Log4jUtil.showSQL(pHQL+"~"+pPagination[0]);
+				mList = getSessionFactory().getCurrentSession().createQuery(pHQL).setMaxResults(pPagination[0]).list();
+			}else{
+				Log4jUtil.showSQL(pHQL+"~"+pPagination[0]+","+pPagination[1]);
+				mList = getSessionFactory().getCurrentSession().createQuery(pHQL).setFirstResult(pPagination[0]).setMaxResults(pPagination[1]).list();
 			}
+			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByPagination() end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByPagination() error");
+			ex.printStackTrace();
+			throw ex;
 		}
-		return query.list();
+		return mList;
 	}
-	
+
+	@Override
+	public List<T> queryListByParams(String pHQL, Object... pParams) {
+
+		List<T> mList = new ArrayList<T>();
+		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParams() begin");
+		try {
+			Query query = getSessionFactory().getCurrentSession().createQuery(pHQL);
+			Log4jUtil.showSQL(pHQL);
+			if (pParams.length > 0) {
+				for (int i = 0; i < pParams.length; i++) {
+					query.setParameter(i, pParams[i]);
+					Log4jUtil.showSQL(pParams[i].toString());
+				}
+			}
+			mList = query.list();
+			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParams() end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParams() error");
+			ex.printStackTrace();
+			throw ex;
+		}
+		return mList;
+	}
+
 	@Override
 	public List<T> queryListByParamsAndPagination(String pHQL,int start,int rows,Object... pParams){
-		Query query = getSessionFactory().getCurrentSession().createQuery(pHQL);
-		if(pParams.length>0){
-			for(int i = 0 ;i<pParams.length;i++){
-				query.setParameter(i, pParams[i]);
+		
+		List<T> mList = new ArrayList<T>();
+		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParamsAndPagination() begin");
+		try {
+			Query query = getSessionFactory().getCurrentSession().createQuery(pHQL);
+			Log4jUtil.showSQL(pHQL+"~"+start+","+rows);
+			if(pParams.length>0){
+				for(int i = 0 ;i<pParams.length;i++){
+					query.setParameter(i, pParams[i]);
+					Log4jUtil.showSQL(pParams[i].toString());
+				}
 			}
+			mList = query.setFirstResult(start).setMaxResults(rows).list();
+			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParamsAndPagination() end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParamsAndPagination() error");
+			ex.printStackTrace();
+			throw ex;
 		}
-		return query.setFirstResult(start).setMaxResults(rows).list();
+		return mList;
+		
+		
+		
 	}
 	
 	@Override
 	public Object queryUniqueResultByHQL(String pHQL){
-		return getSessionFactory().getCurrentSession().createQuery(pHQL).uniqueResult();
+		
+		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryUniqueResultByHQL() begin");
+		Object obj = null ;
+		try {
+			obj = getSessionFactory().getCurrentSession().createQuery(pHQL).uniqueResult();
+			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryUniqueResultByHQL() end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryUniqueResultByHQL() error");
+			ex.printStackTrace();
+			throw ex;
+		}
+		return obj;
 	}
 	
 	@Override
 	public int executeHQL(String pHQL){
 		
-		return getSessionFactory().getCurrentSession().createQuery(pHQL).executeUpdate();
+		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.executeHQL() begin");
+		int n = 0 ;
+		try {
+			n = getSessionFactory().getCurrentSession().createQuery(pHQL).executeUpdate();
+			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.executeHQL() end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.executeHQL() error");
+			ex.printStackTrace();
+			throw ex;
+		}
+		return n;
 	}
 	
 }

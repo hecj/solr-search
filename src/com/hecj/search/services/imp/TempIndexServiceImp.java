@@ -21,6 +21,7 @@ import com.hecj.search.solr.services.SolrArticleService;
 import com.hecj.search.solr.util.ConvertUtil;
 import com.hecj.search.solr.util.PropertiesUtil;
 import com.hecj.search.solr.util.SolrServerUtil;
+import com.hecj.search.util.Log4jUtil;
 import com.hecj.search.util.Pagination;
 import com.hecj.search.util.StringUtil;
 
@@ -80,14 +81,14 @@ public class TempIndexServiceImp implements TempIndexService {
 			 * 提交内存索引数据
 			 */
 			if(mCountSize >= commitCount){
-				System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.commitTempIndexSerivice() commit start ...");
+				Log4jUtil.log("com.hecj.search.services.imp.TempIndexServiceImp.commitTempIndexSerivice() commit start ...");
 				SolrServerUtil.getServer().commit();
 				int deleteCount = tempIndexDAO.executeHQL("delete from TempIndex t");
-				System.out.println("本次任务共提交索引个数:"+deleteCount);
-				System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.commitTempIndexSerivice() commit end ...");
+				Log4jUtil.log("本次任务共提交索引个数:"+deleteCount);
+				Log4jUtil.log("com.hecj.search.services.imp.TempIndexServiceImp.commitTempIndexSerivice() commit end ...");
 			}else{
 				
-				System.out.println("本次任务扫描临时索引个数："+mCountSize+",提交峰值为："+commitCount);
+				Log4jUtil.log("本次任务扫描临时索引个数："+mCountSize+",提交峰值为："+commitCount);
 			}
 			
 		}catch(Exception mException){
@@ -99,7 +100,7 @@ public class TempIndexServiceImp implements TempIndexService {
 	@Override
 	public void refactorIndexService() {
 		
-		System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.refactorIndexService() start ...");
+		Log4jUtil.log("com.hecj.search.services.imp.TempIndexServiceImp.refactorIndexService() start ...");
 
 		try {
 			Map<String, Object> mArticleMap = new HashMap<String, Object>();
@@ -114,8 +115,8 @@ public class TempIndexServiceImp implements TempIndexService {
 				solrArticleService.addArticleBeanIndex(ConvertUtil.articleToArticleBean(a));
 			}
 			SolrServerUtil.getServer().commit();
-			System.out.println("重构索引个数："+rArticles.size());
-			System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.refactorIndexService() success ...");
+			Log4jUtil.log("重构索引个数："+rArticles.size());
+			Log4jUtil.log("com.hecj.search.services.imp.TempIndexServiceImp.refactorIndexService() success ...");
 
 		} catch (SolrServerException e) {
 			e.printStackTrace();
@@ -128,7 +129,7 @@ public class TempIndexServiceImp implements TempIndexService {
 	@Override
 	public void recoverTempIndexService() {
 		
-		System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复服务器启动前未提交的索引 start ...");
+		Log4jUtil.log("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复服务器启动前未提交的索引 start ...");
 		try{
 			/*
 			 * 恢复上次的文章索引
@@ -141,12 +142,12 @@ public class TempIndexServiceImp implements TempIndexService {
 			SolrServerUtil.getServer().commit();
 			String mDeleteArticleHQL = "delete from Article a where a.articleNo in (select t.objectId from TempIndex t where t.objectType= '"+EnumUtils.ObjectType.Article.toString()+"') ";
 			tempIndexDAO.executeHQL(mDeleteArticleHQL);
-			System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复索引个数:"+rArticleList.size()+" success ...");
+			Log4jUtil.log("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复索引个数:"+rArticleList.size()+" success ...");
 		} catch(Exception mException){
-			System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复服务器启动前未提交的索引 fail ...");
+			Log4jUtil.error("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复服务器启动前未提交的索引 fail ...");
 			mException.printStackTrace();
 		}
-		System.out.println("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复服务器启动前未提交的索引 end ...");
+		Log4jUtil.log("com.hecj.search.services.imp.TempIndexServiceImp.recoverTempIndexService()恢复服务器启动前未提交的索引 end ...");
 	}
 
 

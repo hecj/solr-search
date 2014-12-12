@@ -8,6 +8,7 @@ import com.hecj.search.hibernate.entity.TaskController;
 import com.hecj.search.senum.EnumUtils;
 import com.hecj.search.services.TaskControllerService;
 import com.hecj.search.services.TempIndexService;
+import com.hecj.search.util.Log4jUtil;
 import com.hecj.search.util.StringUtil;
 
 @Service("tempIndexTask")
@@ -27,8 +28,6 @@ public class TempIndexTask {
 		this.taskControllerService = taskControllerService;
 	}
 
-
-
 	/**
 	 * 提交内存中索引任务
 	 */
@@ -36,11 +35,11 @@ public class TempIndexTask {
 		
 		TaskController mTaskControlle = taskControllerService.searchTaskController(this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
 		if(!StringUtil.isObjectEmpty(mTaskControlle) && mTaskControlle.getTaskRunStatus().equals(EnumUtils.TaskRunStatus.ON.name())){
-			System.out.println("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() start ... ");
+			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() start ... ");
 			tempIndexService.commitTempIndexSerivice();
-			System.out.println("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() end ... ");
+			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() end ... ");
 		}else{
-			System.out.println("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() 定时任务停止 ");
+			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() 定时任务停止 ");
 		}
 	}
 	
@@ -51,11 +50,11 @@ public class TempIndexTask {
 		
 		TaskController mTaskControlle = taskControllerService.searchTaskController(this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
 		if(!StringUtil.isObjectEmpty(mTaskControlle) && mTaskControlle.getTaskRunStatus().equals(EnumUtils.TaskRunStatus.ON.name())){
-			System.out.println("com.hecj.search.solr.task.TempIndexTask.refactorIndex() start ...");
+			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.refactorIndex() start ...");
 			tempIndexService.refactorIndexService();
-			System.out.println("com.hecj.search.solr.task.TempIndexTask.refactorIndex() end ...");
+			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.refactorIndex() end ...");
 		}else{
-			System.out.println("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() 定时任务停止 ");
+			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() 定时任务停止 ");
 		}
 	}
 	
@@ -64,9 +63,9 @@ public class TempIndexTask {
 	 */
 	public void recoverTempIndex(){
 		
-		System.out.println("com.hecj.search.solr.task.TempIndexTask.recoverTempIndex() start ...");
+		Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.recoverTempIndex() start ...");
 		tempIndexService.recoverTempIndexService();
-		System.out.println("com.hecj.search.solr.task.TempIndexTask.recoverTempIndex() end ...");
+		Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.recoverTempIndex() end ...");
 	}
 	
 	

@@ -14,12 +14,12 @@
 	
 	<context:component-scan base-package="com.hecj.search.solr.task" />
 	
-	<!-- spring自带定时任务 -->
+	<!-- spring自带定时任务
 	<task:scheduled-tasks>
-		<!-- <task:scheduled ref="tempIndexTask" method="commitTempIndex" cron="0/10 * * * * ?" />-->
+		<task:scheduled ref="tempIndexTask" method="commitTempIndex" cron="0/10 * * * * ?" />
 		<task:scheduled ref="tempIndexTask" method="refactorIndex" cron="0 0/10 * * * ?" />
 	</task:scheduled-tasks>
-
+	-->
 
 							
 </beans>

@@ -77,7 +77,7 @@ public class ArticleServiceImp implements ArticleService{
 		mTempIndex.setObjectId(article.getArticleNo());
 		mTempIndex.setObjectType(EnumUtils.ObjectType.Article.toString());
 		mTempIndex.setOperatorType(EnumUtils.OperatorType.ADD.toString());
-		tempIndexDAO.save(mTempIndex);
+//		tempIndexDAO.save(mTempIndex);
 		//添加文章索引到内存
 		solrArticleService.addArticleBeanIndex(ConvertUtil.articleToArticleBean(article));
 	}

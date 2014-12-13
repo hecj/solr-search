@@ -1,7 +1,5 @@
 package com.hecj.search.solr.util;
 
-import java.net.MalformedURLException;
-
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 
 /**

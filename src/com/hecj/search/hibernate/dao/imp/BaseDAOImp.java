@@ -32,13 +32,13 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	@Override
 	public Serializable save(Object t) {
 		
-		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.save() begin");
+		Log4jUtil.log("begin");
 		Serializable mSerializable = null;
 		try {
 			mSerializable = getSessionFactory().getCurrentSession().save(t);
-			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.save() end");
+			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.save() error");
+			Log4jUtil.error("error");
 			ex.printStackTrace();
 			throw ex;
 		}
@@ -48,12 +48,12 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	@Override
 	public boolean persist(Object t) {
 		
-		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.persist() begin");
+		Log4jUtil.log("begin");
 		try {
 			getSessionFactory().getCurrentSession().persist(t);
-			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.persist() end");
+			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.persist() error");
+			Log4jUtil.error("error");
 			ex.printStackTrace();
 			throw ex;
 		}
@@ -63,12 +63,12 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	@Override
 	public void merge(Object t) {
 		
-		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.merge() begin");
+		Log4jUtil.log("begin");
 		try {
 			getSessionFactory().getCurrentSession().merge(t);
-			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.merge() end");
+			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.merge() error");
+			Log4jUtil.error("error");
 			ex.printStackTrace();
 			throw ex;
 		}
@@ -77,12 +77,12 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	@Override
 	public boolean delete(T t) {
 		
-		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.delete() begin");
+		Log4jUtil.log("begin");
 		try {
 			getSessionFactory().getCurrentSession().delete(t);
-			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.delete() end");
+			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.delete() error");
+			Log4jUtil.error("error");
 			ex.printStackTrace();
 			throw ex;
 		}
@@ -93,7 +93,7 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	public List<T> queryListByPagination(String pHQL,int... pPagination){
 		java.net.ConnectException d;
 		List<T> mList = new ArrayList<T>();
-		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByPagination() begin");
+		Log4jUtil.log("begin");
 		try {
 			if(pPagination.length == 0 ){
 				Log4jUtil.showSQL(pHQL);
@@ -105,9 +105,9 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 				Log4jUtil.showSQL(pHQL+"~"+pPagination[0]+","+pPagination[1]);
 				mList = getSessionFactory().getCurrentSession().createQuery(pHQL).setFirstResult(pPagination[0]).setMaxResults(pPagination[1]).list();
 			}
-			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByPagination() end");
+			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByPagination() error");
+			Log4jUtil.error("error");
 			ex.printStackTrace();
 			throw ex;
 		}
@@ -118,7 +118,7 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	public List<T> queryListByParams(String pHQL, Object... pParams) {
 
 		List<T> mList = new ArrayList<T>();
-		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParams() begin");
+		Log4jUtil.log("begin");
 		try {
 			Query query = getSessionFactory().getCurrentSession().createQuery(pHQL);
 			Log4jUtil.showSQL(pHQL);
@@ -129,9 +129,9 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 				}
 			}
 			mList = query.list();
-			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParams() end");
+			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParams() error");
+			Log4jUtil.error("error");
 			ex.printStackTrace();
 			throw ex;
 		}
@@ -142,7 +142,7 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	public List<T> queryListByParamsAndPagination(String pHQL,int start,int rows,Object... pParams){
 		
 		List<T> mList = new ArrayList<T>();
-		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParamsAndPagination() begin");
+		Log4jUtil.log("begin");
 		try {
 			Query query = getSessionFactory().getCurrentSession().createQuery(pHQL);
 			Log4jUtil.showSQL(pHQL+"~"+start+","+rows);
@@ -153,9 +153,9 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 				}
 			}
 			mList = query.setFirstResult(start).setMaxResults(rows).list();
-			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParamsAndPagination() end");
+			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryListByParamsAndPagination() error");
+			Log4jUtil.error("error");
 			ex.printStackTrace();
 			throw ex;
 		}
@@ -168,13 +168,13 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	@Override
 	public Object queryUniqueResultByHQL(String pHQL){
 		
-		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryUniqueResultByHQL() begin");
+		Log4jUtil.log("begin");
 		Object obj = null ;
 		try {
 			obj = getSessionFactory().getCurrentSession().createQuery(pHQL).uniqueResult();
-			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryUniqueResultByHQL() end");
+			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.queryUniqueResultByHQL() error");
+			Log4jUtil.error("error");
 			ex.printStackTrace();
 			throw ex;
 		}
@@ -184,13 +184,13 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	@Override
 	public int executeHQL(String pHQL){
 		
-		Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.executeHQL() begin");
+		Log4jUtil.log("begin");
 		int n = 0 ;
 		try {
 			n = getSessionFactory().getCurrentSession().createQuery(pHQL).executeUpdate();
-			Log4jUtil.log("com.hecj.search.hibernate.dao.imp.BaseDAOImp.executeHQL() end");
+			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("com.hecj.search.hibernate.dao.imp.BaseDAOImp.executeHQL() error");
+			Log4jUtil.error("error");
 			ex.printStackTrace();
 			throw ex;
 		}

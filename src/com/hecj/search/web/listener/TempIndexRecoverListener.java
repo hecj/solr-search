@@ -8,6 +8,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.hecj.search.services.TaskControllerService;
 import com.hecj.search.solr.task.TempIndexTask;
+import com.hecj.search.util.Log4jUtil;
 
 /**
  * @类功能说明：恢复索引的监听器
@@ -34,15 +35,15 @@ public class TempIndexRecoverListener implements ServletContextListener {
 		final TaskControllerService taskControllerService = (TaskControllerService) wac.getBean("taskControllerService");
 		new Thread(){
 			public void run() {
-				System.out.println("com.hecj.search.web.listener.TempIndexRecoverListener 监听器启动->任务开始...");
+				Log4jUtil.log("监听器启动->任务开始...");
 				tempIndexTask.recoverTempIndex();
-				System.out.println("com.hecj.search.web.listener.TempIndexRecoverListener 监听器启动->任务结束...");
+				Log4jUtil.log("监听器启动->任务结束...");
 				/*
 				 * 插入数据启动其他任务
 				 */
-				System.out.println("com.hecj.search.web.listener.TempIndexRecoverListener 添加定时任务 start ...");
+				Log4jUtil.log("添加定时任务 start ...");
 				taskControllerService.resetTask();
-				System.out.println("com.hecj.search.web.listener.TempIndexRecoverListener 添加定时任务 end ...");
+				Log4jUtil.log("添加定时任务 end ...");
 			};
 		}.start();
 	}

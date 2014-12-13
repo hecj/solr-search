@@ -35,11 +35,11 @@ public class TempIndexTask {
 		
 		TaskController mTaskControlle = taskControllerService.searchTaskController(this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
 		if(!StringUtil.isObjectEmpty(mTaskControlle) && mTaskControlle.getTaskRunStatus().equals(EnumUtils.TaskRunStatus.ON.name())){
-			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() start ... ");
+			Log4jUtil.log("start ... ");
 			tempIndexService.commitTempIndexSerivice();
-			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() end ... ");
+			Log4jUtil.log("end ... ");
 		}else{
-			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() 定时任务停止 ");
+			Log4jUtil.log("定时任务停止 ");
 		}
 	}
 	
@@ -50,11 +50,11 @@ public class TempIndexTask {
 		
 		TaskController mTaskControlle = taskControllerService.searchTaskController(this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
 		if(!StringUtil.isObjectEmpty(mTaskControlle) && mTaskControlle.getTaskRunStatus().equals(EnumUtils.TaskRunStatus.ON.name())){
-			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.refactorIndex() start ...");
+			Log4jUtil.log("start ...");
 			tempIndexService.refactorIndexService();
-			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.refactorIndex() end ...");
+			Log4jUtil.log("end ...");
 		}else{
-			Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.commitTempIndex() 定时任务停止 ");
+			Log4jUtil.log("定时任务停止 ");
 		}
 	}
 	
@@ -63,9 +63,9 @@ public class TempIndexTask {
 	 */
 	public void recoverTempIndex(){
 		
-		Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.recoverTempIndex() start ...");
+		Log4jUtil.log("start ...");
 		tempIndexService.recoverTempIndexService();
-		Log4jUtil.log("com.hecj.search.solr.task.TempIndexTask.recoverTempIndex() end ...");
+		Log4jUtil.log("end ...");
 	}
 	
 	

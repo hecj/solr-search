@@ -78,6 +78,6 @@ public class IndexPageController extends BaseController {
 		} finally {
 
 		}
-		return "index";
+		return "home";
 	}
 }

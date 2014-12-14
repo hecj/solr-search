@@ -2,56 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/jsp/base/basePath.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>文章列表</title>
-		<link rel="stylesheet" type="text/css" href="<%=basePath%>css/index.css">
+		<link rel="stylesheet" type="text/css" href="<%=basePath%>css/home.css">
 		<script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/util/StringUtils.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/main/index.js"></script>
 	</head>
 	<body>
-		<div id="head"></div>
-		<div id="menu">
-			<div class="menu">
-				<li>
-					<a href="/" class="menu_default_hover">首页</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li>
-					<a href="/joke/">笑话大全</a>
-				</li>
-				<li style="width: 2px;"></li>
-			</div>
-		</div>
+		<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+		<jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
 		<div id="main">
 			<div id="main_content">
 				<table align="center" width="500" border="1">
@@ -69,8 +32,7 @@
 					</tr>
 					<tbody>
 						<c:if test="${articleList != null}">
-							<c:forEach var="mArticle" items="${articleList}"
-								varStatus="status">
+							<c:forEach var="mArticle" items="${articleList}" varStatus="status">
 								<tr>
 									<td>
 										${status.count }
@@ -100,18 +62,13 @@
 							页条数${pagination.pageSize}&nbsp;&nbsp;
 						</td>
 					</tr>
-
+		
 					<tfoot>
-
+		
 					</tfoot>
 				</table>
 			</div>
 		</div>
-		<div id="footer">
-			<dir>
-				<span>CopyRigh&nbsp;2014-2020&nbsp;这是一个神奇的网站</span><br>
-				Author:HECJ
-			</dir>
-		</div>
+		<jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
 	</body>
 </html>

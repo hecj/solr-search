@@ -10,7 +10,7 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 	<jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
-	<form action="<%=basePath %>article/article.htm?operator=submitAddArticle" method="POST">
+	<form action="<%=basePath %>home/article.htm?operator=submitAddArticle" method="POST">
 		<table align="center" border="1px" style="margin-top: 50px">
 			<tr>
 				<td colspan="2"></td>

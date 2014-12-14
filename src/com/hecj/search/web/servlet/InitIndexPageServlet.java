@@ -36,7 +36,7 @@ public class InitIndexPageServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.getRequestDispatcher("/indexPage/indexPage.htm?m=init").forward(request, response);
+		request.getRequestDispatcher("/home/home.htm?operator=init").forward(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

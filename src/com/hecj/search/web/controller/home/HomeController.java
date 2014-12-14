@@ -1,4 +1,4 @@
-package com.hecj.search.web.controller;
+package com.hecj.search.web.controller.home;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +18,8 @@ import com.hecj.search.util.StringUtil;
 import com.hecj.search.web.controller.base.BaseController;
 
 @Controller
-@RequestMapping("/indexPage/indexPage.htm")
-public class IndexPageController extends BaseController {
+@RequestMapping("home/home.htm")
+public class HomeController extends BaseController {
 
 	@Resource
 	private ArticleService articleService = null;
@@ -33,7 +33,7 @@ public class IndexPageController extends BaseController {
 	 * 初始化首页
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(params = "m=init")
+	@RequestMapping(params="operator=init")
 	public String ininIndexPage(Long n,String q,HttpServletRequest request) {
 
 		try {

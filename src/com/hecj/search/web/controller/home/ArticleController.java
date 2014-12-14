@@ -1,4 +1,4 @@
-package com.hecj.search.web.controller;
+package com.hecj.search.web.controller.home;
 
 import javax.annotation.Resource;
 
@@ -21,7 +21,7 @@ import com.hecj.search.web.controller.base.BaseController;
  * @版本：V1.0
  */
 @Controller
-@RequestMapping("article/article.htm")
+@RequestMapping("home/article.htm")
 public class ArticleController extends BaseController {
 
 	private static final long serialVersionUID = 1L;

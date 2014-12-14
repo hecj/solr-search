@@ -16,14 +16,17 @@
 		<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 		<jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
 		<div id="main">
+			<div id="position">
+				笑话共 224551&nbsp;篇&nbsp;&nbsp;最后更新：12月14日 18:40&nbsp;&nbsp;今日已更新 36 次 还将更新 12 次
+			</div>
 			<div id="main_content">
 				<table align="center" width="500" border="1">
 					<tr>
 						<td width="40">
-							<a href="<%=basePath%>article/article.htm?operator=toAddArticle">添加</a>
+							<a href="<%=basePath%>home/article.htm?operator=toAddArticle">添加</a>
 						</td>
 						<td>
-							<form action="<%=basePath%>indexPage/indexPage.htm?m=init"
+							<form action="<%=basePath%>home/home.htm?operator=init"
 								method="post" onSubmit="return check_qForm()" id="q_form">
 								<input type="text" name="q" value="${showQ }" />
 								<input type="submit" value="查询" />

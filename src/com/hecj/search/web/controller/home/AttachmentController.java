@@ -1,4 +1,4 @@
-package com.hecj.search.web.controller;
+package com.hecj.search.web.controller.home;
 
 import javax.annotation.Resource;
 
@@ -10,7 +10,7 @@ import com.hecj.search.services.ArticleService;
 import com.hecj.search.web.controller.base.BaseController;
 
 @Controller
-@RequestMapping("/attachmen/attachmen.htm")
+@RequestMapping("home/attachmen.htm")
 public class AttachmentController extends BaseController{
 	
 	private static final long serialVersionUID = 1L;

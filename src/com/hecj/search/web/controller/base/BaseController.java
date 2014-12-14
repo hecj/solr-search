@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * @创建时间：2014-12-6 上午03:26:14
  * @版本：V1.0
  */
-public class BaseController {
+public abstract class BaseController {
 	
 	@Resource
 	private HttpServletRequest request;
@@ -54,4 +54,5 @@ public class BaseController {
 		return basePath ;
 	}
 
+	
 }

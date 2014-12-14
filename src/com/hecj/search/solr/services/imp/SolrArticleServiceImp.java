@@ -85,7 +85,7 @@ public class SolrArticleServiceImp implements SolrArticleService {
 					}else{
 						mArticleBean.setContent((String)doc.getFieldValue("article_content"));
 					}
-					System.out.println(mArticleBean.getContent());
+//					System.out.println(mArticleBean.getContent());
 					mArticleBeanList.add(mArticleBean);
 				}
 			}

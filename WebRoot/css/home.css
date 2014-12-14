@@ -6,8 +6,8 @@ body,ul,ol,li,p,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,em {
 	border: 0;
 }
 
-body{
-	background: url(../images/index/llb.jpg);
+body {
+	background: url(../images/home/llb.jpg);
 }
 
 .hl_style {
@@ -17,13 +17,13 @@ body{
 }
 
 #head {
-	background: url(../images/index/index_bg.jpg) repeat-x left -160px;
+	background: url(../images/home/home_bg.jpg) repeat-x left -160px;
 	width: 100%;
 	height: 78px;
 }
 
 #menu {
-	background: url(../images/index/index_bg.jpg) repeat-x left -100px;
+	background: url(../images/home/home_bg.jpg) repeat-x left -100px;
 	height: 48px;
 	width: 100%;
 }
@@ -35,7 +35,7 @@ body{
 }
 
 .menu li {
-	background: url(../images/index/index_bg.jpg) no-repeat left 0;
+	background: url(../images/home/home_bg.jpg) no-repeat left 0;
 	float: left;
 	height: 48px;
 	width: 87px;
@@ -55,12 +55,12 @@ body{
 
 .menu li a:hover {
 	color: #fff;
-	background: url(../images/index/menu_hover.jpg) no-repeat;
+	background: url(../images/home/menu_hover.jpg) no-repeat;
 }
 
 .menu_default_hover {
 	color: #fff;
-	background: url(../images/index/menu_hover.jpg) no-repeat;
+	background: url(../images/home/menu_hover.jpg) no-repeat;
 }
 
 #main {
@@ -78,10 +78,23 @@ body{
 }
 
 #footer {
-	background: url(../images/index/index_bg.jpg) repeat-x left -260px;
+	background: url(../images/home/home_bg.jpg) repeat-x left -260px;
 	width: 100%;
 	height: 70px;
 	padding-top: 8px;
 	text-align: center;
 	color: #fff;
+}
+
+#position {
+	background: url(../images/home/position.gif) no-repeat;
+	width: 988px;
+	height: 31px;
+	line-height: 31px;
+	text-indent: 13px;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0 auto;
+	font-weight: bold;
+	color: #34588c;;
 }

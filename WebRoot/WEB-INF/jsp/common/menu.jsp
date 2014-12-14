@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/base/basePath.jsp"%>
 <div id="menu">
 	<div class="menu">
 		<li>
-			<a href="/" class="menu_default_hover">首页</a>
+			<a href="<%=basePath %>" class="menu_default_hover">首页</a>
 		</li>
 		<li>
-			<a href="/joke/">笑话大全</a>
+			<a href="<%=basePath %>home/dictum.htm?operator=init">名人名言</a>
 		</li>
 		<li>
 			<a href="/joke/">笑话大全</a>

@@ -93,6 +93,16 @@
 		<url-pattern>/servlet/initIndexPage.do</url-pattern>
 	</servlet-mapping>
 	
+	<!-- into admin manager page -->
+	<servlet>
+		<servlet-name>adminServlet</servlet-name>
+		<servlet-class>com.hecj.search.admin.web.servlet.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>adminServlet</servlet-name>
+		<url-pattern>/admin</url-pattern>
+	</servlet-mapping>
+	
 	<!-- error 404 page -->
 	<error-page>
     	<error-code>404</error-code>

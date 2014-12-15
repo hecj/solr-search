@@ -1,0 +1,13 @@
+Jquery-json 是 jQuery 的一个插件，
+可轻松实现对象和 JSON 字符串之间的转换。
+可序列化 JavaScript 对象、数值、字符串和数组到 JSON 字符串，
+同时可转换 JSON 字符串到 JavaScript。
+var thing = {plugin: 'jquery-json', version: 2.3};//js对象
+var encoded = $.toJSON( thing );
+//转换为json,结果: '{"plugin":"jquery-json","version":2.3}'
+var name = $.evalJSON( encoded ).plugin;
+//js对象.属性,结果: "jquery-json"
+var version = $.evalJSON(encoded).version;
+//结果: 2.3
+
+vo:是业务对象

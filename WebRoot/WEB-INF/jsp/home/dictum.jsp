@@ -11,6 +11,7 @@
 		<script type="text/javascript" src="<%=basePath%>js/jquery/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/util/StringUtils.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/main/index.js"></script>
+		<script type="text/javascript" src="<%=basePath%>js/main/dictum.js"></script>
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>

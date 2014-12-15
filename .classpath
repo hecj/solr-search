@@ -51,9 +51,9 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/solr-solrj-4.5.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/wstx-asl-3.2.7.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/zookeeper-3.4.5.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-io-2.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jodd-3.4.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jodd-joy-3.4.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jodd-swingspy-3.4.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-io-2.2.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

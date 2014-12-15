@@ -14,17 +14,7 @@
 							http://www.springframework.org/schema/task/spring-task-3.0.xsd
 							">
 							 
-	<!-- annotation provider -->
-	<context:annotation-config/>
-		
-    <import resource="config/spring_jdbc.xml"/>
-    <import resource="config/spring_beans.xml"/>
-    <import resource="config/spring_tx.xml"/>
-    <import resource="config/spring_aop.xml"/>
-    <import resource="config/spring_task.xml"/>
 	
-	<!-- admin config-->
-    <import resource="../admin/spring/config/applicationContext.xml"/>
-    
+    <import resource="admin_spring_mvc.xml"/>
  </beans>
  

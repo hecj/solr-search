@@ -4,42 +4,60 @@
 <div class="main_content">
 	 <div class="main_content_div_hegiht">
         <label for="name" class="data_label_width">base网站:</label>
-        <input class="easyui-validatebox" type="text" name="name" data-options="required:true" />
+        <input class="easyui-validatebox" type="text" name="baseURL" data-options="required:true" />
      </div>
      <div class="main_content_div_hegiht">
-        <label for="name" class="data_label_width">jq选择器:</label>
-        <input class="easyui-validatebox" type="text"/>
+        <label for="name" class="data_label_width">base选择器:</label>
+        <input class="easyui-validatebox" type="text" name="baseSelect"/>
      </div>
      <div class="main_content_div_hegiht">
         <label for="name" class="data_label_width">数据库:</label>
-        <select id="cc" class="easyui-combobox" name="dept" style="width:150px;">
+        <select id="cc" class="easyui-combobox" name="dataBaseType" style="width:150px;">
 		    <option value="MySQL">MySQL</option>
 		</select>
      </div>
-     <div id="field_content">
+     <div id="ID_fieldContent">
      	<ul>
      		<li>
-     			<label>字段1选择器:</label>
-				<input type="text"/>
+     			<label>字段选择器:</label>
+				<input type="text" name="fieldSelect"/>
 				<label>正则:</label>
 				<input type="text"/>
 				<label>替换:</label>
-				<input type="text" class="input_width"/>->
-				<input type="text" class="input_width"/>
+				<input type="text" class="input_width" name="oldPlace"/>->
+				<input type="text" class="input_width" name="newPlace"/>
 				<label>字段名:</label>
-				<input type="text" width="20px" class="input_width"/>
+				<input type="text" width="20px" class="input_width" name="fieldName"/>
 				<label>字段类型:</label>
-				<select class="easyui-combobox" class="input_width">
+				<select class="easyui-combobox" class="input_width" name="fieldType">
 				    <option value="int">int</option>
 				    <option value="int">string</option>
 				    <option value="int">date</option>
 				</select>
 				<label>字段长度:</label>
-				<input type="text" class="input_width"/>
+				<input type="text" class="input_width" name="fieldLenth"/>
 		     </li>
 		</ul>
-		<a id="idd_addField" class="easyui-linkbutton">添加过滤字段</a>
-		<a id="btn" class="easyui-linkbutton">爬q数据</a>
+		<div id="ID_defaultField" style="visibility: hidden;height: 0px;">
+				<label>字段选择器:</label>
+				<input type="text" name="fieldSelect"/>
+				<label>正则:</label>
+				<input type="text"/>
+				<label>替换:</label>
+				<input type="text" class="input_width" name="oldPlace"/>->
+				<input type="text" class="input_width" name="newPlace"/>
+				<label>字段名:</label>
+				<input type="text" width="20px" class="input_width" name="fieldName"/>
+				<label>字段类型:</label>
+				<select class="easyui-combobox" class="input_width" name="fieldType">
+				    <option value="int">int</option>
+				    <option value="int">string</option>
+				    <option value="int">date</option>
+				</select>
+				<label>字段长度:</label>
+				<input type="text" class="input_width" name="fieldLenth"/>
+		</div>
+		<a onclick="SimpleDataCollect.addField()" class="easyui-linkbutton">添加过滤字段</a>
+		<a onclick="SimpleDataCollect.submitDataCollect()" class="easyui-linkbutton">爬取数据</a>
      </div>
-
 </div>

@@ -1,0 +1,24 @@
+
+.main_content{
+	margin-top:20px;
+	margin-left: 100px;
+}
+
+.main_content_div_hegiht{
+	
+	height: 30px;
+}
+
+.data_label_width{
+	width: 100px;
+	display:inline-block;
+	text-align: right;
+}
+
+#field_content .input_width{
+	width: 60px;
+}
+
+#field_content ul li{
+	list-style: none;
+}

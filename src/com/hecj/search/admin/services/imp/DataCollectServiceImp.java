@@ -28,6 +28,15 @@ public class DataCollectServiceImp implements DataCollectService {
 		DataBase mDataBase = dataBaseFactory.getDataBase(pDataCollectParams.getDataBaseType());
 		System.out.println("dataBaseFactory:"+dataBaseFactory);
 		System.out.println("mDataBase:"+mDataBase);
+		/*
+		 * 建表
+		 */
+		
+		/*
+		 * 数据搜集
+		 * 插入数据库
+		 * 分批量提交数据库
+		 */
 		
 		return null;
 	}

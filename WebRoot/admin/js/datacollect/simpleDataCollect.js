@@ -17,6 +17,8 @@ var SimpleDataCollect = {
 		var end = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=end]").val();
 		var step = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=step]").val();
 		var baseSelect = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=baseSelect]").val();
+		var encode = jQuery(".ID_mainContent .CLS_mainContentDivHegiht select[name=encode]").val();
+		var tableName = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=tableName]").val();
 		var dataBaseType = jQuery(".ID_mainContent .CLS_mainContentDivHegiht select[name=dataBaseType]").val();
 		var fieldList = new Array();
 		jQuery("#ID_fieldContent ul li").each(function(index,obj){
@@ -29,7 +31,7 @@ var SimpleDataCollect = {
 			var fieldLenth = jQuery(obj).find("input[name=fieldLenth]").val();
 			fieldList.push(new DataField(fieldSelect,pattern,oldPlace,newPlace,fieldName,fieldType,fieldLenth));
 		});
-		var objData = new DataCollectParams(baseURL,pageParams,start,end,step,baseSelect,dataBaseType,fieldList);
+		var objData = new DataCollectParams(baseURL,pageParams,start,end,step,baseSelect,encode,dataBaseType,tableName,fieldList);
 		var jsonData = jQuery.toJSON(objData);
 		jQuery.get("admin/data/dataCollect.htm?operator=submitDataCollect",{data:encodeURI(jsonData)}, function(data){
 			alert(data.message);
@@ -40,14 +42,16 @@ var SimpleDataCollect = {
 /*
  * 封装传送后天的JSON对象
  */
-function DataCollectParams(baseURL,pageParams,start,end,step,baseSelect,dataBaseType,fieldList){
+function DataCollectParams(baseURL,pageParams,start,end,step,baseSelect,encode,dataBaseType,tableName,fieldList){
 	this.baseURL=baseURL;
 	this.pageParams=pageParams;
 	this.start=start;
 	this.end=end;
 	this.step=step;
 	this.baseSelect=baseSelect;
+	this.encode=encode;
 	this.dataBaseType=dataBaseType;
+	this.tableName=tableName;
 	this.fieldList = fieldList;
 	
 }

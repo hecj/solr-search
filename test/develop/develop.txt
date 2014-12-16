@@ -5,4 +5,8 @@ admin:网络爬虫设计
 	数据库 (MySQL)
 	字段一(选择器)  正则匹配       replace替换(old,new)  字段名     字段类型    字段长度
 	
+	http://www.haha365.com/mrmy/index_2.htm
+	div#main div.left ul.text_doublelist1 a.catname
+	
+	
 	

@@ -17,6 +17,7 @@ import com.hecj.search.admin.vo.DataCollectParams;
 import com.hecj.search.admin.vo.DataField;
 import com.hecj.search.util.CodeConvertUtil;
 import com.hecj.search.util.Log4jUtil;
+import com.hecj.search.util.StringUtil;
 import com.hecj.search.web.controller.base.BaseController;
 /**
  * @类功能说明：数据搜集Controller类
@@ -48,11 +49,13 @@ public class DataCollectController extends BaseController{
 			JSONObject jsonObj = JSONObject.fromObject(data);
 			String baseURL = jsonObj.getString("baseURL");
 			String pageParams = jsonObj.getString("pageParams");
-			int start = jsonObj.getInt("start");
-			int end = jsonObj.getInt("end");
-			int step = jsonObj.getInt("step");
+			int start = StringUtil.isStrEmpty(jsonObj.getString("start"))?0:jsonObj.getInt("start");
+			int end = StringUtil.isStrEmpty(jsonObj.getString("end"))?0:jsonObj.getInt("end");
+			int step = StringUtil.isStrEmpty(jsonObj.getString("step"))?0:jsonObj.getInt("step");
 			String baseSelect = jsonObj.getString("baseSelect");
 			String dataBaseType = jsonObj.getString("dataBaseType");
+			String encode = jsonObj.getString("encode");
+			String tableName = jsonObj.getString("tableName");
 			JSONArray jsonArr = jsonObj.getJSONArray("fieldList");
 			/*
 			 * 解析字段
@@ -76,9 +79,11 @@ public class DataCollectController extends BaseController{
 			 */
 			DataCollectParams mCollectParams = new DataCollectParams();
 			mCollectParams.setBaseSelect(baseSelect);
+			mCollectParams.setEncode(encode);
 			mCollectParams.setBaseURL(baseURL);
 			mCollectParams.setPageParams(pageParams);
 			mCollectParams.setDataBaseType(dataBaseType);
+			mCollectParams.setTableName(tableName);
 			mCollectParams.setDataFields(dataFields);
 			mCollectParams.setEnd(end);
 			mCollectParams.setStart(start);

@@ -1,19 +1,33 @@
 package com.hecj.search.admin.services.imp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import jodd.jerry.Jerry;
+import jodd.jerry.JerryFunction;
+
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import com.hecj.search.admin.database.factory.DataBase;
 import com.hecj.search.admin.database.factory.DataBaseFactory;
 import com.hecj.search.admin.services.DataCollectService;
 import com.hecj.search.admin.vo.DataCollectParams;
+import com.hecj.search.admin.vo.DataField;
+import com.hecj.search.hibernate.HibernateSessionFactory;
+import com.hecj.search.hibernate.util.UUIDUtil;
+import com.hecj.search.util.HtmlUtils;
+import com.hecj.search.util.PattenUtils;
+import com.hecj.search.util.StringUtil;
 
 @Service("dataCollectService")
-public class DataCollectServiceImp implements DataCollectService {
+public class DataCollectServiceImp extends HibernateSessionFactory implements DataCollectService {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Resource
 	private DataBaseFactory dataBaseFactory;
@@ -21,28 +35,182 @@ public class DataCollectServiceImp implements DataCollectService {
 	public void setDataBaseFactory(DataBaseFactory dataBaseFactory) {
 		this.dataBaseFactory = dataBaseFactory;
 	}
-
 	@Override
-	public List<Object> dataCollectService(DataCollectParams pDataCollectParams) {
+	public List<Object> dataCollectService(final DataCollectParams pDataCollectParams) {
+		Jerry doc = null;
+		Session session = null ;
+		try {
+			DataBase mDataBase = dataBaseFactory.getDataBase(pDataCollectParams.getDataBaseType());
+			/*
+			 * 建表
+			 */
+			List<Object> list = new ArrayList<Object>();
+			list.add(0, pDataCollectParams.getTableName());
+			list.add(1, pDataCollectParams.getDataFields());
+			mDataBase.createTable(list);
+			/*
+			 * 数据搜集 
+			 * 插入数据库 
+			 * 分批量提交数据库
+			 */
+			String baseURL = pDataCollectParams.getBaseURL();
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			if(!StringUtil.isStrEmpty(pDataCollectParams.getPageParams())){
+				
+				int commitCount = 0;
+				for(int i=pDataCollectParams.getStart();i<=pDataCollectParams.getEnd();i+=pDataCollectParams.getStep()){
+					String url = baseURL.replace(pDataCollectParams.getPageParams(), String.valueOf(i));
+					
+				}
+				
+			}else{
+				
+				String content = "";
+				if(!StringUtil.isStrEmpty(pDataCollectParams.getEncode())){
+					content = HtmlUtils.getHtmlContentByHttpClient(baseURL, pDataCollectParams.getEncode());
+				}else{
+					content = HtmlUtils.getHtmlContentByHttpClient(baseURL);
+				}
+				/*
+				 * 解析
+				 */
+				doc = Jerry.jerry(content);
+				if (doc != null && doc.size() > 0 && doc.html() != null&& !doc.html().equals(pDataCollectParams.getBaseSelect())) {
+					doc.$(pDataCollectParams.getBaseSelect()).each(new JerryFunction() {
+						public boolean onNode(Jerry $this, int index) {
+							Map<String,String> data = new HashMap<String,String>();
+							for(DataField d : pDataCollectParams.getDataFields()){
+								String field = ""; 
+								//解析字段
+								if(!StringUtil.isStrEmpty(d.getFieldSelect())){
+									field = $this.find(d.getFieldSelect()).text();
+								}else{
+									field = $this.text();
+								}
+								//正则
+								if(!StringUtil.isStrEmpty(d.getPattern())){
+									field+=PattenUtils.pattenUniqueContent(field, d.getPattern());
+								}
+								//替换
+								if(!StringUtil.isStrEmpty(d.getOldPlace())&&!StringUtil.isStrEmpty(d.getNewPlace())){
+									field.replaceAll(d.getOldPlace(), d.getNewPlace());
+								}
+								data.put(d.getFieldName(), field);
+							}
+							//拼接字段及Value
+							String fields = "";
+							String values = "";
+							int n = 0;
+							for(String key:data.keySet()){
+								if(n==data.size()-1){
+									fields+=key;
+									values+=data.get(key);
+								}else{
+									fields+=key+",";
+									values+=data.get(key)+",";
+								}
+								n++;
+							}
+							//获取的值不为空时,插入数据
+							if(!StringUtil.isStrEmpty(values)){
+								//插入数据
+								StringBuffer insertSQL = new StringBuffer();
+								insertSQL.append("insert into "+pDataCollectParams.getTableName()+"(");
+								insertSQL.append("id,"+fields+")");
+								insertSQL.append(" values("+UUIDUtil.autoUUID()+","+values+")");
+								System.out.println(insertSQL);
+							}
+							return true;
+						}
+					});
+				}
+				
+			}
+			session.getTransaction().commit();
 		
-		DataBase mDataBase = dataBaseFactory.getDataBase(pDataCollectParams.getDataBaseType());
-		/*
-		 * 建表
-		 */
-		List<Object> list = new ArrayList<Object>();
-		list.add(0, "table_name");
-		list.add(1, pDataCollectParams.getDataFields());
-		mDataBase.createTable(list);
-		/*
-		 * 数据搜集
-		 * 插入数据库
-		 * 分批量提交数据库
-		 */
-		
-		
-		
-		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			doc = null;
+			if(session != null && session.isOpen()){
+				session.close();
+			}
+			System.gc();
+		}
 		return null;
 	}
-
+	
+	/*
+	 * 匹配数据并插入
+	 */
+	private void queryFieldData(final DataCollectParams pDataCollectParams,String url,Jerry doc,int commitCount,final Session session){
+		
+		String content = "";
+		if(!StringUtil.isStrEmpty(pDataCollectParams.getEncode())){
+			content = HtmlUtils.getHtmlContentByHttpClient(url, pDataCollectParams.getEncode());
+		}else{
+			content = HtmlUtils.getHtmlContentByHttpClient(url);
+		}
+		/*
+		 * 解析
+		 */
+		doc = Jerry.jerry(content);
+		if (doc != null && doc.size() > 0 && doc.html() != null&& !doc.html().equals(pDataCollectParams.getBaseSelect())) {
+			doc.$(pDataCollectParams.getBaseSelect()).each(new JerryFunction() {
+				public boolean onNode(Jerry $this, int index) {
+					Map<String,String> data = new HashMap<String,String>();
+					for(DataField d : pDataCollectParams.getDataFields()){
+						String field = ""; 
+						//解析字段
+						if(!StringUtil.isStrEmpty(d.getFieldSelect())){
+							field = $this.find(d.getFieldSelect()).text();
+						}else{
+							field = $this.text();
+						}
+						//正则
+						if(!StringUtil.isStrEmpty(d.getPattern())){
+							field+=PattenUtils.pattenUniqueContent(field, d.getPattern());
+						}
+						//替换
+						if(!StringUtil.isStrEmpty(d.getOldPlace())&&!StringUtil.isStrEmpty(d.getNewPlace())){
+							field.replaceAll(d.getOldPlace(), d.getNewPlace());
+						}
+						data.put(d.getFieldName(), field);
+					}
+					//拼接字段及Value
+					String fields = "";
+					String values = "";
+					int n = 0;
+					for(String key:data.keySet()){
+						if(n==data.size()-1){
+							fields+=key;
+							values+=data.get(key);
+						}else{
+							fields+=key+",";
+							values+=data.get(key)+",";
+						}
+						n++;
+					}
+					//获取的值不为空时,插入数据
+					if(!StringUtil.isStrEmpty(values)){
+						//插入数据
+						StringBuffer insertSQL = new StringBuffer();
+						insertSQL.append("insert into "+pDataCollectParams.getTableName()+"(");
+						insertSQL.append("id,"+fields+")");
+						insertSQL.append(" values("+UUIDUtil.autoUUID()+","+values+")");
+						System.out.println(insertSQL);
+						session.createQuery(insertSQL.toString());
+					}
+					return true;
+				}
+			});
+			commitCount++;
+		}
+		//刷新到数据库
+		if(commitCount%5==0){
+			session.flush();
+			session.clear();
+		}
+	}
 }

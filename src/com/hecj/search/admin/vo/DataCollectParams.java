@@ -18,7 +18,9 @@ public class DataCollectParams {
 	private int end;
 	private int step;
 	private String baseSelect;
+	private String encode;
 	private String dataBaseType;
+	private String tableName;
 	private List<DataField> dataFields;
 
 	public DataCollectParams() {
@@ -47,6 +49,14 @@ public class DataCollectParams {
 
 	public void setPageParams(String pageParams) {
 		this.pageParams = pageParams;
+	}
+
+	public String getEncode() {
+		return encode;
+	}
+
+	public void setEncode(String encode) {
+		this.encode = encode;
 	}
 
 	public int getStart() {
@@ -79,6 +89,14 @@ public class DataCollectParams {
 
 	public void setDataBaseType(String dataBaseType) {
 		this.dataBaseType = dataBaseType;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
 
 	public List<DataField> getDataFields() {

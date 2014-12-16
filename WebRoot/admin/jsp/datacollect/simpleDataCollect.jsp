@@ -5,7 +5,7 @@
 <div class="ID_mainContent">
 	 <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">base网站:</label>
-        <input class="easyui-validatebox" type="text" name="baseURL" data-options="required:true" />
+        <input class="easyui-validatebox" style="width: 350px" type="text" name="baseURL" data-options="required:true" />
      	<label for="name" style="width: 50px">分页参数:</label>
         <input class="easyui-validatebox" style="width: 50px" name="pageParams"/>
      	<label for="name" style="width: 50px">开始:</label>
@@ -17,13 +17,25 @@
      </div>
      <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">base选择器:</label>
-        <input class="easyui-validatebox" type="text" name="baseSelect"/>
+        <input class="easyui-validatebox" style="width: 450px" type="text" name="baseSelect"/>
+     </div>
+      <div class="CLS_mainContentDivHegiht">
+        <label for="name" class="data_label_width">编码:</label>
+        <select id="cc" name="encode" style="width:150px;">
+		    <option value="">请选择</option>
+		    <option value="UTF-8">UTF-8</option>
+		    <option value="GBK">GBK</option>
+		</select>
      </div>
      <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">数据库:</label>
         <select id="cc" name="dataBaseType" style="width:150px;">
 		    <option value="MySQL">MySQL</option>
 		</select>
+     </div>
+     <div class="CLS_mainContentDivHegiht">
+        <label for="name" class="data_label_width">表名:</label>
+        <input class="easyui-validatebox" type="text" name="tableName"/>
      </div>
      <div id="ID_fieldContent">
      	<ul>

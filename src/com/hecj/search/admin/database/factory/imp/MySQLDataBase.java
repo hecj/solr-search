@@ -40,6 +40,7 @@ public class MySQLDataBase extends HibernateSessionFactory implements DataBase {
 			
 		} catch (RuntimeException ex) {
 			ex.printStackTrace();
+			throw ex;
 		} finally{
 			
 			if(session != null && session.isOpen()){

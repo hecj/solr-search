@@ -44,6 +44,26 @@ public class HtmlUtils {
 		}
 		return content;
 	}
+	/**
+	 * 得到HTML内容(含tag)
+	 */
+	public static String getHtmlContentByHttpClient(String URL) {
+		HttpClient httpClient = new DefaultHttpClient();
+		String content = "";
+		try {
+			HttpGet httpGet = new HttpGet(URL);
+			HttpResponse response = httpClient.execute(httpGet);
+			HttpEntity entity = response.getEntity();
+			if (entity != null) {
+				content = EntityUtils.toString(entity);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			httpClient.getConnectionManager().shutdown();
+		}
+		return content;
+	}
 
 	/**
 	 * 得到HTML内容(含tag)

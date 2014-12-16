@@ -2,8 +2,10 @@ package com.hecj.search.admin.services.imp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -36,7 +38,7 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 		this.dataBaseFactory = dataBaseFactory;
 	}
 	@Override
-	public List<Object> dataCollectService(final DataCollectParams pDataCollectParams) {
+	public List<Object> dataCollectService(DataCollectParams pDataCollectParams) {
 		Jerry doc = null;
 		Session session = null ;
 		try {
@@ -55,80 +57,15 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 			 */
 			String baseURL = pDataCollectParams.getBaseURL();
 			session = sessionFactory.openSession();
-			session.beginTransaction();
+			Integer commitCount = 0;
 			if(!StringUtil.isStrEmpty(pDataCollectParams.getPageParams())){
-				
-				int commitCount = 0;
 				for(int i=pDataCollectParams.getStart();i<=pDataCollectParams.getEnd();i+=pDataCollectParams.getStep()){
 					String url = baseURL.replace(pDataCollectParams.getPageParams(), String.valueOf(i));
-					
+					queryFieldData(pDataCollectParams, url, doc, commitCount, session);
 				}
-				
 			}else{
-				
-				String content = "";
-				if(!StringUtil.isStrEmpty(pDataCollectParams.getEncode())){
-					content = HtmlUtils.getHtmlContentByHttpClient(baseURL, pDataCollectParams.getEncode());
-				}else{
-					content = HtmlUtils.getHtmlContentByHttpClient(baseURL);
-				}
-				/*
-				 * 解析
-				 */
-				doc = Jerry.jerry(content);
-				if (doc != null && doc.size() > 0 && doc.html() != null&& !doc.html().equals(pDataCollectParams.getBaseSelect())) {
-					doc.$(pDataCollectParams.getBaseSelect()).each(new JerryFunction() {
-						public boolean onNode(Jerry $this, int index) {
-							Map<String,String> data = new HashMap<String,String>();
-							for(DataField d : pDataCollectParams.getDataFields()){
-								String field = ""; 
-								//解析字段
-								if(!StringUtil.isStrEmpty(d.getFieldSelect())){
-									field = $this.find(d.getFieldSelect()).text();
-								}else{
-									field = $this.text();
-								}
-								//正则
-								if(!StringUtil.isStrEmpty(d.getPattern())){
-									field+=PattenUtils.pattenUniqueContent(field, d.getPattern());
-								}
-								//替换
-								if(!StringUtil.isStrEmpty(d.getOldPlace())&&!StringUtil.isStrEmpty(d.getNewPlace())){
-									field.replaceAll(d.getOldPlace(), d.getNewPlace());
-								}
-								data.put(d.getFieldName(), field);
-							}
-							//拼接字段及Value
-							String fields = "";
-							String values = "";
-							int n = 0;
-							for(String key:data.keySet()){
-								if(n==data.size()-1){
-									fields+=key;
-									values+=data.get(key);
-								}else{
-									fields+=key+",";
-									values+=data.get(key)+",";
-								}
-								n++;
-							}
-							//获取的值不为空时,插入数据
-							if(!StringUtil.isStrEmpty(values)){
-								//插入数据
-								StringBuffer insertSQL = new StringBuffer();
-								insertSQL.append("insert into "+pDataCollectParams.getTableName()+"(");
-								insertSQL.append("id,"+fields+")");
-								insertSQL.append(" values("+UUIDUtil.autoUUID()+","+values+")");
-								System.out.println(insertSQL);
-							}
-							return true;
-						}
-					});
-				}
-				
+				queryFieldData(pDataCollectParams, baseURL, doc, commitCount, session);
 			}
-			session.getTransaction().commit();
-		
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -144,8 +81,8 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	/*
 	 * 匹配数据并插入
 	 */
-	private void queryFieldData(final DataCollectParams pDataCollectParams,String url,Jerry doc,int commitCount,final Session session){
-		
+	 private void queryFieldData(final DataCollectParams pDataCollectParams,String url,Jerry doc,Integer commitCount,final Session session){
+		session.beginTransaction();
 		String content = "";
 		if(!StringUtil.isStrEmpty(pDataCollectParams.getEncode())){
 			content = HtmlUtils.getHtmlContentByHttpClient(url, pDataCollectParams.getEncode());
@@ -178,6 +115,7 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 						}
 						data.put(d.getFieldName(), field);
 					}
+					System.out.println($this.html());
 					//拼接字段及Value
 					String fields = "";
 					String values = "";
@@ -185,10 +123,10 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 					for(String key:data.keySet()){
 						if(n==data.size()-1){
 							fields+=key;
-							values+=data.get(key);
+							values+="'"+data.get(key)+"'";
 						}else{
 							fields+=key+",";
-							values+=data.get(key)+",";
+							values+="'"+data.get(key)+"',";
 						}
 						n++;
 					}
@@ -198,19 +136,17 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 						StringBuffer insertSQL = new StringBuffer();
 						insertSQL.append("insert into "+pDataCollectParams.getTableName()+"(");
 						insertSQL.append("id,"+fields+")");
-						insertSQL.append(" values("+UUIDUtil.autoUUID()+","+values+")");
-						System.out.println(insertSQL);
-						session.createQuery(insertSQL.toString());
+						insertSQL.append(" values('"+UUIDUtil.autoUUID()+"',"+values+")");
+//						System.out.println(insertSQL);
+						session.createSQLQuery(insertSQL.toString()).executeUpdate();
 					}
 					return true;
 				}
 			});
-			commitCount++;
 		}
-		//刷新到数据库
-		if(commitCount%5==0){
-			session.flush();
-			session.clear();
-		}
+		//刷新到数据库并提交
+		session.flush();
+		session.clear();
+		session.getTransaction().commit();
 	}
 }

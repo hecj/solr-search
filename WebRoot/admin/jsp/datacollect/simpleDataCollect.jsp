@@ -39,9 +39,7 @@
 				<input type="text" width="20px" class="input_width" name="fieldName"/>
 				<label>字段类型:</label>
 				<select class="input_width" name="fieldType">
-				    <option value="int">int</option>
-				    <option value="int">string</option>
-				    <option value="int">date</option>
+				    <option value="varchar">varchar</option>
 				</select>
 				<label>字段长度:</label>
 				<input type="text" class="input_width" name="fieldLenth"/>
@@ -59,9 +57,7 @@
 				<input type="text" width="20px" class="input_width" name="fieldName"/>
 				<label>字段类型:</label>
 				<select class="input_width" name="fieldType">
-				    <option value="int">int</option>
-				    <option value="int">string</option>
-				    <option value="int">date</option>
+				    <option value="varchar">varchar</option>
 				</select>
 				<label>字段长度:</label>
 				<input type="text" class="input_width" name="fieldLenth"/>r

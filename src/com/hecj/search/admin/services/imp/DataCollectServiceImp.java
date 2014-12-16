@@ -1,5 +1,6 @@
 package com.hecj.search.admin.services.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,19 +25,22 @@ public class DataCollectServiceImp implements DataCollectService {
 	@Override
 	public List<Object> dataCollectService(DataCollectParams pDataCollectParams) {
 		
-		System.out.println(pDataCollectParams.getBaseURL());
 		DataBase mDataBase = dataBaseFactory.getDataBase(pDataCollectParams.getDataBaseType());
-		System.out.println("dataBaseFactory:"+dataBaseFactory);
-		System.out.println("mDataBase:"+mDataBase);
 		/*
 		 * 建表
 		 */
-		
+		List<Object> list = new ArrayList<Object>();
+		list.add(0, "table_name");
+		list.add(1, pDataCollectParams.getDataFields());
+		mDataBase.createTable(list);
 		/*
 		 * 数据搜集
 		 * 插入数据库
 		 * 分批量提交数据库
 		 */
+		
+		
+		
 		
 		return null;
 	}

@@ -11,6 +11,10 @@ var SimpleDataCollect = {
 	 * 提交数据爬取
 	 */
 	submitDataCollect:function(){
+		// set btn disable
+		$('#ID_addField').linkbutton('disable');
+		$('#ID_submitDataCollect').linkbutton('disable');
+		
 		var IP = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=IP]").val();
 		var PORT = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=PORT]").val();
 		var baseURL = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=baseURL]").val();
@@ -39,6 +43,10 @@ var SimpleDataCollect = {
 		var jsonData = jQuery.toJSON(objData);
 		jQuery.get("admin/data/dataCollect.htm?operator=submitDataCollect",{data:encodeURI(jsonData)}, function(data){
 			alert(data.message);
+			
+			// set btn disable
+			$('#ID_addField').linkbutton('enable');
+			$('#ID_submitDataCollect').linkbutton('enable');
 		},"json");
 	}
 };

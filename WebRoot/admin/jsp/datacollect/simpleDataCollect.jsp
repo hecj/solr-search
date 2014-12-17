@@ -94,7 +94,7 @@
 				<label>字段长度:</label>
 				<input type="text" class="input_width" name="fieldLenth"/>
 		</div>
-		<a onclick="SimpleDataCollect.addField()" class="easyui-linkbutton">添加过滤字段</a>
-		<a onclick="SimpleDataCollect.submitDataCollect()" class="easyui-linkbutton">爬取数据</a>
+		<a id="ID_addField" onclick="SimpleDataCollect.addField()" class="easyui-linkbutton">添加过滤字段</a>
+		<a id="ID_submitDataCollect" onclick="SimpleDataCollect.submitDataCollect()" class="easyui-linkbutton">爬取数据</a>
      </div>
 </div>

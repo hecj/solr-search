@@ -11,6 +11,8 @@ package com.hecj.search.admin.vo;
 public class DataField {
 
 	private String fieldSelect;
+	private String selectMethod;
+	private String targetAttr;
 	private String pattern;
 	private String oldPlace;
 	private String newPlace;
@@ -20,6 +22,22 @@ public class DataField {
 
 	public DataField() {
 
+	}
+
+	public String getSelectMethod() {
+		return selectMethod;
+	}
+
+	public void setSelectMethod(String selectMethod) {
+		this.selectMethod = selectMethod;
+	}
+
+	public String getTargetAttr() {
+		return targetAttr;
+	}
+
+	public void setTargetAttr(String targetAttr) {
+		this.targetAttr = targetAttr;
 	}
 
 	public String getFieldSelect() {

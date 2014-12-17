@@ -17,11 +17,13 @@ import org.springframework.stereotype.Service;
 
 import com.hecj.search.admin.database.factory.DataBase;
 import com.hecj.search.admin.database.factory.DataBaseFactory;
+import com.hecj.search.admin.senum.EnumAdminUtils;
 import com.hecj.search.admin.services.DataCollectService;
 import com.hecj.search.admin.vo.DataCollectParams;
 import com.hecj.search.admin.vo.DataField;
 import com.hecj.search.hibernate.HibernateSessionFactory;
 import com.hecj.search.hibernate.util.UUIDUtil;
+import com.hecj.search.util.Log4jUtil;
 import com.hecj.search.util.PattenUtils;
 import com.hecj.search.util.StringUtil;
 import com.hecj.search.util.http.HtmlUtils;
@@ -109,9 +111,22 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 						String field = ""; 
 						//解析字段
 						if(!StringUtil.isStrEmpty(d.getFieldSelect())){
-							field = $this.find(d.getFieldSelect()).text();
+							if(d.getSelectMethod().equals(EnumAdminUtils.SelectMethod.TEXT.toString())){
+								field = $this.find(d.getFieldSelect()).text();
+							}else if(d.getSelectMethod().equals(EnumAdminUtils.SelectMethod.HTML.toString())){
+								field = $this.find(d.getFieldSelect()).html();
+							}else if(d.getSelectMethod().equals(EnumAdminUtils.SelectMethod.ATTR.toString())){
+								field = $this.find(d.getFieldSelect()).attr(d.getTargetAttr());
+							}
+							
 						}else{
-							field = $this.text();
+							if(d.getSelectMethod().equals(EnumAdminUtils.SelectMethod.TEXT.toString())){
+								field = $this.text();
+							}else if(d.getSelectMethod().equals(EnumAdminUtils.SelectMethod.HTML.toString())){
+								field = $this.html();
+							}else if(d.getSelectMethod().equals(EnumAdminUtils.SelectMethod.ATTR.toString())){
+								field = $this.attr(d.getTargetAttr());
+							}
 						}
 						//正则
 						if(!StringUtil.isStrEmpty(d.getPattern())){
@@ -123,7 +138,6 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 						}
 						data.put(d.getFieldName(), field);
 					}
-					System.out.println($this.html());
 					//拼接字段及Value
 					String fields = "";
 					String values = "";
@@ -138,6 +152,7 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 						}
 						n++;
 					}
+					Log4jUtil.log(values);
 					//获取的值不为空时,插入数据
 					if(!StringUtil.isStrEmpty(values)){
 						//插入数据

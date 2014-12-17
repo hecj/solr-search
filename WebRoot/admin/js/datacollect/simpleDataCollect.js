@@ -25,13 +25,15 @@ var SimpleDataCollect = {
 		var fieldList = new Array();
 		jQuery("#ID_fieldContent ul li").each(function(index,obj){
 			var fieldSelect = jQuery(obj).find("input[name=fieldSelect]").val();
+			var selectMethod = jQuery(obj).find("select[name=selectMethod]").val();
+			var targetAttr = jQuery(obj).find("input[name=targetAttr]").val();
 			var pattern = jQuery(obj).find("input[name=pattern]").val();
 			var oldPlace = jQuery(obj).find("input[name=oldPlace]").val();
 			var newPlace = jQuery(obj).find("input[name=newPlace]").val();
 			var fieldName = jQuery(obj).find("input[name=fieldName]").val();
 			var fieldType = jQuery(obj).find("select[name=fieldType]").val();
 			var fieldLenth = jQuery(obj).find("input[name=fieldLenth]").val();
-			fieldList.push(new DataField(fieldSelect,pattern,oldPlace,newPlace,fieldName,fieldType,fieldLenth));
+			fieldList.push(new DataField(fieldSelect,selectMethod,targetAttr,pattern,oldPlace,newPlace,fieldName,fieldType,fieldLenth));
 		});
 		var objData = new DataCollectParams(IP,PORT,baseURL,pageParams,start,end,step,baseSelect,encode,dataBaseType,tableName,fieldList);
 		var jsonData = jQuery.toJSON(objData);
@@ -62,8 +64,10 @@ function DataCollectParams(IP,PORT,baseURL,pageParams,start,end,step,baseSelect,
 /*
  * 字段
  */
-function DataField(fieldSelect,pattern,oldPlace,newPlace,fieldName,fieldType,fieldLenth){
+function DataField(fieldSelect,selectMethod,targetAttr,pattern,oldPlace,newPlace,fieldName,fieldType,fieldLenth){
 	this.fieldSelect = fieldSelect;
+	this.selectMethod = selectMethod;
+	this.targetAttr = targetAttr;
 	this.pattern = pattern;
 	this.oldPlace = oldPlace;
 	this.newPlace = newPlace;

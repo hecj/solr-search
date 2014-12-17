@@ -12,19 +12,24 @@ public class JerryTest {
 
 	@Test
 	public void test01(){
-		String url = "http://www.haha365.com/mrmy/index_51.htm";
+		String url = "http://www.haha365.com/mrmy/";
+		String IP = "10.8.2.4";
+		int PORT = 80;
+		String encode = "GBK";
 		Jerry doc = null;
 		try {
-			String content = HtmlUtils.getHtmlContentByHttpClient(url, "gbk");
+			String content = HtmlUtils.getHtmlContentByHttpClientProxy(url, IP, PORT,encode);
 //			System.out.println(content);
 			doc = Jerry.jerry(content);
 			// 判断页面是否合法
 			if (doc != null && doc.size() > 0 && doc.html() != null
 					&& !doc.html().equals("")) {
-				doc.$("div#main div.left ul.text_doublelist1 a.catname").each(new JerryFunction() {
+				doc.$("div#main ul.text_doublelist1 li").each(new JerryFunction() {
 					public boolean onNode(Jerry $this,int index) {
-						String str = PattenUtils.pattenUniqueContent($this.text(), "^.+$");
-						System.out.println(str.replaceAll("\\[", "").replaceAll("\\]", ""));
+//						String str = PattenUtils.pattenUniqueContent($this.text(), "^.+$");
+//						System.out.println(str.replaceAll("\\[", "").replaceAll("\\]", ""));
+						String href = $this.find("a[target=_blank]").attr("href").toString();
+						System.out.println(href);
 						return true;
 					}
 				});

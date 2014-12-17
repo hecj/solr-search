@@ -48,6 +48,13 @@
      		<li>
      			<label>字段选择器:</label>
 				<input type="text" name="fieldSelect"/>
+				<label>解析方法:</label>
+				<select name="selectMethod">
+					<option value="text">text</option>
+					<option value="attr">attr</option>
+					<option value="html">html</option>
+				</select>
+				<input type="text" name="targetAttr" style="width: 60px"/>
 				<label>正则:</label>
 				<input type="text" name="pattern"/>
 				<label>替换:</label>
@@ -66,6 +73,13 @@
 		<div id="ID_defaultField" style="visibility: hidden;height: 0px;">
 				<label>字段选择器:</label>
 				<input type="text" name="fieldSelect"/>
+				<label>解析方法:</label>
+				<select name="selectMethod">
+					<option value="text">text</option>
+					<option value="attr">attr</option>
+					<option value="html">html</option>
+				</select>
+				<input type="text" name="targetAttr" style="width: 60px"/>
 				<label>正则:</label>
 				<input type="text" name="pattern"/>
 				<label>替换:</label>
@@ -78,7 +92,7 @@
 				    <option value="varchar">varchar</option>
 				</select>
 				<label>字段长度:</label>
-				<input type="text" class="input_width" name="fieldLenth"/>r
+				<input type="text" class="input_width" name="fieldLenth"/>
 		</div>
 		<a onclick="SimpleDataCollect.addField()" class="easyui-linkbutton">添加过滤字段</a>
 		<a onclick="SimpleDataCollect.submitDataCollect()" class="easyui-linkbutton">爬取数据</a>

@@ -67,6 +67,8 @@ public class DataCollectController extends BaseController{
 				JSONObject obj = jsonArr.getJSONObject(i);
 				DataField mDataField = new DataField();
 				mDataField.setFieldSelect(obj.getString("fieldSelect"));
+				mDataField.setSelectMethod(obj.getString("selectMethod"));
+				mDataField.setTargetAttr(obj.getString("targetAttr"));
 				mDataField.setPattern(obj.getString("pattern"));
 				mDataField.setOldPlace(obj.getString("oldPlace"));
 				mDataField.setNewPlace(obj.getString("newPlace"));

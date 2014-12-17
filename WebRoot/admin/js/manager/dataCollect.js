@@ -1,4 +1,7 @@
 
+/**
+ *admin/jsp/datacollect/simpleDataCollect.jsp
+ **/
 var SimpleDataCollect = {
     /*
      * 添加字段

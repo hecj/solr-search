@@ -7,9 +7,11 @@
     <title>UI框架</title>
     <link rel="stylesheet" type="text/css" href="admin/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="admin/easyui/themes/icon.css">
-    <script type="text/javascript" src="admin/js/jquery/jquery-1.8.1.js"></script>
+    <script type="text/javascript" src="admin/js/jquery/jquery-1.8.1.min.js"></script>
     <script type="text/javascript" src="admin/easyui/js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="admin/js/common/tree.js"></script>
+    <script type="text/javascript" src="admin/js/jquery/jquery.json-2.2.js"></script>
+    <script type="text/javascript" src="admin/js/manager/dataCollect.js"></script>
 </head>
 <body class="easyui-layout">  
     <div region="north" title="North Title" split="true" style="height:100px;"></div>  

@@ -1,7 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="admin/css/datacollect/simpleDataCollect.css">
-<script type="text/javascript" src="admin/js/datacollect/simpleDataCollect.js"></script>
-<script type="text/javascript" src="admin/js/jquery/jquery.json-2.2.js"></script>
 <div class="ID_mainContent">
 	 <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">代理IP:</label>

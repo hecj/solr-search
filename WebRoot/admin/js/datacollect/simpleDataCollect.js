@@ -11,6 +11,8 @@ var SimpleDataCollect = {
 	 * 提交数据爬取
 	 */
 	submitDataCollect:function(){
+		var IP = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=IP]").val();
+		var PORT = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=PORT]").val();
 		var baseURL = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=baseURL]").val();
 		var pageParams = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=pageParams]").val();
 		var start = jQuery(".ID_mainContent .CLS_mainContentDivHegiht input[name=start]").val();
@@ -31,7 +33,7 @@ var SimpleDataCollect = {
 			var fieldLenth = jQuery(obj).find("input[name=fieldLenth]").val();
 			fieldList.push(new DataField(fieldSelect,pattern,oldPlace,newPlace,fieldName,fieldType,fieldLenth));
 		});
-		var objData = new DataCollectParams(baseURL,pageParams,start,end,step,baseSelect,encode,dataBaseType,tableName,fieldList);
+		var objData = new DataCollectParams(IP,PORT,baseURL,pageParams,start,end,step,baseSelect,encode,dataBaseType,tableName,fieldList);
 		var jsonData = jQuery.toJSON(objData);
 		jQuery.get("admin/data/dataCollect.htm?operator=submitDataCollect",{data:encodeURI(jsonData)}, function(data){
 			alert(data.message);
@@ -42,7 +44,9 @@ var SimpleDataCollect = {
 /*
  * 封装传送后天的JSON对象
  */
-function DataCollectParams(baseURL,pageParams,start,end,step,baseSelect,encode,dataBaseType,tableName,fieldList){
+function DataCollectParams(IP,PORT,baseURL,pageParams,start,end,step,baseSelect,encode,dataBaseType,tableName,fieldList){
+	this.IP=IP;
+	this.PORT=PORT;
 	this.baseURL=baseURL;
 	this.pageParams=pageParams;
 	this.start=start;

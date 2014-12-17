@@ -12,11 +12,13 @@ import java.util.List;
  */
 public class DataCollectParams {
 
+	private String IP;
+	private Integer PORT;
 	private String baseURL;
 	private String pageParams;
-	private int start;
-	private int end;
-	private int step;
+	private Integer start;
+	private Integer end;
+	private Integer step;
 	private String baseSelect;
 	private String encode;
 	private String dataBaseType;
@@ -27,19 +29,35 @@ public class DataCollectParams {
 
 	}
 
-	public int getEnd() {
+	public String getIP() {
+		return IP;
+	}
+
+	public void setIP(String iP) {
+		IP = iP;
+	}
+
+	public Integer getPORT() {
+		return PORT;
+	}
+
+	public void setPORT(Integer pORT) {
+		PORT = pORT;
+	}
+
+	public Integer getEnd() {
 		return end;
 	}
 
-	public void setEnd(int end) {
+	public void setEnd(Integer end) {
 		this.end = end;
 	}
 
-	public int getStep() {
+	public Integer getStep() {
 		return step;
 	}
 
-	public void setStep(int step) {
+	public void setStep(Integer step) {
 		this.step = step;
 	}
 
@@ -59,11 +77,11 @@ public class DataCollectParams {
 		this.encode = encode;
 	}
 
-	public int getStart() {
+	public Integer getStart() {
 		return start;
 	}
 
-	public void setStart(int start) {
+	public void setStart(Integer start) {
 		this.start = start;
 	}
 

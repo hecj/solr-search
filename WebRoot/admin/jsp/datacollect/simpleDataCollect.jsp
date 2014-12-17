@@ -4,6 +4,12 @@
 <script type="text/javascript" src="admin/js/jquery/jquery.json-2.2.js"></script>
 <div class="ID_mainContent">
 	 <div class="CLS_mainContentDivHegiht">
+        <label for="name" class="data_label_width">代理IP:</label>
+        <input class="easyui-validatebox" style="width: 100px" type="text" name="IP"/>
+        <label for="name" style="width: 50px">端口:</label>
+        <input class="easyui-validatebox" style="width: 50px" type="text" name="PORT"/>
+     </div>
+	 <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">base网站:</label>
         <input class="easyui-validatebox" style="width: 350px" type="text" name="baseURL" data-options="required:true" />
      	<label for="name" style="width: 50px">分页参数:</label>

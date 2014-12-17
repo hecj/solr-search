@@ -5,8 +5,8 @@ import jodd.jerry.JerryFunction;
 
 import org.junit.Test;
 
-import com.hecj.search.util.HtmlUtils;
 import com.hecj.search.util.PattenUtils;
+import com.hecj.search.util.http.HtmlUtils;
 
 public class JerryTest {
 
@@ -36,4 +36,21 @@ public class JerryTest {
 			System.gc();
 		}
 	}
+	
+	@Test
+	public void test02(){
+		
+		String url = "http://www.haha365.com/mrmy/";
+		String IP = "10.8.2.4";
+		int PORT = 80;
+		String encode = "GBK";
+//		String content = HtmlUtils.getHtmlContentByConn(url);
+//		String content = HtmlUtils.getHtmlContentByHttpClient(url);
+//		String content = HtmlUtils.getHtmlContentByHttpClientProxy(url, IP, PORT,encode);
+		String content = HtmlUtils.getHtmlContentByHttpClientProxy(url, IP, PORT,encode);
+		
+		System.out.println(content);
+	}
+	
+	
 }

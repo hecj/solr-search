@@ -47,6 +47,8 @@ public class DataCollectController extends BaseController{
 		try{
 			
 			JSONObject jsonObj = JSONObject.fromObject(data);
+			String IP = jsonObj.getString("IP");
+			int PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?0:jsonObj.getInt("PORT");
 			String baseURL = jsonObj.getString("baseURL");
 			String pageParams = jsonObj.getString("pageParams");
 			int start = StringUtil.isStrEmpty(jsonObj.getString("start"))?0:jsonObj.getInt("start");
@@ -78,6 +80,8 @@ public class DataCollectController extends BaseController{
 			 * 爬虫参数
 			 */
 			DataCollectParams mCollectParams = new DataCollectParams();
+			mCollectParams.setIP(IP);
+			mCollectParams.setPORT(PORT);
 			mCollectParams.setBaseSelect(baseSelect);
 			mCollectParams.setEncode(encode);
 			mCollectParams.setBaseURL(baseURL);

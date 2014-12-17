@@ -22,9 +22,9 @@ import com.hecj.search.admin.vo.DataCollectParams;
 import com.hecj.search.admin.vo.DataField;
 import com.hecj.search.hibernate.HibernateSessionFactory;
 import com.hecj.search.hibernate.util.UUIDUtil;
-import com.hecj.search.util.HtmlUtils;
 import com.hecj.search.util.PattenUtils;
 import com.hecj.search.util.StringUtil;
+import com.hecj.search.util.http.HtmlUtils;
 
 @Service("dataCollectService")
 public class DataCollectServiceImp extends HibernateSessionFactory implements DataCollectService {
@@ -85,9 +85,17 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 		session.beginTransaction();
 		String content = "";
 		if(!StringUtil.isStrEmpty(pDataCollectParams.getEncode())){
-			content = HtmlUtils.getHtmlContentByHttpClient(url, pDataCollectParams.getEncode());
+			if(!StringUtil.isStrEmpty(pDataCollectParams.getIP())){
+				content = HtmlUtils.getHtmlContentByHttpClientProxy(url,pDataCollectParams.getIP(), pDataCollectParams.getPORT(), pDataCollectParams.getEncode());
+			}else{
+				content = HtmlUtils.getHtmlContentByHttpClient(url, pDataCollectParams.getEncode());
+			}
 		}else{
-			content = HtmlUtils.getHtmlContentByHttpClient(url);
+			if(!StringUtil.isStrEmpty(pDataCollectParams.getIP())){
+				content = HtmlUtils.getHtmlContentByHttpClientProxy(url,pDataCollectParams.getIP(), pDataCollectParams.getPORT());
+			}else{
+				content = HtmlUtils.getHtmlContentByHttpClient(url);
+			}
 		}
 		/*
 		 * 解析

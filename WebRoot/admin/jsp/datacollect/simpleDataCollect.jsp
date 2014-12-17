@@ -3,9 +3,9 @@
 <div class="ID_mainContent">
 	 <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">代理IP:</label>
-        <input class="easyui-validatebox" style="width: 100px" type="text" name="IP"/>
+        <input class="easyui-validatebox input" style="width: 100px" type="text" name="IP"/>
         <label for="name" style="width: 50px">端口:</label>
-        <input class="easyui-validatebox" style="width: 50px" type="text" name="PORT"/>
+        <input class="easyui-validatebox" style="width: 50px;" type="text" name="PORT"/>
      </div>
 	 <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">base网站:</label>

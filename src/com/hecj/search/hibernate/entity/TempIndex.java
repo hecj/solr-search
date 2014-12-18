@@ -50,7 +50,7 @@ public class TempIndex {
 	}
 
 	@Id
-	@Column(name = "id", length = 30)
+	@Column(name = "id", length = 32)
 	public String getId() {
 		return id;
 	}

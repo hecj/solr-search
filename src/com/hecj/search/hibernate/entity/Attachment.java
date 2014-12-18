@@ -56,7 +56,7 @@ public class Attachment implements Serializable {
 	}
 
 	@Id
-	@Column(name="attachmentNo",length=30)
+	@Column(name="attachmentNo",length=32)
 	public String getAttachmentNo() {
 		return attachmentNo;
 	}

@@ -1,12 +1,13 @@
 package com.hecj.search.admin.database.factory.imp;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import com.hecj.search.admin.database.factory.DataBase;
-import com.hecj.search.admin.vo.DataField;
+import com.hecj.search.admin.entity.DataField;
 import com.hecj.search.hibernate.HibernateSessionFactory;
 
 @Repository("mySQLDataBase")
@@ -23,10 +24,9 @@ public class MySQLDataBase extends HibernateSessionFactory implements DataBase {
 		try {
 			String tableName = (String) params.get(0);
 			ctSQL.append(tableName+" (");
-			ctSQL.append("id varchar(30) ,");
-			List<DataField> fields = (List<DataField>) params.get(1);
-			for(int i=0;i<fields.size();i++){
-				DataField d = fields.get(i);
+			ctSQL.append("id varchar(32) ,");
+			Set<DataField> fields = (Set<DataField>) params.get(1);
+			for(DataField d:fields){
 				String fieldName = d.getFieldName();
 				String fieldType = d.getFieldType();
 				int fieldLenth = d.getFieldLenth();

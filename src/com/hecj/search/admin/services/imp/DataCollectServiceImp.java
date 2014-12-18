@@ -2,11 +2,8 @@ package com.hecj.search.admin.services.imp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import javax.annotation.Resource;
 
 import jodd.jerry.Jerry;
@@ -15,12 +12,13 @@ import jodd.jerry.JerryFunction;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
+import com.hecj.search.admin.dao.DataCollectParamsDAO;
 import com.hecj.search.admin.database.factory.DataBase;
 import com.hecj.search.admin.database.factory.DataBaseFactory;
+import com.hecj.search.admin.entity.DataCollectParams;
+import com.hecj.search.admin.entity.DataField;
 import com.hecj.search.admin.senum.EnumAdminUtils;
 import com.hecj.search.admin.services.DataCollectService;
-import com.hecj.search.admin.vo.DataCollectParams;
-import com.hecj.search.admin.vo.DataField;
 import com.hecj.search.hibernate.HibernateSessionFactory;
 import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.util.Log4jUtil;
@@ -35,15 +33,28 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	
 	@Resource
 	private DataBaseFactory dataBaseFactory;
+	@Resource
+	private DataCollectParamsDAO dataCollectParamsDAO;
 	
 	public void setDataBaseFactory(DataBaseFactory dataBaseFactory) {
 		this.dataBaseFactory = dataBaseFactory;
 	}
+	
+	public void setDataCollectParamsDAO(DataCollectParamsDAO dataCollectParamsDAO) {
+		this.dataCollectParamsDAO = dataCollectParamsDAO;
+	}
+
 	@Override
 	public List<Object> dataCollectService(DataCollectParams pDataCollectParams) {
 		Jerry doc = null;
 		Session session = null ;
 		try {
+			
+			/*
+			 * 保存配置记录
+			 */
+			dataCollectParamsDAO.save(pDataCollectParams);
+			
 			DataBase mDataBase = dataBaseFactory.getDataBase(pDataCollectParams.getDataBaseType());
 			/*
 			 * 建表

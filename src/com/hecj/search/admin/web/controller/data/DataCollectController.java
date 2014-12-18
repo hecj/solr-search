@@ -1,7 +1,7 @@
 package com.hecj.search.admin.web.controller.data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -12,9 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hecj.search.admin.entity.DataCollectParams;
+import com.hecj.search.admin.entity.DataField;
 import com.hecj.search.admin.services.DataCollectService;
-import com.hecj.search.admin.vo.DataCollectParams;
-import com.hecj.search.admin.vo.DataField;
+import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.util.CodeConvertUtil;
 import com.hecj.search.util.Log4jUtil;
 import com.hecj.search.util.StringUtil;
@@ -59,29 +60,13 @@ public class DataCollectController extends BaseController{
 			String encode = jsonObj.getString("encode");
 			String tableName = jsonObj.getString("tableName");
 			JSONArray jsonArr = jsonObj.getJSONArray("fieldList");
-			/*
-			 * 解析字段
-			 */
-			List<DataField> dataFields = new ArrayList<DataField>();
-			for(int i=0;i<jsonArr.size();i++){
-				JSONObject obj = jsonArr.getJSONObject(i);
-				DataField mDataField = new DataField();
-				mDataField.setFieldSelect(obj.getString("fieldSelect"));
-				mDataField.setSelectMethod(obj.getString("selectMethod"));
-				mDataField.setTargetAttr(obj.getString("targetAttr"));
-				mDataField.setPattern(obj.getString("pattern"));
-				mDataField.setOldPlace(obj.getString("oldPlace"));
-				mDataField.setNewPlace(obj.getString("newPlace"));
-				mDataField.setFieldName(obj.getString("fieldName"));
-				mDataField.setFieldType(obj.getString("fieldType"));
-				mDataField.setFieldLenth(obj.getInt("fieldLenth"));
-				dataFields.add(mDataField);
-			}
 			
+			Set<DataField> dataFields = new HashSet<DataField>();
 			/*
 			 * 爬虫参数
 			 */
 			DataCollectParams mCollectParams = new DataCollectParams();
+			mCollectParams.setId(UUIDUtil.autoUUID());
 			mCollectParams.setIP(IP);
 			mCollectParams.setPORT(PORT);
 			mCollectParams.setBaseSelect(baseSelect);
@@ -94,6 +79,25 @@ public class DataCollectController extends BaseController{
 			mCollectParams.setEnd(end);
 			mCollectParams.setStart(start);
 			mCollectParams.setStep(step);
+			/*
+			 * 解析字段
+			 */
+			for(int i=0;i<jsonArr.size();i++){
+				JSONObject obj = jsonArr.getJSONObject(i);
+				DataField mDataField = new DataField();
+				mDataField.setId(UUIDUtil.autoUUID());
+				mDataField.setFieldSelect(obj.getString("fieldSelect"));
+				mDataField.setSelectMethod(obj.getString("selectMethod"));
+				mDataField.setTargetAttr(obj.getString("targetAttr"));
+				mDataField.setPattern(obj.getString("pattern"));
+				mDataField.setOldPlace(obj.getString("oldPlace"));
+				mDataField.setNewPlace(obj.getString("newPlace"));
+				mDataField.setFieldName(obj.getString("fieldName"));
+				mDataField.setFieldType(obj.getString("fieldType"));
+				mDataField.setFieldLenth(obj.getInt("fieldLenth"));
+				mDataField.setDataCollectParams(mCollectParams);
+				dataFields.add(mDataField);
+			}
 			
 			dataCollectService.dataCollectService(mCollectParams);
 		}catch(Exception ex){

@@ -61,7 +61,7 @@ public class Article implements Serializable {
 	}
 
 	@Id
-	@Column(name="articleNo",length=30)
+	@Column(name="articleNo",length=32)
 	public String getArticleNo() {
 		return articleNo;
 	}

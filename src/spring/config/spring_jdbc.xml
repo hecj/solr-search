@@ -38,6 +38,7 @@
             <property name="packagesToScan">
             	<list>
             		<value>com.hecj.search.hibernate.entity</value>
+            		<value>com.hecj.search.admin.entity</value>
             	</list>
             </property>
 			<property name="hibernateProperties">
@@ -48,7 +49,7 @@
                     <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>				
 					<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
 					<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</prop>
-					<prop key="hibernate.hbm2ddl.auto">update</prop>
+					<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 				</props>
 			</property>
     </bean>

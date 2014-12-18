@@ -8,7 +8,10 @@
 	                <span>数据搜集</span>  
 	                <ul>  
 	                    <li>  
-	                        <label style="width: 160px" onclick="openTab('admin/jsp/datacollect/simpleDataCollect.jsp','简单数据搜集')">简单数据搜集</label>
+	                        <label style="width: 160px" onclick="openTab('admin/jsp/datacollect/simpleDataCollect.jsp','数据搜集配置')">数据搜集配置</label>
+	                    </li>  
+	                    <li>  
+	                        <label style="width: 160px" onclick="openTab('admin/jsp/datacollect/simpleDataCollect.jsp','数据搜集查询')">数据搜集查询</label>
 	                    </li>  
 	                </ul>  
 	            </li>  

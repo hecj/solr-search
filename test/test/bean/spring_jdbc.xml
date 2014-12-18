@@ -38,6 +38,7 @@
             <property name="packagesToScan">
             	<list>
             		<value>com.hecj.search.hibernate.entity</value>
+            		<value>com.hecj.search.admin.entity</value>
             	</list>
             </property>
 			<property name="hibernateProperties">

@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Resource;
 
+import javax.annotation.Resource;
 import jodd.jerry.Jerry;
 import jodd.jerry.JerryFunction;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hecj.search.admin.dao.DataCollectParamsDAO;
 import com.hecj.search.admin.database.factory.DataBase;
@@ -22,7 +23,9 @@ import com.hecj.search.admin.services.DataCollectService;
 import com.hecj.search.hibernate.HibernateSessionFactory;
 import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.util.Log4jUtil;
+import com.hecj.search.util.Pagination;
 import com.hecj.search.util.PattenUtils;
+import com.hecj.search.util.ResultData;
 import com.hecj.search.util.StringUtil;
 import com.hecj.search.util.http.HtmlUtils;
 
@@ -180,5 +183,29 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 		session.flush();
 		session.clear();
 		session.getTransaction().commit();
+	}
+	
+	@Transactional
+	@Override
+	public ResultData searchDataCollectByPagination(Map<String, Object> pParams) {
+		ResultData result = new ResultData();
+		try{
+			Pagination pagination = (Pagination) pParams.get("pagination");
+			String mQueryHQL = "select d from DataCollectParams d";
+			String mContHQL = "select count(d) from DataCollectParams d";
+			List<DataCollectParams> DataCollectParamsList = dataCollectParamsDAO.queryListByParamsAndPagination(mQueryHQL, (int)pagination.startCursor(), pagination.getPageSize(),new Object[]{});
+			long count = Long.parseLong(dataCollectParamsDAO.queryUniqueResultByHQL(mContHQL).toString());
+			pagination.setCountSize(count);
+			
+			result.setData(DataCollectParamsList);
+			result.setPagination(pagination);
+			result.setSuccess(true);
+		}catch(Exception ex){
+			
+			result.setSuccess(false);
+			Log4jUtil.log(ex.getMessage());
+			ex.printStackTrace();
+		}
+		return result;
 	}
 }

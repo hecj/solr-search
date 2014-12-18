@@ -21,26 +21,26 @@
 	
 	
 	<!-- 第一种注解配置方式 -->
-	<!-- 启动事务注解
+	<!-- 启动事务注解  -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
-	 -->
+	
 	
 	
 	<!-- 第一种注解XML配置方式 -->
-	<!--  配置事务传播特性  -->
+	<!--  配置事务传播特性 
 	<tx:advice id="articleServiceAdvice" transaction-manager="transactionManager">
    		<tx:attributes>
       		<tx:method name="search*" propagation="REQUIRED"/>
       		<tx:method name="add*" propagation="REQUIRED"/>
       		<tx:method name="delete*" propagation="REQUIRED"/>
     	</tx:attributes>
-	</tx:advice>
-	<!--  配置参与事务的类  -->
+	</tx:advice> -->
+	<!--  配置参与事务的类  
 	<aop:config>
 	<aop:pointcut id="allArticleServiceMethod" expression="execution(* com.hecj.search.services.ArticleService.*(..))"/>
 		<aop:advisor pointcut-ref="allArticleServiceMethod" advice-ref="articleServiceAdvice" />
 	</aop:config>
-	
+	-->
 	 
 	 
  </beans>

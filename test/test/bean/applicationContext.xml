@@ -21,7 +21,8 @@
     <import resource="classpath:test/bean/spring_tx.xml"/>
     <import resource="classpath:test/bean/spring_beans.xml"/>
     <import resource="classpath:test/bean/spring_task.xml"/>
-    <import resource="classpath:test/bean/spring_tx.xml"/>
+    <import resource="classpath:test/bean/admin_spring_beans.xml"/>
+    
     
  </beans>
  

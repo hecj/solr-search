@@ -47,13 +47,7 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	@Override
 	public List<Object> dataCollectService(DataCollectParams pDataCollectParams) {
 		Jerry doc = null;
-		Session session = null ;
 		try {
-			
-			/*
-			 * 保存配置记录
-			 */
-			dataCollectParamsDAO.save(pDataCollectParams);
 			
 			DataBase mDataBase = dataBaseFactory.getDataBase(pDataCollectParams.getDataBaseType());
 			/*
@@ -69,23 +63,26 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 			 * 分批量提交数据库
 			 */
 			String baseURL = pDataCollectParams.getBaseURL();
-			session = sessionFactory.openSession();
-			Integer commitCount = 0;
+			
 			if(!StringUtil.isStrEmpty(pDataCollectParams.getPageParams())){
 				for(int i=pDataCollectParams.getStart();i<=pDataCollectParams.getEnd();i+=pDataCollectParams.getStep()){
 					String url = baseURL.replace(pDataCollectParams.getPageParams(), String.valueOf(i));
-					queryFieldData(pDataCollectParams, url, doc, commitCount, session);
+					queryFieldData(pDataCollectParams, url, doc);
 				}
 			}else{
-				queryFieldData(pDataCollectParams, baseURL, doc, commitCount, session);
+				queryFieldData(pDataCollectParams, baseURL, doc);
 			}
-		} catch (Exception e) {
+			
+			/*
+			 * 保存配置记录
+			 */
+			dataCollectParamsDAO.save(pDataCollectParams);
+			
+		} catch (RuntimeException e) {
 			e.printStackTrace();
+			throw e;
 		} finally {
 			doc = null;
-			if(session != null && session.isOpen()){
-				session.close();
-			}
 			System.gc();
 		}
 		return null;
@@ -94,7 +91,8 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	/*
 	 * 匹配数据并插入
 	 */
-	 private void queryFieldData(final DataCollectParams pDataCollectParams,String url,Jerry doc,Integer commitCount,final Session session){
+	 private void queryFieldData(final DataCollectParams pDataCollectParams,String url,Jerry doc){
+		final Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		String content = "";
 		if(!StringUtil.isStrEmpty(pDataCollectParams.getEncode())){

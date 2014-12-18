@@ -4,7 +4,7 @@
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>UI框架</title>
+    <title>Seacher</title>
     <link rel="stylesheet" type="text/css" href="admin/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="admin/easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="admin/css/common/common.css">
@@ -19,19 +19,30 @@
     <div region="south" split="false" style="height:30px;">
     	<jsp:include page="./jsp/common/footer.jsp"/>
     </div>  
-    <div id="west" region="west" split="true" title="West" style="width:160px;height: 100%"></div>  
-    <div id="center" region="center" class="easyui-tabs" style="padding:0px;background:#eee;width: 100%;height: 100%"></div>  
+    <div id="west" region="west" split="true" title="系统工具" style="width:160px;"></div>  
+    <div id="center" region="center" class="easyui-tabs" style="padding:0px;background:#eee;height: 100%" fit="true"></div>  
 </body> 
 </html>
 <script type="text/javascript">
 	function openTab(plugin, title) {
+		
 		if ($('#center').tabs('exists', title)) {
 			$('#center').tabs('select', title);
+			/*重新打开tab*/
+			var tab = $('#center').tabs('getSelected');
+			$('#center').tabs('update', {
+				tab: tab,
+				options: {
+					title: title,
+					href: plugin
+				}
+			});
 		} else {
 			$('#center').tabs('add', {
 				title : title,
 				href : plugin,
-				closable : true
+				closable : true,
+				loadingMessage:'页面加载中'
 			});
 		}
 	}

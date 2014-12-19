@@ -47,3 +47,4 @@
 		}
 	}
 </script>
+<%@include file="debug.jsp"%>

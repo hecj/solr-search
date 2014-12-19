@@ -68,7 +68,7 @@ var DataCollectSearch = {
 				title : '端口',
 				align : 'center',
 				fitColumns : true
-			} ] ],
+			}] ],
 			pagination : true,
 			rownumbers : true,
 			pageList : [ 10, 20, 30, 40 ],

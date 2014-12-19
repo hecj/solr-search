@@ -1,0 +1,1 @@
+<script type="text/javascript" src="admin/js/datacollect/dataCollectSearch.js"></script>

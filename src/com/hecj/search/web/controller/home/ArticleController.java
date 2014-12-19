@@ -35,7 +35,7 @@ public class ArticleController extends BaseController {
 
 	@RequestMapping(params = "operator=toAddArticle")
 	public String toAddArticle() {
-		return "jsp/article/article_add";
+		return "WEB-INF/jsp/article/article_add";
 	}
 
 	/**

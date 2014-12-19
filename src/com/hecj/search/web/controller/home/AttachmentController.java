@@ -25,7 +25,7 @@ public class AttachmentController extends BaseController{
 	@RequestMapping(params="operator=add")
 	public String add(){
 		
-		return "/WEB-INF/jsp/article/article_add.jsp";
+		return "WEB-INF/jsp/article/article_add.jsp";
 	}
 	
 	@ResponseBody

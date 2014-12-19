@@ -4,20 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
-import net.sf.json.util.JSONUtils;
-
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.noggit.JSONWriter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.hecj.search.admin.entity.DataCollectParams;
+import com.hecj.search.admin.entity.DataField;
 import com.hecj.search.admin.services.DataCollectService;
 import com.hecj.search.util.EasyUIData;
 import com.hecj.search.util.ObjectToJson;
@@ -52,18 +45,18 @@ public class TestDataCollectServiceService {
 		System.out.println(result.getPagination().getCountSize());
 		List<DataCollectParams> list = (List<DataCollectParams>) result.getData();
 		for(DataCollectParams d:list){
-			System.out.println(d.getBaseURL());
+			System.out.println(d.getDataFields().size());
 		}
 		
 //		System.out.println(ObjectToJson.object2json(list));
 		
-		EasyUIData data = new EasyUIData();
-		data.setRows(list);
-		data.setTotal(list.size()+0l);
-		
-		System.out.println(data.toJSON());
+//		EasyUIData data = new EasyUIData();
+//		data.setRows(list);
+//		data.setTotal(list.size()+0l);
+//		
+//		System.out.println(data.toJSON());
 		System.out.println(new EasyUIData().toJSON());
-		
+//		
 //		System.out.println(ObjectToJson.object2json(data));
 //		String json = JSONObject.fromObject(list).toString();
 //		JSONArray json1 =	JSONArray.fromObject(list);
@@ -73,5 +66,14 @@ public class TestDataCollectServiceService {
 //		String json = JSONSerializer.toJSON(list).toString();
 //		System.out.println("json:"+json);
 	}
-	
+	@Test
+	public void test02(){
+		
+		DataCollectParams data = dataCollectService.searchDataCollectParams("14189167070324304295");
+		System.out.println(data.getDataFields().size());
+		for(DataField d:data.getDataFields()){
+			System.out.println(d.getId());
+		}
+		System.out.println(data.getId());
+	}
 }

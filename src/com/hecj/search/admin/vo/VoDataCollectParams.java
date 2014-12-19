@@ -1,17 +1,8 @@
-package com.hecj.search.admin.entity;
+package com.hecj.search.admin.vo;
 
 import java.io.Serializable;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 /**
- * @类功能说明：网络爬虫参数
+ * @类功能说明：VO类
  * @类修改者：
  * @修改日期：
  * @修改说明：
@@ -19,14 +10,9 @@ import javax.persistence.Table;
  * @创建时间：2014-12-15 下午11:17:38
  * @版本：V1.0
  */
-@Entity
-@Table(name="tb_dataCollectParams")
-public class DataCollectParams implements Serializable{
-	
-	
+public class VoDataCollectParams implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
 	private String id;
 	private String IP;
 	private Integer PORT;
@@ -39,14 +25,11 @@ public class DataCollectParams implements Serializable{
 	private String encode;
 	private String dataBaseType;
 	private String tableName;
-	private Set<DataField> dataFields;
 
-	public DataCollectParams() {
+	public VoDataCollectParams() {
 
 	}
 	
-	@Id
-	@Column(name="id",length=32,nullable=false)
 	public String getId() {
 		return id;
 	}
@@ -54,7 +37,6 @@ public class DataCollectParams implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	@Column(name="ip",length=20)
 	public String getIP() {
 		return IP;
 	}
@@ -62,7 +44,6 @@ public class DataCollectParams implements Serializable{
 	public void setIP(String iP) {
 		IP = iP;
 	}
-	@Column(name="port",length=6)
 	public Integer getPORT() {
 		return PORT;
 	}
@@ -70,7 +51,6 @@ public class DataCollectParams implements Serializable{
 	public void setPORT(Integer pORT) {
 		PORT = pORT;
 	}
-	@Column(name="end",length=10)
 	public Integer getEnd() {
 		return end;
 	}
@@ -78,7 +58,6 @@ public class DataCollectParams implements Serializable{
 	public void setEnd(Integer end) {
 		this.end = end;
 	}
-	@Column(name="step",length=5)
 	public Integer getStep() {
 		return step;
 	}
@@ -86,7 +65,6 @@ public class DataCollectParams implements Serializable{
 	public void setStep(Integer step) {
 		this.step = step;
 	}
-	@Column(name="pageParams",length=20)
 	public String getPageParams() {
 		return pageParams;
 	}
@@ -94,7 +72,6 @@ public class DataCollectParams implements Serializable{
 	public void setPageParams(String pageParams) {
 		this.pageParams = pageParams;
 	}
-	@Column(name="encode",length=10)
 	public String getEncode() {
 		return encode;
 	}
@@ -102,7 +79,6 @@ public class DataCollectParams implements Serializable{
 	public void setEncode(String encode) {
 		this.encode = encode;
 	}
-	@Column(name="start",length=10)
 	public Integer getStart() {
 		return start;
 	}
@@ -110,7 +86,6 @@ public class DataCollectParams implements Serializable{
 	public void setStart(Integer start) {
 		this.start = start;
 	}
-	@Column(name="baseURL",length=255,nullable=false)
 	public String getBaseURL() {
 		return baseURL;
 	}
@@ -118,7 +93,6 @@ public class DataCollectParams implements Serializable{
 	public void setBaseURL(String baseURL) {
 		this.baseURL = baseURL;
 	}
-	@Column(name="baseSelect",length=255,nullable=false)
 	public String getBaseSelect() {
 		return baseSelect;
 	}
@@ -126,7 +100,6 @@ public class DataCollectParams implements Serializable{
 	public void setBaseSelect(String baseSelect) {
 		this.baseSelect = baseSelect;
 	}
-	@Column(name="dataBaseType",length=10,nullable=false)
 	public String getDataBaseType() {
 		return dataBaseType;
 	}
@@ -135,21 +108,12 @@ public class DataCollectParams implements Serializable{
 		this.dataBaseType = dataBaseType;
 	}
 	
-	@Column(name="tableName",length=30,nullable=false)
 	public String getTableName() {
 		return tableName;
 	}
 
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
-	}
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "dataCollectParams")
-	public Set<DataField> getDataFields() {
-		return dataFields;
-	}
-	
-	public void setDataFields(Set<DataField> dataFields) {
-		this.dataFields = dataFields;
 	}
 
 }

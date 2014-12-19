@@ -8,7 +8,7 @@ var DataCollectSearch = {
 	 * 初始化表格
 	 */
 	initGrid : function() {
-		var datagrid = jQuery('#ID_dataCollectSearch').datagrid( {
+		var datagrid = jQuery('#Id_dataCollectSearch').datagrid( {
 			url : 'admin/data/dataCollect.htm?operator=seacherDataCollect',
 			columns : [ [ {
 				field : 'id',
@@ -75,7 +75,24 @@ var DataCollectSearch = {
 			singleSelect : true,
 			showHeader : true,
 			showFooter : true,
-			loadMsg : MessageUtil.loadDataGridMsg
+			loadMsg : MessageUtil.loadDataGridMsg,
+			toolbar: [{
+				iconCls: 'icon-edit',
+				text:'查看',
+				handler: function(){alert('edit')}
+			},'-',{
+				iconCls: 'icon-help',
+				text:'帮助',
+				handler: function(){
+					alert('我要获得帮助');
+				}
+			},'-',{
+				iconCls: 'icon-help',
+				text:'帮助',
+				handler: function(){
+					alert('我要获得帮助');
+				}
+			}]
 		});
 
 		/*
@@ -83,18 +100,31 @@ var DataCollectSearch = {
 		 */
 		datagrid.datagrid( {
 			// 双击行事件
-				onDblClickRow : function(index, row) {
-					alert(row.id);
-				}
-			});
+			onDblClickRow : function(index, row) {
+				jQuery('#Id_dataCollectMessage').dialog({
+					title: '详细信息',
+					width: 500,
+					height: 400,
+					cache: false,
+					modal: true,
+					href: 'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id,
+					buttons:[{
+						text:'关闭',
+						handler:function(){
+							jQuery('#Id_dataCollectMessage').dialog('close');
+						}
+					}]
+				});
+			}
+		});
 
 		/*
 		 * 页码处理
 		 */
 		datagrid.datagrid('getPager').pagination( {
-			beforePageText : '第',
-			afterPageText : '页    共 {pages} 页',
-			displayMsg : '当前 {from} - {to} 条&nbsp;&nbsp;共 {total} 条'
+			beforePageText : MessageUtil.beforePageText,
+			afterPageText : MessageUtil.afterPageText,
+			displayMsg : MessageUtil.displayMsg
 		});
 	}
 }

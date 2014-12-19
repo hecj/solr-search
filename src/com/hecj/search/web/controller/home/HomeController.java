@@ -33,7 +33,7 @@ public class HomeController extends BaseController {
 	 * 初始化首页
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(params="operator=init")
+	@RequestMapping(params="m=init")
 	public String ininIndexPage(Long n,String q,HttpServletRequest request) {
 
 		try {
@@ -57,7 +57,7 @@ public class HomeController extends BaseController {
 			}
 			Pagination mPagination = new Pagination();
 			mPagination.setCurrPage(currPageNum);
-			mPagination.setPathURL(getBasePath()+"indexPage/indexPage.htm?m=init&q="+CodeConvertUtil.encode(showQ)+"&n=");
+			mPagination.setPathURL(getBasePath()+"home/home.htm?m=init&q="+CodeConvertUtil.encode(showQ)+"&n=");
 			
 			Map<String, Object> mArticleMap = new HashMap<String, Object>();
 			mArticleMap.put("pagination", mPagination);
@@ -78,6 +78,6 @@ public class HomeController extends BaseController {
 		} finally {
 
 		}
-		return "home";
+		return "WEB-INF/home";
 	}
 }

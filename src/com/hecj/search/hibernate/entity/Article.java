@@ -110,7 +110,7 @@ public class Article implements Serializable {
 		this.updateDate = updateDate;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "article")
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "article")
 	public Set<Attachment> getAttachments() {
 		return attachments;
 	}

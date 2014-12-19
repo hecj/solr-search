@@ -11,6 +11,6 @@ public class DictumController extends BaseController{
 	@RequestMapping(params="operator=init")
 	public String init(){
 		
-		return "jsp/home/dictum";
+		return "WEB-INF/jsp/home/dictum";
 	}
 }

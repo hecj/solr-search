@@ -1,8 +1,10 @@
 package test.bean.search.services;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,6 +15,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.hecj.search.hibernate.entity.Article;
+import com.hecj.search.hibernate.entity.Attachment;
+import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.services.ArticleService;
 import com.hecj.search.util.Pagination;
 
@@ -50,8 +54,9 @@ public class TestBeanArticleService {
 	
 	@Test
 	public void testSearchArticleById(){
-		Article article = articleService.searchArticleById("14177621650426547330");
-//		System.out.println(article.getAttachments());
+		Article article = articleService.searchArticleById("14190217019438125610");
+		System.out.println(article.getArticleNo());
+		System.out.println(article.getAttachments().size());
 	}
 	
 	@Test
@@ -82,5 +87,30 @@ public class TestBeanArticleService {
 		System.out.println(articleService);
 		System.out.println("总条数："+rPagination.getCountSize());
 		
+	}
+	
+	@Test
+	public void test01(){
+		
+		Article article = new Article();
+		article.setTitle("测试");
+		article.setArticleNo(UUIDUtil.autoUUID());
+		
+		Set<Attachment> sets = new HashSet<Attachment>();
+		Attachment attachment = new Attachment();
+		attachment.setAttachmentNo(UUIDUtil.autoUUID());
+		attachment.setTitle("测试 -----");
+		attachment.setArticle(article);
+		sets.add(attachment);
+		
+		Attachment attachment2 = new Attachment();
+		attachment2.setAttachmentNo(UUIDUtil.autoUUID());
+		attachment2.setTitle("测试 ");
+		attachment2.setArticle(article);
+		sets.add(attachment2);
+		
+		article.setAttachments(sets);
+		
+		articleService.addArticle(article);
 	}
 }

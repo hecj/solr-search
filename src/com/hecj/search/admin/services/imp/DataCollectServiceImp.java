@@ -208,4 +208,11 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 		}
 		return result;
 	}
+	
+	@Transactional
+	@Override
+	public DataCollectParams searchDataCollectParams(String id) {
+		
+		return dataCollectParamsDAO.findById(id);
+	}
 }

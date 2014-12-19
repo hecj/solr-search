@@ -1,11 +1,14 @@
 package com.hecj.search.admin.web.controller.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hecj.search.admin.entity.DataCollectParams;
 import com.hecj.search.admin.entity.DataField;
 import com.hecj.search.admin.services.DataCollectService;
+import com.hecj.search.admin.vo.VoDataCollectParams;
 import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.util.CodeConvertUtil;
 import com.hecj.search.util.EasyUIData;
@@ -132,12 +136,44 @@ public class DataCollectController extends BaseController{
 			
 			ResultData result = dataCollectService.searchDataCollectByPagination(mMap);
 			if(result.isSuccess()){
-				return new EasyUIData(result.getData(),result.getPagination().getCountSize()).toJSON();
+				
+				List<VoDataCollectParams> datas = new ArrayList<VoDataCollectParams>();
+				for(Object o : result.getData()){
+					DataCollectParams d = (DataCollectParams)o;
+					VoDataCollectParams vo = new VoDataCollectParams();
+					vo.setId(d.getId());
+					vo.setBaseSelect(d.getBaseSelect());
+					vo.setBaseURL(d.getBaseURL());
+					vo.setDataBaseType(d.getDataBaseType());
+					vo.setEncode(d.getEncode());
+					vo.setEnd(d.getEnd());
+					vo.setIP(d.getIP());
+					vo.setPageParams(d.getPageParams());
+					vo.setPORT(d.getPORT());
+					vo.setStart(d.getStart());
+					vo.setStep(d.getStep());
+					vo.setTableName(d.getTableName());
+					datas.add(vo);
+				}
+				return new EasyUIData(datas,result.getPagination().getCountSize()).toJSON();
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
 		return new EasyUIData().toJSON();
 	}
+	@RequestMapping(params="operator=toDataCollectMessage")
+	public String toDataCollectMessage(String id,HttpServletRequest request){
+		try{
+			if(!StringUtil.isStrEmpty(id)){
+				DataCollectParams dataCollectParams = dataCollectService.searchDataCollectParams(id);
+				request.setAttribute("dataCollectParams", dataCollectParams);
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return "admin/jsp/datacollect/dataCollectMessage";
+	}
+	
 	
 }

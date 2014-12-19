@@ -14,9 +14,9 @@
 			onClick : function(node) {
 				if(!AppUtil.isObjEmpty(node.state)){
 					if(node.state == "open"){
-						$(this).tree('collapse',node.target); 
+						jQuery(this).tree('collapse',node.target); 
 					}else{
-						$(this).tree('expand',node.target);  
+						jQuery(this).tree('expand',node.target);  
 					}
 				}
 				var url = node.attributes.url;
@@ -34,11 +34,11 @@
  */
 var SystemApp = {
 	openTab : function(url, title) {
-		if ($('#center').tabs('exists', title)) {
-			$('#center').tabs('select', title);
+		if (jQuery('#center').tabs('exists', title)) {
+			jQuery('#center').tabs('select', title);
 			/* 重新打开tab */
-			var tab = $('#center').tabs('getSelected');
-			$('#center').tabs('update', {
+			var tab = jQuery('#center').tabs('getSelected');
+			jQuery('#center').tabs('update', {
 				tab : tab,
 				options : {
 					title : title,
@@ -46,7 +46,7 @@ var SystemApp = {
 				}
 			});
 		} else {
-			$('#center').tabs('add', {
+			jQuery('#center').tabs('add', {
 				title : title,
 				href : url,
 				closable : true,

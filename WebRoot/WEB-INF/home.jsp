@@ -27,7 +27,7 @@
 							<a href="<%=basePath%>home/article.htm?operator=toAddArticle">添加</a>
 						</td>
 						<td>
-							<form action="<%=basePath%>home/home.htm?operator=init"
+							<form action="<%=basePath%>home/home.htm?m=init"
 								method="post" onSubmit="return check_qForm()" id="q_form">
 								<input type="text" name="q" value="${showQ }" />
 								<input type="submit" value="查询" />

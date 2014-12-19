@@ -29,5 +29,16 @@ public interface DataCollectService {
 	 */
 	public ResultData searchDataCollectByPagination(Map<String,Object> pParams);
 	
+	/**
+	 * @函数功能说明 根据Id查询
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-20
+	 * @修改内容
+	 * @参数： @param id
+	 * @参数： @return    
+	 * @return DataCollectParams   
+	 * throws
+	 */
+	public DataCollectParams searchDataCollectParams(String id);
 }
 

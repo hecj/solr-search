@@ -10,9 +10,8 @@
     <link rel="stylesheet" type="text/css" href="admin/css/common/common.css">
     <script type="text/javascript" src="admin/js/jquery/jquery-1.8.1.min.js"></script>
     <script type="text/javascript" src="admin/easyui/js/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="admin/js/common/initPanel.js"></script>
     <script type="text/javascript" src="admin/js/jquery/jquery.json-2.2.js"></script>
-    <script type="text/javascript" src="admin/js/manager/dataCollect.js"></script>
+    <script type="text/javascript" src="admin/js/common/initPanel.js"></script>
     <script type="text/javascript" src="admin/js/common/MessageUtil.js"></script>
 </head>
 <body class="easyui-layout">  

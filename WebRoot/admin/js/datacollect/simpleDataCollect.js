@@ -1,4 +1,8 @@
 
+jQuery(document).ready(function(){
+	
+});
+
 /**
  *admin/jsp/datacollect/simpleDataCollect.jsp
  **/
@@ -86,9 +90,4 @@ function DataField(fieldSelect,selectMethod,targetAttr,pattern,oldPlace,newPlace
 	this.fieldType = fieldType;
 	this.fieldLenth = fieldLenth;
 }
-
-
-
-
-
 

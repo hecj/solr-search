@@ -1,9 +1,9 @@
-.folderClosed{
+.tree-folder{
 	background:url('customIcon/folderClosed.gif') no-repeat center center;
 }
-.folderOpen{
+.tree-folder-open{
 	background:url('customIcon/folderOpen.gif') no-repeat center center;
 }
-.leaf{
+.tree-file{
 	background:url('customIcon/leaf.gif') no-repeat center center;
 }

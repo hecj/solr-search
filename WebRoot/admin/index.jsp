@@ -12,8 +12,9 @@
     <script type="text/javascript" src="admin/js/jquery/jquery-1.8.1.min.js"></script>
     <script type="text/javascript" src="admin/easyui/js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="admin/js/jquery/jquery.json-2.2.js"></script>
-    <script type="text/javascript" src="admin/js/common/initSystem.js"></script>
+    <script type="text/javascript" src="admin/js/common/InitSystem.js"></script>
     <script type="text/javascript" src="admin/js/common/MessageUtil.js"></script>
+    <script type="text/javascript" src="admin/js/common/AppUtil.js"></script>
 </head>
 <body class="easyui-layout">  
     <div region="north" split="false" style="height:100px;"></div>  

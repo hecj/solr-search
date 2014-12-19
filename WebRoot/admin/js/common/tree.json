@@ -1,18 +1,14 @@
 [ {
 	"id" : 1,
 	"text" : "数据搜索",
-	"iconCls" : "folderClosed",
 	"state":"closed",	
 	"children" : [ {
 		"text" : "数据搜索配置",
-		"iconCls" : "leaf",
 		"attributes":{
 			"url" : "admin/jsp/datacollect/simpleDataCollect.jsp"
 		}
 	}, {
 		"text" : "数据搜索查询",
-		"iconCls" : "leaf",
-		"checked" : true,
 		"attributes":{
 			"url" : "admin/jsp/datacollect/dataCollectSearch.jsp"
 		}

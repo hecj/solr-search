@@ -12,9 +12,16 @@
 		jQuery('#west').tree( {
 			url : 'admin/js/common/tree.json',
 			onClick : function(node) {
+				if(!AppUtil.isObjEmpty(node.state)){
+					if(node.state == "open"){
+						$(this).tree('collapse',node.target); 
+					}else{
+						$(this).tree('expand',node.target);  
+					}
+				}
 				var url = node.attributes.url;
 				var title = node.text;
-				if (url != undefined && url != "undefined") {
+				if (!AppUtil.isObjEmpty(url)) {
 					SystemApp.openTab(url, title);
 				}
 			}

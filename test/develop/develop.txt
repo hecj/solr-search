@@ -7,6 +7,9 @@ admin:网络爬虫设计
 	
 	http://www.haha365.com/mrmy/index_2.htm
 	div#main div.left ul.text_doublelist1 a.catname
-	
+
+Jquery easy ui datagird分页json数据格式：
+rows: [,…]
+total: 28
 	
 	

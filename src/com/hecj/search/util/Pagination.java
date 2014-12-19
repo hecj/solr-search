@@ -34,6 +34,9 @@ public class Pagination {
 	public Pagination() {
 		super();
 	}
+	public Pagination(int pageSize) {
+		this.pageSize = pageSize;
+	}
 
 	public long getCurrPage() {
 		return currPage;

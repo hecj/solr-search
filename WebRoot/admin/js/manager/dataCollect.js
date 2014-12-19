@@ -87,8 +87,8 @@ function DataField(fieldSelect,selectMethod,targetAttr,pattern,oldPlace,newPlace
 	this.fieldLenth = fieldLenth;
 }
 
-(function(){
-	jQuery(document).ready(function(){
-		
-	});
-})();
+
+
+
+
+

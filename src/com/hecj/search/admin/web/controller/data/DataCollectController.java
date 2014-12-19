@@ -1,6 +1,8 @@
 package com.hecj.search.admin.web.controller.data;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -17,7 +19,10 @@ import com.hecj.search.admin.entity.DataField;
 import com.hecj.search.admin.services.DataCollectService;
 import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.util.CodeConvertUtil;
+import com.hecj.search.util.EasyUIData;
 import com.hecj.search.util.Log4jUtil;
+import com.hecj.search.util.Pagination;
+import com.hecj.search.util.ResultData;
 import com.hecj.search.util.StringUtil;
 import com.hecj.search.web.controller.base.BaseController;
 /**
@@ -110,4 +115,29 @@ public class DataCollectController extends BaseController{
 		reJson.put("message", "success");
 		return reJson.toString();
 	}	
+	
+	@ResponseBody
+	@RequestMapping(params="operator=seacherDataCollect")
+	public String searchDataCollect(Integer page,Integer rows){
+		try{
+			Pagination mPagination = new Pagination(10);
+			if(!StringUtil.isObjectEmpty(page)){
+				mPagination.setCurrPage(page);
+			}
+			if(!StringUtil.isObjectEmpty(page)){
+				mPagination.setPageSize(rows);
+			}
+			Map<String,Object> mMap = new HashMap<String,Object>();
+			mMap.put("pagination", mPagination);
+			
+			ResultData result = dataCollectService.searchDataCollectByPagination(mMap);
+			if(result.isSuccess()){
+				return new EasyUIData(result.getData(),result.getPagination().getCountSize()).toJSON();
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return new EasyUIData().toJSON();
+	}
+	
 }

@@ -27,6 +27,13 @@ jQuery(document).ready(function(){
 	    loadMsg:MessageUtil.loadDataGridMsg
 	});
 
+	var pager = datagrid.datagrid('getPager');
+	pager.pagination({
+		beforePageText : '第',
+		afterPageText : '页    共 {pages} 页',
+		displayMsg : '当前 {from} - {to} 条&nbsp;&nbsp;共 {total} 条'
+	});
+
 });
 
 </script>

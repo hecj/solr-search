@@ -1,0 +1,9 @@
+.folderClosed{
+	background:url('customIcon/folderClosed.gif') no-repeat center center;
+}
+.folderOpen{
+	background:url('customIcon/folderOpen.gif') no-repeat center center;
+}
+.leaf{
+	background:url('customIcon/leaf.gif') no-repeat center center;
+}

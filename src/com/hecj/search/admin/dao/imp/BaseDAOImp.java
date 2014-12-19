@@ -91,7 +91,6 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 
 	@Override
 	public List<T> queryListByPagination(String pHQL,int... pPagination){
-		java.net.ConnectException d;
 		List<T> mList = new ArrayList<T>();
 		Log4jUtil.log("begin");
 		try {

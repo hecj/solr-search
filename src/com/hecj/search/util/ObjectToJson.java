@@ -21,11 +21,11 @@ public class ObjectToJson {
 			json.append("\"").append(string2json(obj.toString())).append("\"");
 		} else if (obj instanceof Object[]) {
 			json.append(array2json((Object[]) obj));
-		} else if (obj instanceof List) {
+		} else if (obj instanceof List<?>) {
 			json.append(list2json((List<?>) obj));
-		} else if (obj instanceof Map) {
+		} else if (obj instanceof Map<?, ?>) {
 			json.append(map2json((Map<?, ?>) obj));
-		} else if (obj instanceof Set) {
+		} else if (obj instanceof Set<?>) {
 			json.append(set2json((Set<?>) obj));
 		} else {
 			json.append(bean2json(obj));

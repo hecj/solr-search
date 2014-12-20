@@ -13,15 +13,15 @@ public class Pagination {
 	/*
 	 * 当前页码
 	 */
-	private long currPage = 1;
+	private Long currPage = 1l;
 	/*
 	 * 每页条数
 	 */
-	private int pageSize = 15;
+	private Integer pageSize = 15;
 	/*
 	 * 总条数
 	 */
-	private long countSize = 0;
+	private Long countSize = 0l;
 	/*
 	 * 显示分页器
 	 */
@@ -34,19 +34,19 @@ public class Pagination {
 	public Pagination() {
 		super();
 	}
-	public Pagination(int pageSize) {
+	public Pagination(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
 
-	public long getCurrPage() {
+	public Long getCurrPage() {
 		return currPage;
 	}
 
-	public void setCurrPage(long currPage) {
+	public void setCurrPage(Long currPage) {
 		this.currPage = currPage;
 	}
 
-	public long getCountPage() {
+	public Long getCountPage() {
 		if(this.getCountSize()%this.getPageSize() == 0){
 			return this.getCountSize()/this.getPageSize();
 		}else{
@@ -54,23 +54,23 @@ public class Pagination {
 		}
 	}
 
-	public int getPageSize() {
+	public Integer getPageSize() {
 		return pageSize;
 	}
 
-	public void setPageSize(int pageSize) {
+	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
 
-	public long getCountSize() {
+	public Long getCountSize() {
 		return countSize;
 	}
 
-	public void setCountSize(long countSize) {
+	public void setCountSize(Long countSize) {
 		this.countSize = countSize;
 	}
 
-	public long startCursor() {
+	public Long startCursor() {
 		return (this.currPage - 1) * this.pageSize;
 	}
 	

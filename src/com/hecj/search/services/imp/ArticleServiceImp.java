@@ -112,7 +112,7 @@ public class ArticleServiceImp implements ArticleService{
 			String mQueryHql = "from Article a";
 			String mCountHql = "select count(a) from Article a ";
 			
-			List<Article> rArticleList = articleDAO.queryListByPagination(mQueryHql,(int) pPagination.startCursor(), pPagination.getPageSize());
+			List<Article> rArticleList = articleDAO.queryListByPagination(mQueryHql,pPagination.startCursor().intValue(), pPagination.getPageSize());
 			long mCountSize = Long.parseLong( articleDAO.queryUniqueResultByHQL(mCountHql).toString());
 			
 			pPagination.setCountSize(mCountSize);
@@ -134,7 +134,7 @@ public class ArticleServiceImp implements ArticleService{
 			Pagination pPagination = (Pagination) pParams.get("pagination");
 			String queryString = (String) pParams.get("queryString");
 
-			List<Object> rList = solrArticleService.queryArticleBeanList(queryString, (int)pPagination.startCursor(), pPagination.getPageSize());
+			List<Object> rList = solrArticleService.queryArticleBeanList(queryString, pPagination.startCursor().intValue(), pPagination.getPageSize());
 			
 			List<ArticleBean> mArticleBeans = (List<ArticleBean>) rList.get(0);
 			for(ArticleBean mArticleBean : mArticleBeans){

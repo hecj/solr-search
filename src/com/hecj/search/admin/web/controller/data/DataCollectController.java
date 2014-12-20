@@ -58,12 +58,12 @@ public class DataCollectController extends BaseController{
 			
 			JSONObject jsonObj = JSONObject.fromObject(data);
 			String IP = jsonObj.getString("IP");
-			int PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?0:jsonObj.getInt("PORT");
+			Integer PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?null:jsonObj.getInt("PORT");
 			String baseURL = jsonObj.getString("baseURL");
 			String pageParams = jsonObj.getString("pageParams");
-			int start = StringUtil.isStrEmpty(jsonObj.getString("start"))?0:jsonObj.getInt("start");
-			int end = StringUtil.isStrEmpty(jsonObj.getString("end"))?0:jsonObj.getInt("end");
-			int step = StringUtil.isStrEmpty(jsonObj.getString("step"))?0:jsonObj.getInt("step");
+			Integer start = StringUtil.isStrEmpty(jsonObj.getString("start"))?null:jsonObj.getInt("start");
+			Integer end = StringUtil.isStrEmpty(jsonObj.getString("end"))?null:jsonObj.getInt("end");
+			Integer step = StringUtil.isStrEmpty(jsonObj.getString("step"))?null:jsonObj.getInt("step");
 			String baseSelect = jsonObj.getString("baseSelect");
 			String dataBaseType = jsonObj.getString("dataBaseType");
 			String encode = jsonObj.getString("encode");
@@ -126,7 +126,7 @@ public class DataCollectController extends BaseController{
 		try{
 			Pagination mPagination = new Pagination(10);
 			if(!StringUtil.isObjectEmpty(page)){
-				mPagination.setCurrPage(page);
+				mPagination.setCurrPage(page.longValue());
 			}
 			if(!StringUtil.isObjectEmpty(page)){
 				mPagination.setPageSize(rows);

@@ -85,7 +85,7 @@ public interface BaseDAO<T> {
 	 * @return List<T>   
 	 * @throws
 	 */
-	public List<T> queryListByPagination(String pHQL,int... pPagination);
+	public List<T> queryListByPagination(String pHQL,Integer... pPagination);
 	/**
 	 * @函数功能说明 不分页
 	 * @修改作者名字 HECJ  

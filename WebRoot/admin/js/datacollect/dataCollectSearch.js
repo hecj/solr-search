@@ -103,7 +103,7 @@ var DataCollectSearch = {
 			onDblClickRow : function(index, row) {
 				jQuery('#Id_dataCollectMessage').dialog({
 					title: '详细信息',
-					width: 500,
+					width: 900,
 					height: 400,
 					cache: false,
 					modal: true,

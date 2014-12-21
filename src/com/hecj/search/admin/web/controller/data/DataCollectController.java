@@ -182,13 +182,13 @@ public class DataCollectController extends BaseController{
 	public void deleteDataCollect(String id,HttpServletResponse response){
 		try{
 			if(!StringUtil.isStrEmpty(id)){
-				dataCollectService.deleteDataCollectParams(id);
+//				dataCollectService.deleteDataCollectParams(id);
 				write(response,ObjectToJson.object2json(new MessageCode("success","处理成功!")));
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		write(response,ObjectToJson.object2json(new MessageCode("success","删除失败!")));
+		write(response,ObjectToJson.object2json(new MessageCode("fail","删除失败!")));
 	}
 	
 }

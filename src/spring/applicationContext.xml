@@ -17,14 +17,14 @@
 	<!-- annotation provider -->
 	<context:annotation-config/>
 		
-    <import resource="config/spring_jdbc.xml"/>
-    <import resource="config/spring_beans.xml"/>
-    <import resource="config/spring_tx.xml"/>
-    <import resource="config/spring_aop.xml"/>
-    <import resource="config/spring_task.xml"/>
+    <import resource="classpath:spring/config/spring_jdbc.xml"/>
+    <import resource="classpath:spring/config/spring_beans.xml"/>
+    <import resource="classpath:spring/config/spring_tx.xml"/>
+    <import resource="classpath:spring/config/spring_aop.xml"/>
+    <import resource="classpath:spring/config/spring_task.xml"/>
 	
 	<!-- admin config-->
-    <import resource="../admin/spring/config/applicationContext.xml"/>
+    <import resource="classpath:admin/spring/config/applicationContext.xml"/>
     
  </beans>
  

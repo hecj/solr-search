@@ -15,7 +15,7 @@
 							">
 							 
 	
-    <import resource="admin_spring_mvc.xml"/>
-    <import resource="admin_spring_beans.xml"/>
+    <import resource="classpath:admin/spring/config/admin_spring_beans.xml"/>
+    <import resource="classpath:admin/spring/config/admin_spring_mvc.xml"/>
  </beans>
  

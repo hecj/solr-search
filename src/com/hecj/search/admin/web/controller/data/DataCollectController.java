@@ -9,12 +9,12 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -178,18 +178,17 @@ public class DataCollectController extends BaseController{
 		return "admin/jsp/datacollect/dataCollectMessage";
 	}
 	
-	@ResponseBody
 	@RequestMapping(params="operator=delete")
-	public String deleteDataCollect(String id){
+	public void deleteDataCollect(String id,HttpServletResponse response){
 		try{
 			if(!StringUtil.isStrEmpty(id)){
 				dataCollectService.deleteDataCollectParams(id);
-				return ObjectToJson.object2json(new MessageCode("success","处理成功!"));
+				write(response,ObjectToJson.object2json(new MessageCode("success","处理成功!")));
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		return ObjectToJson.object2json(new MessageCode("success","删除失败!"));
+		write(response,ObjectToJson.object2json(new MessageCode("success","删除失败!")));
 	}
 	
 }

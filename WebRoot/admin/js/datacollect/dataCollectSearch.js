@@ -96,7 +96,7 @@ var DataCollectSearch = {
 							data:{id:row.id},
 							async:true,
 							dataType:'json',
-							timeout:10000,
+							timeout:3000,
 							type:'GET',
 							cache:false,
 							success:function(data){

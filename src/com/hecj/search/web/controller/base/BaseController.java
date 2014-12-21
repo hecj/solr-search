@@ -1,5 +1,8 @@
 package com.hecj.search.web.controller.base;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,6 +56,24 @@ public abstract class BaseController {
 		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 		return basePath ;
 	}
-
+	
+	/**
+	 * ajax返回信息
+	 */
+	public void write(HttpServletResponse response,String message){
+		PrintWriter out = null ;
+		response.setContentType("text/html;charset=UTF-8");
+		try {
+			out = response.getWriter();
+			out.write(message);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			if(out != null){
+				out.close();
+			}
+		}
+	}
 	
 }

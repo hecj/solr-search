@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +22,7 @@ import com.hecj.search.web.controller.base.BaseController;
 @RequestMapping("home/home.htm")
 public class HomeController extends BaseController {
 
-	@Resource
+	@Autowired
 	private ArticleService articleService = null;
 
 	public void setArticleService(ArticleService articleService) {

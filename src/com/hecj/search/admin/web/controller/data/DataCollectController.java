@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,7 +46,7 @@ import com.hecj.search.web.controller.base.BaseController;
 @RequestMapping("admin/data/dataCollect.htm")
 public class DataCollectController extends BaseController{
 	
-	@Resource
+	@Autowired
 	private DataCollectService dataCollectService;
 	
 	public void setDataCollectService(DataCollectService dataCollectService) {

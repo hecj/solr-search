@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hecj.search.hibernate.dao.ArticleDAO;
@@ -29,16 +30,16 @@ import com.hecj.search.util.StringUtil;
 @Transactional
 public class TempIndexServiceImp implements TempIndexService {
 	
-	@Resource
+	@Autowired
 	private TempIndexDAO tempIndexDAO ;
 	
-	@Resource
+	@Autowired
 	private ArticleService articleService;
 	
-	@Resource
+	@Autowired
 	private ArticleDAO articleDAO;
 	
-	@Resource
+	@Autowired
 	private SolrArticleService solrArticleService;
 	
 	public void setTempIndexDAO(TempIndexDAO tempIndexDAO) {

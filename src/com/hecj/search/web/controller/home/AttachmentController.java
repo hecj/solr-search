@@ -2,6 +2,7 @@ package com.hecj.search.web.controller.home;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,7 +16,7 @@ public class AttachmentController extends BaseController{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Resource
+	@Autowired
 	private ArticleService articleService = null ;
 
 	public void setArticleService(ArticleService articleService) {

@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * @类功能说明：base Controller
  * @类功能说明：
@@ -19,10 +21,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class BaseController {
 	
-	@Resource
+	@Autowired
 	private HttpServletRequest request;
 	
-	@Resource
+	@Autowired
 	private HttpServletResponse response;
 
 	public HttpServletRequest getRequest() {

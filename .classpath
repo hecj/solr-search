@@ -66,5 +66,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/zookeeper-3.4.5.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/jboss-vfs-3.2.8.Final.jar"/>
+	<classpathentry kind="lib" path="lib/jbossjta-4.16.4.Final.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-spring-int-vfs.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

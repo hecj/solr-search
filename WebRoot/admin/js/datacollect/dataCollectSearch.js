@@ -8,7 +8,7 @@ var DataCollectSearch = {
 	 * 初始化表格
 	 */
 	initGrid : function() {
-		var datagrid = jQuery('#Id_dataCollectSearch').datagrid( {
+		var datacCollectGrid = jQuery('#Id_dataCollectSearch').datagrid( {
 			url : 'admin/data/dataCollect.htm?operator=seacherDataCollect',
 			columns : [ [ {
 				field : 'id',
@@ -79,10 +79,15 @@ var DataCollectSearch = {
 			toolbar: [{
 				iconCls: 'icon-edit',
 				text:'查看',
-				handler: function(){alert('edit')}
+				handler: function(){
+					var row = datacCollectGrid.datagrid('getSelected');
+					if(row != null){
+						DataCollectSearch.openDataCollectDialog(0,row);
+					}
+				}
 			},'-',{
-				iconCls: 'icon-help',
-				text:'帮助',
+				iconCls: 'icon-remove',
+				text:'删除',
 				handler: function(){
 					alert('我要获得帮助');
 				}
@@ -98,33 +103,39 @@ var DataCollectSearch = {
 		/*
 		 * 事件处理
 		 */
-		datagrid.datagrid( {
+		datacCollectGrid.datagrid( {
 			// 双击行事件
-			onDblClickRow : function(index, row) {
-				jQuery('#Id_dataCollectMessage').dialog({
-					title: '详细信息',
-					width: 900,
-					height: 400,
-					cache: false,
-					modal: true,
-					href: 'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id,
-					buttons:[{
-						text:'关闭',
-						handler:function(){
-							jQuery('#Id_dataCollectMessage').dialog('close');
-						}
-					}]
-				});
-			}
+			onDblClickRow : DataCollectSearch.openDataCollectDialog
 		});
 
 		/*
 		 * 页码处理
 		 */
-		datagrid.datagrid('getPager').pagination( {
+		datacCollectGrid.datagrid('getPager').pagination( {
 			beforePageText : MessageUtil.beforePageText,
 			afterPageText : MessageUtil.afterPageText,
 			displayMsg : MessageUtil.displayMsg
+		});
+	},
+	openDataCollectDialog:function(index, row) {
+		jQuery('#Id_dataCollectMessage').dialog({
+			title: '详细信息',
+			width: 900,
+			height: 400,
+			cache: false,
+			modal: true,
+			href: 'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id,
+			buttons:[{
+				text:'刷新',
+				handler:function(){
+					jQuery('#Id_dataCollectMessage').dialog('refresh');
+				}
+			},{
+				text:'关闭',
+				handler:function(){
+					jQuery('#Id_dataCollectMessage').dialog('close');
+				}
+			}]
 		});
 	}
 }

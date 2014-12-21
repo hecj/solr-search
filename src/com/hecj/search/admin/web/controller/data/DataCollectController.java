@@ -14,6 +14,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,6 +26,8 @@ import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.util.CodeConvertUtil;
 import com.hecj.search.util.EasyGridData;
 import com.hecj.search.util.Log4jUtil;
+import com.hecj.search.util.MessageCode;
+import com.hecj.search.util.ObjectToJson;
 import com.hecj.search.util.Pagination;
 import com.hecj.search.util.Result;
 import com.hecj.search.util.StringUtil;
@@ -175,5 +178,18 @@ public class DataCollectController extends BaseController{
 		return "admin/jsp/datacollect/dataCollectMessage";
 	}
 	
+	@ResponseBody
+	@RequestMapping(params="operator=delete")
+	public String deleteDataCollect(String id){
+		try{
+			if(!StringUtil.isStrEmpty(id)){
+				dataCollectService.deleteDataCollectParams(id);
+				return ObjectToJson.object2json(new MessageCode("success","处理成功!"));
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return ObjectToJson.object2json(new MessageCode("success","删除失败!"));
+	}
 	
 }

@@ -8,16 +8,16 @@ package com.hecj.search.util;
  * @创建时间：2014-12-21 上午09:09:07
  * @版本：V1.0
  */
-public class ReturnCode {
+public class MessageCode {
 
 	String code;
 	String message;
 
-	public ReturnCode() {
+	public MessageCode() {
 		super();
 	}
 
-	public ReturnCode(String code, String message) {
+	public MessageCode(String code, String message) {
 		super();
 		this.code = code;
 		this.message = message;

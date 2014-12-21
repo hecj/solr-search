@@ -40,5 +40,16 @@ public interface DataCollectService {
 	 * throws
 	 */
 	public DataCollectParams searchDataCollectParams(String id);
+	
+	/**
+	 * @函数功能说明 删除
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-21
+	 * @修改内容
+	 * @参数： @param id    
+	 * @return void   
+	 * throws
+	 */
+	public void deleteDataCollectParams(String id);
 }
 

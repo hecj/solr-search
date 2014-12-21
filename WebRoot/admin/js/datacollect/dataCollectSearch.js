@@ -89,7 +89,25 @@ var DataCollectSearch = {
 				iconCls: 'icon-remove',
 				text:'删除',
 				handler: function(){
-					alert('我要获得帮助');
+					var row = datacCollectGrid.datagrid('getSelected');
+					if(row != null){
+						jQuery.ajax({
+							url:'admin/data/dataCollect.htm?operator=delete',
+							data:{id:row.id},
+							async:true,
+							dataType:'json',
+							timeout:10000,
+							type:'GET',
+							cache:false,
+							success:function(data){
+								alert(data.message);
+							},
+							error:function(data){
+								alert(data.message);
+							}
+						});
+						
+					}
 				}
 			},'-',{
 				iconCls: 'icon-help',

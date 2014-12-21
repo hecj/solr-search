@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.hecj.search.admin.entity.DataCollectParams;
-import com.hecj.search.util.ResultData;
+import com.hecj.search.util.Result;
 /**
  * @类功能说明：数据搜集业务类
  * @类修改者：
@@ -27,7 +27,7 @@ public interface DataCollectService {
 	 * Map[condition]<br>
 	 * Map[pagination]<br>
 	 */
-	public ResultData searchDataCollectByPagination(Map<String,Object> pParams);
+	public Result searchDataCollectByPagination(Map<String,Object> pParams);
 	
 	/**
 	 * @函数功能说明 根据Id查询

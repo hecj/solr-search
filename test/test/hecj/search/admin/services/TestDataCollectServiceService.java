@@ -12,10 +12,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.hecj.search.admin.entity.DataCollectParams;
 import com.hecj.search.admin.entity.DataField;
 import com.hecj.search.admin.services.DataCollectService;
-import com.hecj.search.util.EasyUIData;
-import com.hecj.search.util.ObjectToJson;
+import com.hecj.search.util.EasyGridData;
 import com.hecj.search.util.Pagination;
-import com.hecj.search.util.ResultData;
+import com.hecj.search.util.Result;
 
 public class TestDataCollectServiceService {
 	
@@ -40,7 +39,7 @@ public class TestDataCollectServiceService {
 		Map mMap = new HashMap();
 		mMap.put("pagination", mPagination);
 		
-		ResultData result = dataCollectService.searchDataCollectByPagination(mMap);
+		Result result = dataCollectService.searchDataCollectByPagination(mMap);
 		System.out.println(result.isSuccess());
 		System.out.println(result.getPagination().getCountSize());
 		List<DataCollectParams> list = (List<DataCollectParams>) result.getData();
@@ -55,7 +54,7 @@ public class TestDataCollectServiceService {
 //		data.setTotal(list.size()+0l);
 //		
 //		System.out.println(data.toJSON());
-		System.out.println(new EasyUIData().toJSON());
+		System.out.println(new EasyGridData().toJSON());
 //		
 //		System.out.println(ObjectToJson.object2json(data));
 //		String json = JSONObject.fromObject(list).toString();

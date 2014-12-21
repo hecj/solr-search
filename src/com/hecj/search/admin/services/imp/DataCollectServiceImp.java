@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
 import jodd.jerry.Jerry;
 import jodd.jerry.JerryFunction;
 
@@ -25,7 +26,8 @@ import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.util.Log4jUtil;
 import com.hecj.search.util.Pagination;
 import com.hecj.search.util.PattenUtils;
-import com.hecj.search.util.ResultData;
+import com.hecj.search.util.Result;
+import com.hecj.search.util.ResultSupport;
 import com.hecj.search.util.StringUtil;
 import com.hecj.search.util.http.HtmlUtils;
 
@@ -187,8 +189,8 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	
 	@Transactional
 	@Override
-	public ResultData searchDataCollectByPagination(Map<String, Object> pParams) {
-		ResultData result = new ResultData();
+	public Result searchDataCollectByPagination(Map<String, Object> pParams) {
+		Result result = new ResultSupport();
 		try{
 			Pagination pagination = (Pagination) pParams.get("pagination");
 			String mQueryHQL = "select d from DataCollectParams d";
@@ -199,10 +201,10 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 			
 			result.setData(DataCollectParamsList);
 			result.setPagination(pagination);
-			result.setSuccess(true);
+			result.setResult(true);
 		}catch(Exception ex){
 			
-			result.setSuccess(false);
+			result.setResult(false);
 			Log4jUtil.log(ex.getMessage());
 			ex.printStackTrace();
 		}

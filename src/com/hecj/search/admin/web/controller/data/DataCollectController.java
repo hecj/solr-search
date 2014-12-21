@@ -23,10 +23,10 @@ import com.hecj.search.admin.services.DataCollectService;
 import com.hecj.search.admin.vo.VoDataCollectParams;
 import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.util.CodeConvertUtil;
-import com.hecj.search.util.EasyUIData;
+import com.hecj.search.util.EasyGridData;
 import com.hecj.search.util.Log4jUtil;
 import com.hecj.search.util.Pagination;
-import com.hecj.search.util.ResultData;
+import com.hecj.search.util.Result;
 import com.hecj.search.util.StringUtil;
 import com.hecj.search.web.controller.base.BaseController;
 /**
@@ -134,7 +134,7 @@ public class DataCollectController extends BaseController{
 			Map<String,Object> mMap = new HashMap<String,Object>();
 			mMap.put("pagination", mPagination);
 			
-			ResultData result = dataCollectService.searchDataCollectByPagination(mMap);
+			Result result = dataCollectService.searchDataCollectByPagination(mMap);
 			if(result.isSuccess()){
 				
 				List<VoDataCollectParams> datas = new ArrayList<VoDataCollectParams>();
@@ -155,12 +155,12 @@ public class DataCollectController extends BaseController{
 					vo.setTableName(d.getTableName());
 					datas.add(vo);
 				}
-				return new EasyUIData(datas,result.getPagination().getCountSize()).toJSON();
+				return new EasyGridData(result.getPagination().getCountSize(),datas).toJSON();
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		return new EasyUIData().toJSON();
+		return new EasyGridData().toJSON();
 	}
 	@RequestMapping(params="operator=toDataCollectMessage")
 	public String toDataCollectMessage(String id,HttpServletRequest request){

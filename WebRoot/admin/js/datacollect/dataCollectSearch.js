@@ -100,7 +100,11 @@ var DataCollectSearch = {
 							type:'GET',
 							cache:false,
 							success:function(data){
-								alert(data.message);
+								if(data.code == 'success'){
+									datacCollectGrid.datagrid('reload');
+								}else{
+									alert(data.message);
+								}
 							},
 							error:function(data){
 								alert(data.message);

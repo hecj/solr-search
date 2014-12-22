@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +27,7 @@ import com.hecj.search.services.TaskControllerService;
 @Transactional
 public class TaskControllerServiceImp implements TaskControllerService{
 	
-	@Autowired
+	@Resource
 	private TaskControllerDAO taskControllerDAO;
 	
 	

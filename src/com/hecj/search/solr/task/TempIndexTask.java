@@ -2,7 +2,7 @@ package com.hecj.search.solr.task;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.hecj.search.hibernate.entity.TaskController;
@@ -15,10 +15,10 @@ import com.hecj.search.util.StringUtil;
 @Service("tempIndexTask")
 public class TempIndexTask {
 
-	@Autowired
+	@Resource
 	private TempIndexService tempIndexService;
 
-	@Autowired
+	@Resource
 	private TaskControllerService taskControllerService;
 	
 	public void setTempIndexService(TempIndexService tempIndexService) {

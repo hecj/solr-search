@@ -2,7 +2,7 @@ package com.hecj.search.admin.database.factory;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.hecj.search.admin.database.factory.imp.MySQLDataBase;
@@ -22,9 +22,9 @@ import com.hecj.search.admin.senum.EnumAdminUtils;
 @Service("dataBaseFactory")
 public class DataBaseFactory {
 	
-	@Autowired
+	@Resource
 	private MySQLDataBase mySQLDataBase;
-	@Autowired
+	@Resource
 	private OracleDataBase oracleDataBase;
 	public void setMySQLDataBase(MySQLDataBase mySQLDataBase) {
 		this.mySQLDataBase = mySQLDataBase;

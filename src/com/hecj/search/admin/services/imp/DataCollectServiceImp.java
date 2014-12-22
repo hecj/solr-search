@@ -11,7 +11,6 @@ import jodd.jerry.Jerry;
 import jodd.jerry.JerryFunction;
 
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,9 +36,9 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired
+	@Resource
 	private DataBaseFactory dataBaseFactory;
-	@Autowired
+	@Resource
 	private DataCollectParamsDAO dataCollectParamsDAO;
 	
 	public void setDataBaseFactory(DataBaseFactory dataBaseFactory) {

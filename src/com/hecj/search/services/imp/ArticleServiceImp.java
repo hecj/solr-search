@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,16 +36,16 @@ import com.hecj.search.util.Pagination;
 @Transactional
 public class ArticleServiceImp implements ArticleService{
 	
-	@Autowired
+	@Resource
 	private ArticleDAO articleDAO ;
 	
-	@Autowired
+	@Resource
 	private AttachmentDAO attachmentDAO ;
 	
-	@Autowired
+	@Resource
 	private SolrArticleService solrArticleService ;
 	
-	@Autowired
+	@Resource
 	private TempIndexDAO tempIndexDAO ;
 	
 	public void setArticleDAO(ArticleDAO articleDAO) {

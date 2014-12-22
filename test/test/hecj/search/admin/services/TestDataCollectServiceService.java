@@ -9,9 +9,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.hecj.search.admin.entity.DataCollectParams;
 import com.hecj.search.admin.entity.DataField;
+import com.hecj.search.admin.entity.MenuTree;
 import com.hecj.search.admin.services.DataCollectService;
+import com.hecj.search.admin.services.MenuTreeService;
 import com.hecj.search.util.EasyGridData;
 import com.hecj.search.util.Pagination;
 import com.hecj.search.util.Result;
@@ -20,6 +23,7 @@ public class TestDataCollectServiceService {
 	
 	private DataCollectService dataCollectService ;
 	private SessionFactory sessionFactory ;
+	private MenuTreeService menuTreeService ;
 	
 	@Before
 	public void init(){
@@ -27,6 +31,7 @@ public class TestDataCollectServiceService {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath*:test/bean/applicationContext.xml");
 		dataCollectService = (DataCollectService) ctx.getBean("dataCollectService");
 		sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
+		menuTreeService = (MenuTreeService) ctx.getBean("menuTreeService");
 		
 		System.out.println(sessionFactory);
 	}
@@ -74,5 +79,27 @@ public class TestDataCollectServiceService {
 			System.out.println(d.getId());
 		}
 		System.out.println(data.getId());
+	}
+	
+	@Test
+	public void menu01(){
+		
+		List<MenuTree> list = menuTreeService.searchMenuTree();
+		//将数据搞成分叉链表形式
+		MenuTree root = new MenuTree();
+		for(MenuTree m : list){
+			
+			System.out.println(m.getId());
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }

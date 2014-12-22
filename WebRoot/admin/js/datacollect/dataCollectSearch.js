@@ -91,11 +91,14 @@ var DataCollectSearch = {
 				iconCls: 'icon-remove',
 				text:'删除',
 				handler: function(){
+					var row = datacCollectGrid.datagrid('getSelected');
+					if(row == null){
+						MessageUtil.messageShow('<font color=red>请选择一行!</font>');
+						return;
+					}
 					jQuery.messager.confirm('提示信息','确定要删除吗?',function(r){
 						if (r){
-							var row = datacCollectGrid.datagrid('getSelected');
-							if(row != null){
-								jQuery.ajax({
+							jQuery.ajax({
 								url:'admin/data/dataCollect.htm?operator=delete',
 								data:{id:row.id},
 								async:true,
@@ -105,7 +108,7 @@ var DataCollectSearch = {
 								cache:false,
 								success:function(data){
 									if(data.code == 'success'){
-										MessageUtil.messageShow(data.message);
+										MessageUtil.messageShow('<font color=green>'+data.message+'</font>');
 										datacCollectGrid.datagrid('reload');
 									}else{
 										MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
@@ -116,14 +119,36 @@ var DataCollectSearch = {
 								}
 							});
 						}
-					}
 					});
 				}
 			},'-',{
-				iconCls: 'icon-help',
-				text:'帮助',
+				iconCls: 'icon-edit',
+				text:'编辑',
 				handler: function(){
-					alert('我要获得帮助');
+					var row = datacCollectGrid.datagrid('getSelected');
+					if(row == null){
+						MessageUtil.messageShow("<font color=red>请选择一行!</font>");
+						return;
+					}
+					jQuery('#Id_dataCollectEdit').dialog({
+						title: '编辑信息',
+						width: 900,
+						height: 400,
+						cache: false,
+						modal: true,
+						href: 'admin/data/dataCollect.htm?operator=toEdit&id='+row.id+"&type=1",
+						buttons:[{
+							text:'刷新',
+							handler:function(){
+								jQuery('#Id_dataCollectEdit').dialog('refresh');
+							}
+						},{
+							text:'关闭',
+							handler:function(){
+								jQuery('#Id_dataCollectEdit').dialog('close');
+							}
+						}]
+					});
 				}
 			}]
 		});

@@ -6,6 +6,7 @@
 	<div id="Id_dataCollectSearch"></div>
 </div>
 <div id=Id_dataCollectMessage></div>
+<div id=Id_dataCollectEdit></div>
 <script type="text/javascript">
 
 	jQuery(function(){

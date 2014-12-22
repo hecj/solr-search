@@ -1,8 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet" type="text/css" href="admin/css/datacollect/simpleDataCollect.css">
+<script type="text/javascript" src="admin/js/datacollect/dataCollectEdit.js"></script>
 <div><br/>
-	 <input type="hidden" value="${dataCollectParams.id }" id="Id_dataCollectParams"/>
+	<input type="hidden" value="${dataCollectParams.id }" id="Id_dataCollectParamsEdit"/>
 	 <div style="height: 38px">
 	 	<c:if test="${dataCollectParams.IP != null && dataCollectParams.IP != '' }">
         <label for="name" class="data_label_width">代理IP:</label>
@@ -41,50 +42,5 @@
         <label for="name" class="data_label_width">表名:</label>
         <label class="easyui-validatebox" >${dataCollectParams.tableName }</label>
      </div>
-     <div id="Id_footGrid"></div>
+     <div id="Id_footGridEdit"></div>
 </div>
-
-<script>
-
-	jQuery(function(){
-
-		var id = jQuery('#Id_dataCollectParams').val();
-		jQuery('#Id_footGrid').datagrid( {
-			url: 'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
-			columns : [ [ {
-				field : 'fieldSelect',
-				title : '字段选择器 ',
-				width : 100
-			}, {
-				field : 'selectMethod',
-				title : '解析方法',
-				width : 100
-			}, {
-				field : 'pattern',
-				title : '正则正则',
-				width : 100
-			}, {
-				field : 'oldPlace',
-				title : '替换',
-				width : 100
-			}, {
-				field : 'fieldName',
-				title : '字段名',
-				width : 100
-			}, {
-				field : 'fieldType',
-				title : '字段类型',
-				width : 100
-			}, {
-				field : 'fieldLenth',
-				title : '字段长度',
-				width : 100
-			}, ] ],
-			rownumbers : true,
-			loadMsg: MessageUtil.loadDataGridMsg,
-			singleSelect:true
-		});
-	
-	});
-
-</script>

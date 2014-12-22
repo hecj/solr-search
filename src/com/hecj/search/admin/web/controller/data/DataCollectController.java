@@ -23,6 +23,7 @@ import com.hecj.search.admin.entity.DataCollectParams;
 import com.hecj.search.admin.entity.DataField;
 import com.hecj.search.admin.services.DataCollectService;
 import com.hecj.search.admin.vo.VoDataCollectParams;
+import com.hecj.search.admin.vo.VoDataField;
 import com.hecj.search.hibernate.util.UUIDUtil;
 import com.hecj.search.util.CodeConvertUtil;
 import com.hecj.search.util.EasyGridData;
@@ -190,6 +191,41 @@ public class DataCollectController extends BaseController{
 			ex.printStackTrace();
 		}
 		write(response,ObjectToJson.object2json(new MessageCode("fail","删除失败!")));
+	}
+	
+	@RequestMapping(params="operator=toEdit")
+	public String toDataCollectEdit(String id,String type,HttpServletRequest request,HttpServletResponse response){
+		
+		try{
+			if(!StringUtil.isStrEmpty(id)){
+				DataCollectParams dataCollectParams = dataCollectService.searchDataCollectParams(id);
+				if(type.equals("1")){
+					request.setAttribute("dataCollectParams", dataCollectParams);
+				}else if(type.equals("2")){
+					List<VoDataField> list = new ArrayList<VoDataField>();
+					for(DataField d:dataCollectParams.getDataFields()){
+						VoDataField vo = new VoDataField();
+						vo.setFieldLenth(d.getFieldLenth());
+						vo.setFieldName(d.getFieldName());
+						vo.setFieldSelect(d.getFieldSelect());
+						vo.setFieldType(d.getFieldType());
+						vo.setId(d.getId());
+						vo.setNewPlace(d.getNewPlace());
+						vo.setOldPlace(d.getOldPlace());
+						vo.setPattern(d.getPattern());
+						vo.setSelectMethod(d.getSelectMethod());
+						vo.setTargetAttr(d.getTargetAttr());
+						list.add(vo);
+					}
+					write(response, ObjectToJson.object2json(list));
+					return null;
+				}
+			
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return "admin/jsp/datacollect/dataCollectEdit";
 	}
 	
 }

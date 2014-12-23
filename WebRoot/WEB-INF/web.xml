@@ -25,7 +25,7 @@
 	<!-- filter encode 
 	<filter>
 		<filter-name>filterEncode</filter-name>
-		<filter-class>com.hecj.search.web.filter.FilterEncode</filter-class>
+		<filter-class>com.freedom.search.web.filter.FilterEncode</filter-class>
 		<init-param>
 			<param-name>encode</param-name>
 			<param-value>UTF-8</param-value>
@@ -40,7 +40,7 @@
 	<!-- filter user -->
 	<filter>
 		<filter-name>userFilter</filter-name>
-		<filter-class>com.hecj.search.web.filter.FilterUser</filter-class>
+		<filter-class>com.freedom.search.web.filter.FilterUser</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>userFilter</filter-name>
@@ -75,7 +75,7 @@
 	
 	<!-- 恢复临时索引监听器 -->
 	<listener>
-		<listener-class>com.hecj.search.web.listener.TempIndexRecoverListener</listener-class>
+		<listener-class>com.freedom.search.web.listener.TempIndexRecoverListener</listener-class>
 	</listener>
 
 	<!-- spring web config -->
@@ -96,7 +96,7 @@
 	<!-- init Index Page -->
 	<servlet>
 		<servlet-name>initIndexPageServlet</servlet-name>
-		<servlet-class>com.hecj.search.web.servlet.InitIndexPageServlet</servlet-class>
+		<servlet-class>com.freedom.search.web.servlet.InitIndexPageServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>initIndexPageServlet</servlet-name>
@@ -106,7 +106,7 @@
 	<!-- into admin manager page -->
 	<servlet>
 		<servlet-name>adminServlet</servlet-name>
-		<servlet-class>com.hecj.search.admin.web.servlet.AdminServlet</servlet-class>
+		<servlet-class>com.freedom.search.admin.web.servlet.AdminServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>adminServlet</servlet-name>

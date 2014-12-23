@@ -9,9 +9,9 @@
 							">
 	
     <!-- 扫描包 -->
-	<context:component-scan base-package="com.hecj.search.hibernate.dao.imp,
-										  com.hecj.search.services.imp,
-										  com.hecj.search.solr.services.imp"/>
+	<context:component-scan base-package="com.freedom.search.hibernate.dao.imp,
+										  com.freedom.search.services.imp,
+										  com.freedom.search.solr.services.imp"/>
 	
  </beans>
  

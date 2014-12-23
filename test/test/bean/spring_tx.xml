@@ -37,7 +37,7 @@
 	</tx:advice> -->
 	<!--  配置参与事务的类  
 	<aop:config>
-	<aop:pointcut id="allArticleServiceMethod" expression="execution(* com.hecj.search.services.ArticleService.*(..))"/>
+	<aop:pointcut id="allArticleServiceMethod" expression="execution(* com.freedom.search.services.ArticleService.*(..))"/>
 		<aop:advisor pointcut-ref="allArticleServiceMethod" advice-ref="articleServiceAdvice" />
 	</aop:config>
 	-->

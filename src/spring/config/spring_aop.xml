@@ -12,7 +12,7 @@
 							">
 	
     <!-- 扫描包 -->
-	<context:component-scan base-package="com.hecj.search.spring.aop"/>
+	<context:component-scan base-package="com.freedom.search.spring.aop"/>
 	
 	<!-- 使ApjectJ注解起作用：自动匹配的类生成代理对象 -->
 	<aop:aspectj-autoproxy/>

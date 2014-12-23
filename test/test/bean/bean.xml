@@ -76,14 +76,14 @@
             <!--
             <property name="annotatedClasses">
             	<list>
-            		<value>com.hecj.hibernate.entity.Article</value>
+            		<value>com.freedom.hibernate.entity.Article</value>
             	</list>
             </property>
             -->
             <!-- 包注解方式 -->
             <property name="packagesToScan">
             	<list>
-            		<value>com.hecj.hibernate.entity</value>
+            		<value>com.freedom.hibernate.entity</value>
             	</list>
             </property>
             
@@ -117,15 +117,15 @@
 	 </tx:advice>
 	 --> 
 	 <!--  <property name="sessionFactory" ref="sessionFactory"/> 
-	 <bean id="articleDAO" class="com.hecj.hibernate.dao.imp.ArticleDAOImp">
+	 <bean id="articleDAO" class="com.freedom.hibernate.dao.imp.ArticleDAOImp">
           
      </bean>-->
      <!--  
-	 <bean id="articleDAO" class="com.hecj.hibernate.dao.imp.ArticleDAOImp"/>
+	 <bean id="articleDAO" class="com.freedom.hibernate.dao.imp.ArticleDAOImp"/>
 	-->
 	
 	<!-- 注解所在的包 -->
-	<context:component-scan base-package="com.hecj.hibernate.dao.imp"/>
+	<context:component-scan base-package="com.freedom.hibernate.dao.imp"/>
 	
  </beans>
  

@@ -5,7 +5,7 @@ var AppEntity={
 		/**
 		 * DataCollect数据字段
 		 */
-		DataCollect:function(id,IP,PORT,baseURL,pageParams,start,end,step,baseSelect,code,dataBaseType,tableName,dataFields){
+		DataCollect:function(id,IP,PORT,baseURL,pageParams,start,end,step,baseSelect,encode,dataBaseType,tableName,dataFields){
 			this.id = id;
 			this.IP = IP;
 			this.PORT = PORT;
@@ -15,7 +15,7 @@ var AppEntity={
 			this.end = end;
 			this.step = step;
 			this.baseSelect =baseSelect;
-			this.code = code;
+			this.encode = encode;
 			this.dataBaseType =dataBaseType;
 			this.tableName =tableName;
 			this.dataFields=dataFields;

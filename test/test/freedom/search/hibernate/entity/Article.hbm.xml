@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="test.freedom.search.hibernate.entity">
+	<class name="Article" table="TB_Article">
+		<id name="articleNo">
+			<column name="articleNo"></column>
+        </id>
+        
+        <property name="title"></property>
+        <property name="content"></property>
+        <property name="auther"></property>
+        <property name="createDate"></property>
+        <property name="updateDate"></property>
+		
+	</class>
+</hibernate-mapping>

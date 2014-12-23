@@ -14,11 +14,11 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hecj.search.hibernate.entity.Article;
-import com.hecj.search.hibernate.entity.Attachment;
-import com.hecj.search.hibernate.util.UUIDUtil;
-import com.hecj.search.services.ArticleService;
-import com.hecj.search.util.Pagination;
+import com.freedom.search.hibernate.entity.Article;
+import com.freedom.search.hibernate.entity.Attachment;
+import com.freedom.search.hibernate.util.UUIDUtil;
+import com.freedom.search.services.ArticleService;
+import com.freedom.search.util.Pagination;
 
 public class TestBeanArticleService {
 	

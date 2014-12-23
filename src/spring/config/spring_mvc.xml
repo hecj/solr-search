@@ -15,7 +15,7 @@
 	<mvc:annotation-driven/>
 	
 	<!-- 扫描包 -->
-	<context:component-scan base-package="com.hecj.search.web.controller"/>
+	<context:component-scan base-package="com.freedom.search.web.controller"/>
 
 	<!-- 对转向页面的路径解析.prefix：前缀, suffix：后缀 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"

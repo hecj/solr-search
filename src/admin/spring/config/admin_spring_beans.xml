@@ -9,11 +9,11 @@
 							">
 	
     <!-- 扫描包 -->
-	<context:component-scan base-package="com.hecj.search.admin.services.imp,
-										  com.hecj.search.admin.database.factory,
-										  com.hecj.search.admin.database.factory.imp,
-										  com.hecj.search.admin.services.imp,
-										  com.hecj.search.admin.dao.imp"/>
+	<context:component-scan base-package="com.freedom.search.admin.services.imp,
+										  com.freedom.search.admin.database.factory,
+										  com.freedom.search.admin.database.factory.imp,
+										  com.freedom.search.admin.services.imp,
+										  com.freedom.search.admin.dao.imp"/>
 	
  </beans>
  

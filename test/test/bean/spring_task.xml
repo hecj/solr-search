@@ -12,7 +12,7 @@
 							http://www.springframework.org/schema/task/spring-task-3.0.xsd
 							">
 	
-	<context:component-scan base-package="com.hecj.search.solr.task" />
+	<context:component-scan base-package="com.freedom.search.solr.task" />
 	
 	<!-- spring自带定时任务 -->
 	<task:scheduled-tasks>

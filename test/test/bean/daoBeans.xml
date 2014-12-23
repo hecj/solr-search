@@ -49,7 +49,7 @@
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 			<property name="dataSource" ref="dataSource" />
 			<property name="mappingLocations">
-                <value>classpath:/com/hecj/hibernate/mapping/entity/*.hbm.xml</value>
+                <value>classpath:/com/freedom/hibernate/mapping/entity/*.hbm.xml</value>
             </property> 
 			<property name="hibernateProperties">
 				<props>
@@ -80,7 +80,7 @@
 			</tx:attributes>
 	 </tx:advice>
 	 --> 
-	 <bean id="articleDAO" class="com.hecj.hibernate.dao.imp.ArticleDAOImp">
+	 <bean id="articleDAO" class="com.freedom.hibernate.dao.imp.ArticleDAOImp">
            <property name="sessionFactory" ref="sessionFactory"/>
      </bean>
 	 

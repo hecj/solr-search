@@ -56,8 +56,8 @@ var DataCollectEdit = {
 		onSubmit:function(){
 			
 			var id = jQuery("#Id_dataCollectParamsEdit").val();
-			var ip = jQuery("#Id_dataCollectParamsIP").val();
-			var port = jQuery("#Id_dataCollectParamsPORT").val();
+			var IP = jQuery("#Id_dataCollectParamsIP").val();
+			var PORT = jQuery("#Id_dataCollectParamsPORT").val();
 			var baseURL = jQuery("#Id_dataCollectParamsbaseURL").val();
 			var pageParams = jQuery("#Id_dataCollectParamspageParams").val();
 			var start = jQuery("#Id_dataCollectParamsstart").val();
@@ -85,7 +85,7 @@ var DataCollectEdit = {
 				var dataField = new AppEntity.DataField(id, fieldSelect, selectMethod, targetAttr, pattern, newPlace, oldPlace, fieldName, fieldType, fieldLenth);
 				dataFields.push(dataField);
 			}
-			var dataCollect = new AppEntity.DataCollect(id, ip, port, baseURL, pageParams, start, end, step, baseSelect, code, dataBaseType, tableName, dataFields);
+			var dataCollect = new AppEntity.DataCollect(id, IP, PORT, baseURL, pageParams, start, end, step, baseSelect, code, dataBaseType, tableName, dataFields);
 			var json = jQuery.toJSON(dataCollect);
 			jQuery.ajax({
 				url:'admin/data/dataCollect.htm?operator=edit',

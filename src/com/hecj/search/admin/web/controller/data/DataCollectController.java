@@ -233,7 +233,58 @@ public class DataCollectController extends BaseController{
 		try{
 			if(!StringUtil.isStrEmpty(data)){
 				System.out.println(data);
+				JSONObject jsonObj = JSONObject.fromObject(data);
+				String id = jsonObj.getString("id");
+				String IP = jsonObj.getString("IP");
+				Integer PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?null:jsonObj.getInt("PORT");
+				String baseURL = jsonObj.getString("baseURL");
+				String pageParams = jsonObj.getString("pageParams");
+				Integer start = StringUtil.isStrEmpty(jsonObj.getString("start"))?null:jsonObj.getInt("start");
+				Integer end = StringUtil.isStrEmpty(jsonObj.getString("end"))?null:jsonObj.getInt("end");
+				Integer step = StringUtil.isStrEmpty(jsonObj.getString("step"))?null:jsonObj.getInt("step");
+				String baseSelect = jsonObj.getString("baseSelect");
+				String dataBaseType = jsonObj.getString("dataBaseType");
+				String encode = jsonObj.getString("encode");
+				String tableName = jsonObj.getString("tableName");
+				JSONArray jsonArr = jsonObj.getJSONArray("fieldList");
 				
+				Set<DataField> dataFields = new HashSet<DataField>();
+				/*
+				 * 爬虫参数
+				 */
+				DataCollectParams mCollectParams = new DataCollectParams();
+				mCollectParams.setId(id);
+				mCollectParams.setIP(IP);
+				mCollectParams.setPORT(PORT);
+				mCollectParams.setBaseSelect(baseSelect);
+				mCollectParams.setEncode(encode);
+				mCollectParams.setBaseURL(baseURL);
+				mCollectParams.setPageParams(pageParams);
+				mCollectParams.setDataBaseType(dataBaseType);
+				mCollectParams.setTableName(tableName);
+				mCollectParams.setDataFields(dataFields);
+				mCollectParams.setEnd(end);
+				mCollectParams.setStart(start);
+				mCollectParams.setStep(step);
+				/*
+				 * 解析字段
+				 */
+				for(int i=0;i<jsonArr.size();i++){
+					JSONObject obj = jsonArr.getJSONObject(i);
+					DataField mDataField = new DataField();
+					mDataField.setId(obj.getString("id"));
+					mDataField.setFieldSelect(obj.getString("fieldSelect"));
+					mDataField.setSelectMethod(obj.getString("selectMethod"));
+					mDataField.setTargetAttr(obj.getString("targetAttr"));
+					mDataField.setPattern(obj.getString("pattern"));
+					mDataField.setOldPlace(obj.getString("oldPlace"));
+					mDataField.setNewPlace(obj.getString("newPlace"));
+					mDataField.setFieldName(obj.getString("fieldName"));
+					mDataField.setFieldType(obj.getString("fieldType"));
+					mDataField.setFieldLenth(obj.getInt("fieldLenth"));
+					mDataField.setDataCollectParams(mCollectParams);
+					dataFields.add(mDataField);
+				}
 				write(response,ObjectToJson.object2json(new MessageCode("success","处理成功!")));
 			}
 		}catch(Exception ex){

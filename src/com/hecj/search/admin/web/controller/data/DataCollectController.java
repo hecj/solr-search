@@ -233,7 +233,6 @@ public class DataCollectController extends BaseController{
 		try{
 			if(!StringUtil.isStrEmpty(data)){
 				System.out.println(data);
-
 				
 				write(response,ObjectToJson.object2json(new MessageCode("success","处理成功!")));
 			}

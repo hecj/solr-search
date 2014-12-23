@@ -49,7 +49,7 @@ public class ArticleController extends BaseController {
 	public String submitAddArticle(Article article) {
 
 		try {
-
+			
 			article.setArticleNo(UUIDUtil.autoUUID());
 			article.setAuther("匿名");
 			article.setCreateDate(DateFormatUtil.getCurrDate());

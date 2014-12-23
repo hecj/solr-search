@@ -16,6 +16,7 @@
     <script type="text/javascript" src="admin/js/common/InitSystem.js"></script>
     <script type="text/javascript" src="admin/js/common/MessageUtil.js"></script>
     <script type="text/javascript" src="admin/js/common/AppUtil.js"></script>
+    <script type="text/javascript" src="admin/js/common/AppEntity.js"></script>
 </head>
 <body class="easyui-layout">  
     <div region="north" split="false" style="height:100px;"></div>  

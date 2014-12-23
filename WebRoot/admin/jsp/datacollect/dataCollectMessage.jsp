@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" type="text/css" href="admin/css/datacollect/simpleDataCollect.css">
+<link rel="stylesheet" type="text/css" href="admin/css/datacollect/dataCollect.css">
 <div><br/>
 	 <input type="hidden" value="${dataCollectParams.id }" id="Id_dataCollectParams"/>
 	 <div style="height: 38px">

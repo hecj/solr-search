@@ -132,14 +132,15 @@ var DataCollectSearch = {
 					}
 					jQuery('#Id_dataCollectEdit').dialog({
 						title: '编辑信息',
-						width: 900,
+						width: 800,
 						height: 400,
 						cache: false,
 						modal: true,
 						href: 'admin/data/dataCollect.htm?operator=toEdit&id='+row.id+"&type=1",
 						buttons:[{
-							text:'刷新',
+							text:'提交',
 							handler:function(){
+								DataCollectEdit.onSubmit();
 								jQuery('#Id_dataCollectEdit').dialog('refresh');
 							}
 						},{
@@ -147,7 +148,8 @@ var DataCollectSearch = {
 							handler:function(){
 								jQuery('#Id_dataCollectEdit').dialog('close');
 							}
-						}]
+						}],
+						loadingMessage:MessageUtil.loadingPageMessage
 					});
 				}
 			}]
@@ -188,7 +190,8 @@ var DataCollectSearch = {
 				handler:function(){
 					jQuery('#Id_dataCollectMessage').dialog('close');
 				}
-			}]
+			}],
+			loadingMessage:MessageUtil.loadingPageMessage
 		});
 	}
 }

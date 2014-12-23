@@ -38,3 +38,24 @@
 		});
 	});
 })();
+
+var DataCollectEdit = {
+		/*
+		 * 提交
+		 */
+		onSubmit:function(){
+	/*
+			jQuery("#Id_dataCollectParamsEdit").val();
+			jQuery("#Id_dataCollectParamsEdit").val();
+			jQuery("#Id_dataCollectParamsEdit").val();
+			jQuery("#Id_dataCollectParamsEdit").val();
+			jQuery("#Id_dataCollectParamsEdit").val();
+			jQuery("#Id_dataCollectParamsEdit").val();
+			jQuery("#Id_dataCollectParamsEdit").val();
+			jQuery("#Id_dataCollectParamsEdit").val();
+			jQuery("#Id_dataCollectParamsEdit").val();
+	*/
+	
+		}
+		
+}

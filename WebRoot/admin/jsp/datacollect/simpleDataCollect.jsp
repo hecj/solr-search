@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="admin/css/datacollect/simpleDataCollect.css">
+<link rel="stylesheet" type="text/css" href="admin/css/datacollect/dataCollect.css">
 <script type="text/javascript" src="admin/js/datacollect/simpleDataCollect.js"></script>
 <div class="ID_mainContent">
 	 <div class="CLS_mainContentDivHegiht">

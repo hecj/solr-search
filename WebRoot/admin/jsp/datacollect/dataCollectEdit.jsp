@@ -5,7 +5,7 @@
 <script type="text/javascript" src="admin/js/datacollect/dataCollectEdit.js"></script>
 -->
 <div><br/>
-	<input type="text" value="${dataCollectParams.id }" id="Id_dataCollectParamsEdit"/>
+	<input type="hidden" value="${dataCollectParams.id }" id="Id_dataCollectParamsEdit"/>
 	 <div class="CLS_mainContentDivHegiht">
 	     <label for="name" class="data_label_width">代理IP:</label>
 	     <input id="Id_dataCollectParamsIP" value="${dataCollectParams.IP }" size="10"/>
@@ -32,12 +32,12 @@
      </div>
       <div class="CLS_mainContentDivHegiht">
         <label  class="data_label_width">编码:</label>
-        <select id="Id_dataCollectParamsEncode" class="easyui-combobox">
+        <select id="Id_dataCollectParamsEncode" class="easyui-combobox"  data-options="panelHeight:45,editable:false">
         	<option value="GBK" <c:if test="${dataCollectParams.encode=='GBK' }">selected="selected"</c:if>>GBK</option>
         	<option value="UTF-8" <c:if test="${dataCollectParams.encode=='UTF-8' }">selected="selected"</c:if>>UTF-8</option>
         </select>
         <label for="name">数据库:</label>
-        <select id="Id_dataCollectParamsdataBaseType" class="easyui-combobox">
+        <select id="Id_dataCollectParamsdataBaseType" class="easyui-combobox" data-options="panelHeight:45,editable:false">
         	<option value="MySQL" <c:if test="${dataCollectParams.dataBaseType=='MySQL' }">selected="selected"</c:if>>MySQL</option>
         	<option value="Oracle" <c:if test="${dataCollectParams.dataBaseType=='Oracle' }">selected="selected"</c:if>>Oracle</option>
         </select>

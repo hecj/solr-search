@@ -11,7 +11,7 @@ var DataCollectEdit = {
 				columns : [ [ {
 					field : 'id',
 					title : 'id ',
-					hidden : false
+					hidden : true
 				},{
 					field : 'fieldSelect',
 					title : '选择器 ',

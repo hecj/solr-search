@@ -65,27 +65,44 @@ var DataCollectEdit = {
 					text:'添加',
 					iconCls: 'icon-add',
 					handler: function(){
-						alert('添加');
+						var rows = dataGridEdit.datagrid('getRows');
+						dataGridEdit.datagrid('insertRow',{
+							index: rows.length,
+							row: {
+							}
+						});
 					}
 				},'-',{
 					text:'删除',
 					iconCls: 'icon-remove',
 					handler: function(){
-						alert('删除');
+						var row = dataGridEdit.datagrid('getSelected');
+						if(row){
+							var dIndex = dataGridEdit.datagrid('getRowIndex',row);
+							dataGridEdit.datagrid('deleteRow',dIndex);
+						}else{
+							MessageUtil.messageShow("<font color=red>请选择一行!</font>");
+						}
 					}
 				},'-',{
 					text:'保存',
 					iconCls: 'icon-save',
 					handler: function(){
 						var rows = dataGridEdit.datagrid('getRows');
+						var b = true;
 						//取消编辑行
 						for(var i=0;i<rows.length;i+=1){
 							row = rows[i];
 							if(row.editing){
 								dataGridEdit.datagrid('endEdit',i);
+								b = false;
 								break ;
 							}
 						}
+						if(b){
+							MessageUtil.messageShow("<font color=red>当前未更改!</font>");
+						}
+						
 					}
 				}],
 				onBeforeEdit:function(index,row){

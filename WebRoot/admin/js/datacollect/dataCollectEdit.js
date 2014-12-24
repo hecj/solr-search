@@ -1,15 +1,17 @@
 var DataCollectEdit = {
 		/*
-		 * 初始化表格 
+		 * 初始化页面
 		 */
-		initGrid:function(){
+		init:function(){
+		
+			/*初始化表格*/
 			var id = jQuery('#Id_dataCollectParamsEdit').val();
 			jQuery('#Id_footGridEdit').datagrid( {
 				url: 'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 				columns : [ [ {
 					field : 'id',
 					title : 'id ',
-					hidden : true
+					hidden : false
 				},{
 					field : 'fieldSelect',
 					title : '选择器 ',
@@ -64,15 +66,14 @@ var DataCollectEdit = {
 			var end = jQuery("#Id_dataCollectParamsend").val();
 			var step = jQuery("#Id_dataCollectParamsstep").val();
 			var baseSelect = jQuery("#Id_dataCollectParamsbaseSelect").val();
-			var encode = jQuery("#Id_dataCollectParamsencode").val();
-			var dataBaseType = jQuery("#Id_dataCollectParamsdataBaseType").val();
+			var encode = jQuery('#Id_dataCollectParamsEncode').combobox('getText');
+			var dataBaseType = jQuery("#Id_dataCollectParamsdataBaseType").combobox('getText');
 			var tableName = jQuery("#Id_dataCollectParamstableName").val();
-			
-			var dataFields = new Array();
+			var fieldList = new Array();
 			var rows = jQuery('#Id_footGridEdit').datagrid('getRows');
 			for ( var i = 0; i < rows.length; i=i+1) {
 				row = rows[i];
-				var id = row.id;
+				var fid = row.id;
 				var fieldSelect = row.fieldSelect;
 				var selectMethod = row.selectMethod;
 				var targetAttr = row.targetAttr;
@@ -82,10 +83,10 @@ var DataCollectEdit = {
 				var fieldName = row.fieldName;
 				var fieldType = row.fieldType;
 				var fieldLenth = row.fieldLenth;
-				var dataField = new AppEntity.DataField(id, fieldSelect, selectMethod, targetAttr, pattern, newPlace, oldPlace, fieldName, fieldType, fieldLenth);
-				dataFields.push(dataField);
+				var dataField = new AppEntity.DataField(fid, fieldSelect, selectMethod, targetAttr, pattern, newPlace, oldPlace, fieldName, fieldType, fieldLenth);
+				fieldList.push(dataField);
 			}
-			var dataCollect = new AppEntity.DataCollect(id, IP, PORT, baseURL, pageParams, start, end, step, baseSelect, encode, dataBaseType, tableName, dataFields);
+			var dataCollect = new AppEntity.DataCollect(id, IP, PORT, baseURL, pageParams, start, end, step, baseSelect, encode, dataBaseType, tableName, fieldList);
 			var json = jQuery.toJSON(dataCollect);
 			jQuery.ajax({
 				url:'admin/data/dataCollect.htm?operator=edit',

@@ -131,4 +131,15 @@ public interface BaseDAO<T> {
 	 * @throws
 	 */
 	public int executeHQL(String pHQL);
+	
+	/**
+	 * @函数功能说明 update
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-24
+	 * @修改内容
+	 * @参数： @param t    
+	 * @return void   
+	 * @throws
+	 */
+	public void update(T t);
 }

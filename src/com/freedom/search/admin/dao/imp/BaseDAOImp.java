@@ -26,7 +26,18 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	
 	@Override
 	public T findById(Serializable id) {
-		return (T)getSessionFactory().getCurrentSession().get(entityClass, id);
+		
+		Log4jUtil.log("begin id:"+id);
+		T t = null ;
+		try {
+			t = (T) getSessionFactory().getCurrentSession().get(entityClass, id);
+			Log4jUtil.log("end id:"+id);
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("error id:"+id);
+			ex.printStackTrace();
+			throw ex;
+		}
+		return t;
 	}
 	
 	@Override
@@ -194,6 +205,20 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 			throw ex;
 		}
 		return n;
+	}
+	
+	@Override
+	public void update(T t){
+		
+		Log4jUtil.log("begin");
+		try {
+			getSessionFactory().getCurrentSession().update(t);
+			Log4jUtil.log("end");
+		} catch (RuntimeException ex) {
+			Log4jUtil.error("error");
+			ex.printStackTrace();
+			throw ex;
+		}
 	}
 	
 }

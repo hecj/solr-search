@@ -81,6 +81,11 @@ var DataCollectEdit = {
 				onCancelEdit:function(index,row){
 					row.editing = false;
 					DataCollectEdit.updateActions(index);
+				},
+				onDblClickCell: function(index,field,value){
+					$(this).datagrid('beginEdit', index);
+					var ed = $(this).datagrid('getEditor', {index:index,field:field});
+					$(ed.target).focus();
 				}
 			});
 		},

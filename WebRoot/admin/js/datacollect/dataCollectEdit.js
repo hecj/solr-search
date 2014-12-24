@@ -15,7 +15,8 @@ var DataCollectEdit = {
 				},{
 					field : 'fieldSelect',
 					title : '选择器 ',
-					align : 'center'
+					align : 'center',
+					editor:'text'
 				}, {
 					field : 'selectMethod',
 					title : '方法',
@@ -48,11 +49,66 @@ var DataCollectEdit = {
 					field : 'fieldLenth',
 					title : '字段长度',
 					align : 'center'
-				}, ] ],
+				},{
+					field:'action',
+					title:'Action',
+					width:80,
+					align:'center',
+					formatter:function(value,row,index){
+						if (row.editing){
+							var s = '<button onclick="DataCollectEdit.saverow(this)">Save</button> ';
+							var c = '<button onclick="DataCollectEdit.cancelrow(this)">Cancel</button>';
+							return s+c;
+						} else {
+							var e = '<button onclick="DataCollectEdit.editrow(this)">Edit</button> ';
+							var d = '<button onclick="DataCollectEdit.deleterow(this)">Delete</button>';
+							return e+d;
+						}
+					}
+				} 
+				] ],
 				rownumbers : true,
 				loadMsg: MessageUtil.loadDataGridMsg,
-				singleSelect:true
+				singleSelect:true,
+				onBeforeEdit:function(index,row){
+					row.editing = true;
+					DataCollectEdit.updateActions(index);
+				},
+				onAfterEdit:function(index,row){
+					row.editing = false;
+					DataCollectEdit.updateActions(index);
+				},
+				onCancelEdit:function(index,row){
+					row.editing = false;
+					DataCollectEdit.updateActions(index);
+				}
 			});
+		},
+		updateActions:function(index){
+			$('#Id_footGridEdit').datagrid('updateRow',{
+				index: index,
+				row:{}
+			});
+		},
+		getRowIndex:function(target){
+			var tr = $(target).closest('tr.datagrid-row');
+			return parseInt(tr.attr('datagrid-row-index'));
+		},
+		editrow:function(target){
+			$('#Id_footGridEdit').datagrid('beginEdit', this.getRowIndex(target));
+		},
+		deleterow:function(target){
+			$.messager.confirm('Confirm','Are you sure?',function(r){
+				if (r){
+					$('#Id_footGridEdit').datagrid('deleteRow', this.getRowIndex(target));
+				}
+			});
+		},
+		saverow:function(target){
+			$('#Id_footGridEdit').datagrid('endEdit', this.getRowIndex(target));
+		},
+		cancelrow:function(target){
+			$('#Id_footGridEdit').datagrid('cancelEdit', this.getRowIndex(target));
 		},
 		/*提交*/
 		onSubmit:function(){
@@ -110,5 +166,4 @@ var DataCollectEdit = {
 	}
 		
 }
-
 

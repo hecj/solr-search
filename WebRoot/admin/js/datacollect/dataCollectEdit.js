@@ -6,8 +6,11 @@ var DataCollectEdit = {
 		
 			/*初始化表格*/
 			var id = jQuery('#Id_dataCollectParamsEdit').val();
-			jQuery('#Id_footGridEdit').datagrid( {
+			var dataGridEdit = jQuery('#Id_footGridEdit').datagrid( {
 				url: 'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
+				rownumbers : true,
+				singleSelect:true,
+				loadMsg: MessageUtil.loadDataGridMsg,
 				columns : [ [ {
 					field : 'id',
 					title : 'id ',
@@ -20,27 +23,33 @@ var DataCollectEdit = {
 				}, {
 					field : 'selectMethod',
 					title : '方法',
-					align : 'center'
+					align : 'center',
+					editor:'text'
 				}, {
 					field : 'targetAttr',
 					title : '属性',
-					align : 'center'
+					align : 'center',
+					editor:'text'
 				}, {
 					field : 'pattern',
 					title : '正则',
-					align : 'center'
+					align : 'center',
+					editor:'text'
 				}, {
 					field : 'newPlace',
 					title : '替换新',
-					align : 'center'
+					align : 'center',
+					editor:'text'
 				}, {
 					field : 'oldPlace',
 					title : '替换老',
-					align : 'center'
+					align : 'center',
+					editor:'text'
 				}, {
 					field : 'fieldName',
 					title : '字段名',
-					align : 'center'
+					align : 'center',
+					editor:'text'
 				}, {
 					field : 'fieldType',
 					title : '字段类型',
@@ -48,28 +57,37 @@ var DataCollectEdit = {
 				}, {
 					field : 'fieldLenth',
 					title : '字段长度',
-					align : 'center'
-				},{
-					field:'action',
-					title:'Action',
-					width:80,
-					align:'center',
-					formatter:function(value,row,index){
-						if (row.editing){
-							var s = '<button onclick="DataCollectEdit.saverow(this)">Save</button> ';
-							var c = '<button onclick="DataCollectEdit.cancelrow(this)">Cancel</button>';
-							return s+c;
-						} else {
-							var e = '<button onclick="DataCollectEdit.editrow(this)">Edit</button> ';
-							var d = '<button onclick="DataCollectEdit.deleterow(this)">Delete</button>';
-							return e+d;
-						}
-					}
+					align : 'center',
+					editor:'text'
 				} 
 				] ],
-				rownumbers : true,
-				loadMsg: MessageUtil.loadDataGridMsg,
-				singleSelect:true,
+				toolbar: [{
+					text:'添加',
+					iconCls: 'icon-add',
+					handler: function(){
+						alert('添加');
+					}
+				},'-',{
+					text:'删除',
+					iconCls: 'icon-remove',
+					handler: function(){
+						alert('删除');
+					}
+				},'-',{
+					text:'保存',
+					iconCls: 'icon-save',
+					handler: function(){
+						var rows = dataGridEdit.datagrid('getRows');
+						//取消编辑行
+						for(var i=0;i<rows.length;i+=1){
+							row = rows[i];
+							if(row.editing){
+								dataGridEdit.datagrid('endEdit',i);
+								break ;
+							}
+						}
+					}
+				}],
 				onBeforeEdit:function(index,row){
 					row.editing = true;
 					DataCollectEdit.updateActions(index);
@@ -83,37 +101,34 @@ var DataCollectEdit = {
 					DataCollectEdit.updateActions(index);
 				},
 				onDblClickCell: function(index,field,value){
-					$(this).datagrid('beginEdit', index);
-					var ed = $(this).datagrid('getEditor', {index:index,field:field});
-					$(ed.target).focus();
+					//当前行正在编辑则返回
+					var rows = dataGridEdit.datagrid('getRows');
+					if(rows[index].editing){
+						return ;
+					}
+					//取消其他的编辑行
+					for(var i=0;i<rows.length;i+=1){
+						row = rows[i];
+						if(row.editing){
+							dataGridEdit.datagrid('endEdit',i);
+							break ;
+						}
+					}
+					//打开编辑的行
+					jQuery(this).datagrid('beginEdit', index);
+					var ed = jQuery(this).datagrid('getEditor', {
+						index:index,
+						field:field
+					});
+					jQuery(ed.target).focus();
 				}
 			});
 		},
 		updateActions:function(index){
-			$('#Id_footGridEdit').datagrid('updateRow',{
+			jQuery('#Id_footGridEdit').datagrid('updateRow',{
 				index: index,
 				row:{}
 			});
-		},
-		getRowIndex:function(target){
-			var tr = $(target).closest('tr.datagrid-row');
-			return parseInt(tr.attr('datagrid-row-index'));
-		},
-		editrow:function(target){
-			$('#Id_footGridEdit').datagrid('beginEdit', this.getRowIndex(target));
-		},
-		deleterow:function(target){
-			$.messager.confirm('Confirm','Are you sure?',function(r){
-				if (r){
-					$('#Id_footGridEdit').datagrid('deleteRow', this.getRowIndex(target));
-				}
-			});
-		},
-		saverow:function(target){
-			$('#Id_footGridEdit').datagrid('endEdit', this.getRowIndex(target));
-		},
-		cancelrow:function(target){
-			$('#Id_footGridEdit').datagrid('cancelEdit', this.getRowIndex(target));
 		},
 		/*提交*/
 		onSubmit:function(){

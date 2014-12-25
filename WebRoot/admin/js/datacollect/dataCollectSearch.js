@@ -92,7 +92,7 @@ var DataCollectSearch = {
 						buttons:[{
 							text:'提交',
 							handler:function(){
-								
+								DataCollectAdd.onSubmit();
 							}
 						},{
 							text:'关闭',

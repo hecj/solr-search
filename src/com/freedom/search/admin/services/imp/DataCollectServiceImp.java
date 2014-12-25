@@ -230,4 +230,10 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 		dataCollectParamsDAO.delete(dataCollectParamsDAO.findById(dataCollectParams.getId()));
 		dataCollectParamsDAO.save(dataCollectParams);
 	}
+	
+	@Transactional
+	@Override
+	public void addDataCollectParams(DataCollectParams dataCollectParams) {
+		dataCollectParamsDAO.save(dataCollectParams);
+	}
 }

@@ -62,5 +62,16 @@ public interface DataCollectService {
 	 * @throws
 	 */
 	public void editDataCollectParams(DataCollectParams dataCollectParams);
+	
+	/**
+	 * @函数功能说明 添加
+	 * @修改作者名字 HECJ  
+	 * @修改时间 2014-12-24
+	 * @修改内容
+	 * @参数： @param dataCollectParams    
+	 * @return void   
+	 * @throws
+	 */
+	public void addDataCollectParams(DataCollectParams dataCollectParams);
 }
 

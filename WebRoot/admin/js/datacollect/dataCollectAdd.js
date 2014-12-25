@@ -5,7 +5,7 @@ var DataCollectAdd = {
 		init:function(){
 		
 			/*初始化表格*/
-			var dataGridEdit = jQuery('#Id_footGridEdit').datagrid( {
+			var dataGridAdd = jQuery('#Id_Add_footGridEdit').datagrid( {
 				rownumbers : true,
 				singleSelect:true,
 				loadMsg: MessageUtil.loadDataGridMsg,
@@ -93,8 +93,8 @@ var DataCollectAdd = {
 					text:'添加',
 					iconCls: 'icon-add',
 					handler: function(){
-						var rows = dataGridEdit.datagrid('getRows');
-						dataGridEdit.datagrid('insertRow',{
+						var rows = dataGridAdd.datagrid('getRows');
+						dataGridAdd.datagrid('insertRow',{
 							index: rows.length,
 							row: {
 								selectMethod:'text',
@@ -108,10 +108,10 @@ var DataCollectAdd = {
 					text:'删除',
 					iconCls: 'icon-remove',
 					handler: function(){
-						var row = dataGridEdit.datagrid('getSelected');
+						var row = dataGridAdd.datagrid('getSelected');
 						if(row){
-							var dIndex = dataGridEdit.datagrid('getRowIndex',row);
-							dataGridEdit.datagrid('deleteRow',dIndex);
+							var dIndex = dataGridAdd.datagrid('getRowIndex',row);
+							dataGridAdd.datagrid('deleteRow',dIndex);
 						}else{
 							MessageUtil.messageShow("<font color=red>请选择一行!</font>");
 						}
@@ -120,13 +120,13 @@ var DataCollectAdd = {
 					text:'保存',
 					iconCls: 'icon-save',
 					handler: function(){
-						var rows = dataGridEdit.datagrid('getRows');
+						var rows = dataGridAdd.datagrid('getRows');
 						var b = true;
 						//取消编辑行
 						for(var i=0;i<rows.length;i+=1){
 							row = rows[i];
 							if(row.editing){
-								dataGridEdit.datagrid('endEdit',i);
+								dataGridAdd.datagrid('endEdit',i);
 								b = false;
 								break ;
 							}
@@ -151,7 +151,7 @@ var DataCollectAdd = {
 				},
 				onDblClickCell: function(index,field,value){
 					//当前行正在编辑则返回
-					var rows = dataGridEdit.datagrid('getRows');
+					var rows = dataGridAdd.datagrid('getRows');
 					if(rows[index].editing){
 						return ;
 					}
@@ -159,7 +159,7 @@ var DataCollectAdd = {
 					for(var i=0;i<rows.length;i+=1){
 						row = rows[i];
 						if(row.editing){
-							dataGridEdit.datagrid('endEdit',i);
+							dataGridAdd.datagrid('endEdit',i);
 							break ;
 						}
 					}
@@ -174,31 +174,28 @@ var DataCollectAdd = {
 			});
 		},
 		updateActions:function(index){
-			jQuery('#Id_footGridEdit').datagrid('updateRow',{
+			jQuery('#Id_Add_footGridEdit').datagrid('updateRow',{
 				index: index,
 				row:{}
 			});
 		},
 		/*提交*/
 		onSubmit:function(){
-			
-			var id = jQuery("#Id_dataCollectParamsEdit").val();
-			var IP = jQuery("#Id_dataCollectParamsIP").val();
-			var PORT = jQuery("#Id_dataCollectParamsPORT").val();
-			var baseURL = jQuery("#Id_dataCollectParamsbaseURL").val();
-			var pageParams = jQuery("#Id_dataCollectParamspageParams").val();
-			var start = jQuery("#Id_dataCollectParamsstart").val();
-			var end = jQuery("#Id_dataCollectParamsend").val();
-			var step = jQuery("#Id_dataCollectParamsstep").val();
-			var baseSelect = jQuery("#Id_dataCollectParamsbaseSelect").val();
-			var encode = jQuery('#Id_dataCollectParamsEncode').combobox('getText');
-			var dataBaseType = jQuery("#Id_dataCollectParamsdataBaseType").combobox('getText');
-			var tableName = jQuery("#Id_dataCollectParamstableName").val();
+			var IP = jQuery("#Id_Add_dataCollectParamsIP").val();
+			var PORT = jQuery("#Id_Add_dataCollectParamsPORT").val();
+			var baseURL = jQuery("#Id_Add_dataCollectParamsbaseURL").val();
+			var pageParams = jQuery("#Id_Add_dataCollectParamspageParams").val();
+			var start = jQuery("#Id_Add_dataCollectParamsstart").val();
+			var end = jQuery("#Id_Add_dataCollectParamsend").val();
+			var step = jQuery("#Id_Add_dataCollectParamsstep").val();
+			var baseSelect = jQuery("#Id_Add_dataCollectParamsbaseSelect").val();
+			var encode = jQuery('#Id_Add_dataCollectParamsEncode').combobox('getText');
+			var dataBaseType = jQuery("#Id_Add_dataCollectParamsdataBaseType").combobox('getText');
+			var tableName = jQuery("#Id_Add_dataCollectParamstableName").val();
 			var fieldList = new Array();
-			var rows = jQuery('#Id_footGridEdit').datagrid('getRows');
+			var rows = jQuery('#Id_Add_footGridEdit').datagrid('getRows');
 			for ( var i = 0; i < rows.length; i=i+1) {
 				row = rows[i];
-				var fid = row.id;
 				var fieldSelect = row.fieldSelect;
 				var selectMethod = row.selectMethod;
 				var targetAttr = row.targetAttr;
@@ -208,13 +205,13 @@ var DataCollectAdd = {
 				var fieldName = row.fieldName;
 				var fieldType = row.fieldType;
 				var fieldLenth = row.fieldLenth;
-				var dataField = new AppEntity.DataField(fid, fieldSelect, selectMethod, targetAttr, pattern, newPlace, oldPlace, fieldName, fieldType, fieldLenth);
+				var dataField = new AppEntity.DataField('', fieldSelect, selectMethod, targetAttr, pattern, newPlace, oldPlace, fieldName, fieldType, fieldLenth);
 				fieldList.push(dataField);
 			}
-			var dataCollect = new AppEntity.DataCollect(id, IP, PORT, baseURL, pageParams, start, end, step, baseSelect, encode, dataBaseType, tableName, fieldList);
+			var dataCollect = new AppEntity.DataCollect('', IP, PORT, baseURL, pageParams, start, end, step, baseSelect, encode, dataBaseType, tableName, fieldList);
 			var json = jQuery.toJSON(dataCollect);
 			jQuery.ajax({
-				url:'admin/data/dataCollect.htm?operator=edit',
+				url:'admin/data/dataCollect.htm?operator=add',
 				data:{data:json},
 				dataType:'json',
 				timeout:3000,

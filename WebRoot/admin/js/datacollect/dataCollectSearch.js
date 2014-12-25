@@ -82,7 +82,7 @@ var DataCollectSearch = {
 				iconCls: 'icon-add',
 				text:'添加',
 				handler: function(){
-					jQuery('#Id_dataCollectEdit').dialog({
+					jQuery('#Id_dataCollectAdd').dialog({
 						title: '添加信息',
 						width: 800,
 						height: 400,
@@ -97,7 +97,7 @@ var DataCollectSearch = {
 						},{
 							text:'关闭',
 							handler:function(){
-								jQuery('#Id_dataCollectEdit').dialog('close');
+								jQuery('#Id_dataCollectAdd').dialog('close');
 							}
 						}],
 						loadingMessage:MessageUtil.loadingPageMessage

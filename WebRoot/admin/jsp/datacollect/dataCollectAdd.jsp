@@ -41,7 +41,7 @@
         <label for="name">表名:</label>
         <input id="Id_Add_dataCollectParamstableName" size=17/>
      </div>
-     <div id="Id_Add_footGridEdit" style="height:162px"></div>
+     <div id="Id_Add_footGridAdd" style="height:162px"></div>
 </div>
 <script type="text/javascript">
 	jQuery(function() {

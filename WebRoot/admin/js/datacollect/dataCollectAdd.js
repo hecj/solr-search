@@ -5,7 +5,7 @@ var DataCollectAdd = {
 		init:function(){
 		
 			/*初始化表格*/
-			var dataGridAdd = jQuery('#Id_Add_footGridEdit').datagrid( {
+			var dataGridAdd = jQuery('#Id_Add_footGridAdd').datagrid( {
 				rownumbers : true,
 				singleSelect:true,
 				loadMsg: MessageUtil.loadDataGridMsg,
@@ -170,7 +170,7 @@ var DataCollectAdd = {
 			});
 		},
 		updateActions:function(index){
-			jQuery('#Id_Add_footGridEdit').datagrid('updateRow',{
+			jQuery('#Id_Add_footGridAdd').datagrid('updateRow',{
 				index: index,
 				row:{}
 			});
@@ -189,7 +189,7 @@ var DataCollectAdd = {
 			var dataBaseType = jQuery("#Id_Add_dataCollectParamsdataBaseType").combobox('getText');
 			var tableName = jQuery("#Id_Add_dataCollectParamstableName").val();
 			var fieldList = new Array();
-			var rows = jQuery('#Id_Add_footGridEdit').datagrid('getRows');
+			var rows = jQuery('#Id_Add_footGridAdd').datagrid('getRows');
 			for ( var i = 0; i < rows.length; i=i+1) {
 				row = rows[i];
 				var fieldSelect = row.fieldSelect;

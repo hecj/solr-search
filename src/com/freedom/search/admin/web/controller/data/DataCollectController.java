@@ -376,4 +376,9 @@ public class DataCollectController extends BaseController{
 		write(response,ObjectToJson.object2json(new MessageCode("fail","添加失败!")));
 	}
 	
+	@RequestMapping(params="operator=toAdd")
+	public String toAdd(){
+		return "admin/jsp/datacollect/dataCollectAdd";
+	}
+	
 }

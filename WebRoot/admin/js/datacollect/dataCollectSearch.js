@@ -88,7 +88,7 @@ var DataCollectSearch = {
 						height: 400,
 						cache: false,
 						modal: true,
-						href: 'admin/jsp/datacollect/dataCollectAdd.jsp',
+						href: 'admin/data/dataCollect.htm?operator=toAdd',
 						buttons:[{
 							text:'提交',
 							handler:function(){

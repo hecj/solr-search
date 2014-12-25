@@ -10,10 +10,6 @@ var DataCollectAdd = {
 				singleSelect:true,
 				loadMsg: MessageUtil.loadDataGridMsg,
 				columns : [ [ {
-					field : 'id',
-					title : 'id ',
-					hidden : true
-				},{
 					field : 'fieldSelect',
 					title : '选择器 ',
 					align : 'center',

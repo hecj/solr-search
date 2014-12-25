@@ -248,7 +248,7 @@ var DataCollectAdd = {
 						if(data.code == 'success'){
 							MessageUtil.messageShow('<font color=green>'+data.message+'</font>');
 							jQuery("#Id_dataCollectAdd").dialog("close");
-							datacCollectGrid.datagrid('reload');
+							jQuery('#Id_dataCollectSearch').datagrid('reload');
 						}else{
 							MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
 						}

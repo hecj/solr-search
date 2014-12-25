@@ -12,10 +12,12 @@ var DataCollectSearch = {
 			url : 'admin/data/dataCollect.htm?operator=seacherDataCollect',
 			columns : [ [ {
 				field : 'id',
-				hidden : true
+				title : '编号',
+				align : 'center',
+				hidden : false
 			}, {
 				field : 'baseURL',
-				title : 'base网站',
+				title : '网站',
 				align : 'center',
 				fitColumns : true
 			}, {
@@ -77,6 +79,31 @@ var DataCollectSearch = {
 			showFooter : true,
 			loadMsg : MessageUtil.loadDataGridMsg,
 			toolbar: [{
+				iconCls: 'icon-add',
+				text:'添加',
+				handler: function(){
+					jQuery('#Id_dataCollectEdit').dialog({
+						title: '添加信息',
+						width: 800,
+						height: 400,
+						cache: false,
+						modal: true,
+						href: 'admin/jsp/datacollect/dataCollectAdd.jsp',
+						buttons:[{
+							text:'提交',
+							handler:function(){
+								
+							}
+						},{
+							text:'关闭',
+							handler:function(){
+								jQuery('#Id_dataCollectEdit').dialog('close');
+							}
+						}],
+						loadingMessage:MessageUtil.loadingPageMessage
+					});
+				}
+			},'-',{
 				iconCls: 'icon-edit',
 				text:'查看',
 				handler: function(){
@@ -140,26 +167,7 @@ var DataCollectSearch = {
 						buttons:[{
 							text:'提交',
 							handler:function(){
-								//当前行正在编辑则返回
-								var rows = jQuery("#Id_footGridEdit").datagrid('getRows');
-								if(rows){
-									//取消其他的编辑行
-									for(var i=0;i<rows.length;i+=1){
-										row = rows[i];
-										if(row.editing){
-											MessageUtil.errorShow("第"+(i+1)+"行未保存!");
-											return ;
-										}
-										if(row.fieldSelect == undefined || StringUtils.trims(row.fieldSelect).length == 0){
-											MessageUtil.errorShow("第"+(i+1)+"行选择器不可为空!");
-											return ;
-										}
-									}
-									DataCollectEdit.onSubmit();
-									jQuery('#Id_dataCollectEdit').dialog('refresh');
-								}else{
-									MessageUtil.errorShow("操作异常!");
-								}
+								DataCollectEdit.onSubmit();
 							}
 						},{
 							text:'关闭',

@@ -1,13 +1,11 @@
-var DataCollectEdit = {
+var DataCollectAdd = {
 		/*
 		 * 初始化页面
 		 */
 		init:function(){
 		
 			/*初始化表格*/
-			var id = jQuery('#Id_dataCollectParamsEdit').val();
 			var dataGridEdit = jQuery('#Id_footGridEdit').datagrid( {
-				url: 'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 				rownumbers : true,
 				singleSelect:true,
 				loadMsg: MessageUtil.loadDataGridMsg,
@@ -183,75 +181,57 @@ var DataCollectEdit = {
 		},
 		/*提交*/
 		onSubmit:function(){
-			//当前行正在编辑则返回
-			var rows = jQuery("#Id_footGridEdit").datagrid('getRows');
-			if(rows){
-				//取消其他的编辑行
-				for(var i=0;i<rows.length;i+=1){
-					row = rows[i];
-					if(row.editing){
-						MessageUtil.errorShow("第"+(i+1)+"行未保存!");
-						return ;
-					}
-					if(row.fieldSelect == undefined || StringUtils.trims(row.fieldSelect).length == 0){
-						MessageUtil.errorShow("第"+(i+1)+"行选择器不可为空!");
-						return ;
-					}
-				}
-				var id = jQuery("#Id_dataCollectParamsEdit").val();
-				var IP = jQuery("#Id_dataCollectParamsIP").val();
-				var PORT = jQuery("#Id_dataCollectParamsPORT").val();
-				var baseURL = jQuery("#Id_dataCollectParamsbaseURL").val();
-				var pageParams = jQuery("#Id_dataCollectParamspageParams").val();
-				var start = jQuery("#Id_dataCollectParamsstart").val();
-				var end = jQuery("#Id_dataCollectParamsend").val();
-				var step = jQuery("#Id_dataCollectParamsstep").val();
-				var baseSelect = jQuery("#Id_dataCollectParamsbaseSelect").val();
-				var encode = jQuery('#Id_dataCollectParamsEncode').combobox('getText');
-				var dataBaseType = jQuery("#Id_dataCollectParamsdataBaseType").combobox('getText');
-				var tableName = jQuery("#Id_dataCollectParamstableName").val();
-				var fieldList = new Array();
-				var rows = jQuery('#Id_footGridEdit').datagrid('getRows');
-				for ( var i = 0; i < rows.length; i=i+1) {
-					row = rows[i];
-					var fid = row.id;
-					var fieldSelect = row.fieldSelect;
-					var selectMethod = row.selectMethod;
-					var targetAttr = row.targetAttr;
-					var pattern = row.pattern;
-					var newPlace = row.newPlace;
-					var oldPlace = row.oldPlace;
-					var fieldName = row.fieldName;
-					var fieldType = row.fieldType;
-					var fieldLenth = row.fieldLenth;
-					var dataField = new AppEntity.DataField(fid, fieldSelect, selectMethod, targetAttr, pattern, newPlace, oldPlace, fieldName, fieldType, fieldLenth);
-					fieldList.push(dataField);
-				}
-				var dataCollect = new AppEntity.DataCollect(id, IP, PORT, baseURL, pageParams, start, end, step, baseSelect, encode, dataBaseType, tableName, fieldList);
-				var json = jQuery.toJSON(dataCollect);
-				jQuery.ajax({
-					url:'admin/data/dataCollect.htm?operator=edit',
-					data:{data:json},
-					dataType:'json',
-					timeout:3000,
-					type:'GET',
-					cache:false,
-					success:function(data){
-						if(data.code == 'success'){
-							MessageUtil.messageShow('<font color=green>'+data.message+'</font>');
-							jQuery('#Id_dataCollectEdit').dialog('close');
-							jQuery('#Id_dataCollectSearch').datagrid('reload');
-						}else{
-							MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
-						}
-					},
-					error:function(data){
+			
+			var id = jQuery("#Id_dataCollectParamsEdit").val();
+			var IP = jQuery("#Id_dataCollectParamsIP").val();
+			var PORT = jQuery("#Id_dataCollectParamsPORT").val();
+			var baseURL = jQuery("#Id_dataCollectParamsbaseURL").val();
+			var pageParams = jQuery("#Id_dataCollectParamspageParams").val();
+			var start = jQuery("#Id_dataCollectParamsstart").val();
+			var end = jQuery("#Id_dataCollectParamsend").val();
+			var step = jQuery("#Id_dataCollectParamsstep").val();
+			var baseSelect = jQuery("#Id_dataCollectParamsbaseSelect").val();
+			var encode = jQuery('#Id_dataCollectParamsEncode').combobox('getText');
+			var dataBaseType = jQuery("#Id_dataCollectParamsdataBaseType").combobox('getText');
+			var tableName = jQuery("#Id_dataCollectParamstableName").val();
+			var fieldList = new Array();
+			var rows = jQuery('#Id_footGridEdit').datagrid('getRows');
+			for ( var i = 0; i < rows.length; i=i+1) {
+				row = rows[i];
+				var fid = row.id;
+				var fieldSelect = row.fieldSelect;
+				var selectMethod = row.selectMethod;
+				var targetAttr = row.targetAttr;
+				var pattern = row.pattern;
+				var newPlace = row.newPlace;
+				var oldPlace = row.oldPlace;
+				var fieldName = row.fieldName;
+				var fieldType = row.fieldType;
+				var fieldLenth = row.fieldLenth;
+				var dataField = new AppEntity.DataField(fid, fieldSelect, selectMethod, targetAttr, pattern, newPlace, oldPlace, fieldName, fieldType, fieldLenth);
+				fieldList.push(dataField);
+			}
+			var dataCollect = new AppEntity.DataCollect(id, IP, PORT, baseURL, pageParams, start, end, step, baseSelect, encode, dataBaseType, tableName, fieldList);
+			var json = jQuery.toJSON(dataCollect);
+			jQuery.ajax({
+				url:'admin/data/dataCollect.htm?operator=edit',
+				data:{data:json},
+				dataType:'json',
+				timeout:3000,
+				type:'GET',
+				cache:false,
+				success:function(data){
+					if(data.code == 'success'){
+						MessageUtil.messageShow('<font color=green>'+data.message+'</font>');
+						datacCollectGrid.datagrid('reload');
+					}else{
 						MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
 					}
-				});				
-			}else{
-				MessageUtil.errorShow("操作异常!");
-			}
+				},
+				error:function(data){
+					MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
+				}
+			});
 	}
 		
 }

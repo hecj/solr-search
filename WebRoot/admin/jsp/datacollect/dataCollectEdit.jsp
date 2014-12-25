@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="admin/css/datacollect/dataCollect.css">
 <script type="text/javascript" src="admin/js/datacollect/dataCollectEdit.js"></script>
 <div><br/>
+<form id="Id_dataCollectEdit_form">
 	<input type="hidden" value="${dataCollectParams.id }" id="Id_dataCollectParamsEdit"/>
 	 <div class="CLS_mainContentDivHegiht">
 	     <label for="name" class="data_label_width">代理IP:</label>
@@ -12,7 +13,7 @@
      </div>
 	 <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">网址:</label>
-        <input id="Id_dataCollectParamsbaseURL" value="${dataCollectParams.baseURL }" size=48/>
+        <input id="Id_dataCollectParamsbaseURL" value="${dataCollectParams.baseURL }" size=48 class="easyui-validatebox" data-options="required:true"/>
      </div>
      <div class="CLS_mainContentDivHegiht">
 		<label for="name" class="data_label_width">分页参数:</label>
@@ -26,7 +27,7 @@
     </div>
      <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">基本选择器:</label>
-        <input id="Id_dataCollectParamsbaseSelect" value="${dataCollectParams.baseSelect }" size=49/>
+        <input id="Id_dataCollectParamsbaseSelect" value="${dataCollectParams.baseSelect }" size=49 class="easyui-validatebox" data-options="required:true"/>
      </div>
       <div class="CLS_mainContentDivHegiht">
         <label  class="data_label_width">编码:</label>
@@ -40,8 +41,9 @@
         	<option value="Oracle" <c:if test="${dataCollectParams.dataBaseType=='Oracle' }">selected="selected"</c:if>>Oracle</option>
         </select>
         <label for="name">表名:</label>
-        <input id="Id_dataCollectParamstableName" value="${dataCollectParams.tableName }" size=17/>
+        <input id="Id_dataCollectParamstableName" value="${dataCollectParams.tableName }" size=17 class="easyui-validatebox" data-options="required:true"/>
      </div>
+</form>
      <div id="Id_footGridEdit" style="height:162px"></div>
 </div>
 <script type="text/javascript">

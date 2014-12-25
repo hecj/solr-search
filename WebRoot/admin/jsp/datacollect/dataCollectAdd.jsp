@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="admin/css/datacollect/dataCollect.css">
 <script type="text/javascript" src="admin/js/datacollect/dataCollectAdd.js"></script>
 <div><br/>
+<form id="Id_dataCollectAdd_form">
 	 <div class="CLS_mainContentDivHegiht">
 	     <label for="name" class="data_label_width">代理IP:</label>
 	     <input id="Id_Add_dataCollectParamsIP" size="10"/>
@@ -11,7 +12,7 @@
      </div>
 	 <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">网址:</label>
-        <input id="Id_Add_dataCollectParamsbaseURL" size=48/>
+        <input id="Id_Add_dataCollectParamsbaseURL"  class="easyui-validatebox" size=48 data-options="required:true"/>
      </div>
      <div class="CLS_mainContentDivHegiht">
 		<label for="name" class="data_label_width">分页参数:</label>
@@ -25,7 +26,7 @@
     </div>
      <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">基本选择器:</label>
-        <input id="Id_Add_dataCollectParamsbaseSelect" size=49/>
+        <input id="Id_Add_dataCollectParamsbaseSelect" size=49 class="easyui-validatebox" data-options="required:true"/>
      </div>
       <div class="CLS_mainContentDivHegiht">
         <label  class="data_label_width">编码:</label>
@@ -39,8 +40,9 @@
         	<option value="Oracle">Oracle</option>
         </select>
         <label for="name">表名:</label>
-        <input id="Id_Add_dataCollectParamstableName" size=17/>
+        <input id="Id_Add_dataCollectParamstableName" size=17  class="easyui-validatebox" data-options="required:true"/>
      </div>
+</form>
      <div id="Id_Add_footGridAdd" style="height:162px"></div>
 </div>
 <script type="text/javascript">

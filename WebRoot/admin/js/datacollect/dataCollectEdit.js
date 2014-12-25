@@ -192,6 +192,13 @@ var DataCollectEdit = {
 		},
 		/*提交*/
 		onSubmit:function(){
+			
+			//校验表单
+			var isValid = jQuery("#Id_dataCollectEdit_form").form('validate');
+			if (!isValid){
+				return;
+			}
+			
 			//当前行正在编辑则返回
 			var rows = jQuery("#Id_footGridEdit").datagrid('getRows');
 			if(rows){

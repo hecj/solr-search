@@ -12,7 +12,7 @@
      </div>
 	 <div class="CLS_mainContentDivHegiht">
         <label for="name" class="data_label_width">网址:</label>
-        <input id="Id_Add_dataCollectParamsbaseURL"  class="easyui-validatebox" size=48 data-options="required:true"/>
+        <input id="Id_Add_dataCollectParamsbaseURL"  class="easyui-validatebox" size=48 data-options="required:true,validType:'notEmpty'"/>
      </div>
      <div class="CLS_mainContentDivHegiht">
 		<label for="name" class="data_label_width">分页参数:</label>

@@ -19,11 +19,13 @@ var DataCollectEdit = {
 					field : 'fieldSelect',
 					title : '选择器 ',
 					align : 'center',
-					editor:'text'
+					editor:'text',
+					width:130
 				}, {
 					field : 'selectMethod',
 					title : '方法',
 					align : 'center',
+					width:60,
 					editor:{
 						type:'combobox',
 						options:{
@@ -42,31 +44,37 @@ var DataCollectEdit = {
 					field : 'targetAttr',
 					title : '属性',
 					align : 'center',
+					width:80,
 					editor:'text'
 				}, {
 					field : 'pattern',
 					title : '正则',
 					align : 'center',
+					width:80,
 					editor:'text'
 				}, {
 					field : 'newPlace',
 					title : '替换新',
 					align : 'center',
+					width:80,
 					editor:'text'
 				}, {
 					field : 'oldPlace',
 					title : '替换老',
 					align : 'center',
+					width:80,
 					editor:'text'
 				}, {
 					field : 'fieldName',
 					title : '字段名',
 					align : 'center',
+					width:80,
 					editor:'text'
 				}, {
 					field : 'fieldType',
 					title : '字段类型',
 					align : 'center',
+					width:70,
 					editor:{
 						type:'combobox',
 						options:{
@@ -88,6 +96,7 @@ var DataCollectEdit = {
 					field : 'fieldLenth',
 					title : '字段长度',
 					align : 'center',
+					width:70,
 					editor:'numberbox'
 				} 
 				] ],

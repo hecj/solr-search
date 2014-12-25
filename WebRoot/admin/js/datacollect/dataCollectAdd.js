@@ -135,15 +135,15 @@ var DataCollectAdd = {
 				}],
 				onBeforeEdit:function(index,row){
 					row.editing = true;
-					DataCollectEdit.updateActions(index);
+					DataCollectAdd.updateActions(index);
 				},
 				onAfterEdit:function(index,row){
 					row.editing = false;
-					DataCollectEdit.updateActions(index);
+					DataCollectAdd.updateActions(index);
 				},
 				onCancelEdit:function(index,row){
 					row.editing = false;
-					DataCollectEdit.updateActions(index);
+					DataCollectAdd.updateActions(index);
 				},
 				onDblClickCell: function(index,field,value){
 					//当前行正在编辑则返回

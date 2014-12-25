@@ -24,7 +24,20 @@ var DataCollectEdit = {
 					field : 'selectMethod',
 					title : '方法',
 					align : 'center',
-					editor:'text'
+					editor:{
+						type:'combobox',
+						options:{
+							valueField:'value',
+							textField:'text',
+							data:[
+							   {value:'text',text:'text'},
+							   {value:'attr',text:'attr'},
+							   {value:'html',text:'html'}
+							],
+							editable:false,
+							panelHeight:65
+						},
+					}
 				}, {
 					field : 'targetAttr',
 					title : '属性',
@@ -54,12 +67,28 @@ var DataCollectEdit = {
 					field : 'fieldType',
 					title : '字段类型',
 					align : 'center',
-					editor:'text'
+					editor:{
+						type:'combobox',
+						options:{
+							valueField:'value',
+							textField:'text',
+							data:[
+							   {value:'integer',text:'integer'},
+							   {value:'char',text:'char'},
+							   {value:'varchar',text:'varchar'},
+							   {value:'date',text:'date'},
+							   {value:'datetime',text:'datetime'},
+							   {value:'blob',text:'blob'}
+							],
+							editable:false,
+							panelHeight:130
+						},
+					}
 				}, {
 					field : 'fieldLenth',
 					title : '字段长度',
 					align : 'center',
-					editor:'text'
+					editor:'numberbox'
 				} 
 				] ],
 				toolbar: [{
@@ -70,6 +99,10 @@ var DataCollectEdit = {
 						dataGridEdit.datagrid('insertRow',{
 							index: rows.length,
 							row: {
+								selectMethod:'text',
+								fieldType:'varchar',
+								fieldLenth:255,
+								fieldName:'P'+(rows.length+1)
 							}
 						});
 					}

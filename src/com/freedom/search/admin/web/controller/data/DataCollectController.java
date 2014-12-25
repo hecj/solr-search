@@ -1,6 +1,8 @@
 package com.freedom.search.admin.web.controller.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -217,6 +219,12 @@ public class DataCollectController extends BaseController{
 						vo.setTargetAttr(d.getTargetAttr());
 						list.add(vo);
 					}
+					//排序
+					Collections.sort(list, new Comparator<VoDataField>() {
+						public int compare(VoDataField v1, VoDataField v2) {
+							return v1.getId().compareTo(v2.getId());
+						}
+					});
 					write(response, ObjectToJson.object2json(list));
 					return null;
 				}

@@ -14,6 +14,14 @@ var MessageUtil = {
 			timeout:3000,
 			showType:'show'
 		})
+	},
+	errorShow:function(message){
+		jQuery.messager.show({
+			title:'提示信息',
+			msg:'<center><font size=4 color=red>'+message+'</font></center>',
+			timeout:3000,
+			showType:'show'
+		})
 	}
 
 }

@@ -271,7 +271,11 @@ public class DataCollectController extends BaseController{
 				for(int i=0;i<jsonArr.size();i++){
 					JSONObject obj = jsonArr.getJSONObject(i);
 					DataField mDataField = new DataField();
-					mDataField.setId(obj.getString("id"));
+					if(StringUtil.isObjectEmpty(obj.get("id"))){
+						mDataField.setId(UUIDUtil.autoUUID());
+					}else{
+						mDataField.setId(obj.getString("id"));
+					}
 					mDataField.setFieldSelect(obj.getString("fieldSelect"));
 					mDataField.setSelectMethod(obj.getString("selectMethod"));
 					mDataField.setTargetAttr(obj.getString("targetAttr"));

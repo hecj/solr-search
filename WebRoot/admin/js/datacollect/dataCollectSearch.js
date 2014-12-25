@@ -140,8 +140,22 @@ var DataCollectSearch = {
 						buttons:[{
 							text:'提交',
 							handler:function(){
-								DataCollectEdit.onSubmit();
-								jQuery('#Id_dataCollectEdit').dialog('refresh');
+								//当前行正在编辑则返回
+								var rows = jQuery("#Id_footGridEdit").datagrid('getRows');
+								if(rows){
+									//取消其他的编辑行
+									for(var i=0;i<rows.length;i+=1){
+										row = rows[i];
+										if(row.editing){
+											MessageUtil.errorShow("第"+(i+1)+"行未保存!");
+											return ;
+										}
+									}
+									DataCollectEdit.onSubmit();
+									jQuery('#Id_dataCollectEdit').dialog('refresh');
+								}else{
+									MessageUtil.errorShow("操作异常!");
+								}
 							}
 						},{
 							text:'关闭',

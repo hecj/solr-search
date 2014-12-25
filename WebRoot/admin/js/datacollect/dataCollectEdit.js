@@ -53,7 +53,8 @@ var DataCollectEdit = {
 				}, {
 					field : 'fieldType',
 					title : '字段类型',
-					align : 'center'
+					align : 'center',
+					editor:'text'
 				}, {
 					field : 'fieldLenth',
 					title : '字段长度',

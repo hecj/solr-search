@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!-- --> 
-<script type="text/javascript" src="admin/js/datacollect/dataCollectSearch.js"></script>
+<script type="text/javascript" src="admin/js/datacollect/dataCollectManager.js"></script>
 
 <div style="height: 100%">
 	<div id="Id_dataCollectSearch"></div>

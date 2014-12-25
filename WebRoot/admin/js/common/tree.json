@@ -8,7 +8,7 @@
 			"url" : "admin/jsp/datacollect/simpleDataCollect.jsp"
 		}
 	}, {
-		"text" : "数据搜索查询",
+		"text" : "数据搜索管理",
 		"attributes":{
 			"url" : "admin/jsp/datacollect/dataCollectManager.jsp"
 		}

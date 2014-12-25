@@ -2,89 +2,96 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet" type="text/css" href="admin/css/datacollect/dataCollect.css">
 <div><br/>
-	 <input type="hidden" value="${dataCollectParams.id }" id="Id_dataCollectParams"/>
-	 <div style="height: 38px">
-	 	<c:if test="${dataCollectParams.IP != null && dataCollectParams.IP != '' }">
-        <label for="name" class="data_label_width">代理IP:</label>
-        <label class="easyui-validatebox input" style="width: 100px" >${dataCollectParams.IP }</label>
-        <label for="name" style="width: 50px">端口:</label>
-        <label class="easyui-validatebox" style="width: 50px;" >${dataCollectParams.PORT }</label>
-     	</c:if>
+	<input type="hidden" id="Id_dataCollectMsg" value="${dataCollectParams.id }"/>
+	 <div class="CLS_mainContentDivHegiht">
+	     <label for="name" class="data_label_width">代理IP:</label>
+	     <input  size="10" value="${dataCollectParams.IP }" readonly="readonly"/>
+	     <label for="name" style="width: 50px">端口:</label>
+	     <input size="4" value="${dataCollectParams.PORT }" readonly="readonly"/>
      </div>
 	 <div class="CLS_mainContentDivHegiht">
-        <label for="name" class="data_label_width">base网站:</label>
-        <label class="easyui-validatebox" style="width: 350px"  >${dataCollectParams.baseURL }</label>
-     	<c:if test="${dataCollectParams.pageParams != null && dataCollectParams.pageParams != '' }">
-     	<label for="name" style="width: 50px">分页参数:</label>
-        <label class="easyui-validatebox" style="width: 50px" >${dataCollectParams.pageParams }</label>
-     	<label for="name" style="width: 50px">开始:</label>
-        <label class="easyui-validatebox" style="width: 50px" >${dataCollectParams.start }</label>
-     	<label for="name" style="width: 50px">结束:</label>
-        <label class="easyui-validatebox" style="width: 50px">${dataCollectParams.end }</label>
-     	<label for="name" style="width: 50px">步长:</label>
-        <label class="easyui-validatebox" style="width: 50px">${dataCollectParams.step }</label>
-     	</c:if>
+        <label for="name" class="data_label_width">网址:</label>
+        <input size=48 value="${dataCollectParams.baseURL }" readonly="readonly"/>
      </div>
      <div class="CLS_mainContentDivHegiht">
-        <label for="name" class="data_label_width">base选择器:</label>
-        <label class="easyui-validatebox" style="width: 450px" >${dataCollectParams.baseSelect }</label>
+		<label for="name" class="data_label_width">分页参数:</label>
+	    <input  size=6 value="${dataCollectParams.pageParams }" readonly="readonly"/>
+	    <label for="name" style="width: 50px">开始:</label>
+	    <input  size=6 value="${dataCollectParams.start }" readonly="readonly"/>
+	    <label for="name" style="width: 50px">结束:</label>
+	    <input size=6 value="${dataCollectParams.end }" readonly="readonly"/>
+	    <label for="name" style="width: 50px">步长:</label>
+	    <input  size=6 value="${dataCollectParams.step }" readonly="readonly"/>
+    </div>
+     <div class="CLS_mainContentDivHegiht">
+        <label for="name" class="data_label_width">基本选择器:</label>
+        <input size=49 value="${dataCollectParams.baseSelect }" readonly="readonly"/>
      </div>
       <div class="CLS_mainContentDivHegiht">
         <label  class="data_label_width">编码:</label>
-        <label  style="width:150px;">${dataCollectParams.encode }</label>
+        <input value="${dataCollectParams.encode }" size=7 readonly="readonly"/>
+        <label for="name">数据库:</label>
+        <input value="${dataCollectParams.dataBaseType }" size=7 readonly="readonly"/>
+        <label for="name">表名:</label>
+        <input  size=17 value="${dataCollectParams.tableName }" readonly="readonly"/>
      </div>
-     <div class="CLS_mainContentDivHegiht">
-        <label for="name" class="data_label_width">数据库:</label>
-        <label id="cc" style="width:150px;">${dataCollectParams.dataBaseType }</label>
-     </div>
-     <div class="CLS_mainContentDivHegiht">
-        <label for="name" class="data_label_width">表名:</label>
-        <label class="easyui-validatebox" >${dataCollectParams.tableName }</label>
-     </div>
-     <div id="Id_footGrid"></div>
+     <div id="Id_Add_footGridMsg" style="height:162px"></div>
 </div>
-
-<script>
-
-	jQuery(function(){
-
-		var id = jQuery('#Id_dataCollectParams').val();
-		jQuery('#Id_footGrid').datagrid( {
+<script type="text/javascript">
+	jQuery(function() {
+		var id = jQuery("#Id_dataCollectMsg").val();
+		var dataGridAdd = jQuery('#Id_Add_footGridMsg').datagrid( {
 			url: 'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
+			rownumbers : true,
+			singleSelect:true,
+			loadMsg: MessageUtil.loadDataGridMsg,
 			columns : [ [ {
 				field : 'fieldSelect',
-				title : '字段选择器 ',
-				width : 100
+				title : '选择器 ',
+				align : 'center',
+				width:130
 			}, {
 				field : 'selectMethod',
-				title : '解析方法',
-				width : 100
+				title : '方法',
+				align : 'center',
+				width:60
+			}, {
+				field : 'targetAttr',
+				title : '属性',
+				align : 'center',
+				width:80
 			}, {
 				field : 'pattern',
-				title : '正则正则',
-				width : 100
+				title : '正则',
+				align : 'center',
+				width:80
+			}, {
+				field : 'newPlace',
+				title : '替换新',
+				align : 'center',
+				width:80
 			}, {
 				field : 'oldPlace',
-				title : '替换',
-				width : 100
+				title : '替换老',
+				align : 'center',
+				width:80
 			}, {
 				field : 'fieldName',
 				title : '字段名',
-				width : 100
+				align : 'center',
+				width:80
 			}, {
 				field : 'fieldType',
 				title : '字段类型',
-				width : 100
+				width:70,
+				align : 'center'
 			}, {
 				field : 'fieldLenth',
 				title : '字段长度',
-				width : 100
-			}, ] ],
-			rownumbers : true,
-			loadMsg: MessageUtil.loadDataGridMsg,
-			singleSelect:true
+				align : 'center',
+				width:70
+			} 
+			] ]
 		});
-	
 	});
-
 </script>

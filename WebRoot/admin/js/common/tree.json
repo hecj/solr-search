@@ -10,7 +10,7 @@
 	}, {
 		"text" : "数据搜索查询",
 		"attributes":{
-			"url" : "admin/jsp/datacollect/dataCollectSearch.jsp"
+			"url" : "admin/jsp/datacollect/dataCollectManager.jsp"
 		}
 	}]
 }]

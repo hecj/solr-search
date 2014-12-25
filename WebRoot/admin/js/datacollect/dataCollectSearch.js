@@ -201,7 +201,7 @@ var DataCollectSearch = {
 	openDataCollectDialog:function(index, row) {
 		jQuery('#Id_dataCollectMessage').dialog({
 			title: '详细信息',
-			width: 900,
+			width: 800,
 			height: 400,
 			cache: false,
 			modal: true,

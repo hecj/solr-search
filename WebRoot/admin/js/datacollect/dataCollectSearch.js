@@ -150,6 +150,10 @@ var DataCollectSearch = {
 											MessageUtil.errorShow("第"+(i+1)+"行未保存!");
 											return ;
 										}
+										if(row.fieldSelect == undefined || StringUtils.trims(row.fieldSelect).length == 0){
+											MessageUtil.errorShow("第"+(i+1)+"行选择器不可为空!");
+											return ;
+										}
 									}
 									DataCollectEdit.onSubmit();
 									jQuery('#Id_dataCollectEdit').dialog('refresh');

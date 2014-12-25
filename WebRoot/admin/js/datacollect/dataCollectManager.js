@@ -14,62 +14,74 @@ var DataCollectSearch = {
 				field : 'id',
 				title : '编号',
 				align : 'center',
-				hidden : false
+				hidden : false,
+				width:130
 			}, {
 				field : 'baseURL',
-				title : '网站',
+				title : '网址',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:250
 			}, {
 				field : 'baseSelect',
 				title : 'base选择器',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:250
 			}, {
 				field : 'encode',
 				title : '编码',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:50
 			}, {
 				field : 'dataBaseType',
 				title : '数据库',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:70
 			}, {
 				field : 'tableName',
 				title : '表名',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:100
 			}, {
 				field : 'pageParams',
 				title : '分页参数',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:80
 			}, {
 				field : 'start',
 				title : '开始',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:80
 			}, {
 				field : 'end',
 				title : '结束',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:80
 			}, {
 				field : 'step',
 				title : '步长',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:80
 			}, {
 				field : 'IP',
 				title : 'IP',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:100
 			}, {
 				field : 'PORT',
 				title : '端口',
 				align : 'center',
-				fitColumns : true
+				fitColumns : true,
+				width:80
 			}] ],
 			pagination : true,
 			rownumbers : true,
@@ -77,6 +89,7 @@ var DataCollectSearch = {
 			singleSelect : true,
 			showHeader : true,
 			showFooter : true,
+			pageSize:20,
 			loadMsg : MessageUtil.loadDataGridMsg,
 			toolbar: [{
 				iconCls: 'icon-add',
@@ -158,7 +171,7 @@ var DataCollectSearch = {
 						return;
 					}
 					jQuery('#Id_dataCollectEdit').dialog({
-						title: '编辑信息',
+						title: '编辑信息 Id:'+row.id,
 						width: 800,
 						height: 400,
 						cache: false,
@@ -200,7 +213,7 @@ var DataCollectSearch = {
 	},
 	openDataCollectDialog:function(index, row) {
 		jQuery('#Id_dataCollectMessage').dialog({
-			title: '详细信息',
+			title: '详细信息 Id:'+row.id,
 			width: 800,
 			height: 400,
 			cache: false,

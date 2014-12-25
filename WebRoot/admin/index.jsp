@@ -25,7 +25,7 @@
     	<jsp:include page="./jsp/common/footer.jsp"/>
     </div>  
     <div id="west" region="west" split="true" title="系统工具" style="width:160px;"></div>  
-    <div id="center" region="center" class="easyui-tabs" style="padding:0px;background:#eee;height: 100%" fit="true"></div>  
+    <div id="center" region="center" class="easyui-tabs" style="padding:0px;background:#eee;height: 100%" fit="false"></div>  
 </body> 
 </html>
 

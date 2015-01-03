@@ -1,3 +1,5 @@
+
+var centerTabs;
 (function(){
 	jQuery(document).ready(function(){
 		/*第一种方式加载树*/
@@ -8,7 +10,7 @@
 		    }  
 		});
 		*/
-		/*第二种方式加载树*/
+		/*第二种方式加载树
 		jQuery('#west').tree( {
 			url : 'admin/js/common/tree.json',
 			onClick : function(node) {
@@ -26,6 +28,24 @@
 				}
 			}
 		});
+		*/
+		
+		$('#west').tree( {
+			url : 'admin/js/common/tree.json',
+			onClick : function(node) {
+				addTab(node);
+			}
+		});
+		
+		centerTabs = $('#center').tabs('add', {
+			title : '欢迎页2',
+//			href : 'admin/jsp/common/webcome.jsp',
+			content:'<iframe src="admin/jsp/datacollect/dataCollectManager.jsp" style="border:0;width:100%;height:99%;" frameBorder="0"></iframe>',
+			closable : true,
+			loadingMessage : MessageUtil.loadingPageMessage
+		});
+		
+		
 	});
 })();
 
@@ -52,6 +72,37 @@ var SystemApp = {
 				closable : true,
 				loadingMessage : MessageUtil.loadingPageMessage
 			});
+		}
+	}
+}
+
+
+function addTab(node){
+	
+	if (centerTabs.tabs('exists', node.text)) {
+		centerTabs.tabs('select',node.text);
+	}else{
+		if(node.attributes.url && node.attributes.url.length>0){
+			/*$.message.progress({
+				text:'页面加载中...',
+				interval:100
+			});
+			*/
+			alert(node.attributes.url);
+			centerTabs.tabs('add', {
+				title : node.text,
+				content:'<iframe src="'+node.attributes.url+'" style="border:0;width:100%;height:99%;" frameBorder="0"></iframe>',
+				closable : true,
+				loadingMessage : MessageUtil.loadingPageMessage
+			});
+			
+			/*centerTabs.tabs('add', {
+				title : node.text,
+//				href : 'admin/jsp/common/webcome.jsp',
+				content:'<iframe src="'+node.attributes.url+'" style="border:0;width:100%;height:99%;" frameBorder="0"></iframe>',
+				closable : true,
+				loadingMessage : MessageUtil.loadingPageMessage
+			});*/
 		}
 	}
 }

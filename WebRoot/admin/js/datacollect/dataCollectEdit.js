@@ -7,7 +7,7 @@ var DataCollectEdit = {
 			/*初始化表格*/
 			var id = jQuery('#Id_dataCollectParamsEdit').val();
 			var dataGridEdit = jQuery('#Id_footGridEdit').datagrid( {
-				url: 'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
+				url: 'http://localhost:8080/search/admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 				rownumbers : true,
 				singleSelect:true,
 				loadMsg: MessageUtil.loadDataGridMsg,
@@ -246,7 +246,7 @@ var DataCollectEdit = {
 				var dataCollect = new AppEntity.DataCollect(id, IP, PORT, baseURL, pageParams, start, end, step, baseSelect, encode, dataBaseType, tableName, fieldList);
 				var json = jQuery.toJSON(dataCollect);
 				jQuery.ajax({
-					url:'admin/data/dataCollect.htm?operator=edit',
+					url:'http://localhost:8080/search/admin/data/dataCollect.htm?operator=edit',
 					data:{data:json},
 					dataType:'json',
 					timeout:3000,

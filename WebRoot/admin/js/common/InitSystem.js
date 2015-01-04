@@ -33,7 +33,16 @@ var centerTabs;
 		$('#west').tree( {
 			url : 'admin/js/common/tree.json',
 			onClick : function(node) {
-				addTab(node);
+				if(!AppUtil.isObjEmpty(node.state)){
+					if(node.state == "open"){
+						jQuery(this).tree('collapse',node.target); 
+					}else{
+						jQuery(this).tree('expand',node.target);  
+					}
+				}
+				if (!AppUtil.isObjEmpty(node.attributes.url)) {
+					addTab(node);
+				}
 			}
 		});
 		
@@ -53,6 +62,7 @@ var centerTabs;
  * 系统应用处理函数 
  */
 var SystemApp = {
+	baseURL : 'http://localhost:8080/search/',
 	openTab : function(url, title) {
 		if (jQuery('#center').tabs('exists', title)) {
 			jQuery('#center').tabs('select', title);
@@ -88,7 +98,7 @@ function addTab(node){
 				interval:100
 			});
 			*/
-			alert(node.attributes.url);
+			//alert(node.attributes.url);
 			centerTabs.tabs('add', {
 				title : node.text,
 				content:'<iframe src="'+node.attributes.url+'" style="border:0;width:100%;height:99%;" frameBorder="0"></iframe>',

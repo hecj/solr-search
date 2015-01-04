@@ -3,7 +3,6 @@
 <!-- --> 
 <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
 <head>
-	<script type="text/javascript" src="admin/js/datacollect/dataCollectManager.js"></script>
 	<script type="text/javascript">
 
 	jQuery(function(){

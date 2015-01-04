@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="/admin/jsp/base/basePath.jsp" %>
 <!DOCTYPE HTML>
+<%@include file="/admin/jsp/base/basePath.jsp" %>
 <html>
   <head>
     <base href="<%=basePath%>">

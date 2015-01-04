@@ -5,12 +5,12 @@
 	"children" : [ {
 		"text" : "数据搜索配置",
 		"attributes":{
-			"url" : "admin/jsp/datacollect/simpleDataCollect.jsp"
+			"url" : "http://localhost:8080/search/admin/jsp/datacollect/simpleDataCollect.jsp"
 		}
 	}, {
 		"text" : "数据搜索管理",
 		"attributes":{
-			"url" : "admin/jsp/datacollect/dataCollectManager.jsp"
+			"url" : "http://localhost:8080/search/admin/jsp/datacollect/dataCollectManager.jsp"
 		}
 	}]
 }]

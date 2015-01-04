@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet" type="text/css" href="admin/css/datacollect/dataCollect.css">
+<jsp:include page="/admin/jsp/base/easyUI.jsp"/>
 <div><br/>
 	<input type="hidden" id="Id_dataCollectMsg" value="${dataCollectParams.id }"/>
 	 <div class="CLS_mainContentDivHegiht">
@@ -41,7 +42,7 @@
 	jQuery(function() {
 		var id = jQuery("#Id_dataCollectMsg").val();
 		var dataGridAdd = jQuery('#Id_Add_footGridMsg').datagrid( {
-			url: 'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
+			url: 'http://localhost:8080/search/admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 			rownumbers : true,
 			singleSelect:true,
 			loadMsg: MessageUtil.loadDataGridMsg,

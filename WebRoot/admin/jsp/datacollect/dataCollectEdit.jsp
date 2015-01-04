@@ -1,7 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@include file="/admin/jsp/base/basePath.jsp" %> 
+<jsp:include page="/admin/jsp/base/easyUI.jsp"/>
 <link rel="stylesheet" type="text/css" href="admin/css/datacollect/dataCollect.css">
-<script type="text/javascript" src="admin/js/datacollect/dataCollectEdit.js"></script>
+<script type="text/javascript" src="<%=basePath %>admin/js/datacollect/dataCollectEdit.js"></script>
 <div><br/>
 <form id="Id_dataCollectEdit_form">
 	<input type="hidden" value="${dataCollectParams.id }" id="Id_dataCollectParamsEdit"/>

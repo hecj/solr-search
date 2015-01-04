@@ -8,8 +8,8 @@ var DataCollectSearch = {
 	 * 初始化表格
 	 */
 	initGrid : function() {
-		var datacCollectGrid = jQuery('#Id_dataCollectSearch').datagrid( {
-			url : 'admin/data/dataCollect.htm?operator=seacherDataCollect',
+		var datacCollectGrid = $('#Id_dataCollectSearch').datagrid( {
+			url : 'http://localhost:8080/search/admin/data/dataCollect.htm?operator=seacherDataCollect',
 			columns : [ [ {
 				field : 'id',
 				title : '编号',
@@ -24,7 +24,7 @@ var DataCollectSearch = {
 				width:250
 			}, {
 				field : 'baseSelect',
-				title : 'base选择器',
+				title : '选择器',
 				align : 'center',
 				fitColumns : true,
 				width:250
@@ -101,7 +101,7 @@ var DataCollectSearch = {
 						height: 400,
 						cache: false,
 						modal: true,
-						href: 'admin/data/dataCollect.htm?operator=toAdd',
+						href: 'http://localhost:8080/search/admin/data/dataCollect.htm?operator=toAdd',
 						buttons:[{
 							text:'提交',
 							handler:function(){
@@ -139,7 +139,7 @@ var DataCollectSearch = {
 					jQuery.messager.confirm('提示信息','确定要删除吗?',function(r){
 						if (r){
 							jQuery.ajax({
-								url:'admin/data/dataCollect.htm?operator=delete',
+								url:'http://localhost:8080/search/admin/data/dataCollect.htm?operator=delete',
 								data:{id:row.id},
 								async:true,
 								dataType:'json',
@@ -176,7 +176,7 @@ var DataCollectSearch = {
 						height: 400,
 						cache: false,
 						modal: true,
-						href: 'admin/data/dataCollect.htm?operator=toEdit&id='+row.id+"&type=1",
+						href: 'http://localhost:8080/search/admin/data/dataCollect.htm?operator=toEdit&id='+row.id+"&type=1",
 						buttons:[{
 							text:'提交',
 							handler:function(){
@@ -218,7 +218,7 @@ var DataCollectSearch = {
 			height: 400,
 			cache: false,
 			modal: true,
-			href: 'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id,
+			href: 'http://localhost:8080/search/admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id,
 			buttons:[{
 				text:'刷新',
 				handler:function(){

@@ -228,12 +228,11 @@
 					buttons:[{
 						text:'刷新',
 						handler:function(){
-							parent.$('#Id_dataCollectMessage').dialog('refresh');
+							$('#Id_dataCollectMessage').dialog('refresh');
 						}
 					},{
 						text:'关闭',
 						handler:function(){
-							alert($('#Id_dataCollectMessage'));
 							$('#Id_dataCollectMessage').dialog('close');
 						}
 					}],

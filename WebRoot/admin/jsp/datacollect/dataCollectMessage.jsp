@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" type="text/css" href="admin/css/datacollect/dataCollect.css">
-<jsp:include page="/admin/jsp/base/easyUI.jsp"/>
+<%@include file="/admin/jsp/base/basePath.jsp" %>
 <div><br/>
 	<input type="hidden" id="Id_dataCollectMsg" value="${dataCollectParams.id }"/>
 	 <div class="CLS_mainContentDivHegiht">

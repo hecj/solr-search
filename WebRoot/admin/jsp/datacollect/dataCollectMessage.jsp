@@ -40,9 +40,9 @@
 </div>
 <script type="text/javascript">
 	jQuery(function() {
-		var id = jQuery("#Id_dataCollectMsg").val();
-		var dataGridAdd = jQuery('#Id_Add_footGridMsg').datagrid( {
-			url: 'http://localhost:8080/search/admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
+		var id = $("#Id_dataCollectMsg").val();
+		var dataGridAdd = $('#Id_Add_footGridMsg').datagrid( {
+			url: AppUtil.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 			rownumbers : true,
 			singleSelect:true,
 			loadMsg: MessageUtil.loadDataGridMsg,

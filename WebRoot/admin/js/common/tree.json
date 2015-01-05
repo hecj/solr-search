@@ -3,11 +3,6 @@
 	"text" : "数据搜索",
 	"state":"closed",	
 	"children" : [ {
-		"text" : "数据搜索配置",
-		"attributes":{
-			"url" : "http://localhost:8080/search/admin/jsp/datacollect/simpleDataCollect.jsp"
-		}
-	}, {
 		"text" : "数据搜索管理",
 		"attributes":{
 			"url" : "http://localhost:8080/search/admin/jsp/datacollect/dataCollectManager.jsp"

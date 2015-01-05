@@ -1,10 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <html>
-<%@include file="/admin/jsp/base/basePath.jsp" %> 
 <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
 <head>
 <script type="text/javascript">
-
 	jQuery(function(){
 		DataCollectManager.initGrid();
 	});
@@ -15,7 +13,7 @@
 			 */
 			initGrid : function() {
 				var datacCollectGrid = $('#Id_dataCollectSearch').datagrid( {
-					url : AppUtil.basePath+'admin/data/dataCollect.htm?operator=seacherDataCollect',
+					url : app.basePath+'admin/data/dataCollect.htm?operator=seacherDataCollect',
 					columns : [ [ {
 						field : 'id',
 						title : '编号',
@@ -101,30 +99,20 @@
 						iconCls: 'icon-add',
 						text:'添加',
 						handler: function(){
-							/*jQuery('#Id_dataCollectAdd').dialog({
+							var dialog = parent.so.dialogModel({
 								title: '添加信息',
-								width: 800,
-								height: 400,
-								cache: false,
-								modal: true,
-								content:'<iframe src="'+AppUtil.basePath+'"admin/data/dataCollect.htm?operator=toAdd" style="border:0;width:100%;height:99%;" frameBorder="0"></iframe>',
-							//	href: AppUtil.basePath+'admin/data/dataCollect.htm?operator=toAdd',
+								url : app.basePath+'admin/data/dataCollect.htm?operator=toAdd',
 								buttons:[{
 									text:'提交',
 									handler:function(){
-										DataCollectAdd.onSubmit();
+										submit();
 									}
 								},{
 									text:'关闭',
 									handler:function(){
-										jQuery('#Id_dataCollectAdd').dialog('close');
+										dialog.dialog('close');
 									}
-								}],
-								loadingMessage:MessageUtil.loadingPageMessage
-							});*/
-							var dialog = parent.so.modalDialog({
-								title: '添加信息',
-								url : AppUtil.basePath+'admin/data/dataCollect.htm?operator=toAdd'
+								}]
 							});
 						}
 					},'-',{
@@ -150,7 +138,7 @@
 							jQuery.messager.confirm('提示信息','确定要删除吗?',function(r){
 								if (r){
 									jQuery.ajax({
-										url:AppUtil.basePath+'admin/data/dataCollect.htm?operator=delete',
+										url:app.basePath+'admin/data/dataCollect.htm?operator=delete',
 										data:{id:row.id},
 										async:true,
 										dataType:'json',
@@ -187,7 +175,7 @@
 								height: 400,
 								cache: false,
 								modal: true,
-								href: AppUtil.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+row.id+"&type=1",
+								href: app.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+row.id+"&type=1",
 								buttons:[{
 									text:'提交',
 									handler:function(){
@@ -246,7 +234,7 @@
 
 				var dialog = parent.so.modalDialog({
 					title: '详细信息 Id:'+row.id,
-					url : AppUtil.basePath+'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id
+					url : app.basePath+'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id
 				});
 			}
 		}

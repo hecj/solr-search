@@ -114,7 +114,7 @@
 								buttons:[{
 									text:'提交',
 									handler:function(){
-										submit();
+										dialog.find('iframe').get(0).contentWindow.submitForm();
 									}
 								},{
 									text:'关闭',
@@ -132,7 +132,7 @@
 							if(row != null){
 								DataCollectManager.openDataCollectDialog(0,row);
 							}else{
-								MessageUtil.messageShow('<font color=red>请选择一行!</font>');
+								parent.MessageUtil.messageShow('<font color=red>请选择一行!</font>');
 							}
 						}
 					},'-',{
@@ -141,7 +141,7 @@
 						handler: function(){
 							var row = datacCollectGrid.datagrid('getSelected');
 							if(row == null){
-								MessageUtil.messageShow('<font color=red>请选择一行!</font>');
+								parent.MessageUtil.messageShow('<font color=red>请选择一行!</font>');
 								return;
 							}
 							jQuery.messager.confirm('提示信息','确定要删除吗?',function(r){
@@ -156,14 +156,14 @@
 										cache:false,
 										success:function(data){
 											if(data.code == 'success'){
-												MessageUtil.messageShow('<font color=green>'+data.message+'</font>');
+												parent.MessageUtil.messageShow('<font color=green>'+data.message+'</font>');
 												datacCollectGrid.datagrid('reload');
 											}else{
-												MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
+												parent.MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
 											}
 										},
 										error:function(data){
-											MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
+											parent.MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
 										}
 									});
 								}
@@ -175,7 +175,7 @@
 						handler: function(){
 							var row = datacCollectGrid.datagrid('getSelected');
 							if(row == null){
-								MessageUtil.messageShow("<font color=red>请选择一行!</font>");
+								parent.MessageUtil.messageShow("<font color=red>请选择一行!</font>");
 								return;
 							}
 							jQuery('#Id_dataCollectEdit').dialog({

@@ -264,6 +264,6 @@ var DataCollectAdd = {
 		
 }
 
-function submit(){
+function submitForm(){
 	alert('我提交了');
 }

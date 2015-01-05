@@ -105,6 +105,7 @@
 	var addFun = function(){
 		var dialog = parent.app.dialogModel({
 			title: '添加信息',
+			width:800,
 			url : app.basePath+'admin/data/dataCollect.htm?operator=toAdd',
 			buttons:[{
 				text:'提交',

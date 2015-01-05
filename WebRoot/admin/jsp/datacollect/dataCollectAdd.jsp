@@ -197,7 +197,7 @@
 
 	var submitForm = function(dialog,parentGrid){
 		//校验表单
-		var isValid = jQuery("#Id_dataCollectAdd_form").form('validate');
+		var isValid = $("#Id_dataCollectAdd_form").form('validate');
 		if (!isValid){
 			return;
 		}
@@ -229,7 +229,6 @@
 			var dataBaseType = $("#Id_Add_dataCollectParamsdataBaseType").combobox('getText');
 			var tableName = $("#Id_Add_dataCollectParamstableName").val();
 			var fieldList = new Array();
-			var rows = grid.datagrid('getRows');
 			for ( var i = 0; i < rows.length; i=i+1) {
 				row = rows[i];
 				var fieldSelect = row.fieldSelect;

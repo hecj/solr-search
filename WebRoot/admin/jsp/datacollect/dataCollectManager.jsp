@@ -101,13 +101,14 @@
 						iconCls: 'icon-add',
 						text:'添加',
 						handler: function(){
-							jQuery('#Id_dataCollectAdd').dialog({
+							/*jQuery('#Id_dataCollectAdd').dialog({
 								title: '添加信息',
 								width: 800,
 								height: 400,
 								cache: false,
 								modal: true,
-								href: AppUtil.basePath+'admin/data/dataCollect.htm?operator=toAdd',
+								content:'<iframe src="'+AppUtil.basePath+'"admin/data/dataCollect.htm?operator=toAdd" style="border:0;width:100%;height:99%;" frameBorder="0"></iframe>',
+							//	href: AppUtil.basePath+'admin/data/dataCollect.htm?operator=toAdd',
 								buttons:[{
 									text:'提交',
 									handler:function(){
@@ -120,6 +121,10 @@
 									}
 								}],
 								loadingMessage:MessageUtil.loadingPageMessage
+							});*/
+							var dialog = parent.so.modalDialog({
+								title: '添加信息',
+								url : AppUtil.basePath+'admin/data/dataCollect.htm?operator=toAdd'
 							});
 						}
 					},'-',{
@@ -218,7 +223,7 @@
 				});
 			},
 			openDataCollectDialog:function(index, row) {
-				jQuery('#Id_dataCollectMessage').dialog({
+				/*jQuery('#Id_dataCollectMessage').dialog({
 					title: '详细信息 Id:'+row.id,
 					width: 800,
 					height: 400,
@@ -237,6 +242,11 @@
 						}
 					}],
 					loadingMessage:MessageUtil.loadingPageMessage
+				});*/
+
+				var dialog = parent.so.modalDialog({
+					title: '详细信息 Id:'+row.id,
+					url : AppUtil.basePath+'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id
 				});
 			}
 		}

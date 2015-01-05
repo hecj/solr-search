@@ -8,6 +8,6 @@ var AppUtil = {
 		},
 		createDiv:function(parentDivId,newDivId){
 			jQuery('#'+parentDivId).append('<div id="'+newDivId+'"></div>');
-		}
+		},
 		
 }

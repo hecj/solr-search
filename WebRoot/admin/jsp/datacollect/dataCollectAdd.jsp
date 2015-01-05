@@ -48,7 +48,7 @@
      <div id="Id_Add_footGridAdd" style="height:162px"></div>
 </div>
 <script type="text/javascript">
-	jQuery(function() {
+	$(function() {
 		DataCollectAdd.init();
 	});
 </script>

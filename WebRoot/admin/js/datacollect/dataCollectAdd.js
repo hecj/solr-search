@@ -118,7 +118,7 @@ var DataCollectAdd = {
 							var dIndex = dataGridAdd.datagrid('getRowIndex',row);
 							dataGridAdd.datagrid('deleteRow',dIndex);
 						}else{
-							MessageUtil.messageShow("<font color=red>请选择一行!</font>");
+							parent.parent.MessageUtil.messageShow("<font color=red>请选择一行!</font>");
 						}
 					}
 				},'-',{
@@ -137,7 +137,7 @@ var DataCollectAdd = {
 							}
 						}
 						if(b){
-							MessageUtil.messageShow("<font color=red>当前未更改!</font>");
+							parent.MessageUtil.messageShow("<font color=red>当前未更改!</font>");
 						}
 						
 					}
@@ -200,11 +200,11 @@ var DataCollectAdd = {
 				for(var i=0;i<rows.length;i+=1){
 					row = rows[i];
 					if(row.editing){
-						MessageUtil.errorShow("第"+(i+1)+"行未保存!");
+						parent.MessageUtil.errorShow("第"+(i+1)+"行未保存!");
 						return ;
 					}
 					if(row.fieldSelect == undefined || StringUtils.trims(row.fieldSelect).length == 0){
-						MessageUtil.errorShow("第"+(i+1)+"行选择器不可为空!");
+						parent.MessageUtil.errorShow("第"+(i+1)+"行选择器不可为空!");
 						return ;
 					}
 				}
@@ -246,19 +246,19 @@ var DataCollectAdd = {
 					cache:false,
 					success:function(data){
 						if(data.code == 'success'){
-							MessageUtil.messageShow('<font color=green>'+data.message+'</font>');
+							parent.MessageUtil.messageShow('<font color=green>'+data.message+'</font>');
 							jQuery("#Id_dataCollectAdd").dialog("close");
 							jQuery('#Id_dataCollectSearch').datagrid('reload');
 						}else{
-							MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
+							parent.MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
 						}
 					},
 					error:function(data){
-						MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
+						parent.MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
 					}
 				});
 			}else{
-				MessageUtil.errorShow("操作异常!");
+				parent.MessageUtil.errorShow("操作异常!");
 			}
 	}
 		

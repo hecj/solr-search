@@ -93,13 +93,19 @@
 					singleSelect : true,
 					showHeader : true,
 					showFooter : true,
+					width:1200,
+					height:550,
+					nowrap: true,
+					autoRowHeight: false,
+					striped: true,
+					collapsible:true,
 					pageSize:20,
 					loadMsg : MessageUtil.loadDataGridMsg,
 					toolbar: [{
 						iconCls: 'icon-add',
 						text:'添加',
 						handler: function(){
-							var dialog = parent.so.dialogModel({
+							var dialog = parent.app.dialogModel({
 								title: '添加信息',
 								url : app.basePath+'admin/data/dataCollect.htm?operator=toAdd',
 								buttons:[{
@@ -232,7 +238,7 @@
 					loadingMessage:MessageUtil.loadingPageMessage
 				});*/
 
-				var dialog = parent.so.modalDialog({
+				var dialog = parent.app.modalDialog({
 					title: '详细信息 Id:'+row.id,
 					url : app.basePath+'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id
 				});
@@ -242,8 +248,8 @@
 </script>
 </head>
 <body>
-<div style="height: 100%">
-	<div id="Id_dataCollectSearch"></div>
+<div style="height: 100%；width: 100%;">
+	<div id="Id_dataCollectSearch" ></div>
 </div>
 <div id=Id_dataCollectMessage></div>
 <div id=Id_dataCollectEdit></div>

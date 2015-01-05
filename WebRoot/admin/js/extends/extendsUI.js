@@ -1,9 +1,9 @@
-var so = so || {};
+var app = app || {};
 
 /**
  * 自定义Dialog
  */
-so.dialogModel = function(options) {
+app.dialogModel = function(options) {
 	var opts = $.extend({
 		title : '&nbsp;',
 		width : 640,
@@ -19,3 +19,11 @@ so.dialogModel = function(options) {
 	}
 	return $('<div/>').dialog(opts);
 };
+
+/**
+ * 设置Iframe高度
+ */
+app.setIframeHeight = function(iframe, height) {
+	iframe.height = height;
+};
+

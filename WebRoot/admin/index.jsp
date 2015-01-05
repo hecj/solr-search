@@ -37,12 +37,18 @@
 						fit : true,
 						loadingMessage : MessageUtil.loadingPageMessage
 					});
+
+					$('#mainLayout').layout('panel', 'center').panel({
+						onResize : function(width, height) {
+							app.setIframeHeight('centerIframe', $('#mainLayout').layout('panel', 'center').panel('options').height - 5);
+						}
+					});
 				}
 			}
 		}
   	</script>
   </head>
-<body class="easyui-layout">
+<body class="easyui-layout" id="mainLayout">
     <div region="north" split="false" style="height:100px;"></div>  
     <div region="south" split="false" style="height:30px;">
     	<jsp:include page="./jsp/common/footer.jsp"/>

@@ -6,7 +6,12 @@
 	jQuery(function(){
 		DataCollectManager.initGrid();
 	});
-
+	$(window).resize(function(){
+		$('#Id_dataCollectSearch').datagrid('resize', {
+			width:function(){return document.body.clientWidth;},
+			height:function(){return document.body.clientHeight;},
+		});
+	}); 
 	var DataCollectManager = {
 			/*
 			 * 初始化表格
@@ -93,8 +98,6 @@
 					singleSelect : true,
 					showHeader : true,
 					showFooter : true,
-					width:1200,
-					height:550,
 					nowrap: true,
 					autoRowHeight: false,
 					striped: true,
@@ -199,6 +202,8 @@
 					}]
 				});
 
+			
+
 				/*
 				 * 事件处理
 				 */
@@ -248,8 +253,8 @@
 </script>
 </head>
 <body>
-<div style="height: 100%；width: 100%;">
-	<div id="Id_dataCollectSearch" ></div>
+<div style="height: 100%；width: 100%; ">
+	<div id="Id_dataCollectSearch"></div>
 </div>
 <div id=Id_dataCollectMessage></div>
 <div id=Id_dataCollectEdit></div>

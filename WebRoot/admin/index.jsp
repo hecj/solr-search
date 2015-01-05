@@ -16,7 +16,7 @@
 							$(this).tree('expand',node.target);  
 						}
 					}
-					if (!StringUtils.isObjEmpty(node.attributes.url)) {
+					if (!StringUtils.isObjEmpty(node.attributes)) {
 						addTab(node);
 					}
 				}

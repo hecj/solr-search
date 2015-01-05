@@ -7,6 +7,6 @@ var StringUtils = {
 		return str.replace(/(^\s*)|(\s*$)/g,"");
 	},
 	isObjEmpty:function(obj){
-		return obj == undefined || obj == 'undefined' || obj.length==0;
+		return obj == null ||obj == undefined || obj == 'undefined' || obj.length==0;
 	}
 };

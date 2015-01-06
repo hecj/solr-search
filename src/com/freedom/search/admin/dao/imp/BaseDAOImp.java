@@ -165,7 +165,7 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 			mList = query.setFirstResult(start).setMaxResults(rows).list();
 			Log4jUtil.log("end");
 		} catch (RuntimeException ex) {
-			Log4jUtil.error("error");
+			Log4jUtil.error("error"+pHQL);
 			ex.printStackTrace();
 			throw ex;
 		}

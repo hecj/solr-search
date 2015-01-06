@@ -192,9 +192,18 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	public Result searchDataCollectByPagination(Map<String, Object> pParams) {
 		Result result = new ResultSupport();
 		try{
+			
+			String encode = (String) pParams.get("encode");
 			Pagination pagination = (Pagination) pParams.get("pagination");
-			String mQueryHQL = "select d from DataCollectParams d";
-			String mContHQL = "select count(d) from DataCollectParams d";
+			String mQueryHQL = "select d from DataCollectParams d where 1=1";
+			String mContHQL = "select count(d) from DataCollectParams d where 1=1";
+			
+			//动态拼接SQL
+			if(!StringUtil.isStrEmpty(encode)){
+				mQueryHQL += " and d.encode='"+encode+"'";
+				mContHQL += " and d.encode='"+encode+"'";
+			}
+			System.out.println(mQueryHQL);
 			List<DataCollectParams> DataCollectParamsList = dataCollectParamsDAO.queryListByParamsAndPagination(mQueryHQL, pagination.startCursor().intValue(), pagination.getPageSize(),new Object[]{});
 			long count = Long.parseLong(dataCollectParamsDAO.queryUniqueResultByHQL(mContHQL).toString());
 			pagination.setCountSize(count);

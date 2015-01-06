@@ -17,6 +17,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -129,7 +130,7 @@ public class DataCollectController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(params="operator=seacherDataCollect")
-	public String searchDataCollect(Integer page,Integer rows){
+	public String searchDataCollect(Integer page,Integer rows,String encode){
 		try{
 			Pagination mPagination = new Pagination(10);
 			if(!StringUtil.isObjectEmpty(page)){
@@ -140,6 +141,9 @@ public class DataCollectController extends BaseController{
 			}
 			Map<String,Object> mMap = new HashMap<String,Object>();
 			mMap.put("pagination", mPagination);
+			if(!StringUtil.isStrEmpty(encode)){
+				mMap.put("encode", encode);
+			}
 			
 			Result result = dataCollectService.searchDataCollectByPagination(mMap);
 			if(result.isSuccess()){

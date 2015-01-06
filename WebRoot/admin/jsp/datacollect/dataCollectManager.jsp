@@ -203,6 +203,19 @@
 			loadingMessage:MessageUtil.loadingPageMessage
 		});
 	}
+
+	/**
+	 * 查询
+	 */
+	var queryFun = function(){
+		var encode = $('#encode').combobox('getText');
+		grid.datagrid({
+			queryParams:{
+				encode:encode
+			}
+		});
+		grid.datagrid('reload');
+	}
 	
 </script>
 	</head>
@@ -213,6 +226,18 @@
 					<td>
 						<form id="searchForm">
 							<table>
+								<tr>
+									<td>编码：</td>
+									<td><select id="encode" class="easyui-combobox"  data-options="panelHeight:75,editable:false">
+								        	<option value="">不限</option>
+								        	<option value="GBK">GBK</option>
+								        	<option value="UTF-8">UTF-8</option>
+								        </select>
+								     </td>
+								     <td>
+									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="queryFun();">查询</a>
+								</td>
+								</tr>
 							</table>
 						</form>
 					</td>

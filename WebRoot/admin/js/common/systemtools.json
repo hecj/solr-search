@@ -1,0 +1,11 @@
+[ {
+	"id" : 1,
+	"text" : "工具菜单",
+	"state":"closed",	
+	"children" : [ {
+		"text" : "模块管理",
+		"attributes":{
+			"url" : "http://localhost:8080/search/admin/jsp/systemtools/module/module.jsp"
+		}
+	}]
+}]

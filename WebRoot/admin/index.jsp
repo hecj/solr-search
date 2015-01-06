@@ -6,8 +6,9 @@
   	<script type="text/javascript">
   		var centerTabs ;
 		$(function(){
-			$('#west').tree( {
+			$('#customMenu').tree( {
 				url : app.basePath+'admin/js/common/tree.json',
+				//url : app.basePath+'admin/tree/menuTree.htm?operator=init&type=0',
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
 						if(node.state == "open"){
@@ -21,6 +22,23 @@
 					}
 				}
 			});
+			
+			$('#systemTools').tree( {
+				url : app.basePath+'admin/js/common/systemtools.json',
+				onClick : function(node) {
+					if(!StringUtils.isObjEmpty(node.state)){
+						if(node.state == "open"){
+							$(this).tree('collapse',node.target); 
+						}else{
+							$(this).tree('expand',node.target);  
+						}
+					}
+					if (!StringUtils.isObjEmpty(node.attributes)) {
+						addTab(node);
+					}
+				}
+			});
+			
 			centerTabs = $('#center_tabs').tabs({
 				tools:[{
 					 text:'刷新',
@@ -89,7 +107,12 @@
     <div region="south" split="false" style="height:30px;">
     	<jsp:include page="./jsp/common/footer.jsp"/>
     </div>  
-    <div id="west" region="west" split="true" title="系统工具" style="width:160px;"></div>  
+    <div id="west" region="west" split="true" style="width:160px;">
+    	<div class="easyui-accordion" fit="true">
+	    	<div id="customMenu" title="常用菜单"></div>
+	    	<div id="systemTools" title="系统工具"></div>
+    	</div>
+    </div>  
     <div region="center"  style="padding:0px;background:#eee;" style="overflow: hidden;">
     	<div id="center_tabs" class="easyui-tabs" fit="true">
     		<div title="欢迎页">

@@ -2,9 +2,9 @@ package com.freedom.search.admin.services;
 
 import java.util.List;
 
-import com.freedom.search.admin.entity.MenuTree;
+import com.freedom.search.admin.entity.Module;
 
 public interface MenuTreeService {
 	
-	public List<MenuTree> searchMenuTree();
+	public List<Module> searchMenuTree();
 }

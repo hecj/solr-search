@@ -12,7 +12,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.freedom.search.admin.entity.DataCollectParams;
 import com.freedom.search.admin.entity.DataField;
-import com.freedom.search.admin.entity.MenuTree;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.util.EasyGridData;
@@ -83,22 +82,6 @@ public class TestDataCollectServiceService {
 	
 	@Test
 	public void menu01(){
-		
-		List<MenuTree> list = menuTreeService.searchMenuTree();
-		//将数据搞成分叉链表形式
-		MenuTree root = new MenuTree();
-		for(MenuTree m : list){
-			
-			System.out.println(m.getId());
-			
-		}
-		
-		
-		
-		
-		
-		
-		
 		
 		
 	}

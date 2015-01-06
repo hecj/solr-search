@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="/admin/jsp/base/basePath.jsp" %>
+<jsp:include page="/admin/jsp/base/easyUI.jsp" />
 <div><br/>
 	<input type="hidden" id="Id_dataCollectMsg" value="${dataCollectParams.id }"/>
 	 <div class="CLS_mainContentDivHegiht">
@@ -38,10 +38,10 @@
      <div id="Id_Add_footGridMsg" style="height:162px"></div>
 </div>
 <script type="text/javascript">
-	jQuery(function() {
+	$(function() {
 		var id = $("#Id_dataCollectMsg").val();
-		var dataGridAdd = $('#Id_Add_footGridMsg').datagrid( {
-			url: AppUtil.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
+		var grid = $('#Id_Add_footGridMsg').datagrid( {
+			url: app.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 			rownumbers : true,
 			singleSelect:true,
 			loadMsg: MessageUtil.loadDataGridMsg,

@@ -281,7 +281,7 @@ public class StringUtil {
 	}
 	
 	public static boolean isObjectEmpty(Object obj){
-		if(obj == null ){
+		if(obj == null || obj.equals("") || String.valueOf(obj).length() == 0){
 			return true;
 		}else{
 			return false;

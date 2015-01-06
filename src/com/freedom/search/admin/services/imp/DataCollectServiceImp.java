@@ -227,7 +227,8 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	@Transactional
 	@Override
 	public void editDataCollectParams(DataCollectParams dataCollectParams) {
-		dataCollectParamsDAO.delete(dataCollectParamsDAO.findById(dataCollectParams.getId()));
+		dataCollectParamsDAO.executeHQL("delete from DataField f where f.dataCollectParams='"+dataCollectParams.getId()+"'");
+		dataCollectParamsDAO.executeHQL("delete from DataCollectParams f where f.id='"+dataCollectParams.getId()+"'");
 		dataCollectParamsDAO.save(dataCollectParams);
 	}
 	

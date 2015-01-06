@@ -314,7 +314,7 @@
         <input id="Id_Add_dataCollectParamstableName" size=17  class="easyui-validatebox" data-options="required:true"/>
      </div>
 </form>
-     <div id="grid" style="height:162px"></div>
+     <div id="grid"  style="height:162px"></div>
 </div>
 </body>
 </html>

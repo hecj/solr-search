@@ -98,14 +98,18 @@
 			singleSelect : true,
 			pageSize:20,
 			loadMsg : MessageUtil.loadDataGridMsg,
-			toolbar : '#toolbar'
+			toolbar : '#toolbar',
+			onDblClickRow:function(index,row){
+				findFun();
+			}
 		});
 	}
 
 	var addFun = function(){
 		var dialog = parent.app.dialogModel({
 			title: '添加信息',
-			width:800,
+			width: 850,
+			height: 450,
 			url : app.basePath+'admin/data/dataCollect.htm?operator=toAdd',
 			buttons:[{
 				text:'提交',
@@ -167,9 +171,30 @@
 			buttons:[{
 				text:'提交',
 				handler:function(){
-					DataCollectEdit.onSubmit();
+					dialog.find('iframe').get(0).contentWindow.submitForm(dialog,grid);
 				}
 			},{
+				text:'关闭',
+				handler:function(){
+					dialog.dialog('close');
+				}
+			}],
+			loadingMessage:MessageUtil.loadingPageMessage
+		});
+	}
+	
+	var findFun = function(){
+		var row = grid.datagrid('getSelected');
+		if(row == null){
+			parent.MessageUtil.messageShow("<font color=red>请选择一行!</font>");
+			return;
+		}
+		var dialog = parent.app.dialogModel({
+			title: '查看信息 Id:'+row.id,
+			width: 850,
+			height: 450,
+			url: app.basePath+'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id+"",
+			buttons:[{
 				text:'关闭',
 				handler:function(){
 					dialog.dialog('close');
@@ -195,7 +220,12 @@
 				<tr>
 					<td>
 						<table>
-							<tr>
+							<tr><td>
+									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="findFun();">查看</a>
+								</td>
+								<td>
+									<div class="datagrid-btn-separator"></div>
+								</td>
 								<td>
 									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addFun();">添加</a>
 								</td>

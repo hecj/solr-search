@@ -240,6 +240,7 @@ public class DataCollectController extends BaseController{
 	public void editDataCollect(String data,HttpServletResponse response){
 		try{
 			if(!StringUtil.isStrEmpty(data)){
+				System.out.println(data);
 				JSONObject jsonObj = JSONObject.fromObject(data);
 				String id = jsonObj.getString("id");
 				String IP = jsonObj.getString("IP");

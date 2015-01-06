@@ -12,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.freedom.search.admin.entity.DataCollectParams;
 import com.freedom.search.admin.entity.DataField;
+import com.freedom.search.admin.entity.Module;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.util.EasyGridData;
@@ -83,7 +84,16 @@ public class TestDataCollectServiceService {
 	@Test
 	public void menu01(){
 		
-		List list = menuTreeService.searchMenuTree();
+		List<Module> list = menuTreeService.searchMenuTree();
+		for(Module m :list){
+			System.out.println(m.getModuleId()+"="+m.isLeaf());
+		}
 		System.out.println(list.size());
 	}
+	
+	
+	
+	
+	
+	
 }

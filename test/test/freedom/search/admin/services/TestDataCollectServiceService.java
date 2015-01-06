@@ -83,6 +83,7 @@ public class TestDataCollectServiceService {
 	@Test
 	public void menu01(){
 		
-		
+		List list = menuTreeService.searchMenuTree();
+		System.out.println(list.size());
 	}
 }

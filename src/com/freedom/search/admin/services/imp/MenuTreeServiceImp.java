@@ -29,6 +29,12 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	public List<Module> searchMenuTree() {
 
 		return (List<Module>) menuTreeDAO.queryListByParams("select m from Module m");
+		
+		
+		
+		
+		
+		
 	}
 	
 }

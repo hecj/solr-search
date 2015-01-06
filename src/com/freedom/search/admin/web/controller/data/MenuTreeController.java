@@ -37,4 +37,19 @@ public class MenuTreeController extends BaseController {
 		return null;
 	}
 	
+	@RequestMapping(params="operator=search")
+	public String search(String type){
+		
+		System.out.println(type);
+		
+		List<Module> list = menuTreeService.searchMenuTree();
+		
+		
+		System.out.println(list.size());
+		
+		return null;
+	}
+	
+	
+	
 }

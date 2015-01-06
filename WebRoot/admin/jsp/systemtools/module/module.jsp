@@ -12,7 +12,7 @@
 	*/
 	var initFun = function() {
 		grid = $('#grid').datagrid( {
-			url : app.basePath+'admin/data/dataCollect.htm?operator=seacherDataCollect',
+			url : app.basePath+'admin/tree/menuTree.htm?operator=search',
 			columns : [ [ {
 				field : 'moduleId',
 				title : '模块Id',

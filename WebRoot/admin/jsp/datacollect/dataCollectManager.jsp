@@ -208,7 +208,7 @@
 	 * 查询
 	 */
 	var queryFun = function(){
-		var encode = $('#encode').combobox('getText');
+		var encode = $('#encode').combobox('getValue');
 		grid.datagrid({
 			queryParams:{
 				encode:encode

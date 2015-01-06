@@ -21,7 +21,43 @@
 					}
 				}
 			});
-			centerTabs = $('#center_tabs');
+			centerTabs = $('#center_tabs').tabs({
+				tools:[{
+					 text:'刷新',
+					 handler : function() {
+							var panel = centerTabs.tabs('getSelected').panel('panel');
+							var frame = panel.find('iframe');
+							try {
+								if (frame.length > 0) {
+									for (var i = 0; i < frame.length; i++) {
+										frame[i].contentWindow.document.write('');
+										frame[i].contentWindow.close();
+										frame[i].src = frame[i].src;
+									}
+									if (navigator.userAgent.indexOf("MSIE") > 0) {// IE特有回收内存方法
+										try {
+											CollectGarbage();
+										} catch (e) {
+										}
+									}
+								}
+							} catch (e) {
+							}
+						}
+				},
+				{
+					text : '关闭',
+					handler : function() {
+						var index = centerTabs.tabs('getTabIndex', centerTabs.tabs('getSelected'));
+						var tab = centerTabs.tabs('getTab', index);
+						if (tab.panel('options').closable) {
+							centerTabs.tabs('close', index);
+						} else {
+							MessageUtil.messageShow('<font color=red>[' + tab.panel('options').title + ']不可以被关闭！</font>');
+						}
+					}
+				}]
+			});
 		});
 
 		function addTab(node){

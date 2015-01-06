@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.entity.Module;
 import com.freedom.search.admin.services.MenuTreeService;
+import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.web.controller.base.BaseController;
 
 @Controller
@@ -31,8 +32,6 @@ public class MenuTreeController extends BaseController {
 		
 		System.out.println(type);
 		
-		List<Module> list = menuTreeService.searchMenuTree();
-		System.out.println(list.size());
 		
 		return null;
 	}
@@ -42,10 +41,7 @@ public class MenuTreeController extends BaseController {
 		
 		System.out.println(type);
 		
-		List<Module> list = menuTreeService.searchMenuTree();
 		
-		
-		System.out.println(list.size());
 		
 		return null;
 	}

@@ -1,10 +1,8 @@
 package com.freedom.search.admin.services;
 
-import java.util.List;
-
-import com.freedom.search.admin.entity.Module;
+import com.freedom.search.admin.vo.VoTree;
 
 public interface MenuTreeService {
 	
-	public List<Module> searchMenuTree();
+	public VoTree searchMenuTree(VoTree voTree);
 }

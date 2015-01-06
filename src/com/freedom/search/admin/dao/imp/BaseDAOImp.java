@@ -135,7 +135,7 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 			if (pParams.length > 0) {
 				for (int i = 0; i < pParams.length; i++) {
 					query.setParameter(i, pParams[i]);
-					Log4jUtil.showSQL(pParams[i].toString());
+					Log4jUtil.showSQL(String.valueOf(pParams[i]));
 				}
 			}
 			mList = query.list();

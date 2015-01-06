@@ -4,18 +4,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
+
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.noggit.JSONUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.freedom.search.admin.entity.DataCollectParams;
 import com.freedom.search.admin.entity.DataField;
-import com.freedom.search.admin.entity.Module;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.services.MenuTreeService;
+import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.util.EasyGridData;
+import com.freedom.search.util.ObjectToJson;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
 
@@ -84,16 +88,15 @@ public class TestDataCollectServiceService {
 	@Test
 	public void menu01(){
 		
-		List<Module> list = menuTreeService.searchMenuTree();
-		for(Module m :list){
-			System.out.println(m.getModuleId()+"="+m.isLeaf());
-		}
-		System.out.println(list.size());
+		VoTree voTree = new VoTree();
+		voTree.setModuleId(10);
+		VoTree tree = menuTreeService.searchMenuTree(voTree);
+//		System.out.println(tree.getVoTrees().size());
+		
+		
+		String s = ObjectToJson.object2json(voTree);
+		System.out.println(s);
 	}
-	
-	
-	
-	
 	
 	
 }

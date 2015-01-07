@@ -7,8 +7,8 @@
   		var centerTabs ;
 		$(function(){
 			$('#customMenu').tree( {
-				url : app.basePath+'admin/js/common/tree.json',
-				//url : app.basePath+'admin/tree/menuTree.htm?operator=init&type=0',
+				//url : app.basePath+'admin/js/common/tree2.json',
+				url : app.basePath+'admin/tree/menuTree.htm?operator=initTree&moduleId=10',
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
 						if(node.state == "open"){

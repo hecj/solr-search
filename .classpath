@@ -48,7 +48,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-aspects-4.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-beans-4.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-context-4.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-core-4.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-core-4.1.1.RELEASE.jar" sourcepath="G:/Java工具/spring/spring-framework-4.1.1.RELEASE-dist/spring-framework-4.1.1.RELEASE/libs/spring-core-4.1.1.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-expression-4.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-jdbc-4.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-orm-4.1.1.RELEASE.jar"/>

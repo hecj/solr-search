@@ -1,8 +1,10 @@
 package com.freedom.search.admin.services.imp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -10,13 +12,12 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import test.freedom.spring.aop.LogUtil;
-
 import com.freedom.search.admin.dao.MenuTreeDAO;
+import com.freedom.search.admin.entity.MenuTree;
 import com.freedom.search.admin.entity.Module;
 import com.freedom.search.admin.services.MenuTreeService;
-import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.util.Log4jUtil;
+import com.freedom.search.util.StringUtil;
 @Transactional
 @Service("menuTreeService")
 public class MenuTreeServiceImp implements MenuTreeService{
@@ -33,28 +34,45 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	}
 
 	@Override
-	public VoTree searchMenuTree(VoTree voTree) {
-		
-		return searchMenuTree(voTree,new HashSet<Module>());
+	public MenuTree searchMenuTree(Integer moduleId,String basePath) {
+		Module module = menuTreeDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId}).get(0);
+		MenuTree voTree = new MenuTree();
+		voTree.setId(module.getModuleId());
+		voTree.setText(module.getName());
+		return searchMenuTree(voTree,new HashSet<Module>(),basePath);
 	}
 	/* 
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
-	private VoTree searchMenuTree(VoTree voTree,Set<Module> set) {
+	private MenuTree searchMenuTree(MenuTree voTree,Set<Module> set,String... basePath) {
 		String hql = "select m from Module m where m.parentId=?";
-		List<Module> modules = (List<Module>) menuTreeDAO.queryListByParams(hql,new Object[]{voTree.getModuleId()});
+		List<Module> modules = (List<Module>) menuTreeDAO.queryListByParams(hql,new Object[]{voTree.getId()});
 		if(modules.size() == 0){
 			return voTree;
 		}else{
-			List<VoTree> chiledTree = new ArrayList<VoTree>();
+			List<MenuTree> chiledTree = new ArrayList<MenuTree>();
 			for(Module m : modules){
-				VoTree t = new VoTree();
-				t.setIcons(m.getIcons());
-				t.setModuleId(m.getModuleId());
-				t.setName(m.getName());
-				t.setAttributes(m.getAttributes());
+				MenuTree t = new MenuTree();
+				t.setId(m.getModuleId());
+				t.setText(m.getName());
+				Map<String,String> attrMap = new HashMap<String,String>();
+				//属性在数据库用,分隔，如:url=http://localhost , name=hecj
+				if(!StringUtil.isStrEmpty(m.getAttributes())){
+					String[] attrs = m.getAttributes().split(",");
+					for(String attr:attrs){
+						String[] str = attr.split("=");
+						if(str.length == 2){
+							if(str[0].equals("url")){
+								attrMap.put(str[0], basePath.length>0?basePath[0]:""+str[1]);
+							}else{
+								attrMap.put(str[0], str[1]);
+							}
+						}
+					}
+					t.setAttributes(attrMap);
+				}
 				if(!m.isLeaf()){
-					if(set.add(m)){
+					if(!set.add(m)){
 						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
 						return voTree;
 					}
@@ -63,7 +81,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 					chiledTree.add(t);
 				}
 			}
-			voTree.setVoTrees(chiledTree);
+			voTree.setChildren(chiledTree);
 			return voTree ; 
 		}
 	}

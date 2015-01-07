@@ -1,15 +1,14 @@
 package com.freedom.search.admin.web.controller.data;
 
-import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.freedom.search.admin.entity.Module;
+import com.freedom.search.admin.entity.MenuTree;
 import com.freedom.search.admin.services.MenuTreeService;
-import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.web.controller.base.BaseController;
 
 @Controller
@@ -27,25 +26,11 @@ public class MenuTreeController extends BaseController {
 		this.menuTreeService = menuTreeService;
 	}
 	
-	@RequestMapping(params="operator=init")
-	public String initTree(String type){
-		
-		System.out.println(type);
-		
-		
-		return null;
+	@RequestMapping(params="operator=initTree")
+	public void initTree(Integer moduleId,HttpServletResponse response){
+
+		MenuTree voTree = menuTreeService.searchMenuTree(moduleId,getBasePath());
+		write(response, voTree.toJSON());
 	}
-	
-	@RequestMapping(params="operator=search")
-	public String search(String type){
-		
-		System.out.println(type);
-		
-		
-		
-		return null;
-	}
-	
-	
 	
 }

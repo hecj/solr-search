@@ -15,9 +15,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.freedom.search.admin.entity.DataCollectParams;
 import com.freedom.search.admin.entity.DataField;
+import com.freedom.search.admin.entity.MenuTree;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.services.MenuTreeService;
-import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.ObjectToJson;
 import com.freedom.search.util.Pagination;
@@ -77,25 +77,26 @@ public class TestDataCollectServiceService {
 	@Test
 	public void test02(){
 		
-		DataCollectParams data = dataCollectService.searchDataCollectParams("14189167070324304295");
-		System.out.println(data.getDataFields().size());
-		for(DataField d:data.getDataFields()){
-			System.out.println(d.getId());
-		}
-		System.out.println(data.getId());
+		DataCollectParams data = dataCollectService.searchDataCollectParams("14189731644485622357");
+//		System.out.println(data.getDataFields().size());
+//		for(DataField d:data.getDataFields()){
+//			System.out.println(d.getId());
+//		}
+//		System.out.println(data.getId());
 	}
 	
 	@Test
 	public void menu01(){
 		
-		VoTree voTree = new VoTree();
-		voTree.setModuleId(10);
-		VoTree tree = menuTreeService.searchMenuTree(voTree);
+		MenuTree tree = menuTreeService.searchMenuTree(10,"http://localhost:8080/search");
 //		System.out.println(tree.getVoTrees().size());
 		
 		
-		String s = ObjectToJson.object2json(voTree);
-		System.out.println(s);
+//		String s = ObjectToJson.object2json(voTree);
+//		System.out.println(s);
+		
+		System.out.println(tree.toJSON());
+		
 	}
 	
 	

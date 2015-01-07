@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<jsp:include page="/admin/jsp/base/easyUI.jsp"/>
-</head>
-<body>
-欢迎
-</body>
-</html>
+    <%@include file="/admin/jsp/base/basePath.jsp" %> 
+    <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
+  	<script type="text/javascript">
+  	</script>
+<div class="easyui-layout" data-options="fit:true">
+    我是首页
+</div>

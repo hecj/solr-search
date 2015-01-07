@@ -7,14 +7,15 @@
   	<script type="text/javascript">
   	</script>
   </head>
-<body class="easyui-layout" id="mainLayout">
-    <div region="center" style="padding:0px;background:#eee;" style="overflow: hidden;">
-	    <table class="easyui-treegrid" fit="true"
+<body class="easyui-layout" data-options="fit:true,border:false">
+    <div region="center" data-options="fit:true,border:false">
+	    <table class="easyui-treegrid"
 			data-options="
 				url:'<%=basePath %>admin/tree/menuTree.htm?operator=treeManagerQuery&moduleId=0',
 				idField: 'moduleId',
 				treeField: 'name',
-				toolbar:'#toolbar'
+				toolbar:'#toolbar',
+				fit:true,border:false
 			">
 			<thead>
 				<tr>

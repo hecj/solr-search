@@ -4,7 +4,6 @@
 	var app = app || {};
 	/*根目录*/
 	app.basePath = '<%=basePath%>';
-	
 </script>
 <link rel="stylesheet" type="text/css" href="<%=basePath%>admin/easyui/themes/black/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>admin/easyui/themes/icon.css">

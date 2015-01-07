@@ -11,14 +11,14 @@
     <div region="center" style="padding:0px;background:#eee;" style="overflow: hidden;">
 	    <table class="easyui-treegrid" fit="true"
 			data-options="
-				url:'<%=basePath %>admin/tree/menuTree.htm?operator=treeManagerQuery&moduleId=10',
+				url:'<%=basePath %>admin/tree/menuTree.htm?operator=treeManagerQuery&moduleId=0',
 				idField: 'moduleId',
 				treeField: 'name',
 				toolbar:'#toolbar'
 			">
 			<thead>
 				<tr>
-					<th data-options="field:'name',align:'left'" width="220">菜单列表</th>
+					<th data-options="field:'name',align:'left'" width="220">模块列表</th>
 					<th data-options="field:'moduleId',align:'center'" width="50">模块Id</th>
 					<th data-options="field:'parentId',align:'center'" width="50">父模块</th>
 					<th data-options="field:'state',align:'center'" width="50">状态</th>

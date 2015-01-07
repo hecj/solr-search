@@ -109,7 +109,7 @@
     </div>  
     <div id="west" region="west" split="true" style="width:160px;">
     	<div class="easyui-accordion" fit="true">
-	    	<div id="customMenu" title="常用菜单"></div>
+	    	<div id="customMenu" title="基本菜单"></div>
 	    	<div id="systemTools" title="系统工具"></div>
     	</div>
     </div>  

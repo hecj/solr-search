@@ -1,4 +1,4 @@
-package com.freedom.search.admin.entity;
+package com.freedom.search.admin.vo;
 
 import java.io.Serializable;
 import java.util.List;

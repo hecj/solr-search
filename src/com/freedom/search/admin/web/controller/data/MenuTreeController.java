@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.freedom.search.admin.entity.MenuTree;
 import com.freedom.search.admin.services.MenuTreeService;
+import com.freedom.search.admin.vo.MenuTree;
+import com.freedom.search.admin.vo.VoModule;
 import com.freedom.search.web.controller.base.BaseController;
 
 @Controller
@@ -30,6 +31,13 @@ public class MenuTreeController extends BaseController {
 	public void initTree(Integer moduleId,HttpServletResponse response){
 
 		MenuTree voTree = menuTreeService.searchMenuTree(moduleId,getBasePath());
+		write(response, voTree.toJSON());
+	}
+	
+	@RequestMapping(params="operator=treeManagerQuery")
+	public void treeManagerQuery(Integer moduleId,HttpServletResponse response){
+
+		VoModule voTree = menuTreeService.treeManagerSearch(moduleId);
 		write(response, voTree.toJSON());
 	}
 	

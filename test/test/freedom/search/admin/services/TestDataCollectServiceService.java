@@ -15,9 +15,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.freedom.search.admin.entity.DataCollectParams;
 import com.freedom.search.admin.entity.DataField;
-import com.freedom.search.admin.entity.MenuTree;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.services.MenuTreeService;
+import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.ObjectToJson;
 import com.freedom.search.util.Pagination;

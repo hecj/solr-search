@@ -13,20 +13,30 @@
 			data-options="
 				url:'<%=basePath %>admin/tree/menuTree.htm?operator=treeManagerQuery&moduleId=10',
 				idField: 'moduleId',
-				treeField: 'name'
+				treeField: 'name',
+				toolbar:'#toolbar'
 			">
-		<thead>
-			<tr>
-				<th data-options="field:'name'" width="220">菜单列表</th>
-				<th data-options="field:'moduleId'" width="220">模块Id</th>
-				<th data-options="field:'parentId'" width="220">父模块</th>
-				<th data-options="field:'state'" width="220">状态</th>
-				<th data-options="field:'url'" width="220">路径</th>
-				<th data-options="field:'icons'" width="220">图标</th>
-				<th data-options="field:'leaf'" width="220">是否叶子</th>
-			</tr>
-		</thead>
-	</table>
-    </div>  
-</body>
+			<thead>
+				<tr>
+					<th data-options="field:'name',align:'left'" width="220">菜单列表</th>
+					<th data-options="field:'moduleId',align:'center'" width="50">模块Id</th>
+					<th data-options="field:'parentId',align:'center'" width="50">父模块</th>
+					<th data-options="field:'state',align:'center'" width="50">状态</th>
+					<th data-options="field:'url',align:'center'" width="300">路径</th>
+					<th data-options="field:'icons',align:'center'" width="60">图标</th>
+					<th data-options="field:'leaf',align:'center'" width="50">是否叶子</th>
+				</tr>
+			</thead>
+		</table>
+    </div>
+		<div id="toolbar" style="display: none;">
+			<table>
+				<tr>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="findFun();">添加</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
 </html>

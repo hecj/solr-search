@@ -15,7 +15,9 @@
 				idField: 'moduleId',
 				treeField: 'name',
 				toolbar:'#toolbar',
-				fit:true,border:false
+				fit:true,
+				border:false,
+				fitColumns: true
 			">
 			<thead>
 				<tr>

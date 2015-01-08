@@ -5,11 +5,22 @@
     <%@include file="/admin/jsp/base/basePath.jsp" %> 
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
   	<script type="text/javascript">
+		var treegrid ;
+		$(function(){
+			treegrid = $('#treegrid').treegrid();
+
+			
+		});
+
+		var addFun = function(){
+
+		}
+
   	</script>
   </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
     <div region="center" data-options="fit:true,border:false">
-	    <table class="easyui-treegrid"
+	    <table id="treegrid"
 			data-options="
 				url:'<%=basePath %>admin/tree/menuTree.htm?operator=treeManagerQuery&moduleId=0',
 				idField: 'moduleId',
@@ -36,7 +47,7 @@
 			<table>
 				<tr>
 					<td>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="findFun();">添加</a>
+						<a href="javascript:void(0);" onclick="addFun();" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="findFun();">添加</a>
 					</td>
 				</tr>
 			</table>

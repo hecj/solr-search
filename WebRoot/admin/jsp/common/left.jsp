@@ -72,6 +72,7 @@
 					}
 				}]
 			});
+
 		});
 
 		function addTab(node){
@@ -98,6 +99,20 @@
 		}
   	</script>
   <div class="easyui-accordion" data-options="region:'center',fit:true,border:false">
-	<div id="customMenu" title="基本菜单" ></div>
-	<div id="systemTools" title="系统工具"></div>
+	<div id="customMenu" title="基本菜单" data-options="
+				selected:true,
+				tools:[{
+					iconCls:'icon-reload',
+					handler:function(){
+						$('#customMenu').tree('reload');
+					}
+				}]" style="overflow:auto;"></div>
+	<div id="systemTools" title="系统工具" data-options="
+				selected:true,
+				tools:[{
+					iconCls:'icon-reload',
+					handler:function(){
+						$('#systemTools').tree('reload');
+					}
+				}]" style="overflow:auto;"></div>
   </div>

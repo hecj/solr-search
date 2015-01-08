@@ -44,6 +44,7 @@
 			url: app.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 			rownumbers : true,
 			singleSelect:true,
+			fitColumns: true,
 			loadMsg: MessageUtil.loadDataGridMsg,
 			columns : [ [ {
 				field : 'fieldSelect',

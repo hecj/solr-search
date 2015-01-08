@@ -17,6 +17,7 @@
 			rownumbers : true,
 			singleSelect:true,
 			loadMsg: MessageUtil.loadDataGridMsg,
+			fitColumns: true,
 			columns : [ [ {
 				field : 'fieldSelect',
 				title : '选择器 ',

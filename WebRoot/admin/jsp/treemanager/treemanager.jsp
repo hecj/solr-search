@@ -7,9 +7,17 @@
   	<script type="text/javascript">
 		var treegrid ;
 		$(function(){
-			treegrid = $('#treegrid').treegrid({
+			treegrid = $('#treegrid').treegrid({});
+			//绑定右键点击
+			$('#content').mousedown(function(e){
+				if(e.which == 3){
+					
+					
+					alert('点击了右键');
+				}
 
 				
+				return false;//阻止链接跳转
 			});
 		    $('#rightClick').menu('show', {
 		        left: 200,
@@ -25,7 +33,7 @@
   	</script>
   </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
-    <div region="center" data-options="fit:true,border:false">
+    <div id="content" region="center" data-options="fit:true,border:false">
     	    
 	    <table id="treegrid"
 			data-options="

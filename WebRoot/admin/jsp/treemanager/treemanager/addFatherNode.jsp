@@ -37,7 +37,7 @@
 </head>
 <body>
 	<div>
-		<form>
+		<form method="post">
 			 <div class="height" style="margin-top: 20px">
 			     <label for="name">名称:</label>
 			     <input name="name" size="30" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'"/>

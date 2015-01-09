@@ -54,7 +54,7 @@ public class MenuTreeController extends BaseController {
 	}
 	
 	@RequestMapping(params="operator=addFatherNodeSumbit")
-	public void addFatherNodeSumbit(Module module,HttpServletRequest request,HttpServletResponse response){
+	public void addFatherNodeSumbit(HttpServletRequest request,HttpServletResponse response){
 		
 		System.out.println("===================");
 		

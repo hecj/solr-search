@@ -182,7 +182,7 @@ public class DataCollectController extends BaseController{
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		return "admin/jsp/datacollect/dataCollectMessage";
+		return "admin/jsp/datacollect/dataCollectManager/dataCollectMessage";
 	}
 	
 	@RequestMapping(params="operator=delete")
@@ -236,7 +236,7 @@ public class DataCollectController extends BaseController{
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		return "admin/jsp/datacollect/dataCollectEdit";
+		return "admin/jsp/datacollect/dataCollectManager/dataCollectEdit";
 	}
 	
 	@RequestMapping(params="operator=edit")
@@ -382,7 +382,7 @@ public class DataCollectController extends BaseController{
 	
 	@RequestMapping(params="operator=toAdd")
 	public String toAdd(){
-		return "admin/jsp/datacollect/dataCollectAdd";
+		return "admin/jsp/datacollect/dataCollectManager/dataCollectAdd";
 	}
 	
 }

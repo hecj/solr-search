@@ -4,6 +4,6 @@ import com.freedom.search.admin.entity.Module;
 
 
 
-public interface MenuTreeDAO extends BaseDAO<Module>{
+public interface ModuleDAO extends BaseDAO<Module>{
 
 }

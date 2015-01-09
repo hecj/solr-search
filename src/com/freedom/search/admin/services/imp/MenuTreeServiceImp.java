@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.freedom.search.admin.dao.MenuTreeDAO;
+import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.entity.Module;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
@@ -24,19 +24,17 @@ import com.freedom.search.util.StringUtil;
 public class MenuTreeServiceImp implements MenuTreeService{
 	
 	@Resource
-	private MenuTreeDAO menuTreeDAO;
+	private ModuleDAO moduleDAO;
 
-	public MenuTreeDAO getMenuTreeDAO() {
-		return menuTreeDAO;
+	public ModuleDAO getModuleDAO() {
+		return moduleDAO;
 	}
-
-	public void setMenuTreeDAO(MenuTreeDAO menuTreeDAO) {
-		this.menuTreeDAO = menuTreeDAO;
+	public void setModuleDAO(ModuleDAO moduleDAO) {
+		this.moduleDAO = moduleDAO;
 	}
-
 	@Override
 	public MenuTree searchMenuTree(Integer moduleId,String basePath) {
-		Module module = menuTreeDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId}).get(0);
+		Module module = moduleDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId}).get(0);
 		MenuTree voTree = new MenuTree();
 		voTree.setId(module.getModuleId());
 		voTree.setText(module.getName());
@@ -47,7 +45,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	 */
 	private MenuTree searchMenuTree(MenuTree voTree,Set<Module> set,String basePath) {
 		String hql = "select m from Module m where m.parentId=?";
-		List<Module> modules = (List<Module>) menuTreeDAO.queryListByParams(hql,new Object[]{voTree.getId()});
+		List<Module> modules = (List<Module>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getId()});
 		if(modules.size() == 0){
 			return voTree;
 		}else{
@@ -89,7 +87,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	
 	@Override
 	public VoModule treeManagerSearch(Integer moduleId) {
-		Module module = menuTreeDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId}).get(0);
+		Module module = moduleDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId}).get(0);
 		VoModule voModule = new VoModule();
 		voModule.setModuleId(module.getModuleId());
 		voModule.setName(module.getName());
@@ -100,7 +98,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	 */
 	private VoModule treeManagerSearch(VoModule voTree,Set<Module> set) {
 		String hql = "select m from Module m where m.parentId=?";
-		List<Module> modules = (List<Module>) menuTreeDAO.queryListByParams(hql,new Object[]{voTree.getModuleId()});
+		List<Module> modules = (List<Module>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getModuleId()});
 		if(modules.size() == 0){
 			return voTree;
 		}else{
@@ -137,6 +135,11 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			voTree.setChildren(chiledTree);
 			return voTree ; 
 		}
+	}
+
+	@Override
+	public Module searchModuleById(Integer id) {
+		return moduleDAO.findById(id);
 	}
 	
 }

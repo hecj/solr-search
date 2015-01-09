@@ -6,29 +6,67 @@
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
   	<script type="text/javascript">
 		var treegrid ;
+		var rightMenu ;
+		
 		$(function(){
-			treegrid = $('#treegrid').treegrid({});
-			//绑定右键点击
-			$('#content').mousedown(function(e){
-				if(e.which == 3){
-					
-					
-					alert('点击了右键');
+			treegrid = $('#treegrid').treegrid({
+				//右键点击事件
+				onContextMenu:function(e,row){
+					treegrid.treegrid('select',row.moduleId);
+					var x = parseInt(e.clientX)-200;
+					var y = parseInt(e.clientY)-25;
+					rightMenu.menu('show', {
+				        left: x,
+				        top: y
+				    });
 				}
-
-				
-				return false;//阻止链接跳转
 			});
-		    $('#rightClick').menu('show', {
-		        left: 200,
-		        top: 100
-		    });
+			rightMenu = $('#rightClick').menu({});
 		});
 
-		var rightClick = function(){
+		/**
+		 * 菜单操作
+		 */
+		var menuHandler = function(item){
+			var name = item.name;
 			var row = treegrid.treegrid('getSelected');
-			alert(row);
-		}
+			switch(name){
+			case '11':
+
+				var dialog = parent.app.dialogModel({
+					title: '添加父节点',
+					width: 400,
+					height: 330,
+					url : app.basePath+'admin/tree/menuTree.htm?operator=addFatherNode&moduleId='+row.moduleId,
+					buttons:[{
+						text:'提交',
+						handler:function(){
+							dialog.find('iframe').get(0).contentWindow.submitForm(dialog,treegrid);
+						}
+					},{
+						text:'关闭',
+						handler:function(){
+							dialog.dialog('close');
+						}
+					}]
+				});
+				
+				break;
+			case '12':
+				alert('1');
+				break;
+			case '13':
+				alert('1');
+				break;
+			case '2':
+				alert('1');
+				break;
+			case '3':
+				alert('1');
+				break;
+	
+			}
+		} 
 
   	</script>
   </head>
@@ -70,17 +108,17 @@
 		</div>
 		
 		<!-- right click  -->
-		<div id="rightClick" class="easyui-menu" style="width:120px;">
+		<div id="rightClick" class="easyui-menu"  data-options="onClick:menuHandler" style="width:120px;">
 		    <div>
 				<span>添加</span>
-				<div>
-					<div>父节点</div>
-					<div>同辈节点</div>
-					<div>子节点</div>
+				<div data-options="name:'1'">
+					<div data-options="name:'11'">父节点</div>
+					<div data-options="name:'12'">同辈节点</div>
+					<div data-options="name:'13'">子节点</div>
 				</div>
 		    </div>
-		    <div>删除</div>
-		    <div>编辑</div>
+		    <div data-options="name:'2'">删除</div>
+		    <div data-options="name:'3'">编辑</div>
 		</div>
 		 
 	</body>

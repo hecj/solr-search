@@ -11,4 +11,8 @@ public interface MenuTreeService {
 	public VoModule treeManagerSearch(Integer moduleId);
 	
 	public Module searchModuleById(Integer id);
+	
+	public boolean addBrotherNode(Module module);
+	
+	public boolean deleteNode(Integer moduleId);
 }

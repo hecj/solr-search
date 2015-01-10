@@ -10,7 +10,7 @@ var MessageUtil = {
 	messageShow:function(message){
 		jQuery.messager.show({
 			title:'提示信息',
-			msg:'<center><font size=4>'+message+'</font></center>',
+			msg:'<center><font size=4 color=green>'+message+'</font></center>',
 			timeout:3000,
 			showType:'show'
 		})

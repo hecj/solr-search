@@ -141,5 +141,39 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	public Module searchModuleById(Integer id) {
 		return moduleDAO.findById(id);
 	}
+	@Override
+	public boolean addBrotherNode(Module module) {
+		try{
+			Log4jUtil.log("添加兄弟节点:"+module.getName());
+			String qHql = "select m from Module m where m.parentId=? order by m.moduleId asc";
+			List<Module> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
+			if(list.size()>0){
+				int newModuleId = list.get(0).getModuleId();
+				for(Module m : list){
+					if(m.getModuleId() == newModuleId){
+						newModuleId ++;
+					}else{
+						break;
+					}
+				}
+				module.setModuleId(newModuleId);
+				moduleDAO.save(module);
+				return true;
+			}
+		
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return false;
+	}
 	
+	@Override
+	public boolean deleteNode(Integer moduleId){
+		Module module = moduleDAO.findById(moduleId);
+		if(!StringUtil.isObjectEmpty(module)){
+			moduleDAO.delete(module);
+			return true;
+		}
+		return false;
+	}
 }

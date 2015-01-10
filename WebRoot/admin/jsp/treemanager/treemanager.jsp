@@ -4,6 +4,9 @@
     <title>Seacher</title>
     <%@include file="/admin/jsp/base/basePath.jsp" %> 
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
+    <script type="text/javascript">  
+ 
+</script>
   	<script type="text/javascript">
 		var treegrid ;
 		var rightMenu ;
@@ -30,9 +33,9 @@
 		var menuHandler = function(item){
 			var name = item.name;
 			var row = treegrid.treegrid('getSelected');
+			
 			switch(name){
 			case '11':
-
 				var dialog = parent.app.dialogModel({
 					title: '添加父节点',
 					width: 400,
@@ -50,16 +53,60 @@
 						}
 					}]
 				});
-				
 				break;
 			case '12':
-				alert('1');
+
+				var dialog = parent.app.dialogModel({
+					title: '添加兄弟节点',
+					width: 400,
+					height: 330,
+					url : app.basePath+'admin/tree/menuTree.htm?operator=addBrotherNode&moduleId='+row.moduleId,
+					buttons:[{
+						text:'提交',
+						handler:function(){
+							dialog.find('iframe').get(0).contentWindow.submitForm(dialog,treegrid);
+						}
+					},{
+						text:'关闭',
+						handler:function(){
+							dialog.dialog('close');
+						}
+					}]
+				});
 				break;
 			case '13':
 				alert('1');
 				break;
 			case '2':
-				alert('1');
+				parent.$.messager.confirm('提示信息','确定要删除吗?',function(r){
+					if (r){
+						$.ajax({
+							url : app.basePath+'admin/tree/menuTree.htm?operator=deleteNode',
+							data:{moduleId:row.moduleId},
+							async:true,
+							dataType:'json',
+							timeout:3000,
+							type:'GET',
+							cache:false,
+							success:function(data){
+								if(data.code == '0'){
+
+									parent.MessageUtil.messageShow('<font color=green>'+data.message+'</font>');
+									treegrid.treegrid('reload');
+									parent.customMenu.tree('reload');
+									parent.systemTools.tree('reload');
+									var p = parent.customMenu;
+									
+								}else{
+									parent.MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
+								}
+							},
+							error:function(data){
+								parent.MessageUtil.messageShow('<font color=red>'+data.message+'</font>');
+							}
+						});
+					}
+				});
 				break;
 			case '3':
 				alert('1');
@@ -113,7 +160,7 @@
 				<span>添加</span>
 				<div data-options="name:'1'">
 					<div data-options="name:'11'">父节点</div>
-					<div data-options="name:'12'">同辈节点</div>
+					<div data-options="name:'12'">兄弟节点</div>
 					<div data-options="name:'13'">子节点</div>
 				</div>
 		    </div>

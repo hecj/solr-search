@@ -64,7 +64,7 @@
 		     <div class="height">
 		     	<label for="name">叶子:</label>
 			    <select name="leaf" class="easyui-combobox" disabled="disabled" data-options="panelHeight:75,editable:false">
-					<option>否</option>
+					<option value="0">否</option>
 				</select>
 		     </div>
 		</form>

@@ -29,7 +29,7 @@ public class Module implements Serializable {
 	private String icons;// 图标
 	private String state;
 
-	private boolean leaf;
+	private String leaf;
 
 	@Id
 	public Integer getModuleId() {
@@ -80,13 +80,14 @@ public class Module implements Serializable {
 		this.icons = icons;
 	}
 
-	public boolean isLeaf() {
+	public String getLeaf() {
 		return leaf;
 	}
 
-	public void setLeaf(boolean leaf) {
+	public void setLeaf(String leaf) {
 		this.leaf = leaf;
 	}
+
 	public String getState() {
 		return state;
 	}

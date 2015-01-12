@@ -87,7 +87,7 @@ public class MenuTreeController extends BaseController {
 			String leaf = request.getParameter("leaf");
 			Module module = new Module();
 			module.setIcons(icons);
-			module.setLeaf(leaf.equals("true")?true:false);
+			module.setLeaf(leaf);
 			module.setName(name);
 			module.setState(state);
 			module.setAttributes("url:"+url);
@@ -125,7 +125,7 @@ public class MenuTreeController extends BaseController {
 		Module module = new Module();
 		module.setIcons(icons);
 		module.setName(name);
-		module.setLeaf(leaf.equals("true")?true:false);
+		module.setLeaf(leaf);
 		module.setParentId(Integer.parseInt(parentId));
 		module.setState(state);
 		module.setAttributes("url:"+url);

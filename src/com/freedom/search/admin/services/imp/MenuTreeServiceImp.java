@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.entity.Module;
+import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.admin.vo.VoModule;
@@ -75,7 +76,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 					}
 					t.setAttributes(attrMap);
 				}
-				if(!m.isLeaf()){
+				if(m.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
 					if(!set.add(m)){
 						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
 						return voTree;
@@ -92,7 +93,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	
 	@Override
 	public VoModule treeManagerSearch(Integer moduleId) {
-		Module module = moduleDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId}).get(0);
+		Module module = moduleDAO.queryListByParams("select m from Module m where m.moduleId=?", new Object[]{moduleId}).get(0);
 		VoModule voModule = new VoModule();
 		voModule.setModuleId(module.getModuleId());
 		voModule.setName(module.getName());
@@ -113,7 +114,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				voModule.setModuleId(m.getModuleId());
 				voModule.setName(m.getName());
 				voModule.setIcons(m.getIcons());
-				voModule.setLeaf(m.isLeaf()?"是":"否");
+				voModule.setLeaf(m.getLeaf());
 				voModule.setParentId(m.getParentId());
 				//属性在数据库用,分隔，如:url=http://localhost , name=hecj
 				if(!StringUtil.isStrEmpty(m.getAttributes())){
@@ -127,7 +128,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 						}
 					}
 				}
-				if(!m.isLeaf()){
+				if(m.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
 					if(!set.add(m)){
 						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
 						return voTree;
@@ -192,6 +193,11 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			}
 			module.setModuleId(moduleId);
 			
+			Module parentModule = moduleDAO.findById(module.getParentId());
+			if(parentModule.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
+				parentModule.setLeaf(EnumAdminUtils.Leaf.FALSE.code);
+				moduleDAO.update(parentModule);
+			}
 			moduleDAO.save(module);
 			return true;
 		}catch(Exception ex){

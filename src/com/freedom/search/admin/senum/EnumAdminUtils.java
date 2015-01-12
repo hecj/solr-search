@@ -44,7 +44,10 @@ public class EnumAdminUtils {
 			return String.valueOf(this.method);
 		}
 	}
-	
+	/**
+	 * 0:SUCCESS
+	 * 1:FAIL
+	 */	
 	public enum MessageCode {
 		SUCCESS("0"), FAIL("1");
 		public String code;
@@ -53,5 +56,17 @@ public class EnumAdminUtils {
 			this.code = code;
 		}
 		
+	}
+	/**
+	 * 是否叶子
+	 * 0:否
+	 * 1:是
+	 */	
+	public enum Leaf {
+		TRUE("1"), FALSE("0");
+		public String code;
+		Leaf(String code) {
+			this.code = code ;
+		}
 	}
 }

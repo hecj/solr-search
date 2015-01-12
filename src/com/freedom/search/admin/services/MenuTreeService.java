@@ -11,4 +11,9 @@ public interface MenuTreeService {
 	public VoModule treeManagerSearch(Integer moduleId);
 	
 	public Module searchModuleById(Integer id);
+	
+	/*
+	 * 添加子节点
+	 */
+	public boolean addChildNode(Module module);
 }

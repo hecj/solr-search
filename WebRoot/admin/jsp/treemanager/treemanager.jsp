@@ -9,6 +9,7 @@
 		var rightMenu ;
 		
 		$(function(){
+			
 			treegrid = $('#treegrid').treegrid({
 				//右键点击事件
 				onContextMenu:function(e,row){
@@ -56,13 +57,31 @@
 				alert('1');
 				break;
 			case '13':
-				alert('1');
+
+				
+				
+				var dialog = parent.app.dialogModel({
+					title: '添加子节点',
+					width: 400,
+					height: 330,
+					url : app.basePath+'admin/tree/menuTree.htm?operator=addChildNode&moduleId='+row.moduleId,
+					buttons:[{
+						text:'提交',
+						handler:function(){
+							dialog.find('iframe').get(0).contentWindow.submitForm(dialog,treegrid);
+						}
+					},{
+						text:'关闭',
+						handler:function(){
+							dialog.dialog('close');
+						}
+					}]
+				});
 				break;
 			case '2':
 				alert('1');
 				break;
 			case '3':
-				alert('1');
 				break;
 	
 			}
@@ -120,6 +139,6 @@
 		    <div data-options="name:'2'">删除</div>
 		    <div data-options="name:'3'">编辑</div>
 		</div>
-		 
+		
 	</body>
 </html>

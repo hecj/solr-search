@@ -34,7 +34,12 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	}
 	@Override
 	public MenuTree searchMenuTree(Integer moduleId,String basePath) {
-		Module module = moduleDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId}).get(0);
+		
+		List<Module> list = moduleDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId});
+		if(list.size() == 0){
+			return null;
+		}
+		Module module = list.get(0);
 		MenuTree voTree = new MenuTree();
 		voTree.setId(module.getModuleId());
 		voTree.setText(module.getName());
@@ -140,6 +145,34 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	@Override
 	public Module searchModuleById(Integer id) {
 		return moduleDAO.findById(id);
+	}
+	
+	@Override
+	public boolean addChildNode(Module module) {
+		try{
+			String qHql = "select m from Module m where m.parentId = ? order by m.moduleId asc";
+			List<Module> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
+			int moduleId ;
+			if(list.size()>0){
+				moduleId = list.get(0).getModuleId();
+				for(Module m:list){
+					if(m.getModuleId().intValue() == moduleId){
+						moduleId ++;
+					}else{
+						break;
+					}
+				}
+			}else{
+				moduleId = module.getParentId()*100+1;
+			}
+			module.setModuleId(moduleId);
+			
+			moduleDAO.save(module);
+			return true;
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return false;
 	}
 	
 }

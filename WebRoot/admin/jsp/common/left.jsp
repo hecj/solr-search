@@ -35,9 +35,26 @@
 				}
 			});
 			
+			$('#easyUIAPI').tree( {
+				url : app.basePath+'admin/tree/menuTree.htm?operator=initTree&moduleId=30',
+				onClick : function(node) {
+					if(!StringUtils.isObjEmpty(node.state)){
+						if(node.state == "open"){
+							$(this).tree('collapse',node.target); 
+						}else{
+							$(this).tree('expand',node.target);  
+						}
+					}
+					if (!StringUtils.isObjEmpty(node.attributes)) {
+						addTab(node);
+					}
+				}
+			});
+			
 			centerTabs = $('#center_tabs').tabs({
 				tools:[{
 					 text:'刷新',
+					 iconCls:'icon-reload',
 					 handler : function() {
 							var panel = centerTabs.tabs('getSelected').panel('panel');
 							var frame = panel.find('iframe');
@@ -61,6 +78,7 @@
 				},
 				{
 					text : '关闭',
+					iconCls:'icon-close',
 					handler : function() {
 						var index = centerTabs.tabs('getTabIndex', centerTabs.tabs('getSelected'));
 						var tab = centerTabs.tabs('getTab', index);
@@ -114,5 +132,20 @@
 					handler:function(){
 						$('#systemTools').tree('reload');
 					}
-				}]" style="overflow:auto;"></div>
+				}]" style="overflow:auto;">
+	</div>
+	
+	<div id="easyUIAPI" title="EasyUI文档" data-options="
+				selected:true,
+				tools:[{
+					iconCls:'icon-reload',
+					handler:function(){
+						$('#easyUIAPI').tree('reload');
+					}
+				}]" style="overflow:auto;">
+	</div>
+	
+	
+	
+	
   </div>

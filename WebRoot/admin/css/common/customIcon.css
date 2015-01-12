@@ -10,3 +10,7 @@
 .tree-file{
 	background:url('customIcon/leaf.gif') no-repeat center center;
 }
+
+.icon-close{
+	background:url('customIcon/close.png') no-repeat center center;
+}

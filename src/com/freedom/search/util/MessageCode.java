@@ -38,5 +38,9 @@ public class MessageCode {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	public String toJSON(){
+		return ObjectToJson.object2json(this);
+	}
 
 }

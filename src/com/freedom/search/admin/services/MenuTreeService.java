@@ -1,5 +1,7 @@
 package com.freedom.search.admin.services;
 
+import java.util.Set;
+
 import com.freedom.search.admin.entity.Module;
 import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.admin.vo.VoModule;
@@ -20,4 +22,5 @@ public interface MenuTreeService {
 	public boolean addBrotherNode(Module module);
 	
 	public boolean deleteNode(Integer moduleId);
+	
 }

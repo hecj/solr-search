@@ -212,6 +212,40 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			moduleDAO.delete(module);
 			return true;
 		}
-		return false;
+		
+		//递归删除
+		String ids = "";
+		while(true){
+			String HQL = "select * from ";
+			
+		}
+		
+//		return false;
 	}
+	
+	/* 
+	 * 递归遍历菜单,加入递归死循环容错处理.
+	 */
+	public String SearchIds(String ids,Integer id,Set<Integer> set) {
+		String hql = "select m from Module m where m.parentId=?";
+		List<Module> modules = (List<Module>) moduleDAO.queryListByParams(hql,new Object[]{id});
+		if(modules.size() == 0){
+			return ids;
+		}else{
+			for(Module m : modules){
+				
+				if(m.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
+					if(!set.add(m.getModuleId())){
+						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
+						return ids;
+					}
+					ids = ids+m.getModuleId()+SearchIds(ids,m.getModuleId(),set);
+				}else{
+					ids = ids+m.getModuleId();
+				}
+			}
+			return ids ; 
+		}
+	}
+
 }

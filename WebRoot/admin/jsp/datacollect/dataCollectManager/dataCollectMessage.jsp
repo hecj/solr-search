@@ -1,34 +1,46 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/admin/jsp/base/easyUI.jsp" />
+<style type="text/css">
+	.divHeight{
+		height: 30px;
+	}
+	
+	.labelWidth{
+		width: 100px;
+		display: inline-block;
+		text-align: right;
+	}
+
+</style>
 <div><br/>
 	<input type="hidden" id="Id_dataCollectMsg" value="${dataCollectParams.id }"/>
-	 <div class="CLS_mainContentDivHegiht">
-	     <label for="name" class="data_label_width">代理IP:</label>
+	 <div class="divHeight">
+	     <label for="name" class="labelWidth">代理IP:</label>
 	     <input  size="10" value="${dataCollectParams.IP }" readonly="readonly"/>
 	     <label for="name" style="width: 50px">端口:</label>
-	     <input size="4" value="${dataCollectParams.PORT }" readonly="readonly"/>
+	     <input size="10" value="${dataCollectParams.PORT }" readonly="readonly"/>
      </div>
-	 <div class="CLS_mainContentDivHegiht">
-        <label for="name" class="data_label_width">网址:</label>
+	 <div class="divHeight">
+        <label for="name" class="labelWidth">网址:</label>
         <input size=48 value="${dataCollectParams.baseURL }" readonly="readonly"/>
      </div>
-     <div class="CLS_mainContentDivHegiht">
-		<label for="name" class="data_label_width">分页参数:</label>
-	    <input  size=6 value="${dataCollectParams.pageParams }" readonly="readonly"/>
+     <div class="divHeight">
+		<label for="name" class="labelWidth">分页参数:</label>
+	    <input  size=10 value="${dataCollectParams.pageParams }" readonly="readonly"/>
 	    <label for="name" style="width: 50px">开始:</label>
-	    <input  size=6 value="${dataCollectParams.start }" readonly="readonly"/>
+	    <input  size=10 value="${dataCollectParams.start }" readonly="readonly"/>
 	    <label for="name" style="width: 50px">结束:</label>
-	    <input size=6 value="${dataCollectParams.end }" readonly="readonly"/>
+	    <input size=10 value="${dataCollectParams.end }" readonly="readonly"/>
 	    <label for="name" style="width: 50px">步长:</label>
-	    <input  size=6 value="${dataCollectParams.step }" readonly="readonly"/>
+	    <input  size=10 value="${dataCollectParams.step }" readonly="readonly"/>
     </div>
-     <div class="CLS_mainContentDivHegiht">
-        <label for="name" class="data_label_width">基本选择器:</label>
+     <div class="divHeight">
+        <label for="name" class="labelWidth">基本选择器:</label>
         <input size=49 value="${dataCollectParams.baseSelect }" readonly="readonly"/>
      </div>
-      <div class="CLS_mainContentDivHegiht">
-        <label  class="data_label_width">编码:</label>
+      <div class="divHeight">
+        <label  class="labelWidth">编码:</label>
         <input value="${dataCollectParams.encode }" size=7 readonly="readonly"/>
         <label for="name">数据库:</label>
         <input value="${dataCollectParams.dataBaseType }" size=7 readonly="readonly"/>

@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script type="text/javascript">
   		var centerTabs ;
+  		var customMenu ;
+  		var systemTools ;
+  		
 		$(function(){
-			$('#customMenu').tree( {
+			customMenu = $('#customMenu').tree( {
 				//url : app.basePath+'admin/js/common/tree2.json',
 				url : app.basePath+'admin/tree/menuTree.htm?operator=initTree&moduleId=10',
 				onClick : function(node) {
@@ -19,7 +22,7 @@
 				}
 			});
 			
-			$('#systemTools').tree( {
+			systemTools = $('#systemTools').tree( {
 				url : app.basePath+'admin/js/common/systemtools.json',
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
@@ -36,7 +39,7 @@
 			});
 			
 			$('#easyUIAPI').tree( {
-				url : app.basePath+'admin/tree/menuTree.htm?operator=initTree&moduleId=30',
+				url : app.basePath+'admin/tree/menuTree.htm?operator=initTree&moduleId=11',
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
 						if(node.state == "open"){

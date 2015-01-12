@@ -3,6 +3,18 @@
 <html>
 <head>
 <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
+<style type="text/css">
+	.divHeight{
+		height: 30px;
+	}
+	
+	.labelWidth{
+		width: 100px;
+		display: inline-block;
+		text-align: right;
+	}
+
+</style>
 <script type="text/javascript">
 	var grid ;
 
@@ -198,7 +210,7 @@
 
 	var submitForm = function(dialog,parentGrid){
 		//校验表单
-		var isValid = $("#Id_dataCollectAdd_form").form('validate');
+		var isValid = $("#form").form('validate');
 		if (!isValid){
 			return;
 		}
@@ -218,17 +230,17 @@
 					return ;
 				}
 			}
-			var IP = $("#Id_Add_dataCollectParamsIP").val();
-			var PORT = $("#Id_Add_dataCollectParamsPORT").val();
-			var baseURL = $("#Id_Add_dataCollectParamsbaseURL").val();
-			var pageParams = $("#Id_Add_dataCollectParamspageParams").val();
-			var start = $("#Id_Add_dataCollectParamsstart").val();
-			var end = $("#Id_Add_dataCollectParamsend").val();
-			var step = $("#Id_Add_dataCollectParamsstep").val();
-			var baseSelect = $("#Id_Add_dataCollectParamsbaseSelect").val();
-			var encode = $('#Id_Add_dataCollectParamsEncode').combobox('getText');
-			var dataBaseType = $("#Id_Add_dataCollectParamsdataBaseType").combobox('getText');
-			var tableName = $("#Id_Add_dataCollectParamstableName").val();
+			var IP = $("#ip").val();
+			var PORT = $("#port").val();
+			var baseURL = $("#baseURL").val();
+			var pageParams = $("#pageParams").val();
+			var start = $("#start").val();
+			var end = $("#end").val();
+			var step = $("#step").val();
+			var baseSelect = $("#baseSelect").val();
+			var encode = $('#encode').combobox('getText');
+			var dataBaseType = $("#dataBaseType").combobox('getText');
+			var tableName = $("#tableName").val();
 			var fieldList = new Array();
 			for ( var i = 0; i < rows.length; i=i+1) {
 				row = rows[i];
@@ -275,44 +287,44 @@
 </head>
 <body>
 <div><br/>
-<form id="Id_dataCollectAdd_form">
-	 <div class="CLS_mainContentDivHegiht">
-	     <label for="name" class="data_label_width">代理IP:</label>
-	     <input id="Id_Add_dataCollectParamsIP" size="10"/>
+<form id="form">
+	 <div class="divHeight">
+	     <label for="name" class="labelWidth">代理IP:</label>
+	     <input id="ip" size="10"/>
 	     <label for="name" style="width: 50px">端口:</label>
-	     <input id="Id_Add_dataCollectParamsPORT" size="4"/>
+	     <input id="port" size="10"/>
      </div>
-	 <div class="CLS_mainContentDivHegiht">
-        <label for="name" class="data_label_width">网址:</label>
-        <input id="Id_Add_dataCollectParamsbaseURL"  class="easyui-validatebox" size=48 data-options="required:true,validType:'notEmpty'"/>
+	 <div class="divHeight">
+        <label for="name" class="labelWidth">网址:</label>
+        <input id="baseURL"  class="easyui-validatebox" size=48 data-options="required:true,validType:'notEmpty'"/>
      </div>
-     <div class="CLS_mainContentDivHegiht">
-		<label for="name" class="data_label_width">分页参数:</label>
-	    <input id="Id_Add_dataCollectParamspageParams" size=6/>
+     <div class="divHeight">
+		<label for="name" class="labelWidth">分页参数:</label>
+	    <input id="pageParams" size=10/>
 	    <label for="name" style="width: 50px">开始:</label>
-	    <input id="Id_Add_dataCollectParamsstart" size=6/>
+	    <input id="start" size=10/>
 	    <label for="name" style="width: 50px">结束:</label>
-	    <input id="Id_Add_dataCollectParamsend" size=6/>
+	    <input id="end" size=10/>
 	    <label for="name" style="width: 50px">步长:</label>
-	    <input id="Id_Add_dataCollectParamsstep" size=6/>
+	    <input id="step" size=10/>
     </div>
-     <div class="CLS_mainContentDivHegiht">
-        <label for="name" class="data_label_width">基本选择器:</label>
-        <input id="Id_Add_dataCollectParamsbaseSelect" size=49 class="easyui-validatebox" data-options="required:true"/>
+     <div class="divHeight">
+        <label for="name" class="labelWidth">基本选择器:</label>
+        <input id="baseSelect" size=49 class="easyui-validatebox" data-options="required:true"/>
      </div>
-      <div class="CLS_mainContentDivHegiht">
-        <label  class="data_label_width">编码:</label>
-        <select id="Id_Add_dataCollectParamsEncode" class="easyui-combobox"  data-options="panelHeight:45,editable:false">
+      <div class="divHeight">
+        <label  class="labelWidth">编码:</label>
+        <select id="encode" class="easyui-combobox"  data-options="panelHeight:45,editable:false">
         	<option value="GBK">GBK</option>
         	<option value="UTF-8">UTF-8</option>
         </select>
         <label for="name">数据库:</label>
-        <select id="Id_Add_dataCollectParamsdataBaseType" class="easyui-combobox" data-options="panelHeight:45,editable:false">
+        <select id="dataBaseType" class="easyui-combobox" data-options="panelHeight:45,editable:false">
         	<option value="MySQL">MySQL</option>
         	<option value="Oracle">Oracle</option>
         </select>
         <label for="name">表名:</label>
-        <input id="Id_Add_dataCollectParamstableName" size=17  class="easyui-validatebox" data-options="required:true"/>
+        <input id="tableName" size=17  class="easyui-validatebox" data-options="required:true"/>
      </div>
 </form>
      <div id="grid"  style="height:162px"></div>

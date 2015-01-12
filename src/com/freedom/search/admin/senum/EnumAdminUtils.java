@@ -44,4 +44,14 @@ public class EnumAdminUtils {
 			return String.valueOf(this.method);
 		}
 	}
+	
+	public enum MessageCode {
+		SUCCESS("0"), FAIL("1");
+		public String code;
+
+		MessageCode(String code) {
+			this.code = code;
+		}
+		
+	}
 }

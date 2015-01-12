@@ -16,4 +16,8 @@ public interface MenuTreeService {
 	 * 添加子节点
 	 */
 	public boolean addChildNode(Module module);
+	
+	public boolean addBrotherNode(Module module);
+	
+	public boolean deleteNode(Integer moduleId);
 }

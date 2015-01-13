@@ -69,7 +69,7 @@
 			  				return value;
 			  			}
 			  		},
-					{title:'是否',field:'leaf',align:'center',width:50,
+					{title:'叶子',field:'leaf',align:'center',width:50,
 				  		formatter: function(value,row,index){
 				  		if(value == '0'){
 					  		return '否'
@@ -85,32 +85,18 @@
 		/**
 		 * 菜单操作
 		 */
-		var menuHandler = function(item){
-			var name = item.name;
+		var menuHandler = function(type){
 			var row = treegrid.treegrid('getSelected');
-			
-			switch(name){
-			case '11':
-				var dialog = parent.app.dialogModel({
-					title: '添加父节点',
-					width: 400,
-					height: 330,
-					url : app.basePath+'admin/tree/menuTree.htm?operator=addFatherNode&moduleId='+row.moduleId,
-					buttons:[{
-						text:'提交',
-						handler:function(){
-							dialog.find('iframe').get(0).contentWindow.submitForm(dialog,treegrid);
-						}
-					},{
-						text:'关闭',
-						handler:function(){
-							dialog.dialog('close');
-						}
-					}]
-				});
-				break;
-			case '12':
-
+			if(!row){
+				parent.MessageUtil.errorShow('请选择一行');
+				return;
+			}
+			switch(type){
+			case 11:
+				if(row.moduleId == '0'){
+					parent.MessageUtil.errorShow('根节点不可添加兄弟节点!');
+					return;
+				}
 				var dialog = parent.app.dialogModel({
 					title: '添加兄弟节点',
 					width: 400,
@@ -129,8 +115,7 @@
 					}]
 				});
 				break;
-			case '13':
-				
+			case 12:
 				var dialog = parent.app.dialogModel({
 					title: '添加子节点',
 					width: 400,
@@ -149,7 +134,7 @@
 					}]
 				});
 				break;
-			case '2':
+			case 2:
 				parent.$.messager.confirm('提示信息','确定要删除吗?',function(r){
 					if (r){
 						$.ajax({
@@ -180,7 +165,7 @@
 					}
 				});
 				break;
-			case '3':
+			case 3:
 				break;
 	
 			}
@@ -197,28 +182,19 @@
 			<table>
 				<tr>
 					<td>
-						<a href="javascript:void(0);" onclick="rightClick();" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="findFun();">添加</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(11);">添加兄弟节点</a>
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(12);">添加子节点</a>
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(2);">删除</a>
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(3);">编辑</a>
 					</td>
 				</tr>
 			</table>
-		</div>
-		
-		<!-- right click  -->
-		<div id="rightClick" class="easyui-menu"  data-options="onClick:menuHandler" style="width:120px;">
-		    <div>
-				<span>添加</span>
-				<div data-options="name:'1'">
-					<div data-options="name:'11'">父节点</div>
-					<div data-options="name:'12'">兄弟节点</div>
-					<div data-options="name:'13'">子节点</div>
-				</div>
-		    </div>
-		    <div data-options="name:'2'">删除</div>
-		    <div data-options="name:'3'">编辑</div>
-		</div>
-		
-		<div id="rightMenuRoot" class="easyui-menu"  data-options="onClick:menuHandler" style="width:120px;">
-		    <div data-options="name:'13'">添加子节点</div>
 		</div>
 		
 	</body>

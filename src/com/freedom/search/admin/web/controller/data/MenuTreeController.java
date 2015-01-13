@@ -106,7 +106,7 @@ public class MenuTreeController extends BaseController {
 			module.setName(name);
 			module.setState(state);
 			if(!StringUtil.isStrEmpty(url)){
-				module.setAttributes("url="+url);
+				module.setAttributes("url"+EscapeCharacterUtil.EQ+url);
 			}
 			module.setParentId(parentId);
 			

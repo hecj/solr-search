@@ -84,14 +84,14 @@ public class TestDataCollectServiceService {
 	@Test
 	public void menu01(){
 		
-		MenuTree tree = menuTreeService.searchMenuTree(10,"http://localhost:8080/search");
+		//MenuTree tree = menuTreeService.searchMenuTree(10,"http://localhost:8080/search");
 //		System.out.println(tree.getVoTrees().size());
 		
 		
 //		String s = ObjectToJson.object2json(voTree);
 //		System.out.println(s);
 		
-		System.out.println(tree.toJSON());
+		//System.out.println(tree.toJSON());
 		
 	}
 	

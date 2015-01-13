@@ -1,8 +1,8 @@
 package com.freedom.search.admin.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Id;
 
@@ -20,10 +20,10 @@ public class VoModule implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Integer moduleId;
+	private String moduleId;
 	private String name;//模块名称
 	private Integer type;//模块类型1是菜单，2是按钮
-	private Integer parentId;//父Id
+	private String parentId;//父Id
 	private String icons;//图标
 	private String url;
 	private List<VoModule> children;
@@ -31,10 +31,10 @@ public class VoModule implements Serializable {
 	private String leaf;
 	
 	@Id
-	public Integer getModuleId() {
+	public String getModuleId() {
 		return moduleId;
 	}
-	public void setModuleId(Integer moduleId) {
+	public void setModuleId(String moduleId) {
 		this.moduleId = moduleId;
 	}
 	public String getName() {
@@ -55,10 +55,10 @@ public class VoModule implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public Integer getParentId() {
+	public String getParentId() {
 		return parentId;
 	}
-	public void setParentId(Integer parentId) {
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 	public String getIcons() {
@@ -87,6 +87,8 @@ public class VoModule implements Serializable {
 		this.children = children;
 	}
 	public String toJSON() {
-		return ObjectToJson.object2json(this.getChildren()) ;
+		List<VoModule> list = new ArrayList<VoModule>();
+		list.add(this);
+		return ObjectToJson.object2json(list) ;
 	}
 }

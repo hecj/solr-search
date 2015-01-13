@@ -21,17 +21,18 @@ public class MenuTree implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
+	private String id;
 	private String text;//模块名称
 	private String state; //打开、关闭 open、closed
+	private String iconCls;
 	private Map<String,String> attributes;//节点链接地址或按钮属性
 	private List<MenuTree> children;
 	
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -49,6 +50,14 @@ public class MenuTree implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getIconCls() {
+		return iconCls;
+	}
+
+	public void setIconCls(String iconCls) {
+		this.iconCls = iconCls;
 	}
 
 	public Map<String,String> getAttributes() {

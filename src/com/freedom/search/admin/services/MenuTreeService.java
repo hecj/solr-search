@@ -9,15 +9,15 @@ public interface MenuTreeService {
 	/**
 	 * 根据节点Id，递归查询菜单树
 	 */
-	public MenuTree searchMenuTree(Integer moduleId,String basePath);
+	public MenuTree searchMenuTree(String moduleId,String basePath);
 	/**
 	 * 根据节点Id,递归查询节点树
 	 */
-	public VoModule treeManagerSearch(Integer moduleId);
+	public VoModule treeManagerSearch(String moduleId);
 	/**
 	 * 根据节点Id查询节点
 	 */
-	public Module searchModuleById(Integer id);
+	public Module searchModuleById(String id);
 	/**
 	 * 添加子节点
 	 */
@@ -29,6 +29,6 @@ public interface MenuTreeService {
 	/**
 	 * 递归删除节点，包括子节点
 	 */
-	public boolean deleteNode(Integer moduleId);
+	public boolean deleteNode(String moduleId);
 	
 }

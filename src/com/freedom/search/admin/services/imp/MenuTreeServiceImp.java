@@ -34,17 +34,17 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		this.moduleDAO = moduleDAO;
 	}
 	@Override
-	public MenuTree searchMenuTree(Integer moduleId,String basePath) {
+	public MenuTree searchMenuTree(String moduleId,String basePath) {
 		
 		List<Module> list = moduleDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId});
 		if(list.size() == 0){
 			return null;
 		}
 		Module module = list.get(0);
-		MenuTree voTree = new MenuTree();
-		voTree.setId(module.getModuleId());
-		voTree.setText(module.getName());
-		return searchMenuTree(voTree,new HashSet<Module>(),basePath);
+		MenuTree menuTree = new MenuTree();
+		menuTree.setId(module.getModuleId());
+		menuTree.setText(module.getName());
+		return searchMenuTree(menuTree,new HashSet<Module>(),basePath);
 	}
 	/* 
 	 * 递归遍历菜单,加入递归死循环容错处理.
@@ -60,12 +60,13 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				MenuTree t = new MenuTree();
 				t.setId(m.getModuleId());
 				t.setText(m.getName());
+				t.setIconCls(m.getIcons());
 				Map<String,String> attrMap = new HashMap<String,String>();
 				//属性在数据库用,分隔，如:url=http://localhost , name=hecj
 				if(!StringUtil.isStrEmpty(m.getAttributes())){
 					String[] attrs = m.getAttributes().split(",");
 					for(String attr:attrs){
-						String[] str = attr.split("=");
+						String[] str = attr.split(":");
 						if(str.length == 2){
 							if(str[0].equals("url")){
 								attrMap.put(str[0], basePath + str[1]);
@@ -92,11 +93,14 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	}
 	
 	@Override
-	public VoModule treeManagerSearch(Integer moduleId) {
+	public VoModule treeManagerSearch(String moduleId) {
 		Module module = moduleDAO.queryListByParams("select m from Module m where m.moduleId=?", new Object[]{moduleId}).get(0);
 		VoModule voModule = new VoModule();
 		voModule.setModuleId(module.getModuleId());
 		voModule.setName(module.getName());
+		voModule.setParentId(module.getParentId());
+		voModule.setState(module.getState());
+		voModule.setLeaf(module.getLeaf());
 		return treeManagerSearch(voModule,new HashSet<Module>());
 	}
 	/* 
@@ -120,7 +124,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				if(!StringUtil.isStrEmpty(m.getAttributes())){
 					String[] attrs = m.getAttributes().split(",");
 					for(String attr:attrs){
-						String[] str = attr.split("=");
+						String[] str = attr.split(":");
 						if(str.length == 2){
 							if(str[0].equals("url")){
 								voModule.setUrl(str[1]);
@@ -144,7 +148,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	}
 
 	@Override
-	public Module searchModuleById(Integer id) {
+	public Module searchModuleById(String id) {
 		return moduleDAO.findById(id);
 	}
 	@Override
@@ -154,15 +158,8 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			String qHql = "select m from Module m where m.parentId=? order by m.moduleId asc";
 			List<Module> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
 			if(list.size()>0){
-				int newModuleId = list.get(0).getModuleId();
-				for(Module m : list){
-					if(m.getModuleId() == newModuleId){
-						newModuleId ++;
-					}else{
-						break;
-					}
-				}
-				module.setModuleId(newModuleId);
+				//拼接Id组成新的Id
+				module.setModuleId(module.getParentId()+getNewModuleId(list));
 				moduleDAO.save(module);
 				return true;
 			}
@@ -173,27 +170,44 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		return false;
 	}
 	
+	/*
+	 * 遍历获取新的兄弟节点
+	 */
+	private String getNewModuleId(List<Module> list){
+		//截图Id最后3位
+		String newModuleId = list.get(0).getModuleId();
+		int last3IndexId = Integer.parseInt(newModuleId.substring(newModuleId.length()-3));
+		for(Module m : list){
+			//判断最后3位Id是否相等
+			int tempId = Integer.parseInt(m.getModuleId().substring(m.getModuleId().length()-3));
+			if(tempId == last3IndexId){
+				last3IndexId ++;
+			}else{
+				break;
+			}
+		}
+		//不足3位时前面补0
+		String last3IndexIdStr = String.valueOf(last3IndexId);
+		for(int i=0;i<3-last3IndexIdStr.length();i++){
+			last3IndexIdStr = "0"+last3IndexIdStr;
+		}
+		return last3IndexIdStr;
+	}
+	
 	@Override
 	public boolean addChildNode(Module module) {
 		try{
 			String qHql = "select m from Module m where m.parentId = ? order by m.moduleId asc";
 			List<Module> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
-			int moduleId ;
+			String newModuleId ;
 			if(list.size()>0){
-				moduleId = list.get(0).getModuleId();
-				for(Module m:list){
-					if(m.getModuleId().intValue() == moduleId){
-						moduleId ++;
-					}else{
-						break;
-					}
-				}
+				newModuleId = module.getParentId()+ getNewModuleId(list);
 			}else{
-				moduleId = module.getParentId()*100+1;
+				newModuleId = module.getParentId()+ "001";
 			}
-			module.setModuleId(moduleId);
-			
+			module.setModuleId(newModuleId);
 			Module parentModule = moduleDAO.findById(module.getParentId());
+			//更新父节点为枝干
 			if(parentModule.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
 				parentModule.setLeaf(EnumAdminUtils.Leaf.FALSE.code);
 				moduleDAO.update(parentModule);
@@ -206,13 +220,13 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		return false;
 	}
 	
-	public boolean deleteNode(Integer moduleId){
+	public boolean deleteNode(String moduleId){
 		Module module = moduleDAO.findById(moduleId);
 		if(!StringUtil.isObjectEmpty(module)){
 			//如何是枝干，则递归查询子节点Id
 			if(module.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
 				//递归删除
-				String ids = searchIds("",moduleId,new HashSet<Integer>());
+				String ids = searchIds("",moduleId,new HashSet<String>());
 				ids = ids.replaceAll(",,", ",").replaceAll(",,,", ",");
 				if(ids.startsWith(",")){
 					ids = ids.replaceFirst(",", "");
@@ -234,7 +248,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	/* 
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
-	private String searchIds(String ids,Integer id,Set<Integer> set) {
+	private String searchIds(String ids,String id,Set<String> set) {
 		String hql = "select m from Module m where m.parentId=?";
 		List<Module> modules = (List<Module>) moduleDAO.queryListByParams(hql,new Object[]{id});
 		if(modules.size() == 0){

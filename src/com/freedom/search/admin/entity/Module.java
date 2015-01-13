@@ -21,22 +21,22 @@ public class Module implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer moduleId;
+	private String moduleId;
 	private String name;// 模块名称
 	private String attributes;// 节点链接地址或按钮属性
 	private Integer type;// 模块类型1是菜单，2是按钮
-	private Integer parentId;// 父Id
+	private String parentId;// 父Id
 	private String icons;// 图标
-	private String state;
-
-	private String leaf;
+	private String state; //状态 打开/关闭
+	private String leaf; //是否叶子
+	private Integer flag; //有效状态 审核，生效，删除
 
 	@Id
-	public Integer getModuleId() {
+	public String getModuleId() {
 		return moduleId;
 	}
 
-	public void setModuleId(Integer moduleId) {
+	public void setModuleId(String moduleId) {
 		this.moduleId = moduleId;
 	}
 
@@ -64,11 +64,11 @@ public class Module implements Serializable {
 		this.type = type;
 	}
 
-	public Integer getParentId() {
+	public String getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(Integer parentId) {
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 
@@ -94,6 +94,14 @@ public class Module implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public Integer getFlag() {
+		return flag;
+	}
+
+	public void setFlag(Integer flag) {
+		this.flag = flag;
 	}
 
 }

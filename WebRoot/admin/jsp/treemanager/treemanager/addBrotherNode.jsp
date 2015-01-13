@@ -53,7 +53,7 @@
 		     </div>
 		     <div>
 		     	<label for="name">路径:</label>
-			    <input name="url" size="30" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'" />
+			    <input name="url" size="30" class="easyui-validatebox"/>
 		     </div>
 			 <div>
 			     <label for="name">状态:</label>

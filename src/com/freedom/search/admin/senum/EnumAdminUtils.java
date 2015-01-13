@@ -69,4 +69,16 @@ public class EnumAdminUtils {
 			this.code = code ;
 		}
 	}
+	
+	/**
+	 * 菜单树
+	 */	
+	public enum Tree {
+		ROOT("0");
+		public String code;
+		Tree(String code) {
+			this.code = code ;
+		}
+	}
+	
 }

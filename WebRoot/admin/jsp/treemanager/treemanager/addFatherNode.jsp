@@ -48,7 +48,7 @@
 		     </div>
 		     <div class="height">
 		     	<label for="name">路径:</label>
-			    <input id="height" size="30" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'" />
+			    <input id="height" size="30" class="easyui-validatebox" />
 		     </div>
 			 <div class="height">
 			     <label for="name">状态:</label>

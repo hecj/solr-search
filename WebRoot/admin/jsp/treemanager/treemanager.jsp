@@ -10,6 +10,7 @@
   	<script type="text/javascript">
 		var treegrid ;
 		var rightMenu ;
+		var rightMenuRoot ;
 		
 		$(function(){
 			
@@ -19,13 +20,21 @@
 					treegrid.treegrid('select',row.moduleId);
 					var x = parseInt(e.clientX)-200;
 					var y = parseInt(e.clientY)-25;
-					rightMenu.menu('show', {
-				        left: x,
-				        top: y
-				    });
+					if(row.moduleId == '0'){
+						rightMenuRoot.menu('show', {
+					        left: x,
+					        top: y
+					    });
+					}else{
+						rightMenu.menu('show', {
+					        left: x,
+					        top: y
+					    });
+					}
 				}
 			});
 			rightMenu = $('#rightClick').menu({});
+			rightMenuRoot = $('#rightMenuRoot').menu({});
 		});
 
 		/**
@@ -76,8 +85,6 @@
 				});
 				break;
 			case '13':
-
-				
 				
 				var dialog = parent.app.dialogModel({
 					title: '添加子节点',
@@ -185,6 +192,10 @@
 		    </div>
 		    <div data-options="name:'2'">删除</div>
 		    <div data-options="name:'3'">编辑</div>
+		</div>
+		
+		<div id="rightMenuRoot" class="easyui-menu"  data-options="onClick:menuHandler" style="width:120px;">
+		    <div data-options="name:'13'">添加子节点</div>
 		</div>
 		
 	</body>

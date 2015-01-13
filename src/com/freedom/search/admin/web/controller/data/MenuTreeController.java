@@ -14,6 +14,7 @@ import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.admin.vo.VoModule;
+import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
 import com.freedom.search.util.StringUtil;
 import com.freedom.search.web.controller.base.BaseController;
@@ -34,24 +35,38 @@ public class MenuTreeController extends BaseController {
 	}
 	
 	@RequestMapping(params="operator=initTree")
-	public void initTree(Integer moduleId,HttpServletResponse response){
-
-		MenuTree voTree = menuTreeService.searchMenuTree(moduleId,getBasePath());
-		if(voTree != null){
-			write(response, voTree.toJSON());
+	public void initTree(String moduleId,HttpServletResponse response){
+		
+		if(!StringUtil.isStrEmpty(moduleId)){
+			MenuTree voTree = menuTreeService.searchMenuTree(moduleId,getBasePath());
+			if(voTree != null){
+				write(response, voTree.toJSON());
+			}
+		}else{
+			Log4jUtil.log("moduleId is null!");
 		}
 	}
 	
 	@RequestMapping(params="operator=treeManagerQuery")
-	public void treeManagerQuery(Integer moduleId,HttpServletResponse response){
-
-		VoModule voTree = menuTreeService.treeManagerSearch(moduleId);
-		write(response, voTree.toJSON());
+	public void treeManagerQuery(String moduleId,HttpServletResponse response){
+		
+		if(!StringUtil.isStrEmpty(moduleId)){
+			VoModule voTree = menuTreeService.treeManagerSearch(moduleId);
+			System.out.println(voTree.toJSON());
+			write(response, voTree.toJSON());
+		}else{
+			Log4jUtil.log("moduleId is null!");
+		}
 	}
 	
 	@RequestMapping(params="operator=addFatherNode")
-	public String addFatherNode(Integer moduleId,HttpServletRequest request,HttpServletResponse response){
-		if(!StringUtil.isObjectEmpty(moduleId)){
+	public String addFatherNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
+		
+		if(moduleId.equals(EnumAdminUtils.Tree.ROOT.code)){
+			return "admin/jsp/treemanager/treemanager/addFatherNode";
+		}
+		
+		if(!StringUtil.isStrEmpty(moduleId)){
 			Module module = menuTreeService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
@@ -66,9 +81,9 @@ public class MenuTreeController extends BaseController {
 	}
 	
 	@RequestMapping(params="operator=addChildNode")
-	public String addChildNode(Integer moduleId,HttpServletRequest request,HttpServletResponse response){
+	public String addChildNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
-		if(!StringUtil.isObjectEmpty(moduleId)){
+		if(!StringUtil.isStrEmpty(moduleId)){
 			Module module = menuTreeService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
@@ -90,14 +105,15 @@ public class MenuTreeController extends BaseController {
 			module.setLeaf(leaf);
 			module.setName(name);
 			module.setState(state);
-			module.setAttributes("url:"+url);
-			module.setParentId(Integer.parseInt(parentId));
+			if(!StringUtil.isStrEmpty(url)){
+				module.setAttributes("url:"+url);
+			}
+			module.setParentId(parentId);
 			
 			if(menuTreeService.addChildNode(module)){
 				write(response, new MessageCode("0", "处理成功!").toJSON());
 				return;
 			}
-			
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
@@ -105,8 +121,9 @@ public class MenuTreeController extends BaseController {
 	}
 	
 	@RequestMapping(params="operator=addBrotherNode")
-	public String addBrotherNode(Integer moduleId,HttpServletRequest request,HttpServletResponse response){
-		if(!StringUtil.isObjectEmpty(moduleId)){
+	public String addBrotherNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
+		
+		if(!StringUtil.isStrEmpty(moduleId)){
 			Module module = menuTreeService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
@@ -115,8 +132,9 @@ public class MenuTreeController extends BaseController {
 	
 	@RequestMapping(params="operator=addBrotherNodeSumbit")
 	public void addBrotherNodeSumbit(HttpServletRequest request,HttpServletResponse response){
-		String name = request.getParameter("name");
+		
 		String parentId = request.getParameter("parentId");
+		String name = request.getParameter("name");
 		String url = request.getParameter("url");
 		String state = request.getParameter("state");
 		String icons = request.getParameter("icons");
@@ -126,7 +144,7 @@ public class MenuTreeController extends BaseController {
 		module.setIcons(icons);
 		module.setName(name);
 		module.setLeaf(leaf);
-		module.setParentId(Integer.parseInt(parentId));
+		module.setParentId(parentId);
 		module.setState(state);
 		module.setAttributes("url:"+url);
 		
@@ -139,9 +157,16 @@ public class MenuTreeController extends BaseController {
 	}
 	
 	@RequestMapping(params="operator=deleteNode")
-	public void deleteNode(Integer moduleId,HttpServletRequest request,HttpServletResponse response){
+	public void deleteNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
+		
 		try {
-			if(moduleId != null){
+			
+			if(moduleId.equals(EnumAdminUtils.Tree.ROOT.code)){
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "根节点不可删除!").toJSON());
+				return;
+			}
+			
+			if(!StringUtil.isStrEmpty(moduleId)){
 				if(menuTreeService.deleteNode(moduleId)){
 					write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
 					return ;

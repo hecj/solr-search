@@ -5,7 +5,20 @@
     <%@include file="/admin/jsp/base/basePath.jsp" %> 
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
     <script type="text/javascript">  
+ /*
+ <thead>
+				<tr>
+					<th data-options="field:'name',align:'left'" width="220">模块列表</th>
+					<th data-options="field:'moduleId',align:'center'" width="50">模块Id</th>
+					<th data-options="field:'parentId',align:'center'" width="50">父模块</th>
+					<th data-options="field:'state',align:'center'" width="50">状态</th>
+					<th data-options="field:'url',align:'center'" width="300">路径</th>
+					<th data-options="field:'iconCls',align:'center'" width="60">图标</th>
+					<th data-options="field:'leaf',align:'center'" width="50">是否叶子</th>
+				</tr>
+			</thead>
  
+ */
 </script>
   	<script type="text/javascript">
 		var treegrid ;
@@ -15,8 +28,14 @@
 		$(function(){
 			
 			treegrid = $('#treegrid').treegrid({
-				//右键点击事件
-				onContextMenu:function(e,row){
+				url: app.basePath+'admin/tree/menuTree.htm?operator=treeManagerQuery&moduleId=0',
+				idField: 'moduleId',
+				treeField: 'name',
+				toolbar:'#toolbar',
+				fit:true,
+				border:false,
+				fitColumns: true,
+				onContextMenu:function(e,row){//右键点击事件
 					treegrid.treegrid('select',row.moduleId);
 					var x = parseInt(e.clientX)-200;
 					var y = parseInt(e.clientY)-25;
@@ -31,7 +50,33 @@
 					        top: y
 					    });
 					}
-				}
+				},
+				columns:[[
+					{title:'名称',field:'name',align:'left', width:220},
+					{title:'模块Id',field:'moduleId',align:'left',width:80},
+					{title:'父模块Id',field:'parentId',align:'left',width:80},
+					{title:'状态',field:'state',align:'center',width:80,
+				  		formatter: function(value,row,index){
+					  		if(value == 'open'){
+						  		return '打开';
+						  	}
+			  				return '关闭';
+		  				}
+	  				},
+					{title:'路径',field:'url',align:'center',width:210},
+					{title:'图标',field:'iconCls',align:'center',width:60,
+				  		formatter: function(value,row,index){
+			  				return value;
+			  			}
+			  		},
+					{title:'是否',field:'leaf',align:'center',width:50,
+				  		formatter: function(value,row,index){
+				  		if(value == '0'){
+					  		return '否'
+					  	}
+		  				return '是';
+		  			}}
+				]]
 			});
 			rightMenu = $('#rightClick').menu({});
 			rightMenuRoot = $('#rightMenuRoot').menu({});
@@ -145,29 +190,7 @@
   </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
     <div id="content" region="center" data-options="fit:true,border:false">
-    	    
-	    <table id="treegrid"
-			data-options="
-				url:'<%=basePath %>admin/tree/menuTree.htm?operator=treeManagerQuery&moduleId=0',
-				idField: 'moduleId',
-				treeField: 'name',
-				toolbar:'#toolbar',
-				fit:true,
-				border:false,
-				fitColumns: true
-			">
-			<thead>
-				<tr>
-					<th data-options="field:'name',align:'left'" width="220">模块列表</th>
-					<th data-options="field:'moduleId',align:'center'" width="50">模块Id</th>
-					<th data-options="field:'parentId',align:'center'" width="50">父模块</th>
-					<th data-options="field:'state',align:'center'" width="50">状态</th>
-					<th data-options="field:'url',align:'center'" width="300">路径</th>
-					<th data-options="field:'iconCls',align:'center'" width="60">图标</th>
-					<th data-options="field:'leaf',align:'center'" width="50">是否叶子</th>
-				</tr>
-			</thead>
-		</table>
+	    <table id="treegrid"></table>
     </div>
     	<!-- treegrid toolbar -->
 		<div id="toolbar" style="display: none;">

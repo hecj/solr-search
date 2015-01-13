@@ -189,7 +189,8 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		}
 		//不足3位时前面补0
 		String last3IndexIdStr = String.valueOf(last3IndexId);
-		for(int i=0;i<3-last3IndexIdStr.length();i++){
+		int length = last3IndexIdStr.length();
+		for(int i=0;i<3-length;i++){
 			last3IndexIdStr = "0"+last3IndexIdStr;
 		}
 		return last3IndexIdStr;

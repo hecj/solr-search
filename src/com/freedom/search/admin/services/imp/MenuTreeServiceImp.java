@@ -233,6 +233,14 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				}
 			}
 			moduleDAO.delete(module);
+			//判断是否改变父节点为叶子
+			String qHql = "select m from Module m where m.parentId=?";
+			List<Module> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
+			if(list.size() == 0){
+				Module m = moduleDAO.findById(module.getParentId());
+				m.setLeaf(EnumAdminUtils.Leaf.TRUE.code);
+				moduleDAO.merge(m);
+			}
 			return true;
 		}
 		return false;

@@ -23,8 +23,8 @@ public class VoModule implements Serializable {
 	private String moduleId;
 	private String name;//模块名称
 	private Integer type;//模块类型1是菜单，2是按钮
+	private String iconCls;
 	private String parentId;//父Id
-	private String icons;//图标
 	private String url;
 	private List<VoModule> children;
 	private String state;
@@ -61,12 +61,6 @@ public class VoModule implements Serializable {
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
-	public String getIcons() {
-		return icons;
-	}
-	public void setIcons(String icons) {
-		this.icons = icons;
-	}
 	public String getLeaf() {
 		return leaf;
 	}
@@ -74,6 +68,12 @@ public class VoModule implements Serializable {
 		this.leaf = leaf;
 	}
 
+	public String getIconCls() {
+		return iconCls;
+	}
+	public void setIconCls(String iconCls) {
+		this.iconCls = iconCls;
+	}
 	public String getState() {
 		return state;
 	}

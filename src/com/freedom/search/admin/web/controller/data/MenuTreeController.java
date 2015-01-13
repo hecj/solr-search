@@ -52,7 +52,6 @@ public class MenuTreeController extends BaseController {
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
 			VoModule voTree = menuTreeService.treeManagerSearch(moduleId);
-			System.out.println(voTree.toJSON());
 			write(response, voTree.toJSON());
 		}else{
 			Log4jUtil.log("moduleId is null!");

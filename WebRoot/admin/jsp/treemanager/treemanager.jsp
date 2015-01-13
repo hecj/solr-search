@@ -163,7 +163,7 @@
 					<th data-options="field:'parentId',align:'center'" width="50">父模块</th>
 					<th data-options="field:'state',align:'center'" width="50">状态</th>
 					<th data-options="field:'url',align:'center'" width="300">路径</th>
-					<th data-options="field:'icons',align:'center'" width="60">图标</th>
+					<th data-options="field:'iconCls',align:'center'" width="60">图标</th>
 					<th data-options="field:'leaf',align:'center'" width="50">是否叶子</th>
 				</tr>
 			</thead>

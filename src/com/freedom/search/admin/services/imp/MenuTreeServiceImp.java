@@ -101,6 +101,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		voModule.setParentId(module.getParentId());
 		voModule.setState(module.getState());
 		voModule.setLeaf(module.getLeaf());
+		voModule.setIconCls(module.getIcons());
 		return treeManagerSearch(voModule,new HashSet<Module>());
 	}
 	/* 
@@ -117,7 +118,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				VoModule voModule = new VoModule();
 				voModule.setModuleId(m.getModuleId());
 				voModule.setName(m.getName());
-				voModule.setIcons(m.getIcons());
+				voModule.setIconCls(m.getIcons());
 				voModule.setLeaf(m.getLeaf());
 				voModule.setParentId(m.getParentId());
 				//属性在数据库用,分隔，如:url=http://localhost , name=hecj

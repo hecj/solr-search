@@ -43,8 +43,9 @@
 				  		formatter: function(value,row,index){
 					  		if(value == 'open'){
 						  		return '打开';
-						  	}
-			  				return '关闭';
+						  	}else if(value == 'closed'){
+								return '关闭';
+							}
 		  				}
 	  				},
 					{title:'路径',field:'url',align:'center',width:210},
@@ -154,6 +155,23 @@
 				});
 				break;
 			case 3:
+				var dialog = parent.app.dialogModel({
+					title: '编辑节点 Id:'+row.moduleId,
+					width: 400,
+					height: 330,
+					url : app.basePath+'admin/tree/menuTree.htm?operator=editNode&moduleId='+row.moduleId,
+					buttons:[{
+						text:'提交',
+						handler:function(){
+							dialog.find('iframe').get(0).contentWindow.submitForm(dialog,treegrid);
+						}
+					},{
+						text:'关闭',
+						handler:function(){
+							dialog.dialog('close');
+						}
+					}]
+				});
 				break;
 	
 			}

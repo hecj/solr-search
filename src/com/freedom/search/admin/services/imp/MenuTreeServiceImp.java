@@ -18,7 +18,6 @@ import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.admin.vo.VoModule;
-import com.freedom.search.hibernate.util.EscapeCharacterUtil;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.StringUtil;
 @Transactional
@@ -45,6 +44,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		MenuTree menuTree = new MenuTree();
 		menuTree.setId(module.getModuleId());
 		menuTree.setText(module.getName());
+		menuTree.setState(module.getState());
 		return searchMenuTree(menuTree,new HashSet<Module>());
 	}
 	/* 
@@ -61,23 +61,14 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				MenuTree t = new MenuTree();
 				t.setId(m.getModuleId());
 				t.setText(m.getName());
+				t.setState(m.getState());
 				if(m.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
 					t.setIconCls(m.getIcons());
 				}
 				Map<String,String> attrMap = new HashMap<String,String>();
 				//属性在数据库用,分隔，如:url=http://localhost , name=hecj
-				if(!StringUtil.isStrEmpty(m.getAttributes())){
-					String[] attrs = m.getAttributes().split(",");
-					for(String attr:attrs){
-						String[] str = attr.split(EscapeCharacterUtil.EQ);
-						if(str.length == 2){
-							if(str[0].equals("url")){
-								attrMap.put(str[0],str[1]);
-							}else{
-								attrMap.put(str[0], str[1]);
-							}
-						}
-					}
+				if(!StringUtil.isStrEmpty(m.getUrl())){
+					attrMap.put("url", m.getUrl());
 					t.setAttributes(attrMap);
 				}
 				if(m.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
@@ -127,18 +118,11 @@ public class MenuTreeServiceImp implements MenuTreeService{
 					voModule.setIconCls(m.getIcons());
 				}
 				voModule.setLeaf(m.getLeaf());
+				voModule.setState(m.getState());
 				voModule.setParentId(m.getParentId());
 				//属性在数据库用,分隔，如:urlEQhttp://localhost,nameEQhecj
-				if(!StringUtil.isStrEmpty(m.getAttributes())){
-					String[] attrs = m.getAttributes().split(",");
-					for(String attr:attrs){
-						String[] str = attr.split(EscapeCharacterUtil.EQ);
-						if(str.length == 2){
-							if(str[0].equals("url")){
-								voModule.setUrl(str[1]);
-							}
-						}
-					}
+				if(!StringUtil.isStrEmpty(m.getUrl())){
+					voModule.setUrl(m.getUrl());
 				}
 				if(m.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
 					if(!set.add(m)){
@@ -276,6 +260,16 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			}
 			return ids ; 
 		}
+	}
+	@Override
+	public boolean updateNode(Module module) {
+		try {
+			moduleDAO.merge(module);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

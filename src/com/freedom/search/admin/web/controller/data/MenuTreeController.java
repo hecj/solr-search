@@ -105,9 +105,7 @@ public class MenuTreeController extends BaseController {
 			module.setLeaf(leaf);
 			module.setName(name);
 			module.setState(state);
-			if(!StringUtil.isStrEmpty(url)){
-				module.setAttributes("url"+EscapeCharacterUtil.EQ+url);
-			}
+			module.setUrl(url);
 			module.setParentId(parentId);
 			
 			if(menuTreeService.addChildNode(module)){
@@ -146,7 +144,7 @@ public class MenuTreeController extends BaseController {
 		module.setLeaf(leaf);
 		module.setParentId(parentId);
 		module.setState(state);
-		module.setAttributes("url"+EscapeCharacterUtil.EQ+url);
+		module.setUrl(url);
 		
 		if(menuTreeService.addBrotherNode(module)){
 			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
@@ -197,5 +195,41 @@ public class MenuTreeController extends BaseController {
 		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "验证失败!").toJSON());
 	}
 	
+	@RequestMapping(params="operator=editNode")
+	public String editNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
+		
+		if(!StringUtil.isStrEmpty(moduleId)){
+			Module module = menuTreeService.searchModuleById(moduleId);
+			request.setAttribute("module", module);
+		}
+		return "admin/jsp/treemanager/treemanager/editNode";
+	}
 	
+	@RequestMapping(params="operator=editNodeSumbit")
+	public void editNodeSumbit(HttpServletRequest request,HttpServletResponse response){
+		
+		String moduleId = request.getParameter("moduleId");
+		String parentId = request.getParameter("parentId");
+		String name = request.getParameter("name");
+		String url = request.getParameter("url");
+		String state = request.getParameter("state");
+		String icons = request.getParameter("icons");
+		String leaf = request.getParameter("leaf");
+		
+		Module module = new Module();
+		module.setModuleId(moduleId);
+		module.setIcons(icons);
+		module.setName(name);
+		module.setLeaf(leaf);
+		module.setParentId(parentId);
+		module.setState(state);
+		module.setUrl(url);
+		
+		if(menuTreeService.updateNode(module)){
+			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+			return ;
+		}else{
+			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		}
+	}
 }

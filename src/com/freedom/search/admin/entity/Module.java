@@ -23,7 +23,7 @@ public class Module implements Serializable {
 
 	private String moduleId;
 	private String name;// 模块名称
-	private String attributes;// 节点链接地址或按钮属性
+	private String url;
 	private Integer type;// 模块类型1是菜单，2是按钮
 	private String parentId;// 父Id
 	private String icons;// 图标
@@ -48,12 +48,12 @@ public class Module implements Serializable {
 		this.name = name;
 	}
 
-	public String getAttributes() {
-		return attributes;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setAttributes(String attributes) {
-		this.attributes = attributes;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Integer getType() {

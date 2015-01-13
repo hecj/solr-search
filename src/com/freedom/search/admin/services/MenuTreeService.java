@@ -31,4 +31,9 @@ public interface MenuTreeService {
 	 */
 	public boolean deleteNode(String moduleId);
 	
+	/**
+	 * 编辑节点
+	 */
+	public boolean updateNode(Module module);
+	
 }

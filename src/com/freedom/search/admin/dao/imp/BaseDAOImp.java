@@ -194,7 +194,7 @@ public abstract class BaseDAOImp<T> extends HibernateSessionFactory implements B
 	@Override
 	public int executeHQL(String pHQL){
 		
-		Log4jUtil.log("begin");
+		Log4jUtil.log("begin："+pHQL);
 		int n = 0 ;
 		try {
 			n = getSessionFactory().getCurrentSession().createQuery(pHQL).executeUpdate();

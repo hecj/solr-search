@@ -1,25 +1,21 @@
 package test.freedom.search.admin.services;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.noggit.JSONUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.freedom.search.admin.entity.DataCollectParams;
-import com.freedom.search.admin.entity.DataField;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.util.EasyGridData;
-import com.freedom.search.util.ObjectToJson;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
 
@@ -96,6 +92,11 @@ public class TestDataCollectServiceService {
 //		System.out.println(s);
 		
 		System.out.println(tree.toJSON());
+		
+	}
+	
+	@Test
+	public void test03(){
 		
 	}
 	

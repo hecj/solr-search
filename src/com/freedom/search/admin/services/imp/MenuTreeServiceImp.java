@@ -262,9 +262,9 @@ public class MenuTreeServiceImp implements MenuTreeService{
 						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
 						return ids;
 					}
-					ids = m.getModuleId()+","+searchIds(ids,m.getModuleId(),set);
+					ids = "'"+m.getModuleId()+"',"+searchIds(ids,m.getModuleId(),set);
 				}else{
-					ids = ids+","+m.getModuleId();
+					ids = ids+",'"+m.getModuleId()+"'";
 				}
 			}
 			return ids ; 

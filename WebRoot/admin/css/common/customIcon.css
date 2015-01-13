@@ -14,3 +14,7 @@
 .icon-close{
 	background:url('customIcon/close.png') no-repeat center center;
 }
+
+.move-delete{
+	background:url('customIcon/move_delete.gif') no-repeat center center;
+}

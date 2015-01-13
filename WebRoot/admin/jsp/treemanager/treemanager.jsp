@@ -4,22 +4,6 @@
     <title>Seacher</title>
     <%@include file="/admin/jsp/base/basePath.jsp" %> 
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
-    <script type="text/javascript">  
- /*
- <thead>
-				<tr>
-					<th data-options="field:'name',align:'left'" width="220">模块列表</th>
-					<th data-options="field:'moduleId',align:'center'" width="50">模块Id</th>
-					<th data-options="field:'parentId',align:'center'" width="50">父模块</th>
-					<th data-options="field:'state',align:'center'" width="50">状态</th>
-					<th data-options="field:'url',align:'center'" width="300">路径</th>
-					<th data-options="field:'iconCls',align:'center'" width="60">图标</th>
-					<th data-options="field:'leaf',align:'center'" width="50">是否叶子</th>
-				</tr>
-			</thead>
- 
- */
-</script>
   	<script type="text/javascript">
 		var treegrid ;
 		var rightMenu ;
@@ -135,6 +119,10 @@
 				});
 				break;
 			case 2:
+				if(row.moduleId == '0'){
+					parent.MessageUtil.errorShow('根节点不可删除!');
+					return;
+				}
 				parent.$.messager.confirm('提示信息','确定要删除吗?',function(r){
 					if (r){
 						$.ajax({
@@ -181,6 +169,9 @@
 		<div id="toolbar" style="display: none;">
 			<table>
 				<tr>
+					<td colspan="4"><br/></td>
+				</tr>
+				<tr>
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(11);">添加兄弟节点</a>
 					</td>
@@ -188,10 +179,10 @@
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(12);">添加子节点</a>
 					</td>
 					<td>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(2);">删除</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="menuHandler(2);">删除</a>
 					</td>
 					<td>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(3);">编辑</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="menuHandler(3);">编辑</a>
 					</td>
 				</tr>
 			</table>

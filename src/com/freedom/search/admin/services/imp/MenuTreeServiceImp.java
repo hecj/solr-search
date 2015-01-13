@@ -61,7 +61,9 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				MenuTree t = new MenuTree();
 				t.setId(m.getModuleId());
 				t.setText(m.getName());
-				t.setIconCls(m.getIcons());
+				if(m.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
+					t.setIconCls(m.getIcons());
+				}
 				Map<String,String> attrMap = new HashMap<String,String>();
 				//属性在数据库用,分隔，如:url=http://localhost , name=hecj
 				if(!StringUtil.isStrEmpty(m.getAttributes())){
@@ -102,7 +104,9 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		voModule.setParentId(module.getParentId());
 		voModule.setState(module.getState());
 		voModule.setLeaf(module.getLeaf());
-		voModule.setIconCls(module.getIcons());
+		if(module.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
+			voModule.setIconCls(module.getIcons());
+		}
 		return treeManagerSearch(voModule,new HashSet<Module>());
 	}
 	/* 
@@ -119,10 +123,12 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				VoModule voModule = new VoModule();
 				voModule.setModuleId(m.getModuleId());
 				voModule.setName(m.getName());
-				voModule.setIconCls(m.getIcons());
+				if(m.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
+					voModule.setIconCls(m.getIcons());
+				}
 				voModule.setLeaf(m.getLeaf());
 				voModule.setParentId(m.getParentId());
-				//属性在数据库用,分隔，如:url=http://localhost , name=hecj
+				//属性在数据库用,分隔，如:urlEQhttp://localhost,nameEQhecj
 				if(!StringUtil.isStrEmpty(m.getAttributes())){
 					String[] attrs = m.getAttributes().split(",");
 					for(String attr:attrs){

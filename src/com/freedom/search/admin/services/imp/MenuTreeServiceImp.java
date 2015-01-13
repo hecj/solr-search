@@ -18,6 +18,7 @@ import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.admin.vo.VoModule;
+import com.freedom.search.hibernate.util.EscapeCharacterUtil;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.StringUtil;
 @Transactional
@@ -34,7 +35,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		this.moduleDAO = moduleDAO;
 	}
 	@Override
-	public MenuTree searchMenuTree(String moduleId,String basePath) {
+	public MenuTree searchMenuTree(String moduleId) {
 		
 		List<Module> list = moduleDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId});
 		if(list.size() == 0){
@@ -44,12 +45,12 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		MenuTree menuTree = new MenuTree();
 		menuTree.setId(module.getModuleId());
 		menuTree.setText(module.getName());
-		return searchMenuTree(menuTree,new HashSet<Module>(),basePath);
+		return searchMenuTree(menuTree,new HashSet<Module>());
 	}
 	/* 
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
-	private MenuTree searchMenuTree(MenuTree voTree,Set<Module> set,String basePath) {
+	private MenuTree searchMenuTree(MenuTree voTree,Set<Module> set) {
 		String hql = "select m from Module m where m.parentId=?";
 		List<Module> modules = (List<Module>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getId()});
 		if(modules.size() == 0){
@@ -66,10 +67,10 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				if(!StringUtil.isStrEmpty(m.getAttributes())){
 					String[] attrs = m.getAttributes().split(",");
 					for(String attr:attrs){
-						String[] str = attr.split(":");
+						String[] str = attr.split(EscapeCharacterUtil.EQ);
 						if(str.length == 2){
 							if(str[0].equals("url")){
-								attrMap.put(str[0], basePath + str[1]);
+								attrMap.put(str[0],str[1]);
 							}else{
 								attrMap.put(str[0], str[1]);
 							}
@@ -82,7 +83,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
 						return voTree;
 					}
-					chiledTree.add(searchMenuTree(t,set ,basePath));
+					chiledTree.add(searchMenuTree(t,set));
 				}else{
 					chiledTree.add(t);
 				}
@@ -125,7 +126,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				if(!StringUtil.isStrEmpty(m.getAttributes())){
 					String[] attrs = m.getAttributes().split(",");
 					for(String attr:attrs){
-						String[] str = attr.split(":");
+						String[] str = attr.split(EscapeCharacterUtil.EQ);
 						if(str.length == 2){
 							if(str[0].equals("url")){
 								voModule.setUrl(str[1]);

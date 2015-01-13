@@ -9,7 +9,7 @@ public interface MenuTreeService {
 	/**
 	 * 根据节点Id，递归查询菜单树
 	 */
-	public MenuTree searchMenuTree(String moduleId,String basePath);
+	public MenuTree searchMenuTree(String moduleId);
 	/**
 	 * 根据节点Id,递归查询节点树
 	 */

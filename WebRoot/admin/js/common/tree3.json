@@ -1,7 +1,7 @@
 [{
     "id":1,
     "text":"Folder1",
-    "iconCls":"icon-reload",
+    "iconCls":"http://localhost:8080/search/admin/css/common/customIcon/close.png",
     "children":[{
         "text":"File1",
         "checked":true,
@@ -9,7 +9,7 @@
     },{
         "text":"Books",
         "state":"open",
-        "iconCls":"icon-reload",
+        "iconCls":"http://localhost:8080/search/admin/css/common/customIcon/close.png",
         "attributes":{
             "url":"/demo/book/abc",
             "price":100

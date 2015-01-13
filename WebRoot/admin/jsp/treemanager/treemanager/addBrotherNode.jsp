@@ -27,6 +27,28 @@
 	        }
 	    });
 	}
+
+	var testURL = function(){
+		var url = $("input[name=url]").val();
+		$.ajax({
+			url:app.basePath+'admin/tree/menuTree.htm?operator=testURL',
+			data:{url:url},
+			dataType:'json',
+			timeout:3000,
+			type:'GET',
+			cache:false,
+			success:function(data){
+				if(data.code == '0'){
+					parent.MessageUtil.messageShow(data.message);
+				}else{
+					parent.MessageUtil.errorShow(data.message);
+				}
+			},
+			error:function(data){
+				parent.MessageUtil.errorShow(data.message);
+			}
+		});
+	}
 </script>
 <style type="text/css">
 	label{  
@@ -53,7 +75,8 @@
 		     </div>
 		     <div>
 		     	<label for="name">路径:</label>
-			    <input name="url" size="30" class="easyui-validatebox"/>
+			    <input name="url" size="28" class="easyui-validatebox"/>
+			    <a id="testURL" href="#" class="easyui-linkbutton" onclick="testURL();">测试</a>
 		     </div>
 			 <div>
 			     <label for="name">状态:</label>
@@ -64,7 +87,7 @@
 		     </div>
 			 <div>
 			     <label for="name">图标:</label>
-			     <input name="icons" size="30" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'"/>
+			     <input name="icons" value="tree-file" size="30" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'"/>
 		     </div>
 		     <div>
 		     	<label for="name">叶子:</label>

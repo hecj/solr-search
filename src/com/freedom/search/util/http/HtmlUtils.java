@@ -1,6 +1,7 @@
 package com.freedom.search.util.http;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -170,5 +171,28 @@ public class HtmlUtils {
 			httpClient.getConnectionManager().shutdown();
 		}
 		return content;
+	}
+	/**
+	 * 测试URL正常
+	 */
+	public static boolean testURLConnection(String URL) {
+		try {
+			URL url = new URL(URL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			/**
+			 * public int getResponseCode()throws IOException 从 HTTP 响应消息获取状态码。
+			 * 例如，就以下状态行来说： HTTP/1.0 200 OK HTTP/1.0 401 Unauthorized 将分别返回 200
+			 * 和 401。 如果无法从响应中识别任何代码（即响应不是有效的 HTTP），则返回 -1。
+			 * 返回 HTTP 状态码或 -1
+			 */
+			int state = conn.getResponseCode();
+			if (state == 200) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (IOException e) {
+			return false;
+		}
 	}
 }

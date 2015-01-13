@@ -1,13 +1,13 @@
 /*
  * ¸²¸ÇÏµÍ³Í¼±ê
  */
-.ctree-folder{
+.tree-folder{
 	background:url('customIcon/folderClosed.gif') no-repeat center center;
 }
-.ctree-folder-open{
+.tree-folder-open{
 	background:url('customIcon/folderOpen.gif') no-repeat center center;
 }
-.ctree-file{
+.tree-file{
 	background:url('customIcon/leaf.gif') no-repeat center center;
 }
 

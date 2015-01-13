@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.entity.Module;
@@ -14,9 +13,11 @@ import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.admin.vo.VoModule;
+import com.freedom.search.hibernate.util.EscapeCharacterUtil;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
 import com.freedom.search.util.StringUtil;
+import com.freedom.search.util.http.HtmlUtils;
 import com.freedom.search.web.controller.base.BaseController;
 
 @Controller
@@ -38,7 +39,7 @@ public class MenuTreeController extends BaseController {
 	public void initTree(String moduleId,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			MenuTree voTree = menuTreeService.searchMenuTree(moduleId,getBasePath());
+			MenuTree voTree = menuTreeService.searchMenuTree(moduleId);
 			if(voTree != null){
 				write(response, voTree.toJSON());
 			}
@@ -105,7 +106,7 @@ public class MenuTreeController extends BaseController {
 			module.setName(name);
 			module.setState(state);
 			if(!StringUtil.isStrEmpty(url)){
-				module.setAttributes("url:"+url);
+				module.setAttributes("url="+url);
 			}
 			module.setParentId(parentId);
 			
@@ -145,7 +146,7 @@ public class MenuTreeController extends BaseController {
 		module.setLeaf(leaf);
 		module.setParentId(parentId);
 		module.setState(state);
-		module.setAttributes("url:"+url);
+		module.setAttributes("url"+EscapeCharacterUtil.EQ+url);
 		
 		if(menuTreeService.addBrotherNode(module)){
 			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
@@ -177,6 +178,24 @@ public class MenuTreeController extends BaseController {
 		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
 	}
 	
+	@RequestMapping(params="operator=testURL")
+	public void testURL(String url,HttpServletRequest request,HttpServletResponse response){
+
+		try {
+			if(!StringUtil.isStrEmpty(url)){
+				if(!url.startsWith("http://")){
+					url = getBasePath()+url;
+				}
+				if(HtmlUtils.testURLConnection(url)){
+					write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "验证成功!").toJSON());
+					return ;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "验证失败!").toJSON());
+	}
 	
 	
 }

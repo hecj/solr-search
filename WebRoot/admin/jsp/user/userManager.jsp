@@ -17,37 +17,37 @@
 				field : 'usercode',
 				title : '用户名',
 				align : 'center',
-				width:130
+				width:100
 			}, {
 				field : 'username',
 				title : '姓名',
 				align : 'center',
-				width:250
+				width:100
 			}, {
 				field : 'telPhone',
 				title : '手机号',
 				align : 'center',
-				width:250
+				width:100
 			}, {
 				field : 'email',
 				title : '邮箱',
 				align : 'center',
-				width:50
+				width:150
 			}, {
 				field : 'roleId',
 				title : '角色代码',
 				align : 'center',
-				width:70
+				width:100
 			}, {
 				field : 'imageHead',
 				title : '头像',
 				align : 'center',
-				width:100
+				width:200
 			}, {
 				field : 'createDate',
 				title : '创建时间',
 				align : 'center',
-				width:80
+				width:100
 			}] ],
 			pagination : true,
 			rownumbers : true,

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
-    <title>Seacher</title>
+    <title>后端</title>
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
     <c:if test="${context eq null}">
     	<script type="text/javascript">
@@ -25,7 +25,9 @@
     </c:if>
   </head>
 <body class="easyui-layout" >
-    <div region="north" split="false" style="height:100px;"></div>  
+    <div region="north" split="false" style="height:100px;">
+    	<jsp:include page="./jsp/common/header.jsp"/>
+    </div>  
     <div region="south" split="false" style="height:30px;">
     	<jsp:include page="./jsp/common/footer.jsp"/>
     </div>  

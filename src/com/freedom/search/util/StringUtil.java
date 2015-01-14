@@ -287,4 +287,12 @@ public class StringUtil {
 			return false;
 		}
 	}
+	
+	public static boolean isObjectNull(Object obj){
+		if(obj == null ){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

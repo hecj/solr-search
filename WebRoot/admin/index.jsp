@@ -1,8 +1,28 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
     <title>Seacher</title>
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
+    <c:if test="${context eq null}">
+    	<script type="text/javascript">
+    		$(function(){
+    			var dialog = parent.app.dialogModel({
+    				title: '用户登陆',
+    				width: 340,
+    				height: 200,
+    				closable:false,
+    				url : app.basePath+'admin/jsp/common/login.jsp',
+    				buttons:[{
+    					text:'登陆',
+    					handler:function(){
+    						dialog.find('iframe').get(0).contentWindow.submitForm(dialog);
+    					}
+    				}]
+    			});
+        	});
+		</script>
+    </c:if>
   </head>
 <body class="easyui-layout" >
     <div region="north" split="false" style="height:100px;"></div>  

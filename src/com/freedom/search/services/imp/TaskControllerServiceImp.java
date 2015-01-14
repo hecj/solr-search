@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.freedom.search.hibernate.dao.TaskControllerDAO;
-import com.freedom.search.hibernate.entity.TaskController;
+import com.freedom.search.hibernate.entity.LaTaskController;
 import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.senum.EnumUtils;
 import com.freedom.search.senum.EnumUtils.TaskClass;
@@ -36,15 +36,15 @@ public class TaskControllerServiceImp implements TaskControllerService{
 	}
 
 	@Override
-	public void addTaskController(TaskController pTaskController) {
+	public void addTaskController(LaTaskController pTaskController) {
 		taskControllerDAO.save(pTaskController);
 	}
 
 	@Override
-	public TaskController searchTaskController(String taskClass,String taskMethod) {
+	public LaTaskController searchTaskController(String taskClass,String taskMethod) {
 		
-		String queryTaskController = "select t from TaskController t where t.taskClass=? and t.taskMethod=?";
-		List<TaskController> taskControllers = taskControllerDAO.queryListByParams(queryTaskController, new Object[]{taskClass,taskMethod});
+		String queryTaskController = "select t from LaTaskController t where t.taskClass=? and t.taskMethod=?";
+		List<LaTaskController> taskControllers = taskControllerDAO.queryListByParams(queryTaskController, new Object[]{taskClass,taskMethod});
 		if(taskControllers.size()>0){
 			return taskControllers.get(0);
 		}
@@ -57,14 +57,14 @@ public class TaskControllerServiceImp implements TaskControllerService{
 		/*
 		 * 删除定时任务
 		 */
-		taskControllerDAO.executeHQL("delete from TaskController");
+		taskControllerDAO.executeHQL("delete from LaTaskController");
 		/*
 		 * 添加定时任务
 		 */
 		for(TaskClass mTaskClass : EnumUtils.TaskClass.values()){
 			String taskClass = mTaskClass.name();
 			for(String taskMethod : mTaskClass.taskClass){
-				TaskController taskController = new TaskController();
+				LaTaskController taskController = new LaTaskController();
 				taskController.setId(UUIDUtil.autoUUID());
 				taskController.setTaskClass(taskClass);
 				taskController.setTaskMethod(taskMethod);

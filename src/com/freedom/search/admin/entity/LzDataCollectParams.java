@@ -20,8 +20,8 @@ import javax.persistence.Table;
  * @版本：V1.0
  */
 @Entity
-@Table(name="tb_dataCollectParams")
-public class DataCollectParams implements Serializable{
+@Table(name="lz_dataCollectParams")
+public class LzDataCollectParams implements Serializable{
 	
 	
 	
@@ -39,9 +39,9 @@ public class DataCollectParams implements Serializable{
 	private String encode;
 	private String dataBaseType;
 	private String tableName;
-	private Set<DataField> dataFields;
+	private Set<LzDataField> dataFields;
 
-	public DataCollectParams() {
+	public LzDataCollectParams() {
 
 	}
 	
@@ -144,11 +144,11 @@ public class DataCollectParams implements Serializable{
 		this.tableName = tableName;
 	}
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "dataCollectParams")
-	public Set<DataField> getDataFields() {
+	public Set<LzDataField> getDataFields() {
 		return dataFields;
 	}
 	
-	public void setDataFields(Set<DataField> dataFields) {
+	public void setDataFields(Set<LzDataField> dataFields) {
 		this.dataFields = dataFields;
 	}
 

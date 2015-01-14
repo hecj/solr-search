@@ -21,8 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.freedom.search.admin.entity.DataCollectParams;
-import com.freedom.search.admin.entity.DataField;
+import com.freedom.search.admin.entity.LzDataCollectParams;
+import com.freedom.search.admin.entity.LzDataField;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.vo.VoDataCollectParams;
 import com.freedom.search.admin.vo.VoDataField;
@@ -77,11 +77,11 @@ public class DataCollectController extends BaseController{
 			String tableName = jsonObj.getString("tableName");
 			JSONArray jsonArr = jsonObj.getJSONArray("fieldList");
 			
-			Set<DataField> dataFields = new HashSet<DataField>();
+			Set<LzDataField> dataFields = new HashSet<LzDataField>();
 			/*
 			 * 爬虫参数
 			 */
-			DataCollectParams mCollectParams = new DataCollectParams();
+			LzDataCollectParams mCollectParams = new LzDataCollectParams();
 			mCollectParams.setId(UUIDUtil.autoUUID());
 			mCollectParams.setIP(IP);
 			mCollectParams.setPORT(PORT);
@@ -100,7 +100,7 @@ public class DataCollectController extends BaseController{
 			 */
 			for(int i=0;i<jsonArr.size();i++){
 				JSONObject obj = jsonArr.getJSONObject(i);
-				DataField mDataField = new DataField();
+				LzDataField mDataField = new LzDataField();
 				mDataField.setId(UUIDUtil.autoUUID());
 				mDataField.setFieldSelect(obj.getString("fieldSelect"));
 				mDataField.setSelectMethod(obj.getString("selectMethod"));
@@ -149,7 +149,7 @@ public class DataCollectController extends BaseController{
 				
 				List<VoDataCollectParams> datas = new ArrayList<VoDataCollectParams>();
 				for(Object o : result.getData()){
-					DataCollectParams d = (DataCollectParams)o;
+					LzDataCollectParams d = (LzDataCollectParams)o;
 					VoDataCollectParams vo = new VoDataCollectParams();
 					vo.setId(d.getId());
 					vo.setBaseSelect(d.getBaseSelect());
@@ -176,7 +176,7 @@ public class DataCollectController extends BaseController{
 	public String toDataCollectMessage(String id,HttpServletRequest request){
 		try{
 			if(!StringUtil.isStrEmpty(id)){
-				DataCollectParams dataCollectParams = dataCollectService.searchDataCollectParams(id);
+				LzDataCollectParams dataCollectParams = dataCollectService.searchDataCollectParams(id);
 				request.setAttribute("dataCollectParams", dataCollectParams);
 			}
 		}catch(Exception ex){
@@ -202,12 +202,12 @@ public class DataCollectController extends BaseController{
 	public String toDataCollectEdit(String id,String type,HttpServletRequest request,HttpServletResponse response){
 		try{
 			if(!StringUtil.isStrEmpty(id)){
-				DataCollectParams dataCollectParams = dataCollectService.searchDataCollectParams(id);
+				LzDataCollectParams dataCollectParams = dataCollectService.searchDataCollectParams(id);
 				if(type.equals("1")){
 					request.setAttribute("dataCollectParams", dataCollectParams);
 				}else if(type.equals("2")){
 					List<VoDataField> list = new ArrayList<VoDataField>();
-					for(DataField d:dataCollectParams.getDataFields()){
+					for(LzDataField d:dataCollectParams.getDataFields()){
 						VoDataField vo = new VoDataField();
 						vo.setFieldLenth(d.getFieldLenth());
 						vo.setFieldName(d.getFieldName());
@@ -258,11 +258,11 @@ public class DataCollectController extends BaseController{
 				String tableName = jsonObj.getString("tableName");
 				JSONArray jsonArr = jsonObj.getJSONArray("fieldList");
 				
-				Set<DataField> dataFields = new HashSet<DataField>();
+				Set<LzDataField> dataFields = new HashSet<LzDataField>();
 				/*
 				 * 爬虫参数
 				 */
-				DataCollectParams mCollectParams = new DataCollectParams();
+				LzDataCollectParams mCollectParams = new LzDataCollectParams();
 				mCollectParams.setId(id);
 				mCollectParams.setIP(IP);
 				mCollectParams.setPORT(PORT);
@@ -281,7 +281,7 @@ public class DataCollectController extends BaseController{
 				 */
 				for(int i=0;i<jsonArr.size();i++){
 					JSONObject obj = jsonArr.getJSONObject(i);
-					DataField mDataField = new DataField();
+					LzDataField mDataField = new LzDataField();
 					if(StringUtil.isObjectEmpty(obj.get("id"))){
 						mDataField.setId(UUIDUtil.autoUUID());
 					}else{
@@ -330,11 +330,11 @@ public class DataCollectController extends BaseController{
 			String tableName = jsonObj.getString("tableName");
 			JSONArray jsonArr = jsonObj.getJSONArray("fieldList");
 			
-			Set<DataField> dataFields = new HashSet<DataField>();
+			Set<LzDataField> dataFields = new HashSet<LzDataField>();
 			/*
 			 * 爬虫参数
 			 */
-			DataCollectParams mCollectParams = new DataCollectParams();
+			LzDataCollectParams mCollectParams = new LzDataCollectParams();
 			mCollectParams.setId(UUIDUtil.autoUUID());
 			mCollectParams.setIP(IP);
 			mCollectParams.setPORT(PORT);
@@ -353,7 +353,7 @@ public class DataCollectController extends BaseController{
 			 */
 			for(int i=0;i<jsonArr.size();i++){
 				JSONObject obj = jsonArr.getJSONObject(i);
-				DataField mDataField = new DataField();
+				LzDataField mDataField = new LzDataField();
 				mDataField.setId(UUIDUtil.autoUUID());
 				mDataField.setFieldSelect(obj.getString("fieldSelect"));
 				mDataField.setSelectMethod(obj.getString("selectMethod"));

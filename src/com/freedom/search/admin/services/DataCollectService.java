@@ -3,7 +3,7 @@ package com.freedom.search.admin.services;
 import java.util.List;
 import java.util.Map;
 
-import com.freedom.search.admin.entity.DataCollectParams;
+import com.freedom.search.admin.entity.LzDataCollectParams;
 import com.freedom.search.util.Result;
 /**
  * @类功能说明：数据搜集业务类
@@ -19,7 +19,7 @@ public interface DataCollectService {
 	/**
 	 * 数据搜集业务方法
 	 */
-	public List<Object> dataCollectService(DataCollectParams pDataCollectParams);
+	public List<Object> dataCollectService(LzDataCollectParams pDataCollectParams);
 	
 	/**
 	 * 分页查询数据搜集<br>
@@ -39,7 +39,7 @@ public interface DataCollectService {
 	 * @return DataCollectParams   
 	 * throws
 	 */
-	public DataCollectParams searchDataCollectParams(String id);
+	public LzDataCollectParams searchDataCollectParams(String id);
 	
 	/**
 	 * @函数功能说明 删除
@@ -61,7 +61,7 @@ public interface DataCollectService {
 	 * @return void   
 	 * @throws
 	 */
-	public void editDataCollectParams(DataCollectParams dataCollectParams);
+	public void editDataCollectParams(LzDataCollectParams dataCollectParams);
 	
 	/**
 	 * @函数功能说明 添加
@@ -72,6 +72,6 @@ public interface DataCollectService {
 	 * @return void   
 	 * @throws
 	 */
-	public void addDataCollectParams(DataCollectParams dataCollectParams);
+	public void addDataCollectParams(LzDataCollectParams dataCollectParams);
 }
 

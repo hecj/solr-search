@@ -15,8 +15,8 @@ import javax.persistence.Table;
  * @版本：V1.0
  */
 @Entity
-@Table(name = "tb_tempindex")
-public class TempIndex {
+@Table(name = "la_tempindex")
+public class LaTempIndex {
 
 	/*
 	 * 自动生成的Id
@@ -36,11 +36,11 @@ public class TempIndex {
 	 */
 	private String operatorType;
 
-	public TempIndex() {
+	public LaTempIndex() {
 		super();
 	}
 
-	public TempIndex(String id, String objectId, String objectType,
+	public LaTempIndex(String id, String objectId, String objectType,
 			String operatorType) {
 		super();
 		this.id = id;

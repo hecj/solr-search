@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.freedom.search.hibernate.entity.Article;
+import com.freedom.search.hibernate.entity.LaArticle;
 import com.freedom.search.services.ArticleService;
 import com.freedom.search.util.CodeConvertUtil;
 import com.freedom.search.util.Pagination;
@@ -65,7 +65,7 @@ public class HomeController extends BaseController {
 			mArticleMap.put("queryString", q);
 			Map<String, Object> rArticleMap = articleService.searchArticleListBySolr(mArticleMap);
 
-			List<Article> articleList = (List<Article>) rArticleMap.get("rArticleList");
+			List<LaArticle> articleList = (List<LaArticle>) rArticleMap.get("rArticleList");
 			mPagination = (Pagination) rArticleMap.get("pPagination");
 			/*
 			 * 放入作用域

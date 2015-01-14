@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.freedom.search.hibernate.entity.TaskController;
+import com.freedom.search.hibernate.entity.LaTaskController;
 import com.freedom.search.services.TaskControllerService;
 import com.freedom.search.services.TempIndexService;
 import com.freedom.search.solr.util.PropertiesUtil;
@@ -40,7 +40,7 @@ public class TaskTest {
 	@Test
 	public void test03(){
 		
-		TaskController t = taskControllerService.searchTaskController("TempIndexTask","commitTempIndex" );
+		LaTaskController t = taskControllerService.searchTaskController("TempIndexTask","commitTempIndex" );
 		System.out.println(t.getTaskClass());
 	}
 	

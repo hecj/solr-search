@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.freedom.search.admin.entity.DataCollectParams;
+import com.freedom.search.admin.entity.LzDataCollectParams;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
@@ -47,8 +47,8 @@ public class TestDataCollectServiceService {
 		Result result = dataCollectService.searchDataCollectByPagination(mMap);
 		System.out.println(result.isSuccess());
 		System.out.println(result.getPagination().getCountSize());
-		List<DataCollectParams> list = (List<DataCollectParams>) result.getData();
-		for(DataCollectParams d:list){
+		List<LzDataCollectParams> list = (List<LzDataCollectParams>) result.getData();
+		for(LzDataCollectParams d:list){
 			System.out.println(d.getDataFields().size());
 		}
 		
@@ -73,7 +73,7 @@ public class TestDataCollectServiceService {
 	@Test
 	public void test02(){
 		
-		DataCollectParams data = dataCollectService.searchDataCollectParams("14189731644485622357");
+		LzDataCollectParams data = dataCollectService.searchDataCollectParams("14189731644485622357");
 //		System.out.println(data.getDataFields().size());
 //		for(DataField d:data.getDataFields()){
 //			System.out.println(d.getId());

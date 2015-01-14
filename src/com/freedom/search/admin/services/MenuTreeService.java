@@ -1,6 +1,6 @@
 package com.freedom.search.admin.services;
 
-import com.freedom.search.admin.entity.Module;
+import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.admin.vo.VoModule;
 
@@ -17,15 +17,15 @@ public interface MenuTreeService {
 	/**
 	 * 根据节点Id查询节点
 	 */
-	public Module searchModuleById(String id);
+	public LzModule searchModuleById(String id);
 	/**
 	 * 添加子节点
 	 */
-	public boolean addChildNode(Module module);
+	public boolean addChildNode(LzModule module);
 	/**
 	 * 添加兄弟节点
 	 */
-	public boolean addBrotherNode(Module module);
+	public boolean addBrotherNode(LzModule module);
 	/**
 	 * 递归删除节点，包括子节点
 	 */
@@ -34,6 +34,6 @@ public interface MenuTreeService {
 	/**
 	 * 编辑节点
 	 */
-	public boolean updateNode(Module module);
+	public boolean updateNode(LzModule module);
 	
 }

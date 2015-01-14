@@ -1,6 +1,6 @@
 package com.freedom.search.services;
 
-import com.freedom.search.hibernate.entity.TaskController;
+import com.freedom.search.hibernate.entity.LaTaskController;
 
 
 /**
@@ -17,12 +17,12 @@ public interface TaskControllerService {
 	/**
 	 * 添加任务
 	 */
-	public void addTaskController(TaskController pTaskController);
+	public void addTaskController(LaTaskController pTaskController);
 	
 	/**
 	 * 查询任务
 	 */
-	public TaskController searchTaskController(String taskClass,String taskMethod);
+	public LaTaskController searchTaskController(String taskClass,String taskMethod);
 	
 	/**
 	 * 重置定时任务

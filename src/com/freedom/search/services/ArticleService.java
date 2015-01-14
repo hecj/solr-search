@@ -3,7 +3,7 @@ package com.freedom.search.services;
 import java.util.List;
 import java.util.Map;
 
-import com.freedom.search.hibernate.entity.Article;
+import com.freedom.search.hibernate.entity.LaArticle;
 
 /**
  * @类功能说明：文章业务类
@@ -26,7 +26,7 @@ public interface ArticleService {
 	 * @return Article   
 	 * @throws
 	 */
-	public Article searchArticleById(String pArticleNo);
+	public LaArticle searchArticleById(String pArticleNo);
 	
 	/**
 	 * @函数功能说明 添加
@@ -37,7 +37,7 @@ public interface ArticleService {
 	 * @return void   
 	 * @throws
 	 */
-	public void addArticle(Article pArticle);
+	public void addArticle(LaArticle pArticle);
 	
 	/**
 	 * @函数功能说明 添加
@@ -48,7 +48,7 @@ public interface ArticleService {
 	 * @return void   
 	 * @throws
 	 */
-	public void addArticle(List<Article> pArticles);
+	public void addArticle(List<LaArticle> pArticles);
 	
 	/**
 	 * @函数功能说明 根据文章Id删除

@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import com.freedom.search.admin.database.factory.DataBase;
-import com.freedom.search.admin.entity.DataField;
+import com.freedom.search.admin.entity.LzDataField;
 import com.freedom.search.hibernate.HibernateSessionFactory;
 import com.freedom.search.util.StringUtil;
 
@@ -34,8 +34,8 @@ public class MySQLDataBase extends HibernateSessionFactory implements DataBase {
 				session.beginTransaction();
 				ctSQL.append(tableName+" (");
 				ctSQL.append("id varchar(32) ,");
-				Set<DataField> fields = (Set<DataField>) params.get(1);
-				for(DataField d:fields){
+				Set<LzDataField> fields = (Set<LzDataField>) params.get(1);
+				for(LzDataField d:fields){
 					String fieldName = d.getFieldName();
 					String fieldType = d.getFieldType();
 					int fieldLenth = d.getFieldLenth();

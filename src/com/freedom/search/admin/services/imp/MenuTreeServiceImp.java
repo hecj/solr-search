@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.freedom.search.admin.dao.ModuleDAO;
-import com.freedom.search.admin.entity.Module;
+import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
@@ -36,28 +36,28 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	@Override
 	public MenuTree searchMenuTree(String moduleId) {
 		
-		List<Module> list = moduleDAO.queryListByParams("select m from Module m where m.id=?", new Object[]{moduleId});
+		List<LzModule> list = moduleDAO.queryListByParams("select m from LzModule m where m.id=?", new Object[]{moduleId});
 		if(list.size() == 0){
 			return null;
 		}
-		Module module = list.get(0);
+		LzModule module = list.get(0);
 		MenuTree menuTree = new MenuTree();
 		menuTree.setId(module.getModuleId());
 		menuTree.setText(module.getName());
 		menuTree.setState(module.getState());
-		return searchMenuTree(menuTree,new HashSet<Module>());
+		return searchMenuTree(menuTree,new HashSet<LzModule>());
 	}
 	/* 
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
-	private MenuTree searchMenuTree(MenuTree voTree,Set<Module> set) {
-		String hql = "select m from Module m where m.parentId=?";
-		List<Module> modules = (List<Module>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getId()});
+	private MenuTree searchMenuTree(MenuTree voTree,Set<LzModule> set) {
+		String hql = "select m from LzModule m where m.parentId=?";
+		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getId()});
 		if(modules.size() == 0){
 			return voTree;
 		}else{
 			List<MenuTree> chiledTree = new ArrayList<MenuTree>();
-			for(Module m : modules){
+			for(LzModule m : modules){
 				MenuTree t = new MenuTree();
 				t.setId(m.getModuleId());
 				t.setText(m.getName());
@@ -88,29 +88,35 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	
 	@Override
 	public VoModule treeManagerSearch(String moduleId) {
-		Module module = moduleDAO.queryListByParams("select m from Module m where m.moduleId=?", new Object[]{moduleId}).get(0);
-		VoModule voModule = new VoModule();
-		voModule.setModuleId(module.getModuleId());
-		voModule.setName(module.getName());
-		voModule.setParentId(module.getParentId());
-		voModule.setState(module.getState());
-		voModule.setLeaf(module.getLeaf());
-		if(module.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
-			voModule.setIconCls(module.getIcons());
+		
+		List<LzModule> modules = moduleDAO.queryListByParams("select m from LzModule m where m.moduleId=?", new Object[]{moduleId});
+		if(modules.size()>0){
+			LzModule module = modules.get(0);
+			VoModule voModule = new VoModule();
+			voModule.setModuleId(module.getModuleId());
+			voModule.setName(module.getName());
+			voModule.setParentId(module.getParentId());
+			voModule.setState(module.getState());
+			voModule.setLeaf(module.getLeaf());
+			if(module.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
+				voModule.setIconCls(module.getIcons());
+			}
+			return treeManagerSearch(voModule,new HashSet<LzModule>());
+		}else{
+			return null;
 		}
-		return treeManagerSearch(voModule,new HashSet<Module>());
 	}
 	/* 
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
-	private VoModule treeManagerSearch(VoModule voTree,Set<Module> set) {
-		String hql = "select m from Module m where m.parentId=?";
-		List<Module> modules = (List<Module>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getModuleId()});
+	private VoModule treeManagerSearch(VoModule voTree,Set<LzModule> set) {
+		String hql = "select m from LzModule m where m.parentId=?";
+		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getModuleId()});
 		if(modules.size() == 0){
 			return voTree;
 		}else{
 			List<VoModule> chiledTree = new ArrayList<VoModule>();
-			for(Module m : modules){
+			for(LzModule m : modules){
 				VoModule voModule = new VoModule();
 				voModule.setModuleId(m.getModuleId());
 				voModule.setName(m.getName());
@@ -140,15 +146,15 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	}
 
 	@Override
-	public Module searchModuleById(String id) {
+	public LzModule searchModuleById(String id) {
 		return moduleDAO.findById(id);
 	}
 	@Override
-	public boolean addBrotherNode(Module module) {
+	public boolean addBrotherNode(LzModule module) {
 		try{
 			Log4jUtil.log("添加兄弟节点:"+module.getName());
-			String qHql = "select m from Module m where m.parentId=? order by m.moduleId asc";
-			List<Module> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
+			String qHql = "select m from LzModule m where m.parentId=? order by m.moduleId asc";
+			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
 			if(list.size()>0){
 				//拼接Id组成新的Id
 				module.setModuleId(module.getParentId()+getNewModuleId(list));
@@ -165,11 +171,11 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	/*
 	 * 遍历获取新的兄弟节点
 	 */
-	private String getNewModuleId(List<Module> list){
+	private String getNewModuleId(List<LzModule> list){
 		//截图Id最后3位
 		String newModuleId = list.get(0).getModuleId();
 		int last3IndexId = Integer.parseInt(newModuleId.substring(newModuleId.length()-3));
-		for(Module m : list){
+		for(LzModule m : list){
 			//判断最后3位Id是否相等
 			int tempId = Integer.parseInt(m.getModuleId().substring(m.getModuleId().length()-3));
 			if(tempId == last3IndexId){
@@ -188,10 +194,10 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	}
 	
 	@Override
-	public boolean addChildNode(Module module) {
+	public boolean addChildNode(LzModule module) {
 		try{
-			String qHql = "select m from Module m where m.parentId = ? order by m.moduleId asc";
-			List<Module> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
+			String qHql = "select m from LzModule m where m.parentId = ? order by m.moduleId asc";
+			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
 			String newModuleId ;
 			if(list.size()>0){
 				newModuleId = module.getParentId()+ getNewModuleId(list);
@@ -199,7 +205,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				newModuleId = module.getParentId()+ "001";
 			}
 			module.setModuleId(newModuleId);
-			Module parentModule = moduleDAO.findById(module.getParentId());
+			LzModule parentModule = moduleDAO.findById(module.getParentId());
 			//更新父节点为枝干
 			if(parentModule.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
 				parentModule.setLeaf(EnumAdminUtils.Leaf.FALSE.code);
@@ -214,7 +220,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	}
 	
 	public boolean deleteNode(String moduleId){
-		Module module = moduleDAO.findById(moduleId);
+		LzModule module = moduleDAO.findById(moduleId);
 		if(!StringUtil.isObjectEmpty(module)){
 			//如何是枝干，则递归查询子节点Id
 			if(module.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
@@ -234,10 +240,10 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			}
 			moduleDAO.delete(module);
 			//判断是否改变父节点为叶子
-			String qHql = "select m from Module m where m.parentId=?";
-			List<Module> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
+			String qHql = "select m from LzModule m where m.parentId=?";
+			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
 			if(list.size() == 0){
-				Module m = moduleDAO.findById(module.getParentId());
+				LzModule m = moduleDAO.findById(module.getParentId());
 				m.setLeaf(EnumAdminUtils.Leaf.TRUE.code);
 				moduleDAO.merge(m);
 			}
@@ -250,12 +256,12 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
 	private String searchIds(String ids,String id,Set<String> set) {
-		String hql = "select m from Module m where m.parentId=?";
-		List<Module> modules = (List<Module>) moduleDAO.queryListByParams(hql,new Object[]{id});
+		String hql = "select m from LzModule m where m.parentId=?";
+		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{id});
 		if(modules.size() == 0){
 			return ids;
 		}else{
-			for(Module m : modules){
+			for(LzModule m : modules){
 				if(m.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
 					if(!set.add(m.getModuleId())){
 						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
@@ -270,7 +276,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		}
 	}
 	@Override
-	public boolean updateNode(Module module) {
+	public boolean updateNode(LzModule module) {
 		try {
 			moduleDAO.merge(module);
 			return true;

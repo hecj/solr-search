@@ -16,8 +16,8 @@ import javax.persistence.Table;
  * @版本：V1.0
  */
 @Entity
-@Table(name = "tb_module")
-public class Module implements Serializable {
+@Table(name = "lz_module")
+public class LzModule implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

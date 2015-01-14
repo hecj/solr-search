@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.freedom.search.hibernate.entity.TaskController;
+import com.freedom.search.hibernate.entity.LaTaskController;
 import com.freedom.search.senum.EnumUtils;
 import com.freedom.search.services.TaskControllerService;
 import com.freedom.search.services.TempIndexService;
@@ -34,7 +34,7 @@ public class TempIndexTask {
 	 */
 	public void commitTempIndex() {
 		
-		TaskController mTaskControlle = taskControllerService.searchTaskController(this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+		LaTaskController mTaskControlle = taskControllerService.searchTaskController(this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
 		if(!StringUtil.isObjectEmpty(mTaskControlle) && mTaskControlle.getTaskRunStatus().equals(EnumUtils.TaskRunStatus.ON.name())){
 			Log4jUtil.log("start ... ");
 			tempIndexService.commitTempIndexSerivice();
@@ -49,7 +49,7 @@ public class TempIndexTask {
 	 */
 	public void refactorIndex(){
 		
-		TaskController mTaskControlle = taskControllerService.searchTaskController(this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+		LaTaskController mTaskControlle = taskControllerService.searchTaskController(this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
 		if(!StringUtil.isObjectEmpty(mTaskControlle) && mTaskControlle.getTaskRunStatus().equals(EnumUtils.TaskRunStatus.ON.name())){
 			Log4jUtil.log("start ...");
 			tempIndexService.refactorIndexService();

@@ -1,7 +1,7 @@
 package com.freedom.search.hibernate.dao;
 
-import com.freedom.search.hibernate.entity.TaskController;
+import com.freedom.search.hibernate.entity.LaTaskController;
 
-public interface TaskControllerDAO extends BaseDAO<TaskController>{
+public interface TaskControllerDAO extends BaseDAO<LaTaskController>{
 
 }

@@ -2,69 +2,74 @@ package com.freedom.search.hibernate.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * @类功能说明：附件实体
+ * @类功能说明：文章实体类
  * @类修改者：
  * @修改日期：
  * @修改说明：
  * @作者：HECJ
- * @创建时间：2014-12-1 下午05:31:05
+ * @创建时间：2014-12-1 下午05:28:41
  * @版本：V1.0
  */
+
 @Entity
-@Table(name = "tb_attachment")
-public class Attachment implements Serializable {
+@Table(name = "la_article")
+public class LaArticle implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	/**
 	 * 主键由com.hecj.search.hibernate.util.UUIDUtil.autoUUID()生成
 	 */
-	private String attachmentNo;
-	/**
-	 * 附件标题
-	 */
+	private String articleNo;
+    /**
+     * 文章标题
+     */
 	private String title;
 	/**
-	 * 附件内容
+	 * 文章内容
 	 */
 	private String content;
 	/**
-	 * 创建时间
+	 * 文章作者
+	 */
+	private String auther;
+	/**
+	 * 创建日期
 	 */
 	private Date createDate;
 	/**
-	 * 修改时间
+	 * 修改日期
 	 */
 	private Date updateDate;
 	/**
-	 * 附件对应的文章实体
+	 * 文章附件
 	 */
-	private Article article;
+	private Set<LaAttachment> attachments;
 
-	public Attachment() {
+	public LaArticle() {
 		super();
 	}
 
 	@Id
-	@Column(name="attachmentNo",length=32)
-	public String getAttachmentNo() {
-		return attachmentNo;
+	@Column(name="articleNo",length=32)
+	public String getArticleNo() {
+		return articleNo;
 	}
-
-	public void setAttachmentNo(String attachmentNo) {
-		this.attachmentNo = attachmentNo;
+	
+	public void setArticleNo(String articleNo) {
+		this.articleNo = articleNo;
 	}
-	@Column(name="title",length=300)
+	@Column(name="title",length=300,nullable=false)
 	public String getTitle() {
 		return title;
 	}
@@ -72,13 +77,21 @@ public class Attachment implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	@Column(name="content",length=3000)
+	@Column(name="content",length=5000)
 	public String getContent() {
 		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	@Column(name="auther",length=100)
+	public String getAuther() {
+		return auther;
+	}
+
+	public void setAuther(String auther) {
+		this.auther = auther;
 	}
 	@Column(name="createDate")
 	public Date getCreateDate() {
@@ -96,24 +109,14 @@ public class Attachment implements Serializable {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
-	/**
-	 	CascadeType.ALL
-		CascadeType.DETACH
-		CascadeType.REMOVE : 级联删除
-		CascadeType.MERGE : 级联保存或修改，先查询，再修改
-		CascadeType.PERSIST只有A类新增时，会级联B对象新增。若B对象在数据库存（跟新）在则抛异常（让B变为持久态）-->级联直接保存数据库 
-		CascadeType.REFRESH
-		
-	 */
-	@ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.DETACH})
-	@JoinColumn(name = "articleNo", nullable=false)
-	public Article getArticle() {
-		return article;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "article")
+	public Set<LaAttachment> getAttachments() {
+		return attachments;
 	}
 
-	public void setArticle(Article article) {
-		this.article = article;
+	public void setAttachments(Set<LaAttachment> attachments) {
+		this.attachments = attachments;
 	}
 
 }

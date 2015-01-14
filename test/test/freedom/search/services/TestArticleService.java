@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.freedom.search.hibernate.entity.Article;
+import com.freedom.search.hibernate.entity.LaArticle;
 import com.freedom.search.services.ArticleService;
 import com.freedom.search.util.Pagination;
 
@@ -35,9 +35,9 @@ public class TestArticleService {
 		Map mMap = new HashMap();
 		mMap.put("pagination", mPagination);
 		Map rMap = articleService.searchArticleList(mMap);
-		List<Article> mList = (List<Article>) rMap.get("rArticleList");
+		List<LaArticle> mList = (List<LaArticle>) rMap.get("rArticleList");
 		Pagination rPagination = (Pagination) rMap.get("pPagination");
-		for(Article mArticle : mList){
+		for(LaArticle mArticle : mList){
 			System.out.println(mArticle.getArticleNo()+"~"+mArticle.getTitle());
 		}
 		System.out.println(articleService);
@@ -47,7 +47,7 @@ public class TestArticleService {
 	
 	@Test
 	public void testSearchArticleById(){
-		Article article = articleService.searchArticleById("14177621650426547330");
+		LaArticle article = articleService.searchArticleById("14177621650426547330");
 //		System.out.println(article.getAttachments());
 	}
 	
@@ -56,8 +56,8 @@ public class TestArticleService {
 		
 		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("select s from Article s where s.articleNo='14177621650423776550'");
-		List<Article> mList = query.list();
-		for(Article mArticle : mList){
+		List<LaArticle> mList = query.list();
+		for(LaArticle mArticle : mList){
 			System.out.println(mArticle.getArticleNo());
 		}
 		session.close();
@@ -71,9 +71,9 @@ public class TestArticleService {
 		mMap.put("pagination", mPagination);
 		mMap.put("queryString", "标题");
 		Map rMap = articleService.searchArticleListBySolr(mMap);
-		List<Article> mList = (List<Article>) rMap.get("rArticleList");
+		List<LaArticle> mList = (List<LaArticle>) rMap.get("rArticleList");
 		Pagination rPagination = (Pagination) rMap.get("pPagination");
-		for(Article mArticle : mList){
+		for(LaArticle mArticle : mList){
 			System.out.println(mArticle.getArticleNo()+"~"+mArticle.getTitle());
 		}
 		System.out.println(articleService);

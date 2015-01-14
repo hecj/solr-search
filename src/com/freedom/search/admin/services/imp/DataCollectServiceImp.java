@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.freedom.search.admin.dao.DataCollectParamsDAO;
 import com.freedom.search.admin.database.factory.DataBase;
 import com.freedom.search.admin.database.factory.DataBaseFactory;
-import com.freedom.search.admin.entity.DataCollectParams;
-import com.freedom.search.admin.entity.DataField;
+import com.freedom.search.admin.entity.LzDataCollectParams;
+import com.freedom.search.admin.entity.LzDataField;
 import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.hibernate.HibernateSessionFactory;
@@ -50,7 +50,7 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	}
 
 	@Override
-	public List<Object> dataCollectService(DataCollectParams pDataCollectParams) {
+	public List<Object> dataCollectService(LzDataCollectParams pDataCollectParams) {
 		Jerry doc = null;
 		try {
 			
@@ -96,7 +96,7 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	/*
 	 * 匹配数据并插入
 	 */
-	 private void queryFieldData(final DataCollectParams pDataCollectParams,String url,Jerry doc){
+	 private void queryFieldData(final LzDataCollectParams pDataCollectParams,String url,Jerry doc){
 		final Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		String content = "";
@@ -121,7 +121,7 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 			doc.$(pDataCollectParams.getBaseSelect()).each(new JerryFunction() {
 				public boolean onNode(Jerry $this, int index) {
 					Map<String,String> data = new HashMap<String,String>();
-					for(DataField d : pDataCollectParams.getDataFields()){
+					for(LzDataField d : pDataCollectParams.getDataFields()){
 						String field = ""; 
 						//解析字段
 						if(!StringUtil.isStrEmpty(d.getFieldSelect())){
@@ -195,8 +195,8 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 			
 			String encode = (String) pParams.get("encode");
 			Pagination pagination = (Pagination) pParams.get("pagination");
-			String mQueryHQL = "select d from DataCollectParams d where 1=1";
-			String mContHQL = "select count(d) from DataCollectParams d where 1=1";
+			String mQueryHQL = "select d from LzDataCollectParams d where 1=1";
+			String mContHQL = "select count(d) from LzDataCollectParams d where 1=1";
 			
 			//动态拼接SQL
 			if(!StringUtil.isStrEmpty(encode)){
@@ -204,7 +204,7 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 				mContHQL += " and d.encode='"+encode+"'";
 			}
 			System.out.println(mQueryHQL);
-			List<DataCollectParams> DataCollectParamsList = dataCollectParamsDAO.queryListByParamsAndPagination(mQueryHQL, pagination.startCursor().intValue(), pagination.getPageSize(),new Object[]{});
+			List<LzDataCollectParams> DataCollectParamsList = dataCollectParamsDAO.queryListByParamsAndPagination(mQueryHQL, pagination.startCursor().intValue(), pagination.getPageSize(),new Object[]{});
 			long count = Long.parseLong(dataCollectParamsDAO.queryUniqueResultByHQL(mContHQL).toString());
 			pagination.setCountSize(count);
 			
@@ -222,7 +222,7 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	
 	@Transactional
 	@Override
-	public DataCollectParams searchDataCollectParams(String id) {
+	public LzDataCollectParams searchDataCollectParams(String id) {
 		
 		return dataCollectParamsDAO.findById(id);
 	}
@@ -235,15 +235,15 @@ public class DataCollectServiceImp extends HibernateSessionFactory implements Da
 	
 	@Transactional
 	@Override
-	public void editDataCollectParams(DataCollectParams dataCollectParams) {
-		dataCollectParamsDAO.executeHQL("delete from DataField f where f.dataCollectParams='"+dataCollectParams.getId()+"'");
-		dataCollectParamsDAO.executeHQL("delete from DataCollectParams f where f.id='"+dataCollectParams.getId()+"'");
+	public void editDataCollectParams(LzDataCollectParams dataCollectParams) {
+		dataCollectParamsDAO.executeHQL("delete from LzDataField f where f.dataCollectParams='"+dataCollectParams.getId()+"'");
+		dataCollectParamsDAO.executeHQL("delete from LzDataCollectParams f where f.id='"+dataCollectParams.getId()+"'");
 		dataCollectParamsDAO.save(dataCollectParams);
 	}
 	
 	@Transactional
 	@Override
-	public void addDataCollectParams(DataCollectParams dataCollectParams) {
+	public void addDataCollectParams(LzDataCollectParams dataCollectParams) {
 		dataCollectParamsDAO.save(dataCollectParams);
 	}
 }

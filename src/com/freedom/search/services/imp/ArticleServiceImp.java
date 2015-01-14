@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.freedom.search.hibernate.dao.ArticleDAO;
 import com.freedom.search.hibernate.dao.AttachmentDAO;
 import com.freedom.search.hibernate.dao.TempIndexDAO;
-import com.freedom.search.hibernate.entity.Article;
-import com.freedom.search.hibernate.entity.TempIndex;
+import com.freedom.search.hibernate.entity.LaArticle;
+import com.freedom.search.hibernate.entity.LaTempIndex;
 import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.senum.EnumUtils;
 import com.freedom.search.services.ArticleService;
@@ -65,15 +65,15 @@ public class ArticleServiceImp implements ArticleService{
 	}
 
 	@Override
-	public Article searchArticleById(String articleNo) {
+	public LaArticle searchArticleById(String articleNo) {
 		return articleDAO.findById(articleNo);
 	}
 	@Override
-	public void addArticle(Article article) {
+	public void addArticle(LaArticle article) {
 		//添加文章对象到数据库
 		articleDAO.save(article);
 		//添加文章索引到临时索引表
-		TempIndex mTempIndex = new TempIndex();
+		LaTempIndex mTempIndex = new LaTempIndex();
 		mTempIndex.setId(UUIDUtil.autoUUID());
 		mTempIndex.setObjectId(article.getArticleNo());
 		mTempIndex.setObjectType(EnumUtils.ObjectType.Article.toString());
@@ -84,9 +84,9 @@ public class ArticleServiceImp implements ArticleService{
 	}
 	
 	@Override
-	public void addArticle(List<Article> pArticles) {
+	public void addArticle(List<LaArticle> pArticles) {
 		
-		for(Article mArticle : pArticles){
+		for(LaArticle mArticle : pArticles){
 			articleDAO.save(mArticle);
 		}
 	}
@@ -96,7 +96,7 @@ public class ArticleServiceImp implements ArticleService{
 		
 		try{
 			
-			Article article = articleDAO.findById(pArticleNo);
+			LaArticle article = articleDAO.findById(pArticleNo);
 			articleDAO.delete(article);
 			
 		}catch(Exception ex){
@@ -113,7 +113,7 @@ public class ArticleServiceImp implements ArticleService{
 			String mQueryHql = "from Article a";
 			String mCountHql = "select count(a) from Article a ";
 			
-			List<Article> rArticleList = articleDAO.queryListByPagination(mQueryHql,pPagination.startCursor().intValue(), pPagination.getPageSize());
+			List<LaArticle> rArticleList = articleDAO.queryListByPagination(mQueryHql,pPagination.startCursor().intValue(), pPagination.getPageSize());
 			long mCountSize = Long.parseLong( articleDAO.queryUniqueResultByHQL(mCountHql).toString());
 			
 			pPagination.setCountSize(mCountSize);
@@ -130,7 +130,7 @@ public class ArticleServiceImp implements ArticleService{
 	public Map<String, Object> searchArticleListBySolr(Map<String, Object> pParams) {
 		
 		Map<String, Object> mMap = new HashMap<String, Object>();
-		List<Article> maArticels = new ArrayList<Article>();
+		List<LaArticle> maArticels = new ArrayList<LaArticle>();
 		try {
 			Pagination pPagination = (Pagination) pParams.get("pagination");
 			String queryString = (String) pParams.get("queryString");

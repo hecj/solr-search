@@ -1,9 +1,9 @@
 package com.freedom.search.admin.dao;
 
-import com.freedom.search.admin.entity.Module;
+import com.freedom.search.admin.entity.LzModule;
 
 
 
-public interface ModuleDAO extends BaseDAO<Module>{
+public interface ModuleDAO extends BaseDAO<LzModule>{
 
 }

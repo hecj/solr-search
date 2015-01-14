@@ -10,8 +10,8 @@ import java.util.Set;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.freedom.search.hibernate.entity.Article;
-import com.freedom.search.hibernate.entity.Attachment;
+import com.freedom.search.hibernate.entity.LaArticle;
+import com.freedom.search.hibernate.entity.LaAttachment;
 import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.services.ArticleService;
 import com.freedom.search.util.Pagination;
@@ -47,7 +47,7 @@ public class AnotationSpringTest {
 		ArticleService articleService = (ArticleService) ctx.getBean("articleService");
 		
 		
-		List<Article> list= new ArrayList<Article>();
+		List<LaArticle> list= new ArrayList<LaArticle>();
 		list.add(initArticle());
 		list.add(initArticle());
 		list.add(initArticle());
@@ -87,19 +87,19 @@ public class AnotationSpringTest {
 		
 	}
 	
-	public static Article initArticle(){
-		Article article = new Article();
+	public static LaArticle initArticle(){
+		LaArticle article = new LaArticle();
 		article.setTitle("测试");
 		article.setArticleNo(UUIDUtil.autoUUID());
 		
-		Set<Attachment> sets = new HashSet<Attachment>();
-		Attachment attachment = new Attachment();
+		Set<LaAttachment> sets = new HashSet<LaAttachment>();
+		LaAttachment attachment = new LaAttachment();
 		attachment.setAttachmentNo(UUIDUtil.autoUUID());
 		attachment.setTitle("测试 -----");
 		attachment.setArticle(article);
 		sets.add(attachment);
 		
-		Attachment attachment2 = new Attachment();
+		LaAttachment attachment2 = new LaAttachment();
 		attachment2.setAttachmentNo(UUIDUtil.autoUUID());
 		attachment2.setTitle("测试 ");
 		attachment2.setArticle(article);
@@ -107,7 +107,7 @@ public class AnotationSpringTest {
 		
 		article.setAttachments(sets);
 		
-		Article article3 = new Article();
+		LaArticle article3 = new LaArticle();
 		article3.setTitle("测试");
 		article3.setArticleNo(UUIDUtil.autoUUID());
 		

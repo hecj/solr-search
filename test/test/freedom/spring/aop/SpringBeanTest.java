@@ -6,8 +6,8 @@ import java.util.Set;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.freedom.search.hibernate.entity.Article;
-import com.freedom.search.hibernate.entity.Attachment;
+import com.freedom.search.hibernate.entity.LaArticle;
+import com.freedom.search.hibernate.entity.LaAttachment;
 import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.services.ArticleService;
 

@@ -21,8 +21,8 @@ import javax.persistence.Table;
  * @版本：V1.0
  */
 @Entity
-@Table(name="tb_dataField")
-public class DataField implements Serializable{
+@Table(name="lz_dataField")
+public class LzDataField implements Serializable{
 	
 	/**
 	 * @Fields serialVersionUID : TODO
@@ -39,9 +39,9 @@ public class DataField implements Serializable{
 	private String fieldName;
 	private String fieldType;
 	private Integer fieldLenth;
-	private DataCollectParams dataCollectParams;
+	private LzDataCollectParams dataCollectParams;
 
-	public DataField() {
+	public LzDataField() {
 
 	}
 	@Id
@@ -128,11 +128,11 @@ public class DataField implements Serializable{
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.DETACH})
 	@JoinColumn(name = "dataCollectParamsId", nullable=false)
-	public DataCollectParams getDataCollectParams() {
+	public LzDataCollectParams getDataCollectParams() {
 		return dataCollectParams;
 	}
 
-	public void setDataCollectParams(DataCollectParams dataCollectParams) {
+	public void setDataCollectParams(LzDataCollectParams dataCollectParams) {
 		this.dataCollectParams = dataCollectParams;
 	}
 

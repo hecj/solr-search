@@ -17,8 +17,8 @@ import javax.persistence.Table;
  * @版本：V1.0
  */
 @Entity
-@Table(name="tb_taskcontroller")
-public class TaskController implements Serializable {
+@Table(name="la_taskcontroller")
+public class LaTaskController implements Serializable {
 
 	/**
 	 * @Fields serialVersionUID : TODO

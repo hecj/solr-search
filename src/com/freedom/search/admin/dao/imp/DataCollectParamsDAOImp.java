@@ -8,10 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.freedom.search.admin.dao.DataCollectParamsDAO;
-import com.freedom.search.admin.entity.DataCollectParams;
+import com.freedom.search.admin.entity.LzDataCollectParams;
 
 @Repository("dataCollectParamsDAO")
-public class DataCollectParamsDAOImp extends BaseDAOImp<DataCollectParams> implements DataCollectParamsDAO {
+public class DataCollectParamsDAOImp extends BaseDAOImp<LzDataCollectParams> implements DataCollectParamsDAO {
 
 	/**
 	 * @Fields serialVersionUID : TODO
@@ -20,7 +20,7 @@ public class DataCollectParamsDAOImp extends BaseDAOImp<DataCollectParams> imple
 	private static final long serialVersionUID = 1L;
 	@Transactional
 	@Override
-	public Serializable save(DataCollectParams t) {
+	public Serializable save(LzDataCollectParams t) {
 		return super.save(t);
 	}
 	

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.freedom.search.hibernate.dao.ArticleDAO;
 import com.freedom.search.hibernate.dao.TempIndexDAO;
-import com.freedom.search.hibernate.entity.Article;
+import com.freedom.search.hibernate.entity.LaArticle;
 import com.freedom.search.senum.EnumUtils;
 import com.freedom.search.services.ArticleService;
 import com.freedom.search.services.TempIndexService;
@@ -63,7 +63,7 @@ public class TempIndexServiceImp implements TempIndexService {
 	public void commitTempIndexSerivice() {
 		
 		
-		String mtempIndexCount = "select count(t) from TempIndex t";
+		String mtempIndexCount = "select count(t) from LaTempIndex t";
 		try{
 			
 			long mCountSize = Long.parseLong(tempIndexDAO.queryUniqueResultByHQL(mtempIndexCount).toString());
@@ -84,7 +84,7 @@ public class TempIndexServiceImp implements TempIndexService {
 			if(mCountSize >= commitCount){
 				Log4jUtil.log("start ...");
 				SolrServerUtil.getServer().commit();
-				int deleteCount = tempIndexDAO.executeHQL("delete from TempIndex t");
+				int deleteCount = tempIndexDAO.executeHQL("delete from LaTempIndex t");
 				Log4jUtil.log("本次任务共提交索引个数:"+deleteCount);
 				Log4jUtil.log("end ...");
 			}else{
@@ -111,8 +111,8 @@ public class TempIndexServiceImp implements TempIndexService {
 			Map<String,Object> rMap = articleService.searchArticleList(mArticleMap);
 			SolrServerUtil.getServer().deleteByQuery("*:*");
 			
-			List<Article> rArticles = (List<Article>) rMap.get("rArticleList");
-			for(Article a : rArticles){
+			List<LaArticle> rArticles = (List<LaArticle>) rMap.get("rArticleList");
+			for(LaArticle a : rArticles){
 				solrArticleService.addArticleBeanIndex(ConvertUtil.articleToArticleBean(a));
 			}
 			SolrServerUtil.getServer().commit();
@@ -135,13 +135,13 @@ public class TempIndexServiceImp implements TempIndexService {
 			/*
 			 * 恢复上次的文章索引
 			 */
-			String mQueryArticleHQL = "select a from Article a where a.articleNo in (select t.objectId from TempIndex t where t.objectType= '"+EnumUtils.ObjectType.Article.toString()+"') ";
-			List<Article> rArticleList = articleDAO.queryListByPagination(mQueryArticleHQL,10000);
-			for(Article mArticle : rArticleList){
+			String mQueryArticleHQL = "select a from LaArticle a where a.articleNo in (select t.objectId from LaTempIndex t where t.objectType= '"+EnumUtils.ObjectType.Article.toString()+"') ";
+			List<LaArticle> rArticleList = articleDAO.queryListByPagination(mQueryArticleHQL,10000);
+			for(LaArticle mArticle : rArticleList){
 				solrArticleService.addArticleBeanIndex(ConvertUtil.articleToArticleBean(mArticle));
 			}
 			SolrServerUtil.getServer().commit();
-			String mDeleteArticleHQL = "delete from Article a where a.articleNo in (select t.objectId from TempIndex t where t.objectType= '"+EnumUtils.ObjectType.Article.toString()+"') ";
+			String mDeleteArticleHQL = "delete from LaArticle a where a.articleNo in (select t.objectId from LaTempIndex t where t.objectType= '"+EnumUtils.ObjectType.Article.toString()+"') ";
 			tempIndexDAO.executeHQL(mDeleteArticleHQL);
 			Log4jUtil.log("恢复索引个数:"+rArticleList.size()+" success ...");
 		} catch(Exception mException){

@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.freedom.search.hibernate.entity.Article;
+import com.freedom.search.hibernate.entity.LaArticle;
 import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.services.ArticleService;
 import com.freedom.search.util.DateFormatUtil;
@@ -46,7 +46,7 @@ public class ArticleController extends BaseController {
 	 * return "redirect:/servlet/initIndexPage.do";
 	 */
 	@RequestMapping(params="operator=submitAddArticle")
-	public String submitAddArticle(Article article) {
+	public String submitAddArticle(LaArticle article) {
 
 		try {
 			

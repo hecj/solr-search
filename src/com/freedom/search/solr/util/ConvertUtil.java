@@ -1,6 +1,6 @@
 package com.freedom.search.solr.util;
 
-import com.freedom.search.hibernate.entity.Article;
+import com.freedom.search.hibernate.entity.LaArticle;
 import com.freedom.search.solr.bean.ArticleBean;
 
 /**
@@ -14,7 +14,7 @@ import com.freedom.search.solr.bean.ArticleBean;
  */
 public class ConvertUtil {
 	
-	public static ArticleBean articleToArticleBean(Article pArticle){
+	public static ArticleBean articleToArticleBean(LaArticle pArticle){
 		
 		ArticleBean mArticleBean = new ArticleBean();
 		mArticleBean.setArticleNo(pArticle.getArticleNo());
@@ -23,9 +23,9 @@ public class ConvertUtil {
 		return mArticleBean;
 	}
 	
-	public static Article articleBeanToArticle(ArticleBean pArticleBean){
+	public static LaArticle articleBeanToArticle(ArticleBean pArticleBean){
 		
-		Article mArticle = new Article();
+		LaArticle mArticle = new LaArticle();
 		mArticle.setArticleNo(pArticleBean.getArticleNo());
 		mArticle.setTitle(pArticleBean.getTitle());
 		mArticle.setContent(pArticleBean.getContent());

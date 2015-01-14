@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.freedom.search.admin.entity.Module;
+import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.vo.MenuTree;
@@ -53,10 +53,12 @@ public class MenuTreeController extends BaseController {
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
 			VoModule voTree = menuTreeService.treeManagerSearch(moduleId);
-			write(response, voTree.toJSON());
-		}else{
-			Log4jUtil.log("moduleId is null!");
+			if(!StringUtil.isObjectEmpty(voTree)){
+				write(response, voTree.toJSON());
+				return;
+			}
 		}
+		Log4jUtil.error("加载数失败："+moduleId);
 	}
 	
 	@RequestMapping(params="operator=addFatherNode")
@@ -67,7 +69,7 @@ public class MenuTreeController extends BaseController {
 		}
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			Module module = menuTreeService.searchModuleById(moduleId);
+			LzModule module = menuTreeService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
 		return "admin/jsp/treemanager/treemanager/addFatherNode";
@@ -84,7 +86,7 @@ public class MenuTreeController extends BaseController {
 	public String addChildNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			Module module = menuTreeService.searchModuleById(moduleId);
+			LzModule module = menuTreeService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
 		return "admin/jsp/treemanager/treemanager/addChildNode";
@@ -100,7 +102,7 @@ public class MenuTreeController extends BaseController {
 			String state = request.getParameter("state");
 			String icons = request.getParameter("icons");
 			String leaf = request.getParameter("leaf");
-			Module module = new Module();
+			LzModule module = new LzModule();
 			module.setIcons(icons);
 			module.setLeaf(leaf);
 			module.setName(name);
@@ -122,7 +124,7 @@ public class MenuTreeController extends BaseController {
 	public String addBrotherNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			Module module = menuTreeService.searchModuleById(moduleId);
+			LzModule module = menuTreeService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
 		return "admin/jsp/treemanager/treemanager/addBrotherNode";
@@ -138,7 +140,7 @@ public class MenuTreeController extends BaseController {
 		String icons = request.getParameter("icons");
 		String leaf = request.getParameter("leaf");
 		
-		Module module = new Module();
+		LzModule module = new LzModule();
 		module.setIcons(icons);
 		module.setName(name);
 		module.setLeaf(leaf);
@@ -199,7 +201,7 @@ public class MenuTreeController extends BaseController {
 	public String editNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			Module module = menuTreeService.searchModuleById(moduleId);
+			LzModule module = menuTreeService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
 		return "admin/jsp/treemanager/treemanager/editNode";
@@ -216,7 +218,7 @@ public class MenuTreeController extends BaseController {
 		String icons = request.getParameter("icons");
 		String leaf = request.getParameter("leaf");
 		
-		Module module = new Module();
+		LzModule module = new LzModule();
 		module.setModuleId(moduleId);
 		module.setIcons(icons);
 		module.setName(name);

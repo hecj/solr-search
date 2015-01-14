@@ -1,5 +1,6 @@
 package com.freedom.search.admin.services.imp;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.freedom.search.admin.dao.UserDAO;
-import com.freedom.search.admin.entity.LzDataCollectParams;
 import com.freedom.search.admin.entity.LzUser;
 import com.freedom.search.admin.services.UserService;
 import com.freedom.search.util.Log4jUtil;
@@ -32,8 +32,8 @@ public class UserServiceImp implements UserService {
 	@Override
 	public boolean addUser(LzUser user) {
 		try {
-			LzUser u = (LzUser) userDAO.save(user);
-			if(!StringUtil.isObjectNull(u)){
+			Serializable serializable = userDAO.save(user);
+			if(!StringUtil.isObjectNull(serializable)){
 				return true;
 			}
 		} catch (Exception e) {

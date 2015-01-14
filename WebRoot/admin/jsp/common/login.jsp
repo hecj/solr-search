@@ -14,7 +14,16 @@
     	}
     </style>
     <script type="text/javascript">
-	    var submitForm = function(dialog){
+    	$(function(){
+	    	document.onkeydown = function(e){
+	    	    var ev = document.all ? window.event : e;
+	    	    if(ev.keyCode==13) {
+	    	    	submitForm();
+	    	    }
+	    	}
+    	}); 
+    
+	    var submitForm = function(){
 			//validate
 			var isValid = $("form").form('validate');
 			if (!isValid){
@@ -28,7 +37,6 @@
 			        if (data.code == '0'){
 			        	parent.MessageUtil.messageShow(data.message);
 			        	parent.location.reload();
-			        	dialog.dialog('close');
 			        }else{
 			        	parent.MessageUtil.errorShow(data.message);
 				    }

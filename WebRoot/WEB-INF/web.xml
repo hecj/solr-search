@@ -113,18 +113,18 @@
 		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
 	
-	<!-- error 404 page -->
+	<!-- error 404 page 
 	<error-page>
     	<error-code>404</error-code>
     	<location>/servlet/initIndexPage.do</location>
 	</error-page>
-	
-	<!-- error 500 page -->
+	-->
+	<!-- error 500 page
 	<error-page>
     	<error-code>500</error-code>
     	<location>/servlet/initIndexPage.do</location>
 	</error-page>
-	
+	 -->
 	<!-- default Index Page -->
 	<welcome-file-list>
 		<welcome-file>servlet/initIndexPage.do</welcome-file>

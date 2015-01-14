@@ -18,13 +18,13 @@ import javax.persistence.Table;
  * @版本：V1.0
  */
 @Entity
-@Table(name="lz_user")
-public class LzUser implements Serializable{
-	
+@Table(name = "lz_user")
+public class LzUser implements Serializable {
+
 	/**
 	 * @Fields serialVersionUID : TODO
 	 */
-	
+
 	private static final long serialVersionUID = 1L;
 	/*
 	 * 用户名
@@ -61,68 +61,84 @@ public class LzUser implements Serializable{
 	/*
 	 * 修改时间
 	 */
-	private Date udpateDate;
-	
-	
+	private Date updateDate;
+
 	public LzUser() {
 
 	}
 
 	@Id
-	@Column(name="usercode",length=32,nullable=false)
+	@Column(name = "usercode", length = 32, nullable = false)
 	public String getUsercode() {
 		return usercode;
 	}
+
 	public void setUsercode(String usercode) {
 		this.usercode = usercode;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getTelPhone() {
 		return telPhone;
 	}
+
 	public void setTelPhone(String telPhone) {
 		this.telPhone = telPhone;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getRoleId() {
 		return roleId;
 	}
+
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
+
 	public String getImageHead() {
 		return imageHead;
 	}
+
 	public void setImageHead(String imageHead) {
 		this.imageHead = imageHead;
 	}
+
 	public Date getCreateDate() {
 		return createDate;
 	}
+
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public Date getUdpateDate() {
-		return udpateDate;
+
+	public Date getUpdateDate() {
+		return updateDate;
 	}
-	public void setUdpateDate(Date udpateDate) {
-		this.udpateDate = udpateDate;
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }

@@ -86,7 +86,7 @@
 		});
 		grid.datagrid('reload');
 	}
-
+	
 	var findFun = function(){
 
 		var row = grid.datagrid('getSelected');
@@ -95,16 +95,93 @@
 			return;
 		}
 		var dialog = parent.app.dialogModel({
-			title: '查看信息 usercode:'+row.usercode,
-			width: 850,
+			title: '查看信息  '+row.usercode,
+			width: 350,
 			height: 450,
-			url: app.basePath+'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id+"",
+			url: app.basePath+'admin/user/user.htm?operator=findUser&usercode='+row.usercode,
 			buttons:[{
 				text:'关闭',
 				handler:function(){
 					dialog.dialog('close');
 				}
 			}]
+		});
+	}
+
+	var addFun = function(){
+		var dialog = parent.app.dialogModel({
+			title: '添加用户',
+			width: 350,
+			height: 450,
+			url: app.basePath+'admin/jsp/user/userManager/addUser.jsp',
+			buttons:[{
+				text:'提交',
+				handler:function(){
+					dialog.find('iframe').get(0).contentWindow.submitForm(dialog,grid);
+				}
+			},{
+				text:'关闭',
+				handler:function(){
+					dialog.dialog('close');
+				}
+			}]
+		});
+	}
+
+	var editFun = function(){
+		var row = grid.datagrid('getSelected');
+		if(row == null){
+			parent.MessageUtil.messageShow("<font color=red>请选择一行!</font>");
+			return;
+		}
+		var dialog = parent.app.dialogModel({
+			title: '编辑信息  '+row.usercode,
+			width: 350,
+			height: 450,
+			url: app.basePath+'admin/user/user.htm?operator=editUser&usercode='+row.usercode,
+			buttons:[{
+				text:'提交',
+				handler:function(){
+					dialog.find('iframe').get(0).contentWindow.submitForm(dialog,grid);
+				}
+			},{
+				text:'关闭',
+				handler:function(){
+					dialog.dialog('close');
+				}
+			}]
+		});
+	}
+
+	var deleteFun = function(){
+		var row = grid.datagrid('getSelected');
+		if(row == null){
+			parent.MessageUtil.messageShow('<font color=red>请选择一行!</font>');
+			return;
+		}
+		parent.$.messager.confirm('提示信息','确定要删除吗?',function(r){
+			if (r){
+				$.ajax({
+					url: app.basePath+'admin/user/user.htm?operator=deleteUser',
+					data:{usercode:row.usercode},
+					async:true,
+					dataType:'json',
+					timeout:3000,
+					type:'GET',
+					cache:false,
+					success:function(data){
+						if(data.code == '0'){
+							parent.MessageUtil.messageShow(data.message);
+							grid.datagrid('reload');
+						}else{
+							parent.MessageUtil.errorShow(data.message);
+						}
+					},
+					error:function(data){
+						parent.MessageUtil.errorShow(data.message);
+					}
+				});
+			}
 		});
 	}
 	
@@ -139,6 +216,12 @@
 								</td>
 								<td>
 									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addFun();">添加</a>
+								</td>
+								<td>
+									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="editFun();">编辑</a>
+								</td>
+								<td>
+									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="deleteFun();">删除</a>
 								</td>
 							</tr>
 						</table>

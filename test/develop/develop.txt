@@ -20,6 +20,10 @@ total: 28
 0001002 模块1菜单2
 0001001001模块1菜单1子菜单1
 
+菜单路径
+数据搜索：admin/jsp/datacollect/dataCollectManager.jsp
+用户管理：admin/jsp/user/userManager.jsp
+树管理：admin/jsp/treemanager/treemanager.jsp
 
 
    

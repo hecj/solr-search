@@ -5,8 +5,9 @@
 <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
 <script type="text/javascript">
 
+
 	$(function(){
-		
+
 	});
 
 	var submitForm = function(dialog,parentGrid){

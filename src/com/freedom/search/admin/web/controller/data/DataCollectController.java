@@ -200,7 +200,6 @@ public class DataCollectController extends BaseController{
 	
 	@RequestMapping(params="operator=toEdit")
 	public String toDataCollectEdit(String id,String type,HttpServletRequest request,HttpServletResponse response){
-		
 		try{
 			if(!StringUtil.isStrEmpty(id)){
 				DataCollectParams dataCollectParams = dataCollectService.searchDataCollectParams(id);

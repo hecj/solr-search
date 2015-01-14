@@ -97,10 +97,19 @@
 			pageList : [ 10, 20, 30, 40 ],
 			singleSelect : true,
 			pageSize:20,
-			loadMsg : MessageUtil.loadDataGridMsg,
+			//loadMsg : MessageUtil.loadDataGridMsg,
+			loadMsg : '',
 			toolbar : '#toolbar',
 			onDblClickRow:function(index,row){
 				findFun();
+			},
+			onLoadSuccess:function(data){
+				$.messager.progress('close');
+			},
+			onBeforeLoad:function(param){
+				$.messager.progress({
+					text : '数据加载中....'
+				});
 			}
 		});
 	}

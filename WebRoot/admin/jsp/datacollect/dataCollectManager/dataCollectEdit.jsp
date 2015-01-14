@@ -62,6 +62,7 @@
 		var grid ;
 		
 		$(function(){
+			
 			initFun();
 		});
 
@@ -77,7 +78,8 @@
 				rownumbers : true,
 				singleSelect:true,
 				fitColumns: true,
-				loadMsg: MessageUtil.loadDataGridMsg,
+				//loadMsg: MessageUtil.loadDataGridMsg,
+				loadMsg:'',
 				columns : [ [ {
 					field : 'id',
 					title : 'id',
@@ -248,6 +250,14 @@
 						field:field
 					});
 					$(ed.target).focus();
+				},
+				onLoadSuccess:function(data){
+					$.messager.progress('close');
+				},
+				onBeforeLoad:function(param){
+					$.messager.progress({
+						text : '数据加载中....'
+					});
 				}
 			});
 		}

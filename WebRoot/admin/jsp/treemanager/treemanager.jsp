@@ -10,7 +10,7 @@
 		var rightMenuRoot ;
 		
 		$(function(){
-			
+
 			treegrid = $('#treegrid').treegrid({
 				url: app.basePath+'admin/tree/menuTree.htm?operator=treeManagerQuery&moduleId=0',
 				idField: 'moduleId',
@@ -61,7 +61,15 @@
 					  	}
 		  				return '是';
 		  			}}
-				]]
+				]],
+				onLoadSuccess:function(row, data){
+					$.messager.progress('close');
+				},
+				onBeforeLoad:function(row, param){
+					$.messager.progress({
+						text : '数据加载中....'
+					});
+				}
 			});
 			rightMenu = $('#rightClick').menu({});
 			rightMenuRoot = $('#rightMenuRoot').menu({});

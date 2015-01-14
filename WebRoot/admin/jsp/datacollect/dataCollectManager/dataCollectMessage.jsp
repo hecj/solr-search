@@ -51,13 +51,15 @@
 </div>
 <script type="text/javascript">
 	$(function() {
+		
 		var id = $("#Id_dataCollectMsg").val();
 		var grid = $('#Id_Add_footGridMsg').datagrid( {
 			url: app.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 			rownumbers : true,
 			singleSelect:true,
 			fitColumns: true,
-			loadMsg: MessageUtil.loadDataGridMsg,
+			//loadMsg: MessageUtil.loadDataGridMsg,
+			loadMsg:'',
 			columns : [ [ {
 				field : 'fieldSelect',
 				title : '选择器 ',
@@ -104,7 +106,15 @@
 				align : 'center',
 				width:70
 			} 
-			] ]
+			] ],
+			onLoadSuccess:function(data){
+				$.messager.progress('close');
+			},
+			onBeforeLoad:function(param){
+				$.messager.progress({
+					text : '数据加载中....'
+				});
+			}
 		});
 	});
 </script>

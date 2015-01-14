@@ -85,4 +85,17 @@ public class UserController extends BaseController {
 		}
 		write(response,new EasyGridData().toJSON());
 	}
+	
+	@RequestMapping(params="operator=findUser")
+	public void findUser(HttpServletRequest request,HttpServletResponse response){
+		
+		try {
+			String usercode = request.getParameter("usercode");
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

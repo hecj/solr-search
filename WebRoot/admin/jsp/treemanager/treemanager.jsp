@@ -187,8 +187,8 @@
 
   	</script>
   </head>
-<body class="easyui-layout" data-options="fit:true,border:false">
-    <div id="content" region="center" data-options="fit:true,border:false">
+<body class="easyui-layout" data-options="border:false">
+    <div id="content" region="center" data-options="border:false">
 	    <table id="treegrid"></table>
     </div>
     	<!-- treegrid toolbar -->

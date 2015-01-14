@@ -1,5 +1,6 @@
 package com.freedom.search.admin.services.imp;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -8,10 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.freedom.search.admin.dao.UserDAO;
+import com.freedom.search.admin.entity.LzDataCollectParams;
 import com.freedom.search.admin.entity.LzUser;
 import com.freedom.search.admin.services.UserService;
 import com.freedom.search.util.Log4jUtil;
+import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
+import com.freedom.search.util.ResultSupport;
 import com.freedom.search.util.StringUtil;
 
 @Transactional
@@ -78,9 +82,34 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public Result searchUserByPagination(Map<String, Object> pParams) {
-
-		
-		return null;
+		Result result = new ResultSupport();
+		try{
+			
+			String usercode = (String) pParams.get("usercode");
+			Pagination pagination = (Pagination) pParams.get("pagination");
+			String mQueryHQL = "select u from LzUser u where 1=1";
+			String mContHQL = "select count(u) from LzUser u where 1=1";
+			
+			//动态拼接SQL
+			if(!StringUtil.isStrEmpty(usercode)){
+				mQueryHQL += " and u.usercode='"+usercode+"'";
+				mContHQL += " and u.usercode='"+usercode+"'";
+			}
+			System.out.println(mQueryHQL);
+			List<LzUser> userList = userDAO.queryListByParamsAndPagination(mQueryHQL, pagination.startCursor().intValue(), pagination.getPageSize(),new Object[]{});
+			long count = Long.parseLong(userDAO.queryUniqueResultByHQL(mContHQL).toString());
+			pagination.setCountSize(count);
+			
+			result.setData(userList);
+			result.setPagination(pagination);
+			result.setResult(true);
+		}catch(Exception ex){
+			
+			result.setResult(false);
+			Log4jUtil.log(ex.getMessage());
+			ex.printStackTrace();
+		}
+		return result;
 	}
 	
 	

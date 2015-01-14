@@ -86,6 +86,27 @@
 		});
 		grid.datagrid('reload');
 	}
+
+	var findFun = function(){
+
+		var row = grid.datagrid('getSelected');
+		if(row == null){
+			parent.MessageUtil.messageShow("<font color=red>请选择一行!</font>");
+			return;
+		}
+		var dialog = parent.app.dialogModel({
+			title: '查看信息 usercode:'+row.usercode,
+			width: 850,
+			height: 450,
+			url: app.basePath+'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id+"",
+			buttons:[{
+				text:'关闭',
+				handler:function(){
+					dialog.dialog('close');
+				}
+			}]
+		});
+	}
 	
 </script>
 	</head>
@@ -112,8 +133,12 @@
 				<tr>
 					<td>
 						<table>
-							<tr><td>
+							<tr>
+								<td>
 									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="findFun();">查看</a>
+								</td>
+								<td>
+									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addFun();">添加</a>
 								</td>
 							</tr>
 						</table>

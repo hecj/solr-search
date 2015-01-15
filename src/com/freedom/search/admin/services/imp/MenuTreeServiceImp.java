@@ -234,7 +234,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 					ids = ids.substring(0, ids.length()-1);
 				}
 				if(!StringUtil.isStrEmpty(ids)){
-					String dHql = "delete Module m where m.moduleId in ("+ids+")";
+					String dHql = "delete LzModule m where m.moduleId in ("+ids+")";
 					moduleDAO.executeHQL(dHql);
 				}
 			}

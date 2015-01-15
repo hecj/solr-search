@@ -1,6 +1,8 @@
 package com.freedom.search.admin.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,5 +80,11 @@ public class MenuTree implements Serializable {
 
 	public String toJSON() {
 		return ObjectToJson.object2json(this.getChildren()) ;
+	}
+	
+	public String toString() {
+		List<MenuTree> list = new ArrayList<MenuTree>();
+		list.add(this);
+		return ObjectToJson.object2json(list) ;
 	}
 }

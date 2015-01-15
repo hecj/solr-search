@@ -56,7 +56,13 @@ public class UserController extends BaseController {
 					Log4jUtil.log("login success:"+usercode);
 					write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "登陆成功!").toJSON());
 					return;
+				}else{
+					write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "密码不正确!").toJSON());
+					return;
 				}
+			}else{
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名不存在!").toJSON());
+				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

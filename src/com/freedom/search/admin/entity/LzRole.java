@@ -27,10 +27,6 @@ public class LzRole implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	/*
-	 * Id
-	 */
-	private String id;
-	/*
 	 * 角色代码
 	 */
 	private String roleCode;
@@ -53,15 +49,7 @@ public class LzRole implements Serializable{
 	}
 	
 	@Id
-	@Column(name="id",length=32,nullable=false)
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	@Column(name="rolecode",length=32,nullable=false)
 	public String getRoleCode() {
 		return roleCode;
 	}

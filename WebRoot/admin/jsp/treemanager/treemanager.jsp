@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>Seacher</title>
-    <%@include file="/admin/jsp/base/basePath.jsp" %> 
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
   	<script type="text/javascript">
 		var treegrid ;

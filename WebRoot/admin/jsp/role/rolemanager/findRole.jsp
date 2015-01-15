@@ -11,9 +11,8 @@
 	
 	var initFun = function(){
 		tree = $('#tree').tree({
-			url: app.basePath+'admin/role/role.htm?operator=initTree&moduleId=0',
+			url: app.basePath+'admin/role/role.htm?operator=initModule&moduleId=0',
 			border:false,
-			checkbox:true,
 			cascadeCheck:true,
 			onLoadSuccess:function(row, data){
 				$.messager.progress('close');

@@ -139,4 +139,16 @@ public class RoleController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(params="operator=initModule")
+	public void initModule(String moduleId,HttpServletResponse response){
+		System.out.println("==============="+moduleId);
+		if(!StringUtil.isStrEmpty(moduleId)){
+			MenuTree tree = new MenuTree();
+			tree.setId("0");
+			tree.setText("根节点");
+			tree.setState("open");
+			write(response, tree.toString());
+		}
+	}
+	
 }

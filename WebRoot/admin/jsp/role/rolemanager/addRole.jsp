@@ -36,14 +36,27 @@
 			return;
 		}
 		//获取选择的树
-		var ids = '';
+		var idsSet = new Set();
 		var nodes = tree.tree('getChecked');
 		for(var i =0;i<nodes.length;i++){
 			var node = nodes[i];
-			if(tree.tree('getChildren',node.target).length == 0){
-				ids +=','+node.id;
+			//添加Id
+			idsSet.add(node.id);
+			//循环添加父节点Id
+			while(true){
+				var node = tree.tree('getParent',node.target);
+				if(node){
+					idsSet.add(node.id);
+				}else{
+					break;
+				}
 			}
 		}
+		//拼接Id
+		var ids = '';
+		idsSet.forEach(function (item) {
+		    ids+=','+item.toString();
+		});
 		//sumbit
 	    $('form').form('submit', {
 	    	url : app.basePath+'admin/role/role.htm?operator=addRole&ids='+ids,

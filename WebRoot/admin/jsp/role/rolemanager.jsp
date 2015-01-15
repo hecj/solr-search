@@ -4,29 +4,32 @@
     <title>Seacher</title>
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
   	<script type="text/javascript">
-		var treegrid ;
+		var grid ;
 		
 		$(function(){
 
-			treegrid = $('#treegrid').treegrid({
+			grid = $('#grid').datagrid({
 				url: app.basePath+'admin/role/role.htm?operator=searchList',
-				idField: 'moduleId',
-				treeField: 'name',
 				toolbar:'#toolbar',
 				fit:true,
 				border:false,
 				fitColumns: true,
+				pagination : true,
+				rownumbers : true,
+				singleSelect : true,
+				pageSize:15,
+				pageList : [ 15, 30, 45, 60 ],
 				columns:[[
-					{title:'角色名称',field:'name',align:'left', width:220},
-					{title:'角色Id或模块Id',field:'moduleId',align:'left',width:80}
+					{title:'角色名称',field:'rolename',align:'left', width:220},
+					{title:'角色代码',field:'roleCode',align:'left',width:80}
 				]],
 				onLoadSuccess:function(row, data){
-					//$.messager.progress('close');
+					$.messager.progress('close');
 				},
 				onBeforeLoad:function(row, param){
-					//$.messager.progress({
-					//	text : '数据加载中....'
-					//});
+					$.messager.progress({
+						text : '数据加载中....'
+					});
 				}
 			});
 		});
@@ -40,7 +43,7 @@
 				buttons:[{
 					text:'提交',
 					handler:function(){
-						dialog.find('iframe').get(0).contentWindow.submitForm(dialog,treegrid);
+						dialog.find('iframe').get(0).contentWindow.submitForm(dialog,grid);
 					}
 				},{
 					text:'关闭',
@@ -55,7 +58,7 @@
   </head>
 <body class="easyui-layout" data-options="border:false">
     <div id="content" region="center" data-options="border:false">
-	    <table id="treegrid"></table>
+	    <table id="grid"></table>
     </div>
     	<!-- treegrid toolbar -->
 		<div id="toolbar" style="display: none;">
@@ -70,10 +73,8 @@
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="editFun();">编辑角色</a>
 					</td>
-					
 				</tr>
 			</table>
 		</div>
-		
 	</body>
 </html>

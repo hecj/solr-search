@@ -3,8 +3,9 @@ package com.freedom.search.admin.web.controller.data;
 
 
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +22,11 @@ import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.vo.MenuTree;
 import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.util.DateFormatUtil;
+import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
+import com.freedom.search.util.Pagination;
+import com.freedom.search.util.Result;
 import com.freedom.search.util.StringUtil;
 import com.freedom.search.web.controller.base.BaseController;
 
@@ -44,9 +48,24 @@ public class RoleController extends BaseController {
 	}
 
 	@RequestMapping(params="operator=searchList")
-	public void searchList(HttpServletRequest request,HttpServletResponse response){
+	public void searchList(Integer page,Integer rows,HttpServletRequest request,HttpServletResponse response){
 		try {
-			
+			//分页参数
+			Pagination mPagination = new Pagination(15);
+			if(!StringUtil.isObjectNull(page)){
+				mPagination.setCurrPage(page.longValue());
+			}
+			if(!StringUtil.isObjectNull(page)){
+				mPagination.setPageSize(rows);
+			}
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("pagination", mPagination);
+			//查询结果
+			Result result = roleService.searchRoleByPagination(map);
+			if(result.isSuccess()){
+				write(response, new EasyGridData(result.getPagination().getCountSize(), result.getData()).toJSON());
+				return;
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,17 +75,17 @@ public class RoleController extends BaseController {
 	@RequestMapping(params="operator=addRole")
 	public void addRole(HttpServletRequest request,HttpServletResponse response){
 		try {
-			
+			//字段
 			String roleCode = request.getParameter("roleCode");
 			String rolename = request.getParameter("rolename");
 			String ids = request.getParameter("ids");
-			
+			//角色
 			LzRole role = new LzRole();
 			role.setRoleCode(roleCode);
 			role.setRolename(rolename);
 			role.setCreateDate(DateFormatUtil.getCurrDate());
 			role.setUdpateDate(DateFormatUtil.getCurrDate());
-			
+			//组织角色模块集合
 			List<LzRoleModule> list = new ArrayList<LzRoleModule>();
 			if(!StringUtil.isStrEmpty(ids)){
 				String[] idList = ids.split(",");
@@ -80,11 +99,11 @@ public class RoleController extends BaseController {
 					}
 				}
 			}
+			//插入
 			if(roleService.addRole(role, list)){
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
 				return;
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

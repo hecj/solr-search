@@ -6,12 +6,6 @@
 	$(function(){
 		initFun();
 	});
-	/*$(window).resize(function(){
-		$('#Id_dataCollectSearch').datagrid('resize', {
-			width:function(){return document.body.clientWidth;},
-			height:function(){return document.body.clientHeight;},
-		});
-	});*/
 	var grid;
 	/*
     * 初始化表格

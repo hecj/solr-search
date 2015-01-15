@@ -65,14 +65,13 @@
 		        if (data.code == '0'){
 		        	parent.MessageUtil.messageShow(data.message);
 		        	dialog.dialog('close');
-		        	parentGrid.treegrid('reload');
+		        	parentGrid.datagrid('reload');
 		        }else{
 		        	parent.MessageUtil.errorShow(data.message);
 			    }
 	        }
 	    });
 	}
-
 </script>
 <style type="text/css">
 	label{  

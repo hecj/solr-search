@@ -38,7 +38,6 @@ public class UserController extends BaseController {
 		this.userService = userService;
 	}
 
-
 	@RequestMapping(params="operator=login")
 	public void login(HttpServletRequest request,HttpServletResponse response){
 		try {

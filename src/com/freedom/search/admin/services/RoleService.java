@@ -21,4 +21,9 @@ public interface RoleService {
 	 * 删除角色
 	 */
 	public boolean deleteRole(String roleCode);
+	
+	/**
+	 * 查询角色
+	 */
+	public LzRole searchRole(String roleCode);
 }

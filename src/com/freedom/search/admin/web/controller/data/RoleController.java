@@ -106,6 +106,26 @@ public class RoleController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(params="operator=findRole")
+	public String findRole(String roleCode,HttpServletRequest request,HttpServletResponse response){
+		
+		if(!StringUtil.isStrEmpty(roleCode)){
+			LzRole role = roleService.searchRole(roleCode);
+			request.setAttribute("role", role);
+		}
+		return "admin/jsp/role/rolemanager/findRole";
+	}
+	
+	@RequestMapping(params="operator=editRole")
+	public String editRole(String roleCode,HttpServletRequest request,HttpServletResponse response){
+		
+		if(!StringUtil.isStrEmpty(roleCode)){
+			LzRole role = roleService.searchRole(roleCode);
+			request.setAttribute("role", role);
+		}
+		return "admin/jsp/role/rolemanager/editRole";
+	}
+	
 	@RequestMapping(params="operator=initTree")
 	public void initTree(String moduleId,HttpServletResponse response){
 		

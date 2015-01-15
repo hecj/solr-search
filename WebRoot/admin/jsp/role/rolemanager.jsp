@@ -86,6 +86,54 @@
 			});
 		}
 
+		var findFun = function(){
+
+			var row = grid.datagrid('getSelected');
+			if(row == null){
+				parent.MessageUtil.messageShow("<font color=red>请选择一行!</font>");
+				return;
+			}
+			var dialog = parent.app.dialogModel({
+				title: '查看信息  '+row.roleCode,
+				width: 400,
+				height: 350,
+				url: app.basePath+'admin/role/role.htm?operator=findRole&roleCode='+row.roleCode,
+				buttons:[{
+					text:'关闭',
+					handler:function(){
+						dialog.dialog('close');
+					}
+				}]
+			});
+		}
+
+		var editFun = function(){
+
+			var row = grid.datagrid('getSelected');
+			if(row == null){
+				parent.MessageUtil.messageShow("<font color=red>请选择一行!</font>");
+				return;
+			}
+			var dialog = parent.app.dialogModel({
+				title: '编辑信息  '+row.roleCode,
+				width: 400,
+				height: 350,
+				url: app.basePath+'admin/role/role.htm?operator=editRole&roleCode='+row.roleCode,
+				buttons:[{
+					text:'提交',
+					handler:function(){
+						dialog.find('iframe').get(0).contentWindow.submitForm(dialog,grid);
+					}
+				},{
+					text:'关闭',
+					handler:function(){
+						dialog.dialog('close');
+					}
+				}]
+			});
+		}
+		
+
   	</script>
   </head>
 <body class="easyui-layout" data-options="border:false">

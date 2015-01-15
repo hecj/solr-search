@@ -111,5 +111,15 @@ public class RoleServiceImp implements RoleService {
 		}
 		return false;
 	}
+
+	@Override
+	public LzRole searchRole(String roleCode) {
+		try {
+			return roleDAO.findById(roleCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 }

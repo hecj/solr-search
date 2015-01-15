@@ -2,9 +2,7 @@ package com.freedom.search.admin.web.controller.data;
 
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,12 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.entity.LzRole;
-import com.freedom.search.admin.entity.LzRoleModule;
 import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.vo.MenuTree;
-import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.util.DateFormatUtil;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Log4jUtil;
@@ -76,31 +72,20 @@ public class RoleController extends BaseController {
 	public void addRole(HttpServletRequest request,HttpServletResponse response){
 		try {
 			//字段
-			String roleCode = request.getParameter("roleCode");
 			String rolename = request.getParameter("rolename");
 			String ids = request.getParameter("ids");
 			//角色
 			LzRole role = new LzRole();
-			role.setRoleCode(roleCode);
 			role.setRolename(rolename);
 			role.setCreateDate(DateFormatUtil.getCurrDate());
 			role.setUdpateDate(DateFormatUtil.getCurrDate());
-			//组织角色模块集合
-			List<LzRoleModule> list = new ArrayList<LzRoleModule>();
+			//模块Ids
+			String[] moduleIds = new String[]{};
 			if(!StringUtil.isStrEmpty(ids)){
-				String[] idList = ids.split(",");
-				for(String moduleId : idList){
-					if(!StringUtil.isStrEmpty(moduleId)){
-						LzRoleModule rm = new LzRoleModule();
-						rm.setId(UUIDUtil.autoUUID());
-						rm.setRoleCode(roleCode);
-						rm.setModuleId(moduleId);
-						list.add(rm);
-					}
-				}
+				moduleIds = ids.split(",");
 			}
 			//插入
-			if(roleService.addRole(role, list)){
+			if(roleService.addRole(role, moduleIds)){
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
 				return;
 			}
@@ -108,6 +93,17 @@ public class RoleController extends BaseController {
 			e.printStackTrace();
 		}
 		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+	}
+	
+	@RequestMapping(params="operator=deleteRole")
+	public void deleteRole(String roleCode,HttpServletResponse response){
+		
+		if(!StringUtil.isStrEmpty(roleCode)){
+			roleService.deleteRole(roleCode);
+			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+		}else{
+			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		}
 	}
 	
 	@RequestMapping(params="operator=initTree")

@@ -21,4 +21,16 @@ public class UUIDUtil {
 		return String.valueOf(System.currentTimeMillis())+endUUID;
 	}
 	
+	/**
+	 * 自动生成角色Id
+	 */
+	public static String autoRoleCode(){
+		
+		String endUUID = String.valueOf((int)(Math.random()*10000000l));
+		int endUUIDLenth = endUUID.length() ;
+		for(int i = 0; i<7-endUUIDLenth; i++){
+			endUUID = "0"+endUUID;
+		}
+		return "P"+endUUID;
+	}
 }

@@ -198,13 +198,22 @@
 				</tr>
 				<tr>
 					<td>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(11);">添加兄弟节点</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(11);">兄弟节点</a>
 					</td>
 					<td>
-						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(12);">添加子节点</a>
+						<div class="datagrid-btn-separator"></div>
+					</td>
+					<td>
+						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(12);">子节点</a>
+					</td>
+					<td>
+						<div class="datagrid-btn-separator"></div>
 					</td>
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="menuHandler(2);">删除</a>
+					</td>
+					<td>
+						<div class="datagrid-btn-separator"></div>
 					</td>
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="menuHandler(3);">编辑</a>

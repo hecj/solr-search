@@ -78,6 +78,7 @@
 	    display: inline-block;  
 	    padding: 0 0px;  
 	    text-align:right;
+	    margin-top: 15px;
 	    width: 80px;
 	}
 	form div{
@@ -88,10 +89,6 @@
 <body class="easyui-layout" data-options="border:false">
 	<div id="content" region="center" data-options="border:false">
 		<form method="post">
-			 <div style="margin-top: 20px">
-			    <label for="name">角色代码:</label>
-			    <input name="roleCode" size="25" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'"/>
-		     </div>
 		     <div>
 			    <label for="name" >角色名称:</label>
 				<input name="rolename" size="25" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'" />

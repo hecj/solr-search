@@ -1,6 +1,5 @@
 package com.freedom.search.admin.services.imp;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -11,16 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.freedom.search.admin.dao.RoleDAO;
 import com.freedom.search.admin.dao.RoleModuleDAO;
-import com.freedom.search.admin.entity.LzDataCollectParams;
 import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.entity.LzRoleModule;
 import com.freedom.search.admin.services.RoleService;
+import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
 import com.freedom.search.util.ResultSupport;
 import com.freedom.search.util.StringUtil;
-
 
 @Transactional
 @Service("roleService")
@@ -41,13 +39,31 @@ public class RoleServiceImp implements RoleService {
 	}
 
 	@Override
-	public boolean addRole(LzRole role, List<LzRoleModule> list) {
+	public synchronized boolean addRole(LzRole role,String[] moduleIds) {
 		
 		try {
-			String usercode = (String) roleDAO.save(role);
-			if(!StringUtil.isStrEmpty(usercode)){
-				for(LzRoleModule rm:list){
-					roleModuleDAO.save(rm);
+			//自动判断生成唯一的Id
+			String roleCode = "";
+			while(true){
+				roleCode = UUIDUtil.autoRoleCode();
+				LzRole tempRole = roleDAO.findById(roleCode);
+				if(StringUtil.isObjectNull(tempRole)){
+					break;
+				}
+			}
+			//插入角色
+			role.setRoleCode(roleCode);
+			String roleCodeTemp = (String) roleDAO.save(role);
+			if(!StringUtil.isStrEmpty(roleCodeTemp)){
+				//插入权限
+				for(String id : moduleIds){
+					if(!StringUtil.isStrEmpty(id)){
+						LzRoleModule rm = new LzRoleModule();
+						rm.setId(UUIDUtil.autoUUID());
+						rm.setRoleCode(roleCodeTemp);
+						rm.setModuleId(id);
+						roleModuleDAO.save(rm);
+					}
 				}
 				return true;
 			}
@@ -79,6 +95,21 @@ public class RoleServiceImp implements RoleService {
 			ex.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public boolean deleteRole(String roleCode) {
+		try {
+			//删除权限
+			String deleteRoleModele = "delete LzRoleModule t where t.roleCode='"+roleCode+"'";
+			roleModuleDAO.executeHQL(deleteRoleModele);
+			//删除角色
+			roleDAO.delete(roleDAO.findById(roleCode));
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 }

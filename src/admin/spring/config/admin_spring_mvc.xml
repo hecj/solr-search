@@ -15,7 +15,7 @@
 	<mvc:annotation-driven/>
 	
 	<!-- 扫描包 -->
-	<context:component-scan base-package="com.freedom.search.admin.web.controller.data"/>
+	<context:component-scan base-package="com.freedom.search.admin.web.controller"/>
 
 
  </beans>

@@ -1,4 +1,4 @@
-package com.freedom.search.admin.web.controller.data;
+package com.freedom.search.admin.web.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;

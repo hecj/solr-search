@@ -40,7 +40,7 @@
 			buttons:[{
 				text:'提交',
 				handler:function(){
-					dialog.find('iframe').get(0).contentWindow.submitForm();
+					dialog.find('iframe').get(0).contentWindow.submitForm(dialog);
 				}
 			},{
 				text:'关闭',

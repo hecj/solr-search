@@ -264,6 +264,13 @@ public class UserController extends BaseController {
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "两次密码输入不一致!").toJSON());
 				return ;
 			}
+			
+			//判断新密码一致
+			if(password.equals(newpassword)){
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "新旧密码不可相同!").toJSON());
+				return ;
+			}
+			
 			//修改密码
 			user.setPassword(MD5.md5crypt(newpassword));
 			userService.editUser(user);

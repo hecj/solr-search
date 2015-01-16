@@ -23,18 +23,25 @@
 	    	}
     	}); 
     
-	    var submitForm = function(){
+	    var submitForm = function(dialog){
 			//validate
 			var isValid = $("form").form('validate');
 			if (!isValid){
 				return;
 			}
 
+			var password = $("input[name=password]").val();
 			var newpassword = $("input[name=newpassword]").val();
 			var repassword = $("input[name=repassword]").val();
 			//判断新密码一致
 			if(newpassword != repassword){
 				parent.MessageUtil.errorShow('新密码不相同!');
+				return;
+			}
+
+			//判断新旧密码一致
+			if(password == newpassword){
+				parent.MessageUtil.errorShow('新旧密码不可相同!');
 				return;
 			}
 			
@@ -45,8 +52,8 @@
 			        var data = eval('(' + data + ')');
 			        if (data.code == '0'){
 			        	parent.MessageUtil.messageShow(data.message);
-			        	parent.location.reload();
-			        }else{
+						dialog.dialog('close');
+				    }else{
 			        	parent.MessageUtil.errorShow(data.message);
 				    }
 		        }

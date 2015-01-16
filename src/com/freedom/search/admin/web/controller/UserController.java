@@ -121,7 +121,7 @@ public class UserController extends BaseController {
 			String username = request.getParameter("username");
 			String telPhone = request.getParameter("telPhone");
 			String email = request.getParameter("email");
-			String roleId = request.getParameter("roleId");
+			String roleCode = request.getParameter("roleCode");
 			if(StringUtil.isStrEmpty(usercode) || StringUtil.isStrEmpty(password)){
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名或密码为空!").toJSON());
 				return;
@@ -136,7 +136,7 @@ public class UserController extends BaseController {
 			user.setUsercode(usercode);
 			user.setUsername(username);
 			user.setPassword(MD5.md5crypt(password));
-			user.setRoleId(roleId);
+			user.setRoleCode(roleCode);
 			user.setTelPhone(telPhone);
 			user.setEmail(email);
 			user.setCreateDate(new Date());
@@ -176,7 +176,7 @@ public class UserController extends BaseController {
 			String username = request.getParameter("username");
 			String telPhone = request.getParameter("telPhone");
 			String email = request.getParameter("email");
-			String roleId = request.getParameter("roleId");
+			String roleCode = request.getParameter("roleCode");
 			if(StringUtil.isStrEmpty(usercode)){
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名或密码为空!").toJSON());
 				return;
@@ -184,7 +184,7 @@ public class UserController extends BaseController {
 			
 			LzUser user = userService.searchUserByCode(usercode);
 			user.setUsername(username);
-			user.setRoleId(roleId);
+			user.setRoleCode(roleCode);
 			user.setTelPhone(telPhone);
 			user.setEmail(email);
 			user.setUpdateDate(new Date());
@@ -229,6 +229,11 @@ public class UserController extends BaseController {
 		try {
 			String usercode = request.getParameter("usercode");
 			if(!StringUtil.isStrEmpty(usercode)){
+				UserContext context = (UserContext) request.getSession().getAttribute("context");
+				if(context.getUser().getUsercode().equals(usercode)){
+					write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "当前登陆用户不可删除!").toJSON());
+					return;
+				}
 				if(userService.deleteUser(usercode)){
 					write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
 					return;

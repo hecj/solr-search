@@ -49,7 +49,7 @@ public class LzUser implements Serializable {
 	/*
 	 * 角色
 	 */
-	private String roleId;
+	private String roleCode;
 	/*
 	 * 头像
 	 */
@@ -109,12 +109,13 @@ public class LzUser implements Serializable {
 		this.email = email;
 	}
 
-	public String getRoleId() {
-		return roleId;
+
+	public String getRoleCode() {
+		return roleCode;
 	}
 
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
 	}
 
 	public String getImageHead() {

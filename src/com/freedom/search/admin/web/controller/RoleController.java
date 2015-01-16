@@ -1,8 +1,10 @@
 package com.freedom.search.admin.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.services.RoleService;
+import com.freedom.search.admin.vo.VoCombobox;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.util.DateFormatUtil;
 import com.freedom.search.util.EasyGridData;
@@ -218,5 +221,17 @@ public class RoleController extends BaseController {
 		
 	}
 	
-	
+	@RequestMapping(params="operator=roleList")
+	public void roleList(HttpServletRequest request,HttpServletResponse response){
+		try {
+			List<LzRole> roleList = roleService.searchRoleList();
+			List<VoCombobox> voList = new ArrayList<VoCombobox>();
+			for (LzRole r:roleList) {
+				voList.add(new VoCombobox(r.getRoleCode(),r.getRolename()+"("+r.getRoleCode()+")"));
+			}
+			write(response, ObjectToJson.object2json(voList));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

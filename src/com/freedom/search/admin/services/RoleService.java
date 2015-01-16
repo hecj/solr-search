@@ -18,6 +18,10 @@ public interface RoleService {
 	 * 分页查询角色
 	 */
 	public Result searchRoleByPagination(Map<String, Object> map);
+	/**
+	 * 查询所有角色
+	 */
+	public List<LzRole> searchRoleList();
 	
 	/**
 	 * 删除角色

@@ -235,6 +235,11 @@ public class RoleServiceImp implements RoleService {
 		}
 	}
 
+	@Override
+	public List<LzRole> searchRoleList() {
+		return roleDAO.queryListByParams("select r from LzRole r ");
+	}
+
 	
 	
 }

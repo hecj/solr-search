@@ -40,8 +40,8 @@
 	     <input size="20" value="${user.email }" readonly="readonly"/>
      </div>
      <div class="divHeight">
-	     <label class="labelWidth">角色Id:</label>
-	     <input  size="20" value="${user.roleId }" readonly="readonly"/>
+	     <label class="labelWidth">角色</label>
+	     <input  size="20" value="${user.roleCode }" readonly="readonly"/>
      </div>
      <div class="divHeight">
 	     <label class="labelWidth">创建时间:</label>

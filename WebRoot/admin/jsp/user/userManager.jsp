@@ -34,7 +34,7 @@
 				align : 'center',
 				width:150
 			}, {
-				field : 'roleId',
+				field : 'roleCode',
 				title : '角色代码',
 				align : 'center',
 				width:100

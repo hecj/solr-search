@@ -19,6 +19,14 @@
 </style>
 <script type="text/javascript">
 
+	$(function(){
+	    $('#roleCode').combobox({
+	        url: app.basePath+'admin/role/role.htm?operator=roleList',
+	        valueField:'value',
+	        textField:'text'
+	    });
+	});
+
 	var submitForm = function(dialog,parentGrid){
 		//validate
 		var isValid = $("form").form('validate');
@@ -67,8 +75,8 @@
 	     <input name="email" size="20" value="${user.email }" />
      </div>
      <div class="divHeight">
-	     <label class="labelWidth">角色Id:</label>
-	     <input name="roleId" size="20" value="${user.roleId }" />
+	     <label class="labelWidth">角色</label>
+	     <input id="roleCode" name="roleCode" size="20" value="${user.roleCode }" class="easyui-combobox" data-options="required:true,validType:'notEmpty'"/>
      </div>
 </form>
 </div>

@@ -10,20 +10,18 @@
 	});
 	
 	var initFun = function(){
+		var roleCode = $('input[name=roleCode]').val();
 		tree = $('#tree').tree({
-			url: app.basePath+'admin/role/role.htm?operator=initModule&moduleId=0',
+			url: app.basePath+'admin/role/role.htm?operator=initModule&roleCode='+roleCode,
 			border:false,
-			cascadeCheck:true,
 			onLoadSuccess:function(row, data){
+				$(this).tree('expandAll',$(this).tree('getRoot').target)
 				$.messager.progress('close');
 			},
 			onBeforeLoad:function(row, param){
 				$.messager.progress({
 					text : '数据加载中....'
 				});
-			},
-			onCheck:function(node, checked){
-
 			}
 		});
 	}
@@ -45,6 +43,7 @@
 	<div id="content" region="center" data-options="border:false">
 		<form method="post">
 		     <div>
+		     	<input type="hidden" name="roleCode" value="${role.roleCode }"/>
 			    <label for="name" >角色名称:</label>
 				<input size="25" value="${role.rolename }" readonly="readonly" />
 		     </div>

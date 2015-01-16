@@ -1,7 +1,7 @@
 package com.freedom.search.admin.services;
 
 import com.freedom.search.admin.entity.LzModule;
-import com.freedom.search.admin.vo.MenuTree;
+import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;
 
 public interface MenuTreeService {
@@ -9,7 +9,7 @@ public interface MenuTreeService {
 	/**
 	 * 根据节点Id，递归查询菜单树
 	 */
-	public MenuTree searchMenuTree(String moduleId);
+	public VoTree searchMenuTree(String moduleId);
 	/**
 	 * 根据节点Id,递归查询节点树
 	 */

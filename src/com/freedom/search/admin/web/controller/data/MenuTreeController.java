@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
-import com.freedom.search.admin.vo.MenuTree;
+import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;
 import com.freedom.search.hibernate.util.EscapeCharacterUtil;
 import com.freedom.search.util.Log4jUtil;
@@ -39,7 +39,7 @@ public class MenuTreeController extends BaseController {
 	public void initTree(String moduleId,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			MenuTree voTree = menuTreeService.searchMenuTree(moduleId);
+			VoTree voTree = menuTreeService.searchMenuTree(moduleId);
 			if(voTree != null){
 				write(response, voTree.toJSON());
 			}
@@ -64,7 +64,7 @@ public class MenuTreeController extends BaseController {
 	@RequestMapping(params="operator=addFatherNode")
 	public String addFatherNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
-		if(moduleId.equals(EnumAdminUtils.Tree.ROOT.code)){
+		if(moduleId.equals(EnumAdminUtils.Tree.Root.code)){
 			return "admin/jsp/treemanager/treemanager/addFatherNode";
 		}
 		
@@ -161,7 +161,7 @@ public class MenuTreeController extends BaseController {
 		
 		try {
 			
-			if(moduleId.equals(EnumAdminUtils.Tree.ROOT.code)){
+			if(moduleId.equals(EnumAdminUtils.Tree.Root.code)){
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "根节点不可删除!").toJSON());
 				return;
 			}

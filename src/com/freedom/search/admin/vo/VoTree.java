@@ -16,7 +16,7 @@ import com.freedom.search.util.ObjectToJson;
  * @创建时间：2015-1-6 下午08:08:31
  * @版本：V1.0
  */
-public class MenuTree implements Serializable {
+public class VoTree implements Serializable {
 	
 	/**
 	 * @Fields serialVersionUID : TODO
@@ -28,7 +28,7 @@ public class MenuTree implements Serializable {
 	private String state; //打开、关闭 open、closed
 	private String iconCls;
 	private Map<String,String> attributes;//节点链接地址或按钮属性
-	private List<MenuTree> children;
+	private List<VoTree> children;
 	
 	public String getId() {
 		return id;
@@ -70,11 +70,11 @@ public class MenuTree implements Serializable {
 		this.attributes = attributes;
 	}
 
-	public List<MenuTree> getChildren() {
+	public List<VoTree> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<MenuTree> children) {
+	public void setChildren(List<VoTree> children) {
 		this.children = children;
 	}
 
@@ -83,7 +83,7 @@ public class MenuTree implements Serializable {
 	}
 	
 	public String toString() {
-		List<MenuTree> list = new ArrayList<MenuTree>();
+		List<VoTree> list = new ArrayList<VoTree>();
 		list.add(this);
 		return ObjectToJson.object2json(list) ;
 	}

@@ -57,28 +57,33 @@ public class EnumAdminUtils {
 		}
 		
 	}
-	/**
-	 * 是否叶子
-	 * 0:否
-	 * 1:是
-	 */	
-	public enum Leaf {
-		TRUE("1"), FALSE("0");
-		public String code;
-		Leaf(String code) {
-			this.code = code ;
-		}
-	}
 	
 	/**
 	 * 菜单树
 	 */	
 	public enum Tree {
-		ROOT("0");
+		RootParent("root"),Root("0");
 		public String code;
 		Tree(String code) {
 			this.code = code ;
 		}
+		/*树展开状态*/
+		public enum State {
+			Open("open"),Closed("closed");
+			public String code;
+			State(String code) {
+				this.code = code ;
+			}
+		}
+		/*叶子属性*/
+		public enum Leaf {
+			True("1"), False("0");
+			public String code;
+			Leaf(String code) {
+				this.code = code ;
+			}
+		}
+		
 	}
 	
 }

@@ -16,7 +16,7 @@ import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
-import com.freedom.search.admin.vo.MenuTree;
+import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.StringUtil;
@@ -34,14 +34,14 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		this.moduleDAO = moduleDAO;
 	}
 	@Override
-	public MenuTree searchMenuTree(String moduleId) {
+	public VoTree searchMenuTree(String moduleId) {
 		
 		List<LzModule> list = moduleDAO.queryListByParams("select m from LzModule m where m.id=?", new Object[]{moduleId});
 		if(list.size() == 0){
 			return null;
 		}
 		LzModule module = list.get(0);
-		MenuTree menuTree = new MenuTree();
+		VoTree menuTree = new VoTree();
 		menuTree.setId(module.getModuleId());
 		menuTree.setText(module.getName());
 		menuTree.setState(module.getState());
@@ -50,19 +50,19 @@ public class MenuTreeServiceImp implements MenuTreeService{
 	/* 
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
-	private MenuTree searchMenuTree(MenuTree voTree,Set<LzModule> set) {
+	private VoTree searchMenuTree(VoTree voTree,Set<LzModule> set) {
 		String hql = "select m from LzModule m where m.parentId=?";
 		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getId()});
 		if(modules.size() == 0){
 			return voTree;
 		}else{
-			List<MenuTree> chiledTree = new ArrayList<MenuTree>();
+			List<VoTree> chiledTree = new ArrayList<VoTree>();
 			for(LzModule m : modules){
-				MenuTree t = new MenuTree();
+				VoTree t = new VoTree();
 				t.setId(m.getModuleId());
 				t.setText(m.getName());
 				t.setState(m.getState());
-				if(m.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
+				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.True.code)){
 					t.setIconCls(m.getIcons());
 				}
 				Map<String,String> attrMap = new HashMap<String,String>();
@@ -71,7 +71,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 					attrMap.put("url", m.getUrl());
 					t.setAttributes(attrMap);
 				}
-				if(m.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
+				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
 					if(!set.add(m)){
 						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
 						return voTree;
@@ -98,7 +98,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			voModule.setParentId(module.getParentId());
 			voModule.setState(module.getState());
 			voModule.setLeaf(module.getLeaf());
-			if(module.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
+			if(module.getLeaf().equals(EnumAdminUtils.Tree.Leaf.True.code)){
 				voModule.setIconCls(module.getIcons());
 			}
 			return treeManagerSearch(voModule,new HashSet<LzModule>());
@@ -120,7 +120,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				VoModule voModule = new VoModule();
 				voModule.setModuleId(m.getModuleId());
 				voModule.setName(m.getName());
-				if(m.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
+				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.True.code)){
 					voModule.setIconCls(m.getIcons());
 				}
 				voModule.setLeaf(m.getLeaf());
@@ -130,7 +130,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 				if(!StringUtil.isStrEmpty(m.getUrl())){
 					voModule.setUrl(m.getUrl());
 				}
-				if(m.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
+				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
 					if(!set.add(m)){
 						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
 						return voTree;
@@ -207,8 +207,8 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			module.setModuleId(newModuleId);
 			LzModule parentModule = moduleDAO.findById(module.getParentId());
 			//更新父节点为枝干
-			if(parentModule.getLeaf().equals(EnumAdminUtils.Leaf.TRUE.code)){
-				parentModule.setLeaf(EnumAdminUtils.Leaf.FALSE.code);
+			if(parentModule.getLeaf().equals(EnumAdminUtils.Tree.Leaf.True.code)){
+				parentModule.setLeaf(EnumAdminUtils.Tree.Leaf.False.code);
 				moduleDAO.update(parentModule);
 			}
 			moduleDAO.save(module);
@@ -223,7 +223,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 		LzModule module = moduleDAO.findById(moduleId);
 		if(!StringUtil.isObjectEmpty(module)){
 			//如何是枝干，则递归查询子节点Id
-			if(module.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
+			if(module.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
 				//递归删除
 				String ids = searchIds("",moduleId,new HashSet<String>());
 				ids = ids.replaceAll(",,", ",").replaceAll(",,,", ",");
@@ -244,7 +244,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
 			if(list.size() == 0){
 				LzModule m = moduleDAO.findById(module.getParentId());
-				m.setLeaf(EnumAdminUtils.Leaf.TRUE.code);
+				m.setLeaf(EnumAdminUtils.Tree.Leaf.True.code);
 				moduleDAO.merge(m);
 			}
 			return true;
@@ -262,7 +262,7 @@ public class MenuTreeServiceImp implements MenuTreeService{
 			return ids;
 		}else{
 			for(LzModule m : modules){
-				if(m.getLeaf().equals(EnumAdminUtils.Leaf.FALSE.code)){
+				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
 					if(!set.add(m.getModuleId())){
 						Log4jUtil.error("出现了递归死循环！Module："+m.getModuleId());
 						return ids;

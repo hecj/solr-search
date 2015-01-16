@@ -2,7 +2,9 @@ package com.freedom.search.admin.web.controller.data;
 
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,11 +18,12 @@ import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.MenuTreeService;
 import com.freedom.search.admin.services.RoleService;
-import com.freedom.search.admin.vo.MenuTree;
+import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.util.DateFormatUtil;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
+import com.freedom.search.util.ObjectToJson;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
 import com.freedom.search.util.StringUtil;
@@ -130,7 +133,7 @@ public class RoleController extends BaseController {
 	public void initTree(String moduleId,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			MenuTree voTree = menuTreeService.searchMenuTree(moduleId);
+			VoTree voTree = menuTreeService.searchMenuTree(moduleId);
 			if(voTree != null){
 				write(response, voTree.toString());
 			}
@@ -140,15 +143,26 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping(params="operator=initModule")
-	public void initModule(String moduleId,HttpServletResponse response){
-		System.out.println("==============="+moduleId);
-		if(!StringUtil.isStrEmpty(moduleId)){
-			MenuTree tree = new MenuTree();
-			tree.setId("0");
-			tree.setText("根节点");
-			tree.setState("open");
-			write(response, tree.toString());
+	public void initModule(HttpServletRequest request,HttpServletResponse response){
+		String roleCode = request.getParameter("roleCode");
+		String id = request.getParameter("id");
+		//Id为空时,默认为超级节点
+		if(StringUtil.isStrEmpty(id)){
+			id = EnumAdminUtils.Tree.RootParent.code ;
 		}
+		//查询节点树
+		if(!StringUtil.isStrEmpty(roleCode)){
+			List<VoTree> trees = roleService.searchTreeByRoleCode(roleCode, id);
+			if(trees.size()>0){
+				write(response, ObjectToJson.object2json(trees));
+				return;
+			}
+		}
+		//无权限
+		VoTree defaultTree = new VoTree();
+		defaultTree.setText("<font color=red>无权限</font>");
+		write(response, defaultTree.toString());
+		
 	}
 	
 }

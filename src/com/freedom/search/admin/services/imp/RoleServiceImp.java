@@ -1,5 +1,6 @@
 package com.freedom.search.admin.services.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,11 +9,15 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.dao.RoleDAO;
 import com.freedom.search.admin.dao.RoleModuleDAO;
+import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.entity.LzRoleModule;
+import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.RoleService;
+import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.Pagination;
@@ -28,14 +33,19 @@ public class RoleServiceImp implements RoleService {
 	private RoleDAO roleDAO;
 	@Resource
 	private RoleModuleDAO roleModuleDAO;
+	@Resource
+	private ModuleDAO moduleDAO;
 	
-
 	public void setRoleModuleDAO(RoleModuleDAO roleModuleDAO) {
 		this.roleModuleDAO = roleModuleDAO;
 	}
 
 	public void setRoleDAO(RoleDAO roleDAO) {
 		this.roleDAO = roleDAO;
+	}
+
+	public void setModuleDAO(ModuleDAO moduleDAO) {
+		this.moduleDAO = moduleDAO;
 	}
 
 	@Override
@@ -120,6 +130,31 @@ public class RoleServiceImp implements RoleService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public List<VoTree> searchTreeByRoleCode(String roleCode, String id) {
+		
+		List<VoTree> trees = new ArrayList<VoTree>();
+		try {
+			//查询模块权限
+			String qHql = "select m from LzModule m where m.moduleId in (select rm.moduleId from LzRoleModule rm where rm.roleCode=?) and m.parentId=?";
+			List<LzModule> modules = moduleDAO.queryListByParams(qHql, new Object[]{roleCode,id});
+			//模块转树对象
+			for(LzModule m : modules){
+				VoTree tree = new VoTree();
+				tree.setId(m.getModuleId());
+				tree.setText(m.getName());
+				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
+					tree.setState(EnumAdminUtils.Tree.State.Closed.code);
+				}
+				tree.setIconCls(m.getIcons());
+				trees.add(tree);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return trees;
 	}
 	
 }

@@ -31,7 +31,7 @@ public interface ModuleService {
 	 * 递归删除节点，包括子节点
 	 * @throws Exception 
 	 */
-	public boolean deleteNode(String moduleId) throws ModuleRoleExistException;
+	public boolean deleteNode(String moduleId) ;
 	
 	/**
 	 * 编辑节点

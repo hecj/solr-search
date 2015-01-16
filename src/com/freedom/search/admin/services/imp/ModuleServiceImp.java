@@ -16,8 +16,6 @@ import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.dao.RoleModuleDAO;
 import com.freedom.search.admin.entity.LzModule;
-import com.freedom.search.admin.entity.LzRoleModule;
-import com.freedom.search.admin.exception.ModuleRoleExistException;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;
@@ -227,7 +225,8 @@ public class ModuleServiceImp implements ModuleService{
 	}
 	
 	@Override
-	public boolean deleteNode(String moduleId) throws ModuleRoleExistException{
+	public boolean deleteNode(String moduleId) {
+		
 		LzModule module = moduleDAO.findById(moduleId);
 		if(!StringUtil.isObjectEmpty(module)){
 			//如何是枝干，则递归查询子节点Id
@@ -243,18 +242,7 @@ public class ModuleServiceImp implements ModuleService{
 					ids = ids.substring(0, ids.length()-1);
 				}
 			}
-			String qRMHql ;
-			if(!StringUtil.isStrEmpty(ids)){
-				qRMHql = "select count(m) from LzRoleModule m where m.moduleId in ('"+module.getModuleId()+"',"+ids+")";
-			}else{
-				qRMHql = "select count(m) from LzRoleModule m where m.moduleId in ('"+module.getModuleId()+"')";
-			}
-			//如何模块已被授权，则禁止删除模块
-			System.out.println(qRMHql);
-			Long count = (Long) roleModuleDAO.queryUniqueResultByHQL(qRMHql);
-			if(count > 0){
-				throw new ModuleRoleExistException("模块("+module.getModuleId()+")已被授权"+count+"次,不可删除!");
-			}
+			
 			//删除模块及子模块
 			String dHql;
 			if(!StringUtil.isStrEmpty(ids)){
@@ -263,6 +251,18 @@ public class ModuleServiceImp implements ModuleService{
 				dHql = "delete LzModule m where m.moduleId in ('"+module.getModuleId()+"')";
 			}
 			moduleDAO.executeHQL(dHql);
+			
+			String qRMHql ;
+			if(!StringUtil.isStrEmpty(ids)){
+				qRMHql = "select count(m) from LzRoleModule m where m.moduleId in ('"+module.getModuleId()+"',"+ids+")";
+			}else{
+				qRMHql = "select count(m) from LzRoleModule m where m.moduleId in ('"+module.getModuleId()+"')";
+			}
+			//如何模块已被授权，则禁止删除模块
+			Long count = (Long) roleModuleDAO.queryUniqueResultByHQL(qRMHql);
+			if(count > 0){
+				throw new RuntimeException("模块("+module.getModuleId()+")已被授权"+count+"次,不可删除!");
+			}
 			//判断是否改变父节点为叶子
 			String qHql = "select m from LzModule m where m.parentId=?";
 			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});

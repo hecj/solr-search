@@ -147,12 +147,9 @@ public class ModuleController extends BaseController {
 					return ;
 				}
 			}
-		}catch(ModuleRoleExistException ex){
-			ex.printStackTrace();
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, ex.getMessage()).toJSON());
-			return;
 		} catch (Exception e) {
 			e.printStackTrace();
+			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()).toJSON());
 		}		
 		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
 	}

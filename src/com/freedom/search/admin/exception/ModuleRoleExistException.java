@@ -2,7 +2,7 @@ package com.freedom.search.admin.exception;
 /**
  * 模块角色已存在异常
  */
-public class ModuleRoleExistException extends Exception {
+public class ModuleRoleExistException extends RuntimeException {
 
 	/**
 	 * @Fields serialVersionUID : TODO

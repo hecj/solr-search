@@ -13,7 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.freedom.search.admin.entity.LzDataCollectParams;
 import com.freedom.search.admin.services.DataCollectService;
-import com.freedom.search.admin.services.MenuTreeService;
+import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Pagination;
@@ -23,7 +23,7 @@ public class TestDataCollectServiceService {
 	
 	private DataCollectService dataCollectService ;
 	private SessionFactory sessionFactory ;
-	private MenuTreeService menuTreeService ;
+	private ModuleService menuTreeService ;
 	
 	@Before
 	public void init(){
@@ -31,7 +31,7 @@ public class TestDataCollectServiceService {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath*:test/bean/applicationContext.xml");
 		dataCollectService = (DataCollectService) ctx.getBean("dataCollectService");
 		sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
-		menuTreeService = (MenuTreeService) ctx.getBean("menuTreeService");
+		menuTreeService = (ModuleService) ctx.getBean("menuTreeService");
 		
 		System.out.println(sessionFactory);
 	}

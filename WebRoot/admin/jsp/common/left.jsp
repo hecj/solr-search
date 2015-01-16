@@ -7,7 +7,7 @@
 		$(function(){
 			customMenu = $('#customMenu').tree( {
 				//url : app.basePath+'admin/js/common/tree3.json',
-				url : app.basePath+'admin/tree/menuTree.htm?operator=initTree&moduleId=0001',
+				url : app.basePath+'admin/tree/tree.htm?operator=initTree&moduleId=0001',
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
 						if(node.state == "open"){
@@ -39,7 +39,7 @@
 			});
 			
 			$('#easyUIAPI').tree( {
-				url : app.basePath+'admin/tree/menuTree.htm?operator=initTree&moduleId=0002',
+				url : app.basePath+'admin/tree/tree.htm?operator=initTree&moduleId=0002',
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
 						if(node.state == "open"){

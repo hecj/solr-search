@@ -15,14 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.senum.EnumAdminUtils;
-import com.freedom.search.admin.services.MenuTreeService;
+import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.StringUtil;
 @Transactional
-@Service("menuTreeService")
-public class MenuTreeServiceImp implements MenuTreeService{
+@Service("moduleService")
+public class ModuleServiceImp implements ModuleService{
 	
 	@Resource
 	private ModuleDAO moduleDAO;

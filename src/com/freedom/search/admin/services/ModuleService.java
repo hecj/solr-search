@@ -4,7 +4,7 @@ import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;
 
-public interface MenuTreeService {
+public interface ModuleService {
 	
 	/**
 	 * 根据节点Id，递归查询菜单树

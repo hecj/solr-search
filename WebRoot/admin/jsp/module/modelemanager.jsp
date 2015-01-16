@@ -11,7 +11,7 @@
 		$(function(){
 
 			treegrid = $('#treegrid').treegrid({
-				url: app.basePath+'admin/tree/menuTree.htm?operator=treeManagerQuery&moduleId=0',
+				url: app.basePath+'admin/module/module.htm?operator=searchModule&moduleId=0',
 				idField: 'moduleId',
 				treeField: 'name',
 				toolbar:'#toolbar',
@@ -93,7 +93,7 @@
 					title: '添加兄弟节点',
 					width: 400,
 					height: 330,
-					url : app.basePath+'admin/tree/menuTree.htm?operator=addBrotherNode&moduleId='+row.moduleId,
+					url : app.basePath+'admin/module/module.htm?operator=addBrotherNode&moduleId='+row.moduleId,
 					buttons:[{
 						text:'提交',
 						handler:function(){
@@ -112,7 +112,7 @@
 					title: '添加子节点',
 					width: 400,
 					height: 330,
-					url : app.basePath+'admin/tree/menuTree.htm?operator=addChildNode&moduleId='+row.moduleId,
+					url : app.basePath+'admin/module/module.htm?operator=addChildNode&moduleId='+row.moduleId,
 					buttons:[{
 						text:'提交',
 						handler:function(){
@@ -134,7 +134,7 @@
 				parent.$.messager.confirm('提示信息','确定要删除吗?',function(r){
 					if (r){
 						$.ajax({
-							url : app.basePath+'admin/tree/menuTree.htm?operator=deleteNode',
+							url : app.basePath+'admin/module/module.htm?operator=deleteNode',
 							data:{moduleId:row.moduleId},
 							async:true,
 							dataType:'json',
@@ -166,7 +166,7 @@
 					title: '编辑节点 Id:'+row.moduleId,
 					width: 400,
 					height: 330,
-					url : app.basePath+'admin/tree/menuTree.htm?operator=editNode&moduleId='+row.moduleId,
+					url : app.basePath+'admin/module/module.htm?operator=editNode&moduleId='+row.moduleId,
 					buttons:[{
 						text:'提交',
 						handler:function(){

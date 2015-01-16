@@ -1,12 +1,8 @@
 package com.freedom.search.admin.web.controller.data;
 
-
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.senum.EnumAdminUtils;
-import com.freedom.search.admin.services.MenuTreeService;
+import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.util.DateFormatUtil;
@@ -36,13 +32,13 @@ public class RoleController extends BaseController {
 	@Resource
 	private RoleService roleService;
 	@Resource
-	private MenuTreeService menuTreeService;
+	private ModuleService menuTreeService;
 
 	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
 
-	public void setMenuTreeService(MenuTreeService menuTreeService) {
+	public void setMenuTreeService(ModuleService menuTreeService) {
 		this.menuTreeService = menuTreeService;
 	}
 

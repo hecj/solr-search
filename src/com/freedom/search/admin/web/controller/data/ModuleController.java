@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.senum.EnumAdminUtils;
-import com.freedom.search.admin.services.MenuTreeService;
-import com.freedom.search.admin.vo.VoTree;
+import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.VoModule;
-import com.freedom.search.hibernate.util.EscapeCharacterUtil;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
 import com.freedom.search.util.StringUtil;
@@ -21,38 +19,21 @@ import com.freedom.search.util.http.HtmlUtils;
 import com.freedom.search.web.controller.base.BaseController;
 
 @Controller
-@RequestMapping("admin/tree/menuTree.htm")
-public class MenuTreeController extends BaseController {
+@RequestMapping("admin/module/module.htm")
+public class ModuleController extends BaseController {
 	
 	@Resource
-	private MenuTreeService menuTreeService;
+	private ModuleService moduleService;
 
-	public MenuTreeService getMenuTreeService() {
-		return menuTreeService;
+	public void setModuleService(ModuleService moduleService) {
+		this.moduleService = moduleService;
 	}
 
-	public void setMenuTreeService(MenuTreeService menuTreeService) {
-		this.menuTreeService = menuTreeService;
-	}
-	
-	@RequestMapping(params="operator=initTree")
-	public void initTree(String moduleId,HttpServletResponse response){
+	@RequestMapping(params="operator=searchModule")
+	public void searchModule(String moduleId,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			VoTree voTree = menuTreeService.searchMenuTree(moduleId);
-			if(voTree != null){
-				write(response, voTree.toJSON());
-			}
-		}else{
-			Log4jUtil.log("moduleId is null!");
-		}
-	}
-	
-	@RequestMapping(params="operator=treeManagerQuery")
-	public void treeManagerQuery(String moduleId,HttpServletResponse response){
-		
-		if(!StringUtil.isStrEmpty(moduleId)){
-			VoModule voTree = menuTreeService.treeManagerSearch(moduleId);
+			VoModule voTree = moduleService.treeManagerSearch(moduleId);
 			if(!StringUtil.isObjectEmpty(voTree)){
 				write(response, voTree.toJSON());
 				return;
@@ -65,31 +46,24 @@ public class MenuTreeController extends BaseController {
 	public String addFatherNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
 		if(moduleId.equals(EnumAdminUtils.Tree.Root.code)){
-			return "admin/jsp/treemanager/treemanager/addFatherNode";
+			return "admin/jsp/module/modulemanager/addFatherNode";
 		}
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			LzModule module = menuTreeService.searchModuleById(moduleId);
+			LzModule module = moduleService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
-		return "admin/jsp/treemanager/treemanager/addFatherNode";
-	}
-	
-	@RequestMapping(params="operator=addFatherNodeSumbit")
-	public void addFatherNodeSumbit(HttpServletRequest request,HttpServletResponse response){
-		
-		System.out.println("===================");
-		
+		return "admin/jsp/module/modulemanager/addFatherNode";
 	}
 	
 	@RequestMapping(params="operator=addChildNode")
 	public String addChildNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			LzModule module = menuTreeService.searchModuleById(moduleId);
+			LzModule module = moduleService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
-		return "admin/jsp/treemanager/treemanager/addChildNode";
+		return "admin/jsp/module/modulemanager/addChildNode";
 	}
 	
 	@RequestMapping(params="operator=addChildNodeSumbit")
@@ -110,7 +84,7 @@ public class MenuTreeController extends BaseController {
 			module.setUrl(url);
 			module.setParentId(parentId);
 			
-			if(menuTreeService.addChildNode(module)){
+			if(moduleService.addChildNode(module)){
 				write(response, new MessageCode("0", "处理成功!").toJSON());
 				return;
 			}
@@ -124,10 +98,10 @@ public class MenuTreeController extends BaseController {
 	public String addBrotherNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			LzModule module = menuTreeService.searchModuleById(moduleId);
+			LzModule module = moduleService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
-		return "admin/jsp/treemanager/treemanager/addBrotherNode";
+		return "admin/jsp/module/modulemanager/addBrotherNode";
 	}
 	
 	@RequestMapping(params="operator=addBrotherNodeSumbit")
@@ -148,7 +122,7 @@ public class MenuTreeController extends BaseController {
 		module.setState(state);
 		module.setUrl(url);
 		
-		if(menuTreeService.addBrotherNode(module)){
+		if(moduleService.addBrotherNode(module)){
 			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
 			return ;
 		}else{
@@ -167,7 +141,7 @@ public class MenuTreeController extends BaseController {
 			}
 			
 			if(!StringUtil.isStrEmpty(moduleId)){
-				if(menuTreeService.deleteNode(moduleId)){
+				if(moduleService.deleteNode(moduleId)){
 					write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
 					return ;
 				}
@@ -201,10 +175,10 @@ public class MenuTreeController extends BaseController {
 	public String editNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			LzModule module = menuTreeService.searchModuleById(moduleId);
+			LzModule module = moduleService.searchModuleById(moduleId);
 			request.setAttribute("module", module);
 		}
-		return "admin/jsp/treemanager/treemanager/editNode";
+		return "admin/jsp/module/modulemanager/editNode";
 	}
 	
 	@RequestMapping(params="operator=editNodeSumbit")
@@ -227,7 +201,7 @@ public class MenuTreeController extends BaseController {
 		module.setState(state);
 		module.setUrl(url);
 		
-		if(menuTreeService.updateNode(module)){
+		if(moduleService.updateNode(module)){
 			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
 			return ;
 		}else{

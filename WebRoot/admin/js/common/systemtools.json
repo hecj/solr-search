@@ -5,7 +5,7 @@
 	"children" : [ {
 		"text" : "模块管理",
 		"attributes":{
-			"url" : "http://localhost:8080/search/admin/jsp/treemanager/treemanager.jsp"
+			"url" : "http://localhost:8080/search/admin/jsp/module/modelemanager.jsp"
 		}
 	}]
 }]

@@ -244,4 +244,34 @@ public class UserController extends BaseController {
 		}
 		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
 	}
+	
+	@RequestMapping(params="operator=editPwd")
+	public void editPwd(HttpServletRequest request,HttpServletResponse response){
+		
+		try {
+			String password = request.getParameter("password");
+			String newpassword = request.getParameter("newpassword");
+			String repassword = request.getParameter("repassword");
+			//判断密码
+			UserContext context = (UserContext) request.getSession().getAttribute("context");
+			LzUser user = userService.searchUserByCode(context.getUser().getUsercode());
+			if(!user.getPassword().equals(MD5.md5crypt(password))){
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "密码不正确!").toJSON());
+				return ;
+			}
+			//判断新密码一致
+			if(!newpassword.equals(repassword)){
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "两次密码输入不一致!").toJSON());
+				return ;
+			}
+			//修改密码
+			user.setPassword(MD5.md5crypt(newpassword));
+			userService.editUser(user);
+			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+	}
 }

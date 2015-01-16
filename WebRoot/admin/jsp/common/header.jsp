@@ -15,7 +15,44 @@
 </style>
 <script type="text/javascript">
 
-	var logout = function(){
+	var userMenu;
+	$(function(){
+		userMenu = $('#userMenu').menu({});
+	});
+
+	/*显示用户菜单*/
+	var showUserMenuFun = function(e){
+		p = common.mouse(e);
+		userMenu.menu('show', {
+	        left: p.x,
+	        top: p.y
+	    });
+	}
+	
+	/*修改密码*/
+	var editPwdFun = function(){
+		var dialog = parent.app.dialogModel({
+			title: '修改密码',
+			width: 350,
+			height: 230,
+			closable:false,
+			url : app.basePath+'admin/jsp/common/editPwd.jsp',
+			buttons:[{
+				text:'提交',
+				handler:function(){
+					dialog.find('iframe').get(0).contentWindow.submitForm();
+				}
+			},{
+				text:'关闭',
+				handler:function(){
+					dialog.dialog('close');
+				}
+			}]
+		});
+	}
+	
+	/*退出系统*/
+	var logoutFun = function(){
 		parent.$.messager.confirm('提示信息','确定要注销吗?',function(r){
 			if (r){
 				$.ajax({
@@ -53,8 +90,7 @@
 						<td height="100%">
 							<div class="divUser">
 									<c:if test="${not empty context}">
-										用户名:<a href="#">${context.user.usercode }</a>
-										<a href="javascript:logout();" style="color: red">注销</a>
+										用户名:<a onclick="showUserMenuFun(event)" href="javascript:void(0);">${context.user.usercode }</a>
 									</c:if>
 							</div>
 						</td>
@@ -64,3 +100,13 @@
 		</tr>
 	
 </table>
+
+<div id="userMenu">
+	<div onclick="editPwdFun()" data-options="iconCls:'icon-edit'">
+		修改密码
+	</div>
+	<div class="menu-sep"></div>
+	<div onclick="logoutFun()" data-options="iconCls:'icon-close'">
+		退出系统
+	</div>
+</div>

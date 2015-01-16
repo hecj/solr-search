@@ -92,9 +92,11 @@ public class TempIndexServiceImp implements TempIndexService {
 				Log4jUtil.log("本次任务扫描临时索引个数："+mCountSize+",提交峰值为："+commitCount);
 			}
 			
-		}catch(Exception mException){
-			
-			mException.printStackTrace();
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			throw e;
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 
@@ -119,6 +121,9 @@ public class TempIndexServiceImp implements TempIndexService {
 			Log4jUtil.log("重构索引个数："+rArticles.size());
 			Log4jUtil.log("success ...");
 
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			throw e;
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

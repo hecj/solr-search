@@ -96,13 +96,15 @@ public class RoleController extends BaseController {
 	
 	@RequestMapping(params="operator=deleteRole")
 	public void deleteRole(String roleCode,HttpServletResponse response){
-		
-		if(!StringUtil.isStrEmpty(roleCode)){
-			roleService.deleteRole(roleCode);
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
-		}else{
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		try {
+			if(!StringUtil.isStrEmpty(roleCode)){
+				roleService.deleteRole(roleCode);
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
 	}
 	
 	@RequestMapping(params="operator=findRole")
@@ -117,7 +119,6 @@ public class RoleController extends BaseController {
 	
 	@RequestMapping(params="operator=editRole")
 	public String editRole(String roleCode,HttpServletRequest request,HttpServletResponse response){
-		
 		if(!StringUtil.isStrEmpty(roleCode)){
 			LzRole role = roleService.searchRole(roleCode);
 			request.setAttribute("role", role);

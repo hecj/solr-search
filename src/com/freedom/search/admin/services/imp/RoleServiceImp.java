@@ -77,8 +77,9 @@ public class RoleServiceImp implements RoleService {
 				}
 				return true;
 			}
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			e.printStackTrace();
+			throw e;
 		}
 		return false;
 	}
@@ -116,10 +117,10 @@ public class RoleServiceImp implements RoleService {
 			//删除角色
 			roleDAO.delete(roleDAO.findById(roleCode));
 			return true;
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			e.printStackTrace();
+			throw e;
 		}
-		return false;
 	}
 
 	@Override
@@ -228,10 +229,10 @@ public class RoleServiceImp implements RoleService {
 				}
 			}
 			return true;
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			e.printStackTrace();
+			throw e;
 		}
-		return false;
 	}
 
 	

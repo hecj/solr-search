@@ -167,8 +167,9 @@ public class ModuleServiceImp implements ModuleService{
 				return true;
 			}
 		
-		}catch(Exception ex){
+		}catch(RuntimeException ex){
 			ex.printStackTrace();
+			throw ex;
 		}
 		return false;
 	}
@@ -218,10 +219,10 @@ public class ModuleServiceImp implements ModuleService{
 			}
 			moduleDAO.save(module);
 			return true;
-		}catch(Exception ex){
+		}catch(RuntimeException ex){
 			ex.printStackTrace();
+			throw ex;
 		}
-		return false;
 	}
 	
 	@Override
@@ -304,10 +305,10 @@ public class ModuleServiceImp implements ModuleService{
 		try {
 			moduleDAO.merge(module);
 			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
+		}catch(RuntimeException ex){
+			ex.printStackTrace();
+			throw ex;
 		}
-		return false;
 	}
 
 }

@@ -36,9 +36,10 @@ public class UserServiceImp implements UserService {
 			if(!StringUtil.isObjectNull(serializable)){
 				return true;
 			}
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			Log4jUtil.error("usercode:"+user.getUsercode());
 			e.printStackTrace();
+			throw e;
 		}
 		return false;
 	}
@@ -50,9 +51,10 @@ public class UserServiceImp implements UserService {
 			if(!StringUtil.isObjectNull(user)){
 				return userDAO.delete(user);
 			}
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			Log4jUtil.error("usercode:"+usercode);
 			e.printStackTrace();
+			throw e;
 		}
 		return false;
 	}
@@ -62,11 +64,11 @@ public class UserServiceImp implements UserService {
 		try {
 			userDAO.merge(user);
 			return true;
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			Log4jUtil.error("usercode:"+user.getUsercode());
 			e.printStackTrace();
+			throw e;
 		}
-		return false;
 	}
 
 	@Override

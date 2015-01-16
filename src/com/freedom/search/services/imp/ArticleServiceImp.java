@@ -99,8 +99,9 @@ public class ArticleServiceImp implements ArticleService{
 			LaArticle article = articleDAO.findById(pArticleNo);
 			articleDAO.delete(article);
 			
-		}catch(Exception ex){
+		}catch(RuntimeException ex){
 			ex.printStackTrace();
+			throw ex;
 		}
 	}
 	@Override

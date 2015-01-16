@@ -45,24 +45,30 @@ public class ModuleController extends BaseController {
 	
 	@RequestMapping(params="operator=addFatherNode")
 	public String addFatherNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
-		
-		if(moduleId.equals(EnumAdminUtils.Tree.Root.code)){
-			return "admin/jsp/module/modulemanager/addFatherNode";
-		}
-		
-		if(!StringUtil.isStrEmpty(moduleId)){
-			LzModule module = moduleService.searchModuleById(moduleId);
-			request.setAttribute("module", module);
+		try {
+			if(moduleId.equals(EnumAdminUtils.Tree.Root.code)){
+				return "admin/jsp/module/modulemanager/addFatherNode";
+			}
+			
+			if(!StringUtil.isStrEmpty(moduleId)){
+				LzModule module = moduleService.searchModuleById(moduleId);
+				request.setAttribute("module", module);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return "admin/jsp/module/modulemanager/addFatherNode";
 	}
 	
 	@RequestMapping(params="operator=addChildNode")
 	public String addChildNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
-		
-		if(!StringUtil.isStrEmpty(moduleId)){
-			LzModule module = moduleService.searchModuleById(moduleId);
-			request.setAttribute("module", module);
+		try {
+			if(!StringUtil.isStrEmpty(moduleId)){
+				LzModule module = moduleService.searchModuleById(moduleId);
+				request.setAttribute("module", module);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return "admin/jsp/module/modulemanager/addChildNode";
 	}
@@ -70,7 +76,6 @@ public class ModuleController extends BaseController {
 	@RequestMapping(params="operator=addChildNodeSumbit")
 	public void addChildNodeSumbit(HttpServletRequest request,HttpServletResponse response){
 		try{
-			
 			String name = request.getParameter("name");
 			String parentId = request.getParameter("parentId");
 			String url = request.getParameter("url");
@@ -97,45 +102,49 @@ public class ModuleController extends BaseController {
 	
 	@RequestMapping(params="operator=addBrotherNode")
 	public String addBrotherNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
-		
-		if(!StringUtil.isStrEmpty(moduleId)){
-			LzModule module = moduleService.searchModuleById(moduleId);
-			request.setAttribute("module", module);
+		try {
+			if(!StringUtil.isStrEmpty(moduleId)){
+				LzModule module = moduleService.searchModuleById(moduleId);
+				request.setAttribute("module", module);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return "admin/jsp/module/modulemanager/addBrotherNode";
 	}
 	
 	@RequestMapping(params="operator=addBrotherNodeSumbit")
 	public void addBrotherNodeSumbit(HttpServletRequest request,HttpServletResponse response){
-		
-		String parentId = request.getParameter("parentId");
-		String name = request.getParameter("name");
-		String url = request.getParameter("url");
-		String state = request.getParameter("state");
-		String icons = request.getParameter("icons");
-		String leaf = request.getParameter("leaf");
-		
-		LzModule module = new LzModule();
-		module.setIcons(icons);
-		module.setName(name);
-		module.setLeaf(leaf);
-		module.setParentId(parentId);
-		module.setState(state);
-		module.setUrl(url);
-		
-		if(moduleService.addBrotherNode(module)){
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
-			return ;
-		}else{
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		try {
+			String parentId = request.getParameter("parentId");
+			String name = request.getParameter("name");
+			String url = request.getParameter("url");
+			String state = request.getParameter("state");
+			String icons = request.getParameter("icons");
+			String leaf = request.getParameter("leaf");
+			
+			LzModule module = new LzModule();
+			module.setIcons(icons);
+			module.setName(name);
+			module.setLeaf(leaf);
+			module.setParentId(parentId);
+			module.setState(state);
+			module.setUrl(url);
+			
+			if(moduleService.addBrotherNode(module)){
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				return ;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
 	}
 	
 	@RequestMapping(params="operator=deleteNode")
 	public void deleteNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
 		
 		try {
-			
 			if(moduleId.equals(EnumAdminUtils.Tree.Root.code)){
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "根节点不可删除!").toJSON());
 				return;
@@ -175,39 +184,44 @@ public class ModuleController extends BaseController {
 	
 	@RequestMapping(params="operator=editNode")
 	public String editNode(String moduleId,HttpServletRequest request,HttpServletResponse response){
-		
-		if(!StringUtil.isStrEmpty(moduleId)){
-			LzModule module = moduleService.searchModuleById(moduleId);
-			request.setAttribute("module", module);
+		try {
+			if(!StringUtil.isStrEmpty(moduleId)){
+				LzModule module = moduleService.searchModuleById(moduleId);
+				request.setAttribute("module", module);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return "admin/jsp/module/modulemanager/editNode";
 	}
 	
 	@RequestMapping(params="operator=editNodeSumbit")
 	public void editNodeSumbit(HttpServletRequest request,HttpServletResponse response){
-		
-		String moduleId = request.getParameter("moduleId");
-		String parentId = request.getParameter("parentId");
-		String name = request.getParameter("name");
-		String url = request.getParameter("url");
-		String state = request.getParameter("state");
-		String icons = request.getParameter("icons");
-		String leaf = request.getParameter("leaf");
-		
-		LzModule module = new LzModule();
-		module.setModuleId(moduleId);
-		module.setIcons(icons);
-		module.setName(name);
-		module.setLeaf(leaf);
-		module.setParentId(parentId);
-		module.setState(state);
-		module.setUrl(url);
-		
-		if(moduleService.updateNode(module)){
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
-			return ;
-		}else{
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		try {
+			String moduleId = request.getParameter("moduleId");
+			String parentId = request.getParameter("parentId");
+			String name = request.getParameter("name");
+			String url = request.getParameter("url");
+			String state = request.getParameter("state");
+			String icons = request.getParameter("icons");
+			String leaf = request.getParameter("leaf");
+			
+			LzModule module = new LzModule();
+			module.setModuleId(moduleId);
+			module.setIcons(icons);
+			module.setName(name);
+			module.setLeaf(leaf);
+			module.setParentId(parentId);
+			module.setState(state);
+			module.setUrl(url);
+			
+			if(moduleService.updateNode(module)){
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				return ;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
 	}
 }

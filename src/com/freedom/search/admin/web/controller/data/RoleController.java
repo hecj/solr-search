@@ -129,6 +129,39 @@ public class RoleController extends BaseController {
 		return "admin/jsp/role/rolemanager/editRole";
 	}
 	
+	@RequestMapping(params="operator=editRoleSub")
+	public void editRoleSub(HttpServletRequest request,HttpServletResponse response){
+		
+		try {
+			//字段
+			String roleCode = request.getParameter("roleCode");
+			String rolename = request.getParameter("rolename");
+			String ids = request.getParameter("ids");
+			if(StringUtil.isStrEmpty(roleCode)){
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+				return;
+			}
+			//角色
+			LzRole role = new LzRole();
+			role.setRoleCode(roleCode);
+			role.setRolename(rolename);
+			role.setUdpateDate(DateFormatUtil.getCurrDate());
+			//模块Ids
+			String[] moduleIds = new String[]{};
+			if(!StringUtil.isStrEmpty(ids)){
+				moduleIds = ids.split(",");
+			}
+			//修改
+			if(roleService.editRole(role, moduleIds)){
+				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				return;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+	}
+	
 	@RequestMapping(params="operator=initTree")
 	public void initTree(String moduleId,HttpServletResponse response){
 		
@@ -164,5 +197,29 @@ public class RoleController extends BaseController {
 		write(response, defaultTree.toString());
 		
 	}
+	
+	@RequestMapping(params="operator=initEditModule")
+	public void initEditModule(HttpServletRequest request,HttpServletResponse response){
+		String roleCode = request.getParameter("roleCode");
+		String id = request.getParameter("id");
+		//Id为空时,默认为超级节点
+		if(StringUtil.isStrEmpty(id)){
+			id = EnumAdminUtils.Tree.RootParent.code ;
+		}
+		//查询所有节点树,并在有权限的节点树上加checked
+		if(!StringUtil.isStrEmpty(roleCode)){
+			List<VoTree> trees = roleService.searchEdutTreeByRoleCode(roleCode, id);
+			if(trees.size()>0){
+				write(response, ObjectToJson.object2json(trees));
+				return;
+			}
+		}
+		//无权限
+		VoTree defaultTree = new VoTree();
+		defaultTree.setText("<font color=red>无权限</font>");
+		write(response, defaultTree.toString());
+		
+	}
+	
 	
 }

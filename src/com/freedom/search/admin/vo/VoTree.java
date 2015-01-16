@@ -2,7 +2,6 @@ package com.freedom.search.admin.vo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +26,7 @@ public class VoTree implements Serializable {
 	private String text;//模块名称
 	private String state; //打开、关闭 open、closed
 	private String iconCls;
+	private String checked;
 	private Map<String,String> attributes;//节点链接地址或按钮属性
 	private List<VoTree> children;
 	
@@ -44,6 +44,14 @@ public class VoTree implements Serializable {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
 	}
 
 	public String getState() {

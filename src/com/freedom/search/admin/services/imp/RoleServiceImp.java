@@ -66,7 +66,7 @@ public class RoleServiceImp implements RoleService {
 			String roleCodeTemp = (String) roleDAO.save(role);
 			if(!StringUtil.isStrEmpty(roleCodeTemp)){
 				//插入权限
-				for(String id : moduleIds){
+   				for(String id : moduleIds){
 					if(!StringUtil.isStrEmpty(id)){
 						LzRoleModule rm = new LzRoleModule();
 						rm.setId(UUIDUtil.autoUUID());
@@ -147,8 +147,9 @@ public class RoleServiceImp implements RoleService {
 				tree.setText(m.getName());
 				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
 					tree.setState(EnumAdminUtils.Tree.State.Closed.code);
+				}else{
+					tree.setIconCls(m.getIcons());
 				}
-				tree.setIconCls(m.getIcons());
 				trees.add(tree);
 			}
 		} catch (Exception e) {
@@ -156,5 +157,83 @@ public class RoleServiceImp implements RoleService {
 		}
 		return trees;
 	}
+
+	@Override
+	public List<VoTree> searchEdutTreeByRoleCode(String roleCode, String id) {
+		
+		List<VoTree> trees = new ArrayList<VoTree>();
+		try {
+			//查询模块权限
+			String qHql = "select m from LzModule m where m.moduleId in (select rm.moduleId from LzRoleModule rm where rm.roleCode=?) and m.parentId=?";
+			List<LzModule> modules = moduleDAO.queryListByParams(qHql, new Object[]{roleCode,id});
+			//无权限的模块
+			String qNHql = "select m from LzModule m where m.moduleId not in (select rm.moduleId from LzRoleModule rm where rm.roleCode=?) and m.parentId=?";
+			List<LzModule> nModules = moduleDAO.queryListByParams(qNHql, new Object[]{roleCode,id});
+			
+			//权限模块节点设置为checked
+			for(LzModule m : modules){
+				VoTree tree = new VoTree();
+				tree.setId(m.getModuleId());
+				tree.setText(m.getName());
+				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
+					tree.setState(EnumAdminUtils.Tree.State.Closed.code);
+				}else{
+					tree.setIconCls(m.getIcons());
+				}
+				tree.setChecked(EnumAdminUtils.Tree.Checked.Checked.code);
+				trees.add(tree);
+			}
+			//无权限模块设置不设置checked
+			for(LzModule m : nModules){
+				VoTree tree = new VoTree();
+				tree.setId(m.getModuleId());
+				tree.setText(m.getName());
+				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
+					tree.setState(EnumAdminUtils.Tree.State.Closed.code);
+				}else{
+					tree.setIconCls(m.getIcons());
+				}
+				trees.add(tree);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return trees;
+	}
+
+	@Override
+		
+	public boolean editRole(LzRole role, String[] moduleIds) {
+		try {
+			//查询角色
+			LzRole tmpRole = roleDAO.findById(role.getRoleCode());
+			if(StringUtil.isObjectNull(tmpRole)){
+				return false;
+			}
+			//修改角色
+			tmpRole.setRolename(role.getRolename());
+			tmpRole.setUdpateDate(role.getUdpateDate());
+			roleDAO.update(tmpRole);
+			//删除历史权限
+			String delHql = "delete LzRoleModule rm where rm.roleCode = '"+role.getRoleCode()+"'";
+			roleModuleDAO.executeHQL(delHql);
+			//插入新权限
+			for(String id : moduleIds){
+				if(!StringUtil.isStrEmpty(id)){
+					LzRoleModule rm = new LzRoleModule();
+					rm.setId(UUIDUtil.autoUUID());
+					rm.setRoleCode(role.getRoleCode());
+					rm.setModuleId(id);
+					roleModuleDAO.save(rm);
+				}
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	
 	
 }

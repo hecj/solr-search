@@ -10,21 +10,19 @@
 	});
 	
 	var initFun = function(){
+		var roleCode = $('input[name=roleCode]').val();
 		tree = $('#tree').tree({
-			url: app.basePath+'admin/role/role.htm?operator=initTree&moduleId=0',
+			url: app.basePath+'admin/role/role.htm?operator=initEditModule&roleCode='+roleCode+'',
 			border:false,
 			checkbox:true,
-			cascadeCheck:true,
 			onLoadSuccess:function(row, data){
+				$(this).tree('expandAll',$(this).tree('getRoot').target)
 				$.messager.progress('close');
 			},
 			onBeforeLoad:function(row, param){
 				$.messager.progress({
 					text : '数据加载中....'
 				});
-			},
-			onCheck:function(node, checked){
-
 			}
 		});
 	}
@@ -59,7 +57,7 @@
 		});
 		//sumbit
 	    $('form').form('submit', {
-	    	url : app.basePath+'admin/role/role.htm?operator=addRole&ids='+ids,
+	    	url : app.basePath+'admin/role/role.htm?operator=editRoleSub&ids='+ids,
 	        success: function(data){
 		        var data = eval('(' + data + ')');
 		        if (data.code == '0'){
@@ -90,6 +88,7 @@
 	<div id="content" region="center" data-options="border:false">
 		<form method="post">
 		     <div>
+		     	<input type="hidden" name="roleCode" value="${role.roleCode }"/>
 			    <label for="name" >角色名称:</label>
 				<input name="rolename" value="${role.rolename }" size="25" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'" />
 		     </div>

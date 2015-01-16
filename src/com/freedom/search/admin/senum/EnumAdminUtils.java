@@ -84,6 +84,15 @@ public class EnumAdminUtils {
 			}
 		}
 		
+		/*选中*/
+		public enum Checked {
+			Checked("checked");
+			public String code;
+			Checked(String code) {
+				this.code = code ;
+			}
+		}
+		
 	}
 	
 }

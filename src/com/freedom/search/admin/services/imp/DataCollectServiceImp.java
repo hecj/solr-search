@@ -14,12 +14,12 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.dao.DataCollectParamsDAO;
 import com.freedom.search.admin.database.factory.DataBase;
 import com.freedom.search.admin.database.factory.DataBaseFactory;
 import com.freedom.search.admin.entity.LzDataCollectParams;
 import com.freedom.search.admin.entity.LzDataField;
-import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.hibernate.HibernateSessionFactory;
 import com.freedom.search.hibernate.util.UUIDUtil;

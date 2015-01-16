@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.entity.LzRole;
-import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.vo.VoTree;

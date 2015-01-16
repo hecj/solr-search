@@ -1,4 +1,4 @@
-package com.freedom.search.admin.senum;
+package com.freedom.search.admin.Enum;
 
 /**
  * @类功能说明：枚举类型工具类

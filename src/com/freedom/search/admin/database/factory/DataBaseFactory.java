@@ -5,9 +5,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.database.factory.imp.MySQLDataBase;
 import com.freedom.search.admin.database.factory.imp.OracleDataBase;
-import com.freedom.search.admin.senum.EnumAdminUtils;
 
 /**
  * @类功能说明：适配数据库处理类

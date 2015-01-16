@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.entity.LzUser;
-import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.UserService;
 import com.freedom.search.admin.vo.UserContext;
 import com.freedom.search.util.EasyGridData;

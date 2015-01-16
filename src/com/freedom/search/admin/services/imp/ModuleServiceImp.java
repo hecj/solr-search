@@ -12,9 +12,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.entity.LzModule;
-import com.freedom.search.admin.senum.EnumAdminUtils;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;

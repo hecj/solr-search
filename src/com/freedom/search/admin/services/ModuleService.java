@@ -1,6 +1,7 @@
 package com.freedom.search.admin.services;
 
 import com.freedom.search.admin.entity.LzModule;
+import com.freedom.search.admin.exception.ModuleRoleExistException;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;
 
@@ -28,8 +29,9 @@ public interface ModuleService {
 	public boolean addBrotherNode(LzModule module);
 	/**
 	 * 递归删除节点，包括子节点
+	 * @throws Exception 
 	 */
-	public boolean deleteNode(String moduleId);
+	public boolean deleteNode(String moduleId) throws ModuleRoleExistException;
 	
 	/**
 	 * 编辑节点

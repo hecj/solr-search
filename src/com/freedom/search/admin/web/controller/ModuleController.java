@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.entity.LzModule;
+import com.freedom.search.admin.exception.ModuleRoleExistException;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.VoModule;
 import com.freedom.search.util.Log4jUtil;
@@ -146,6 +147,10 @@ public class ModuleController extends BaseController {
 					return ;
 				}
 			}
+		}catch(ModuleRoleExistException ex){
+			ex.printStackTrace();
+			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, ex.getMessage()).toJSON());
+			return;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

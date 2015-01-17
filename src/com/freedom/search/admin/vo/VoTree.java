@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import com.freedom.search.util.ObjectToJson;
 /**
  * @类功能说明：Tree的链表
  * @类修改者：
@@ -86,13 +84,9 @@ public class VoTree implements Serializable {
 		this.children = children;
 	}
 
-	public String toJSON() {
-		return ObjectToJson.object2json(this.getChildren()) ;
-	}
-	
-	public String toString() {
+	public List<VoTree> parentTree() {
 		List<VoTree> list = new ArrayList<VoTree>();
 		list.add(this);
-		return ObjectToJson.object2json(list) ;
+		return list ;
 	}
 }

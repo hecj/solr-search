@@ -60,20 +60,20 @@ public class UserController extends BaseController {
 					context.setBasePath(getBasePath());
 					request.getSession().setAttribute("context", context);
 					Log4jUtil.log("login success:"+usercode);
-					write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "登陆成功!").toJSON());
+					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "登陆成功!"));
 					return;
 				}else{
-					write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "密码不正确!").toJSON());
+					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "密码不正确!"));
 					return;
 				}
 			}else{
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名不存在!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名不存在!"));
 				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "登陆失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "登陆失败!"));
 	}
 	
 	@RequestMapping(params="operator=searchUser")
@@ -95,13 +95,13 @@ public class UserController extends BaseController {
 			}
 			Result result = userService.searchUserByPagination(mMap);
 			if(result.isSuccess()){
-				write(response,new EasyGridData(result.getPagination().getCountSize(),result.getData()).toJSON());
+				writeToJSON(response,new EasyGridData(result.getPagination().getCountSize(),result.getData()));
 				return;
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		write(response,new EasyGridData().toJSON());
+		writeToJSON(response,new EasyGridData());
 	}
 	
 	@RequestMapping(params="operator=findUser")
@@ -130,12 +130,12 @@ public class UserController extends BaseController {
 			String email = request.getParameter("email");
 			String rolecode = request.getParameter("rolecode");
 			if(StringUtil.isStrEmpty(usercode) || StringUtil.isStrEmpty(password)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名或密码为空!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名或密码为空!"));
 				return;
 			}
 			//判断用户是否存在
 			if(!StringUtil.isObjectNull(userService.searchUserByCode(usercode))){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户已存在!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户已存在!"));
 				return;
 			}
 			
@@ -150,14 +150,14 @@ public class UserController extends BaseController {
 			user.setUpdateDate(new Date());
 			
 			if(userService.addUser(user)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return;
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 	
 	@RequestMapping(params="operator=editUser")
@@ -185,7 +185,7 @@ public class UserController extends BaseController {
 			String email = request.getParameter("email");
 			String rolecode = request.getParameter("rolecode");
 			if(StringUtil.isStrEmpty(usercode)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名或密码为空!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名或密码为空!"));
 				return;
 			}
 			
@@ -197,13 +197,13 @@ public class UserController extends BaseController {
 			user.setUpdateDate(new Date());
 			
 			if(userService.addUser(user)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 	
 	@RequestMapping(params="operator=logout")
@@ -222,12 +222,12 @@ public class UserController extends BaseController {
 				session.removeAttribute(key);
 			}
 			session.invalidate();
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "注销成功!").toJSON());
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "注销成功!"));
 			return;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "注销失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "注销失败!"));
 	}
 	
 	@RequestMapping(params="operator=deleteUser")
@@ -238,18 +238,18 @@ public class UserController extends BaseController {
 			if(!StringUtil.isStrEmpty(usercode)){
 				UserContext context = (UserContext) request.getSession().getAttribute("context");
 				if(context.getUser().getUsercode().equals(usercode)){
-					write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "当前登陆用户不可删除!").toJSON());
+					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "当前登陆用户不可删除!"));
 					return;
 				}
 				if(userService.deleteUser(usercode)){
-					write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 					return;
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 	
 	@RequestMapping(params="operator=editPwd")
@@ -263,29 +263,29 @@ public class UserController extends BaseController {
 			UserContext context = (UserContext) request.getSession().getAttribute("context");
 			LzUser user = userService.searchUserByCode(context.getUser().getUsercode());
 			if(!user.getPassword().equals(MD5.md5crypt(password))){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "密码不正确!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "密码不正确!"));
 				return ;
 			}
 			//判断新密码一致
 			if(!newpassword.equals(repassword)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "两次密码输入不一致!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "两次密码输入不一致!"));
 				return ;
 			}
 			
 			//判断新密码一致
 			if(password.equals(newpassword)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "新旧密码不可相同!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "新旧密码不可相同!"));
 				return ;
 			}
 			
 			//修改密码
 			user.setPassword(MD5.md5crypt(newpassword));
 			userService.editUser(user);
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 			return;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 }

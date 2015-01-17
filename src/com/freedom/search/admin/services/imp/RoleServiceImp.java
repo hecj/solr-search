@@ -63,7 +63,7 @@ public class RoleServiceImp implements RoleService {
 				}
 			}
 			//插入角色
-			role.setrolecode(rolecode);
+			role.setRolecode(rolecode);
 			String rolecodeTemp = (String) roleDAO.save(role);
 			if(!StringUtil.isStrEmpty(rolecodeTemp)){
 				//插入权限
@@ -214,7 +214,7 @@ public class RoleServiceImp implements RoleService {
 	public boolean editRole(LzRole role, String[] moduleIds) {
 		try {
 			//查询角色
-			LzRole tmpRole = roleDAO.findById(role.getrolecode());
+			LzRole tmpRole = roleDAO.findById(role.getRolecode());
 			if(StringUtil.isObjectNull(tmpRole)){
 				return false;
 			}
@@ -223,14 +223,14 @@ public class RoleServiceImp implements RoleService {
 			tmpRole.setUdpateDate(role.getUdpateDate());
 			roleDAO.update(tmpRole);
 			//删除历史权限
-			String delHql = "delete LzRoleModule rm where rm.rolecode = '"+role.getrolecode()+"'";
+			String delHql = "delete LzRoleModule rm where rm.rolecode = '"+role.getRolecode()+"'";
 			roleModuleDAO.executeHQL(delHql);
 			//插入新权限
 			for(String id : moduleIds){
 				if(!StringUtil.isStrEmpty(id)){
 					LzRoleModule rm = new LzRoleModule();
 					rm.setId(UUIDUtil.autoUUID());
-					rm.setrolecode(role.getrolecode());
+					rm.setrolecode(role.getRolecode());
 					rm.setModuleId(id);
 					roleModuleDAO.save(rm);
 				}

@@ -1,7 +1,7 @@
 package test.freedom.search.admin.services;
 
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.hibernate.SessionFactory;
@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.freedom.search.admin.entity.LzDataCollectParams;
 import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.entity.LzUser;
@@ -17,7 +19,7 @@ import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.services.UserService;
-import com.freedom.search.util.EasyGridData;
+import com.freedom.search.util.FastjsonFilter;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
 
@@ -51,12 +53,14 @@ public class TestDataCollectServiceService {
 		mMap.put("pagination", mPagination);
 		
 		Result result = dataCollectService.searchDataCollectByPagination(mMap);
-		System.out.println(result.isSuccess());
-		System.out.println(result.getPagination().getCountSize());
-		List<LzDataCollectParams> list = (List<LzDataCollectParams>) result.getData();
-		for(LzDataCollectParams d:list){
-			System.out.println(d.getDataFields().size());
-		}
+//		System.out.println(result.isSuccess());
+//		System.out.println(result.getPagination().getCountSize());
+//		List<LzDataCollectParams> list = (List<LzDataCollectParams>) result.getData();
+//		for(LzDataCollectParams d:list){
+//			System.out.println(d.getDataFields().size());
+//		}
+		
+		
 		
 //		System.out.println(ObjectToJson.object2json(list));
 		
@@ -65,7 +69,7 @@ public class TestDataCollectServiceService {
 //		data.setTotal(list.size()+0l);
 //		
 //		System.out.println(data.toJSON());
-		System.out.println(new EasyGridData().toJSON());
+//		System.out.println(new EasyGridData().toJSON());
 //		
 //		System.out.println(ObjectToJson.object2json(data));
 //		String json = JSONObject.fromObject(list).toString();
@@ -139,6 +143,23 @@ public class TestDataCollectServiceService {
 		u.setRole(r);
 		
 		userService.addUser(u);
+	}
+	
+	@Test
+	public void test06(){
+		
+		Pagination mPagination = new Pagination();
+		mPagination.setPageSize(2);
+		Map mMap = new HashMap();
+		mMap.put("pagination", mPagination);
+		Result result = userService.searchUserByPagination(mMap);
+//		System.out.println(ObjectToJson.object2json(result.getData()));
+//		System.out.println(JSON.toJSONString(result.getData()));
+		
+		FastjsonFilter filter = new FastjsonFilter();// excludes优先于includes
+		filter.getExcludes().addAll(Arrays.<String> asList(new String[]{"role","password"}));
+		String json = JSON.toJSONString(result.getData(), filter, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.BrowserCompatible);
+		System.out.println(json);
 	}
 	
 }

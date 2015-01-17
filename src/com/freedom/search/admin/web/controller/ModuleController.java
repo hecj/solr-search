@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.entity.LzModule;
-import com.freedom.search.admin.exception.ModuleRoleExistException;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.VoModule;
 import com.freedom.search.util.Log4jUtil;
@@ -36,7 +35,7 @@ public class ModuleController extends BaseController {
 		if(!StringUtil.isStrEmpty(moduleId)){
 			VoModule voTree = moduleService.treeManagerSearch(moduleId);
 			if(!StringUtil.isObjectEmpty(voTree)){
-				write(response, voTree.toJSON());
+				writeToJSON(response, voTree.getChildren());
 				return;
 			}
 		}
@@ -91,13 +90,13 @@ public class ModuleController extends BaseController {
 			module.setParentId(parentId);
 			
 			if(moduleService.addChildNode(module)){
-				write(response, new MessageCode("0", "处理成功!").toJSON());
+				writeToJSON(response, new MessageCode("0", "处理成功!"));
 				return;
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		write(response, new MessageCode("1", "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode("1", "处理失败!").toJSON());
 	}
 	
 	@RequestMapping(params="operator=addBrotherNode")
@@ -132,13 +131,13 @@ public class ModuleController extends BaseController {
 			module.setUrl(url);
 			
 			if(moduleService.addBrotherNode(module)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return ;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 	
 	@RequestMapping(params="operator=deleteNode")
@@ -146,21 +145,21 @@ public class ModuleController extends BaseController {
 		
 		try {
 			if(moduleId.equals(EnumAdminUtils.Tree.Root.code)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "根节点不可删除!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "根节点不可删除!"));
 				return;
 			}
 			
 			if(!StringUtil.isStrEmpty(moduleId)){
 				if(moduleService.deleteNode(moduleId)){
-					write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 					return ;
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()).toJSON());
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()));
 		}		
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 	
 	@RequestMapping(params="operator=testURL")
@@ -172,14 +171,14 @@ public class ModuleController extends BaseController {
 					url = getBasePath()+url;
 				}
 				if(HtmlUtils.testURLConnection(url)){
-					write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "验证成功!").toJSON());
+					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "验证成功!"));
 					return ;
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "验证失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "验证失败!"));
 	}
 	
 	@RequestMapping(params="operator=editNode")
@@ -216,12 +215,12 @@ public class ModuleController extends BaseController {
 			module.setUrl(url);
 			
 			if(moduleService.updateNode(module)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return ;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 }

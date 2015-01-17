@@ -30,7 +30,7 @@ public class TreeController extends BaseController {
 		if(!StringUtil.isStrEmpty(moduleId)){
 			VoTree voTree = moduleService.searchMenuTree(moduleId);
 			if(voTree != null){
-				write(response, voTree.toJSON());
+				writeToJSON(response, voTree.getChildren());
 			}
 		}else{
 			Log4jUtil.log("moduleId is null!");

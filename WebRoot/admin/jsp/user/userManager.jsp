@@ -52,15 +52,7 @@
 				align : 'center',
 				width:100,
 				formatter: function(value,row,index){
-					var obj = new Date();
-					obj.setTime(value.time);
-					var showDate = obj.getFullYear()+'-'+
-								   (obj.getMonth()+1)+'-'+
-								   obj.getDate()+' '+
-								   obj.getHours()+':'+
-								   obj.getMinutes()+':'+
-								   obj.getSeconds();
-					return showDate;
+					return value;
 				}
 			}] ],
 			pagination : true,

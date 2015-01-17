@@ -23,7 +23,6 @@ import com.freedom.search.util.DateFormatUtil;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
-import com.freedom.search.util.ObjectToJson;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
 import com.freedom.search.util.StringUtil;
@@ -62,7 +61,7 @@ public class RoleController extends BaseController {
 			//查询结果
 			Result result = roleService.searchRoleByPagination(map);
 			if(result.isSuccess()){
-				write(response, new EasyGridData(result.getPagination().getCountSize(), result.getData()).toJSON());
+				writeToJSON(response, new EasyGridData(result.getPagination().getCountSize(), result.getData()));
 				return;
 			}
 			
@@ -89,13 +88,13 @@ public class RoleController extends BaseController {
 			}
 			//插入
 			if(roleService.addRole(role, moduleIds)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 	
 	@RequestMapping(params="operator=deleteRole")
@@ -103,16 +102,17 @@ public class RoleController extends BaseController {
 		try {
 			if(!StringUtil.isStrEmpty(rolecode)){
 				roleService.deleteRole(rolecode);
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
+				return;
 			}
 		} catch(ModuleRoleExistException e){
-			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()).toJSON());
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()));
 			e.printStackTrace();
 			return;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 	
 	@RequestMapping(params="operator=findRole")
@@ -143,12 +143,12 @@ public class RoleController extends BaseController {
 			String rolename = request.getParameter("rolename");
 			String ids = request.getParameter("ids");
 			if(StringUtil.isStrEmpty(rolecode)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 				return;
 			}
 			//角色
 			LzRole role = new LzRole();
-			role.setrolecode(rolecode);
+			role.setRolecode(rolecode);
 			role.setRolename(rolename);
 			role.setUdpateDate(DateFormatUtil.getCurrDate());
 			//模块Ids
@@ -158,13 +158,13 @@ public class RoleController extends BaseController {
 			}
 			//修改
 			if(roleService.editRole(role, moduleIds)){
-				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 	
 	@RequestMapping(params="operator=initTree")
@@ -173,7 +173,7 @@ public class RoleController extends BaseController {
 		if(!StringUtil.isStrEmpty(moduleId)){
 			VoTree voTree = menuTreeService.searchMenuTree(moduleId);
 			if(voTree != null){
-				write(response, voTree.toString());
+				writeToJSON(response, voTree.parentTree());
 			}
 		}else{
 			Log4jUtil.log("moduleId is null!");
@@ -192,15 +192,14 @@ public class RoleController extends BaseController {
 		if(!StringUtil.isStrEmpty(rolecode)){
 			List<VoTree> trees = roleService.searchTreeByRolecode(rolecode, id);
 			if(trees.size()>0){
-				write(response, ObjectToJson.object2json(trees));
+				writeToJSON(response, trees);
 				return;
 			}
 		}
 		//无权限
 		VoTree defaultTree = new VoTree();
 		defaultTree.setText("<font color=red>无权限</font>");
-		write(response, defaultTree.toString());
-		
+		writeToJSON(response, defaultTree.parentTree());
 	}
 	
 	@RequestMapping(params="operator=initEditModule")
@@ -215,14 +214,14 @@ public class RoleController extends BaseController {
 		if(!StringUtil.isStrEmpty(rolecode)){
 			List<VoTree> trees = roleService.searchEdutTreeByRolecode(rolecode, id);
 			if(trees.size()>0){
-				write(response, ObjectToJson.object2json(trees));
+				writeToJSON(response, trees);
 				return;
 			}
 		}
 		//无权限
 		VoTree defaultTree = new VoTree();
 		defaultTree.setText("<font color=red>无权限</font>");
-		write(response, defaultTree.toString());
+		writeToJSON(response, defaultTree.parentTree());
 		
 	}
 	
@@ -232,9 +231,9 @@ public class RoleController extends BaseController {
 			List<LzRole> roleList = roleService.searchRoleList();
 			List<VoCombobox> voList = new ArrayList<VoCombobox>();
 			for (LzRole r:roleList) {
-				voList.add(new VoCombobox(r.getrolecode(),r.getRolename()+"("+r.getrolecode()+")"));
+				voList.add(new VoCombobox(r.getRolecode(),r.getRolename()+"("+r.getRolecode()+")"));
 			}
-			write(response, ObjectToJson.object2json(voList));
+			writeToJSON(response, voList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

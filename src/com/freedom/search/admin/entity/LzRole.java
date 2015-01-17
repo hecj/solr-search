@@ -56,11 +56,11 @@ public class LzRole implements Serializable{
 	
 	@Id
 	@Column(name="rolecode",length=32,nullable=false)
-	public String getrolecode() {
+	public String getRolecode() {
 		return rolecode;
 	}
 
-	public void setrolecode(String rolecode) {
+	public void setRolecode(String rolecode) {
 		this.rolecode = rolecode;
 	}
 

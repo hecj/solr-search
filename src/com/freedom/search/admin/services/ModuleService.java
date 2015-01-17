@@ -1,7 +1,6 @@
 package com.freedom.search.admin.services;
 
 import com.freedom.search.admin.entity.LzModule;
-import com.freedom.search.admin.exception.ModuleRoleExistException;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;
 

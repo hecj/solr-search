@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,7 +29,6 @@ import com.freedom.search.util.CodeConvertUtil;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
-import com.freedom.search.util.ObjectToJson;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
 import com.freedom.search.util.StringUtil;
@@ -127,9 +124,8 @@ public class DataCollectController extends BaseController{
 		return reJson.toString();
 	}	
 	
-	@ResponseBody
 	@RequestMapping(params="operator=seacherDataCollect")
-	public String searchDataCollect(Integer page,Integer rows,String encode){
+	public void searchDataCollect(Integer page,Integer rows,String encode,HttpServletResponse response){
 		try{
 			Pagination mPagination = new Pagination(10);
 			if(!StringUtil.isObjectEmpty(page)){
@@ -165,12 +161,12 @@ public class DataCollectController extends BaseController{
 					vo.setTableName(d.getTableName());
 					datas.add(vo);
 				}
-				return new EasyGridData(result.getPagination().getCountSize(),datas).toJSON();
+				writeToJSON(response,new EasyGridData(result.getPagination().getCountSize(),datas));
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		return new EasyGridData().toJSON();
+		writeToJSON(response,new EasyGridData());
 	}
 	@RequestMapping(params="operator=toDataCollectMessage")
 	public String toDataCollectMessage(String id,HttpServletRequest request){
@@ -190,12 +186,12 @@ public class DataCollectController extends BaseController{
 		try{
 			if(!StringUtil.isStrEmpty(id)){
 				dataCollectService.deleteDataCollectParams(id);
-				write(response,ObjectToJson.object2json(new MessageCode("success","处理成功!")));
+				writeToJSON(response,new MessageCode("success","处理成功!"));
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		write(response,ObjectToJson.object2json(new MessageCode("fail","删除失败!")));
+		writeToJSON(response,new MessageCode("fail","删除失败!"));
 	}
 	
 	@RequestMapping(params="operator=toEdit")
@@ -227,7 +223,7 @@ public class DataCollectController extends BaseController{
 							return v1.getId().compareTo(v2.getId());
 						}
 					});
-					write(response, ObjectToJson.object2json(list));
+					writeToJSON(response,list);
 					return null;
 				}
 			
@@ -302,12 +298,12 @@ public class DataCollectController extends BaseController{
 				
 				dataCollectService.editDataCollectParams(mCollectParams);
 				
-				write(response,ObjectToJson.object2json(new MessageCode("success","处理成功!")));
+				writeToJSON(response,new MessageCode("success","处理成功!"));
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		write(response,ObjectToJson.object2json(new MessageCode("fail","修改失败!")));
+		writeToJSON(response,new MessageCode("fail","修改失败!"));
 	}
 	
 	@RequestMapping(params="operator=add")
@@ -369,14 +365,14 @@ public class DataCollectController extends BaseController{
 			}
 			
 			dataCollectService.addDataCollectParams(mCollectParams);
-			write(response,ObjectToJson.object2json(new MessageCode("success","处理成功!")));
+			writeToJSON(response,new MessageCode("success","处理成功!"));
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
 		/*
 		 * return
 		 */
-		write(response,ObjectToJson.object2json(new MessageCode("fail","添加失败!")));
+		writeToJSON(response,new MessageCode("fail","添加失败!"));
 	}
 	
 	@RequestMapping(params="operator=toAdd")

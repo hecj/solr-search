@@ -39,7 +39,4 @@ public class EasyGridData implements Serializable {
 	public void setRows(Object rows) {
 		this.rows = rows;
 	}
-	public String toJSON() {
-		return ObjectToJson.object2json(this);
-	}
 }

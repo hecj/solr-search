@@ -2,10 +2,19 @@ package com.freedom.search.web.controller.base;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.freedom.search.util.FastjsonFilter;
 
 
 
@@ -19,8 +28,13 @@ import javax.servlet.http.HttpServletResponse;
  * @创建时间：2014-12-6 上午03:26:14
  * @版本：V1.0
  */
-public abstract class BaseController {
+public abstract class BaseController implements Controller{
 	
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest arg0,
+			HttpServletResponse arg1) throws Exception {
+		return null;
+	}
 	@Resource
 	private HttpServletRequest request;
 	
@@ -59,10 +73,34 @@ public abstract class BaseController {
 		return basePath ;
 	}
 	
+	protected void writeToJSON(HttpServletResponse response,Object object) {
+		writeToJSON(response, object, null);
+	}
+	
+	protected void writeToJSON(HttpServletResponse response,Object object,String[] excludesProperties){
+		writeToJSON(response,object,null,excludesProperties);
+	}
+	
 	/**
 	 * ajax返回信息
 	 */
-	public void write(HttpServletResponse response,String message){
+	protected void writeToJSON(HttpServletResponse response,Object object, String[] includesProperties, String[] excludesProperties){
+		PrintWriter out = null ;
+		response.setContentType("text/html;charset=UTF-8");
+		try {
+			out = response.getWriter();
+			out.write(writeJsonByFilter(object,includesProperties,excludesProperties));
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			if(out != null){
+				out.close();
+			}
+		}
+	}
+	
+	protected void write(HttpServletResponse response,String message){
 		PrintWriter out = null ;
 		response.setContentType("text/html;charset=UTF-8");
 		try {
@@ -76,6 +114,27 @@ public abstract class BaseController {
 				out.close();
 			}
 		}
+	}
+	
+	protected String writeJsonByFilter(Object object, String[] includesProperties, String[] excludesProperties) {
+		FastjsonFilter filter = new FastjsonFilter();// excludes优先于includes
+		if (excludesProperties != null && excludesProperties.length > 0) {
+			filter.getExcludes().addAll(Arrays.<String> asList(excludesProperties));
+		}
+		if (includesProperties != null && includesProperties.length > 0) {
+			filter.getIncludes().addAll(Arrays.<String> asList(includesProperties));
+		}
+		String json;
+		String User_Agent = getRequest().getHeader("User-Agent");
+		if (StringUtils.indexOfIgnoreCase(User_Agent, "MSIE 6") > -1) {
+			// 使用SerializerFeature.BrowserCompatible特性会把所有的中文都会序列化为\\uXXXX这种格式，字节数会多一些，但是能兼容IE6
+			json = JSON.toJSONString(object, filter, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.BrowserCompatible);
+		} else {
+			// 使用SerializerFeature.WriteDateUseDateFormat特性来序列化日期格式的类型为yyyy-MM-dd hh24:mi:ss
+			// 使用SerializerFeature.DisableCircularReferenceDetect特性关闭引用检测和生成
+			json = JSON.toJSONString(object, filter, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.DisableCircularReferenceDetect);
+		}
+		return json;
 	}
 	
 }

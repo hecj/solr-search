@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hibernate.collection.internal.PersistentSet;
+
 public class ObjectToJson {
 	public static String object2json(Object obj) {
 		StringBuilder json = new StringBuilder();
@@ -25,7 +27,10 @@ public class ObjectToJson {
 			json.append(list2json((List<?>) obj));
 		} else if (obj instanceof Map<?, ?>) {
 			json.append(map2json((Map<?, ?>) obj));
-		} else if (obj instanceof Set<?>) {
+		}else if(obj instanceof PersistentSet){
+			//避免hibernate对象循环引用，一切Set属性不予序列化
+			return "\"\"";
+		}else if (obj instanceof Set<?>) {
 			json.append(set2json((Set<?>) obj));
 		} else {
 			json.append(bean2json(obj));

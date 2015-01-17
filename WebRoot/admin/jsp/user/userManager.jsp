@@ -27,17 +27,20 @@
 				field : 'telPhone',
 				title : '手机号',
 				align : 'center',
-				width:100
+				width:80
 			}, {
 				field : 'email',
 				title : '邮箱',
 				align : 'center',
 				width:150
 			}, {
-				field : 'roleCode',
+				field : 'role',
 				title : '角色代码',
 				align : 'center',
-				width:100
+				width:120,
+				formatter: function(value,row,index){
+					return value.rolename+'('+value.roleCode+')';
+				}
 			}, {
 				field : 'imageHead',
 				title : '头像',

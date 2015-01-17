@@ -76,7 +76,7 @@
      </div>
      <div class="divHeight">
 	     <label class="labelWidth">角色</label>
-	     <input id="roleCode" name="roleCode" size="20" value="${user.roleCode }" class="easyui-combobox" data-options="required:true,validType:'notEmpty'"/>
+	     <input id="roleCode" name="roleCode" size="20" value="${user.role.roleCode }" class="easyui-combobox" data-options="required:true,validType:'notEmpty'"/>
      </div>
 </form>
 </div>

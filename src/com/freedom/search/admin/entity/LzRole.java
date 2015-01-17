@@ -2,10 +2,15 @@ package com.freedom.search.admin.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -43,9 +48,10 @@ public class LzRole implements Serializable{
 	 */
 	private Date udpateDate;
 	
-	
-	public LzRole() {
+	private Set<LzUser> users = new HashSet<LzUser>();
 
+	public LzRole() {
+		
 	}
 	
 	@Id
@@ -81,5 +87,13 @@ public class LzRole implements Serializable{
 	public void setUdpateDate(Date udpateDate) {
 		this.udpateDate = udpateDate;
 	}
-
+	
+	@OneToMany(cascade = CascadeType.REFRESH, fetch=FetchType.LAZY, mappedBy = "role")
+	public Set<LzUser> getUsers() {
+		return users;
+	}
+	
+	public void setUsers(Set<LzUser> users) {
+		this.users = users;
+	}
 }

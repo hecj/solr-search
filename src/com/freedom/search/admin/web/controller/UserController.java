@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.entity.LzUser;
+import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.services.UserService;
 import com.freedom.search.admin.vo.UserContext;
 import com.freedom.search.util.EasyGridData;
@@ -33,9 +34,15 @@ public class UserController extends BaseController {
 	
 	@Resource
 	private UserService userService;
+	@Resource
+	private RoleService roleService;
 	
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public void setRoleService(RoleService roleService) {
+		this.roleService = roleService;
 	}
 
 	@RequestMapping(params="operator=login")
@@ -136,7 +143,7 @@ public class UserController extends BaseController {
 			user.setUsercode(usercode);
 			user.setUsername(username);
 			user.setPassword(MD5.md5crypt(password));
-			user.setRoleCode(roleCode);
+			user.setRole(roleService.searchRole(roleCode));
 			user.setTelPhone(telPhone);
 			user.setEmail(email);
 			user.setCreateDate(new Date());
@@ -184,7 +191,7 @@ public class UserController extends BaseController {
 			
 			LzUser user = userService.searchUserByCode(usercode);
 			user.setUsername(username);
-			user.setRoleCode(roleCode);
+			user.setRole(roleService.searchRole(roleCode));
 			user.setTelPhone(telPhone);
 			user.setEmail(email);
 			user.setUpdateDate(new Date());

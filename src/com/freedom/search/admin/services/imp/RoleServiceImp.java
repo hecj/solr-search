@@ -16,6 +16,7 @@ import com.freedom.search.admin.dao.RoleModuleDAO;
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.entity.LzRoleModule;
+import com.freedom.search.admin.exception.ModuleRoleExistException;
 import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.hibernate.util.UUIDUtil;
@@ -111,6 +112,12 @@ public class RoleServiceImp implements RoleService {
 	@Override
 	public boolean deleteRole(String roleCode) {
 		try {
+			
+			String qHql = "select count(u) from LzUser u where u.role='"+roleCode+"'";
+			long count = Long.parseLong(roleDAO.queryUniqueResultByHQL(qHql).toString());
+			if(count>0){
+				throw new ModuleRoleExistException("角色("+roleCode+")已被授权("+count+"次,不可删除!)");
+			}
 			//删除权限
 			String deleteRoleModele = "delete LzRoleModule t where t.roleCode='"+roleCode+"'";
 			roleModuleDAO.executeHQL(deleteRoleModele);

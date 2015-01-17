@@ -3,9 +3,13 @@ package com.freedom.search.admin.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -46,10 +50,7 @@ public class LzUser implements Serializable {
 	 * 邮箱
 	 */
 	private String email;
-	/*
-	 * 角色
-	 */
-	private String roleCode;
+	
 	/*
 	 * 头像
 	 */
@@ -62,6 +63,10 @@ public class LzUser implements Serializable {
 	 * 修改时间
 	 */
 	private Date updateDate;
+	/*
+	 * 用户角色
+	 */
+	private LzRole role ;
 
 	public LzUser() {
 
@@ -108,16 +113,7 @@ public class LzUser implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
-	public String getRoleCode() {
-		return roleCode;
-	}
-
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
-	}
-
+	
 	public String getImageHead() {
 		return imageHead;
 	}
@@ -140,6 +136,23 @@ public class LzUser implements Serializable {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+	
+	/**
+	 * @OneToOne(mappedBy="user",fetch=FetchType.LAZY) mappedBy 对方拥有的
+	 * fetch=FetchType.EAGER 表示急加载
+	 * fetch=FetchType.LAZY 表示延迟加载
+	 * cascade=CascadeType.REMOVE 表示级联删除
+	 * cascade=CascadeType.MERGE 表示级联更新
+	 */
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.REFRESH)
+	@JoinColumn(name="rolecode")
+	public LzRole getRole() {
+		return role;
+	}
+
+	public void setRole(LzRole role) {
+		this.role = role;
 	}
 
 }

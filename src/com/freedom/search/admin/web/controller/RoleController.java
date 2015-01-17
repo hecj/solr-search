@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.entity.LzRole;
+import com.freedom.search.admin.exception.ModuleRoleExistException;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.vo.VoCombobox;
@@ -104,7 +105,11 @@ public class RoleController extends BaseController {
 				roleService.deleteRole(roleCode);
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
 			}
-		} catch (Exception e) {
+		} catch(ModuleRoleExistException e){
+			write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()).toJSON());
+			e.printStackTrace();
+			return;
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());

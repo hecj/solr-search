@@ -1,7 +1,6 @@
 package test.freedom.search.admin.services;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -12,9 +11,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.freedom.search.admin.entity.LzDataCollectParams;
+import com.freedom.search.admin.entity.LzRole;
+import com.freedom.search.admin.entity.LzUser;
 import com.freedom.search.admin.services.DataCollectService;
 import com.freedom.search.admin.services.ModuleService;
-import com.freedom.search.admin.vo.VoTree;
+import com.freedom.search.admin.services.RoleService;
+import com.freedom.search.admin.services.UserService;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
@@ -23,7 +25,9 @@ public class TestDataCollectServiceService {
 	
 	private DataCollectService dataCollectService ;
 	private SessionFactory sessionFactory ;
-	private ModuleService menuTreeService ;
+	private ModuleService moduleService ;
+	private UserService userService ;
+	private RoleService roleService ;
 	
 	@Before
 	public void init(){
@@ -31,7 +35,9 @@ public class TestDataCollectServiceService {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath*:test/bean/applicationContext.xml");
 		dataCollectService = (DataCollectService) ctx.getBean("dataCollectService");
 		sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
-		menuTreeService = (ModuleService) ctx.getBean("menuTreeService");
+		moduleService = (ModuleService) ctx.getBean("moduleService");
+		userService = (UserService) ctx.getBean("userService");
+		roleService = (RoleService) ctx.getBean("roleService");
 		
 		System.out.println(sessionFactory);
 	}
@@ -98,7 +104,41 @@ public class TestDataCollectServiceService {
 	@Test
 	public void test03(){
 		
+		LzUser u = userService.searchUserByCode("admin");
+//		System.out.println(u.getUserRole().getRole());
+		LzRole role = roleService.searchRole("P11112");
+		
 	}
 	
+	@Test
+	public void test04(){
+		System.out.println("==================");
+		LzUser u = userService.searchUserByCode("z10");
+		System.out.println(u.getRole().getRolename());
+		
+//		LzRole r = new LzRole();
+//		r.setRoleCode("P111111");
+		
+		LzRole r = roleService.searchRole("p");
+		u.setRole(r);
+//		
+		userService.editUser(u);
+		
+//		userService.deleteUser(u.getUsercode());
+	}
+	
+	@Test
+	public void test05(){
+		System.out.println("==================");
+		//LzUser u = userService.searchUserByCode("admin");
+		
+		LzUser u = new LzUser();
+		u.setUsercode("z16");
+		
+		LzRole r = roleService.searchRole("p");
+		u.setRole(r);
+		
+		userService.addUser(u);
+	}
 	
 }

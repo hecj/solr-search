@@ -41,7 +41,7 @@
      </div>
      <div class="divHeight">
 	     <label class="labelWidth">角色</label>
-	     <input  size="20" value="${user.roleCode }" readonly="readonly"/>
+	     <input  size="20" value="${user.role.rolename }(${user.role.roleCode })" readonly="readonly"/>
      </div>
      <div class="divHeight">
 	     <label class="labelWidth">创建时间:</label>

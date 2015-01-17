@@ -13,12 +13,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.freedom.search.admin.entity.LzDataCollectParams;
 import com.freedom.search.admin.entity.LzDataField;
 import com.freedom.search.admin.services.DataCollectService;
@@ -59,15 +60,14 @@ public class DataCollectController extends BaseController{
 		data = CodeConvertUtil.decode(data);
 		Log4jUtil.log(data);
 		try{
-			
-			JSONObject jsonObj = JSONObject.fromObject(data);
+			JSONObject jsonObj = JSON.parseObject(data);
 			String IP = jsonObj.getString("IP");
-			Integer PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?null:jsonObj.getInt("PORT");
+			Integer PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?null:jsonObj.getInteger("PORT");
 			String baseURL = jsonObj.getString("baseURL");
 			String pageParams = jsonObj.getString("pageParams");
-			Integer start = StringUtil.isStrEmpty(jsonObj.getString("start"))?null:jsonObj.getInt("start");
-			Integer end = StringUtil.isStrEmpty(jsonObj.getString("end"))?null:jsonObj.getInt("end");
-			Integer step = StringUtil.isStrEmpty(jsonObj.getString("step"))?null:jsonObj.getInt("step");
+			Integer start = StringUtil.isStrEmpty(jsonObj.getString("start"))?null:jsonObj.getInteger("start");
+			Integer end = StringUtil.isStrEmpty(jsonObj.getString("end"))?null:jsonObj.getInteger("end");
+			Integer step = StringUtil.isStrEmpty(jsonObj.getString("step"))?null:jsonObj.getInteger("step");
 			String baseSelect = jsonObj.getString("baseSelect");
 			String dataBaseType = jsonObj.getString("dataBaseType");
 			String encode = jsonObj.getString("encode");
@@ -107,7 +107,7 @@ public class DataCollectController extends BaseController{
 				mDataField.setNewPlace(obj.getString("newPlace"));
 				mDataField.setFieldName(obj.getString("fieldName"));
 				mDataField.setFieldType(obj.getString("fieldType"));
-				mDataField.setFieldLenth(obj.getInt("fieldLenth"));
+				mDataField.setFieldLenth(obj.getInteger("fieldLenth"));
 				mDataField.setDataCollectParams(mCollectParams);
 				dataFields.add(mDataField);
 			}
@@ -239,15 +239,15 @@ public class DataCollectController extends BaseController{
 		try{
 			if(!StringUtil.isStrEmpty(data)){
 				System.out.println(data);
-				JSONObject jsonObj = JSONObject.fromObject(data);
+				JSONObject jsonObj = JSON.parseObject(data);
 				String id = jsonObj.getString("id");
 				String IP = jsonObj.getString("IP");
-				Integer PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?null:jsonObj.getInt("PORT");
+				Integer PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?null:jsonObj.getInteger("PORT");
 				String baseURL = jsonObj.getString("baseURL");
 				String pageParams = jsonObj.getString("pageParams");
-				Integer start = StringUtil.isStrEmpty(jsonObj.getString("start"))?null:jsonObj.getInt("start");
-				Integer end = StringUtil.isStrEmpty(jsonObj.getString("end"))?null:jsonObj.getInt("end");
-				Integer step = StringUtil.isStrEmpty(jsonObj.getString("step"))?null:jsonObj.getInt("step");
+				Integer start = StringUtil.isStrEmpty(jsonObj.getString("start"))?null:jsonObj.getInteger("start");
+				Integer end = StringUtil.isStrEmpty(jsonObj.getString("end"))?null:jsonObj.getInteger("end");
+				Integer step = StringUtil.isStrEmpty(jsonObj.getString("step"))?null:jsonObj.getInteger("step");
 				String baseSelect = jsonObj.getString("baseSelect");
 				String dataBaseType = jsonObj.getString("dataBaseType");
 				String encode = jsonObj.getString("encode");
@@ -291,7 +291,7 @@ public class DataCollectController extends BaseController{
 					mDataField.setNewPlace(obj.getString("newPlace"));
 					mDataField.setFieldName(obj.getString("fieldName"));
 					mDataField.setFieldType(obj.getString("fieldType"));
-					mDataField.setFieldLenth(obj.getInt("fieldLenth"));
+					mDataField.setFieldLenth(obj.getInteger("fieldLenth"));
 					mDataField.setDataCollectParams(mCollectParams);
 					dataFields.add(mDataField);
 				}
@@ -312,14 +312,14 @@ public class DataCollectController extends BaseController{
 		Log4jUtil.log(data);
 		try{
 			
-			JSONObject jsonObj = JSONObject.fromObject(data);
+			JSONObject jsonObj = JSON.parseObject(data);
 			String IP = jsonObj.getString("IP");
-			Integer PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?null:jsonObj.getInt("PORT");
+			Integer PORT = StringUtil.isStrEmpty(jsonObj.getString("PORT"))?null:jsonObj.getInteger("PORT");
 			String baseURL = jsonObj.getString("baseURL");
 			String pageParams = jsonObj.getString("pageParams");
-			Integer start = StringUtil.isStrEmpty(jsonObj.getString("start"))?null:jsonObj.getInt("start");
-			Integer end = StringUtil.isStrEmpty(jsonObj.getString("end"))?null:jsonObj.getInt("end");
-			Integer step = StringUtil.isStrEmpty(jsonObj.getString("step"))?null:jsonObj.getInt("step");
+			Integer start = StringUtil.isStrEmpty(jsonObj.getString("start"))?null:jsonObj.getInteger("start");
+			Integer end = StringUtil.isStrEmpty(jsonObj.getString("end"))?null:jsonObj.getInteger("end");
+			Integer step = StringUtil.isStrEmpty(jsonObj.getString("step"))?null:jsonObj.getInteger("step");
 			String baseSelect = jsonObj.getString("baseSelect");
 			String dataBaseType = jsonObj.getString("dataBaseType");
 			String encode = jsonObj.getString("encode");
@@ -359,7 +359,7 @@ public class DataCollectController extends BaseController{
 				mDataField.setNewPlace(obj.getString("newPlace"));
 				mDataField.setFieldName(obj.getString("fieldName"));
 				mDataField.setFieldType(obj.getString("fieldType"));
-				mDataField.setFieldLenth(obj.getInt("fieldLenth"));
+				mDataField.setFieldLenth(obj.getInteger("fieldLenth"));
 				mDataField.setDataCollectParams(mCollectParams);
 				dataFields.add(mDataField);
 			}

@@ -99,10 +99,10 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping(params="operator=deleteRole")
-	public void deleteRole(String roleCode,HttpServletResponse response){
+	public void deleteRole(String rolecode,HttpServletResponse response){
 		try {
-			if(!StringUtil.isStrEmpty(roleCode)){
-				roleService.deleteRole(roleCode);
+			if(!StringUtil.isStrEmpty(rolecode)){
+				roleService.deleteRole(rolecode);
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!").toJSON());
 			}
 		} catch(ModuleRoleExistException e){
@@ -116,19 +116,19 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping(params="operator=findRole")
-	public String findRole(String roleCode,HttpServletRequest request,HttpServletResponse response){
+	public String findRole(String rolecode,HttpServletRequest request,HttpServletResponse response){
 		
-		if(!StringUtil.isStrEmpty(roleCode)){
-			LzRole role = roleService.searchRole(roleCode);
+		if(!StringUtil.isStrEmpty(rolecode)){
+			LzRole role = roleService.searchRole(rolecode);
 			request.setAttribute("role", role);
 		}
 		return "admin/jsp/role/rolemanager/findRole";
 	}
 	
 	@RequestMapping(params="operator=editRole")
-	public String editRole(String roleCode,HttpServletRequest request,HttpServletResponse response){
-		if(!StringUtil.isStrEmpty(roleCode)){
-			LzRole role = roleService.searchRole(roleCode);
+	public String editRole(String rolecode,HttpServletRequest request,HttpServletResponse response){
+		if(!StringUtil.isStrEmpty(rolecode)){
+			LzRole role = roleService.searchRole(rolecode);
 			request.setAttribute("role", role);
 		}
 		return "admin/jsp/role/rolemanager/editRole";
@@ -139,16 +139,16 @@ public class RoleController extends BaseController {
 		
 		try {
 			//字段
-			String roleCode = request.getParameter("roleCode");
+			String rolecode = request.getParameter("rolecode");
 			String rolename = request.getParameter("rolename");
 			String ids = request.getParameter("ids");
-			if(StringUtil.isStrEmpty(roleCode)){
+			if(StringUtil.isStrEmpty(rolecode)){
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!").toJSON());
 				return;
 			}
 			//角色
 			LzRole role = new LzRole();
-			role.setRoleCode(roleCode);
+			role.setrolecode(rolecode);
 			role.setRolename(rolename);
 			role.setUdpateDate(DateFormatUtil.getCurrDate());
 			//模块Ids
@@ -182,15 +182,15 @@ public class RoleController extends BaseController {
 	
 	@RequestMapping(params="operator=initModule")
 	public void initModule(HttpServletRequest request,HttpServletResponse response){
-		String roleCode = request.getParameter("roleCode");
+		String rolecode = request.getParameter("rolecode");
 		String id = request.getParameter("id");
 		//Id为空时,默认为超级节点
 		if(StringUtil.isStrEmpty(id)){
 			id = EnumAdminUtils.Tree.RootParent.code ;
 		}
 		//查询节点树
-		if(!StringUtil.isStrEmpty(roleCode)){
-			List<VoTree> trees = roleService.searchTreeByRoleCode(roleCode, id);
+		if(!StringUtil.isStrEmpty(rolecode)){
+			List<VoTree> trees = roleService.searchTreeByRolecode(rolecode, id);
 			if(trees.size()>0){
 				write(response, ObjectToJson.object2json(trees));
 				return;
@@ -205,15 +205,15 @@ public class RoleController extends BaseController {
 	
 	@RequestMapping(params="operator=initEditModule")
 	public void initEditModule(HttpServletRequest request,HttpServletResponse response){
-		String roleCode = request.getParameter("roleCode");
+		String rolecode = request.getParameter("rolecode");
 		String id = request.getParameter("id");
 		//Id为空时,默认为超级节点
 		if(StringUtil.isStrEmpty(id)){
 			id = EnumAdminUtils.Tree.RootParent.code ;
 		}
 		//查询所有节点树,并在有权限的节点树上加checked
-		if(!StringUtil.isStrEmpty(roleCode)){
-			List<VoTree> trees = roleService.searchEdutTreeByRoleCode(roleCode, id);
+		if(!StringUtil.isStrEmpty(rolecode)){
+			List<VoTree> trees = roleService.searchEdutTreeByRolecode(rolecode, id);
 			if(trees.size()>0){
 				write(response, ObjectToJson.object2json(trees));
 				return;
@@ -232,7 +232,7 @@ public class RoleController extends BaseController {
 			List<LzRole> roleList = roleService.searchRoleList();
 			List<VoCombobox> voList = new ArrayList<VoCombobox>();
 			for (LzRole r:roleList) {
-				voList.add(new VoCombobox(r.getRoleCode(),r.getRolename()+"("+r.getRoleCode()+")"));
+				voList.add(new VoCombobox(r.getrolecode(),r.getRolename()+"("+r.getrolecode()+")"));
 			}
 			write(response, ObjectToJson.object2json(voList));
 		} catch (Exception e) {

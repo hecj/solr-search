@@ -21,7 +21,7 @@
 				pageList : [ 15, 30, 45, 60 ],
 				columns:[[
 					{title:'角色名称',field:'rolename',align:'left', width:220},
-					{title:'角色代码',field:'roleCode',align:'left',width:80}
+					{title:'角色代码',field:'rolecode',align:'left',width:80}
 				]],
 				onLoadSuccess:function(row, data){
 					$.messager.progress('close');
@@ -64,7 +64,7 @@
 				if (r){
 					$.ajax({
 						url:app.basePath+'admin/role/role.htm?operator=deleteRole',
-						data:{roleCode:row.roleCode},
+						data:{rolecode:row.rolecode},
 						async:true,
 						dataType:'json',
 						timeout:3000,
@@ -94,10 +94,10 @@
 				return;
 			}
 			var dialog = parent.app.dialogModel({
-				title: '查看信息  '+row.roleCode,
+				title: '查看信息  '+row.rolecode,
 				width: 400,
 				height: 350,
-				url: app.basePath+'admin/role/role.htm?operator=findRole&roleCode='+row.roleCode,
+				url: app.basePath+'admin/role/role.htm?operator=findRole&rolecode='+row.rolecode,
 				buttons:[{
 					text:'关闭',
 					handler:function(){
@@ -115,10 +115,10 @@
 				return;
 			}
 			var dialog = parent.app.dialogModel({
-				title: '编辑信息  '+row.roleCode,
+				title: '编辑信息  '+row.rolecode,
 				width: 400,
 				height: 350,
-				url: app.basePath+'admin/role/role.htm?operator=editRole&roleCode='+row.roleCode,
+				url: app.basePath+'admin/role/role.htm?operator=editRole&rolecode='+row.rolecode,
 				buttons:[{
 					text:'提交',
 					handler:function(){

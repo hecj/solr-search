@@ -26,23 +26,23 @@ public interface RoleService {
 	/**
 	 * 删除角色
 	 */
-	public boolean deleteRole(String roleCode);
+	public boolean deleteRole(String rolecode);
 	
 	/**
 	 * 查询角色
 	 */
-	public LzRole searchRole(String roleCode);
+	public LzRole searchRole(String rolecode);
 	
 	/**
 	 * 根据角色代码查询子节点权限
 	 */
-	public List<VoTree> searchTreeByRoleCode(String roleCode,String id);
+	public List<VoTree> searchTreeByRolecode(String rolecode,String id);
 	
 	/**
 	 * 根据角色代码查询子节点权限
 	 * 有权限的模块打勾
 	 */
-	public List<VoTree> searchEdutTreeByRoleCode(String roleCode,String id);
+	public List<VoTree> searchEdutTreeByRolecode(String rolecode,String id);
 
 	/**
 	 * 修改角色

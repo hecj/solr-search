@@ -31,7 +31,7 @@ public class LzRoleModule implements Serializable{
 	/*
 	 * 角色代码
 	 */
-	private String roleCode;
+	private String rolecode;
 	/*
 	 * 模块Id
 	 */
@@ -50,12 +50,12 @@ public class LzRoleModule implements Serializable{
 		this.id = id;
 	}
 
-	public String getRoleCode() {
-		return roleCode;
+	public String getrolecode() {
+		return rolecode;
 	}
 
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
+	public void setrolecode(String rolecode) {
+		this.rolecode = rolecode;
 	}
 	
 	public String getModuleId() {

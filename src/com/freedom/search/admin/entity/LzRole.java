@@ -34,7 +34,7 @@ public class LzRole implements Serializable{
 	/*
 	 * 角色代码
 	 */
-	private String roleCode;
+	private String rolecode;
 	/*
 	 * 名称
 	 */
@@ -56,12 +56,12 @@ public class LzRole implements Serializable{
 	
 	@Id
 	@Column(name="rolecode",length=32,nullable=false)
-	public String getRoleCode() {
-		return roleCode;
+	public String getrolecode() {
+		return rolecode;
 	}
 
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
+	public void setrolecode(String rolecode) {
+		this.rolecode = rolecode;
 	}
 
 	public String getRolename() {

@@ -24,7 +24,7 @@ public class UUIDUtil {
 	/**
 	 * 自动生成角色Id
 	 */
-	public static String autoRoleCode(){
+	public static String autorolecode(){
 		
 		String endUUID = String.valueOf((int)(Math.random()*10000000l));
 		int endUUIDLenth = endUUID.length() ;

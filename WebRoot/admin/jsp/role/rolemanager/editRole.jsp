@@ -10,9 +10,9 @@
 	});
 	
 	var initFun = function(){
-		var roleCode = $('input[name=roleCode]').val();
+		var rolecode = $('input[name=rolecode]').val();
 		tree = $('#tree').tree({
-			url: app.basePath+'admin/role/role.htm?operator=initEditModule&roleCode='+roleCode+'',
+			url: app.basePath+'admin/role/role.htm?operator=initEditModule&rolecode='+rolecode+'',
 			border:false,
 			checkbox:true,
 			onLoadSuccess:function(row, data){
@@ -88,7 +88,7 @@
 	<div id="content" region="center" data-options="border:false">
 		<form method="post">
 		     <div>
-		     	<input type="hidden" name="roleCode" value="${role.roleCode }"/>
+		     	<input type="hidden" name="rolecode" value="${role.rolecode }"/>
 			    <label for="name" >角色名称:</label>
 				<input name="rolename" value="${role.rolename }" size="25" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'" />
 		     </div>

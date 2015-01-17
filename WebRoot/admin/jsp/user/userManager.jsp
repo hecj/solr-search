@@ -39,7 +39,7 @@
 				align : 'center',
 				width:120,
 				formatter: function(value,row,index){
-					return value.rolename+'('+value.roleCode+')';
+					return value.rolename+'('+value.rolecode+')';
 				}
 			}, {
 				field : 'imageHead',

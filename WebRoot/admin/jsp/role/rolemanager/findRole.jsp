@@ -10,9 +10,9 @@
 	});
 	
 	var initFun = function(){
-		var roleCode = $('input[name=roleCode]').val();
+		var rolecode = $('input[name=rolecode]').val();
 		tree = $('#tree').tree({
-			url: app.basePath+'admin/role/role.htm?operator=initModule&roleCode='+roleCode,
+			url: app.basePath+'admin/role/role.htm?operator=initModule&rolecode='+rolecode,
 			border:false,
 			onLoadSuccess:function(row, data){
 				$(this).tree('expandAll',$(this).tree('getRoot').target)
@@ -43,7 +43,7 @@
 	<div id="content" region="center" data-options="border:false">
 		<form method="post">
 		     <div>
-		     	<input type="hidden" name="roleCode" value="${role.roleCode }"/>
+		     	<input type="hidden" name="rolecode" value="${role.rolecode }"/>
 			    <label for="name" >角色名称:</label>
 				<input size="25" value="${role.rolename }" readonly="readonly" />
 		     </div>

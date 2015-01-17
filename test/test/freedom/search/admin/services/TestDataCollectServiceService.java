@@ -117,7 +117,7 @@ public class TestDataCollectServiceService {
 		System.out.println(u.getRole().getRolename());
 		
 //		LzRole r = new LzRole();
-//		r.setRoleCode("P111111");
+//		r.setrolecode("P111111");
 		
 		LzRole r = roleService.searchRole("p");
 		u.setRole(r);

@@ -20,7 +20,7 @@
 <script type="text/javascript">
 
 	$(function(){
-	    $('#roleCode').combobox({
+	    $('#rolecode').combobox({
 	        url: app.basePath+'admin/role/role.htm?operator=roleList',
 	        valueField:'value',
 	        textField:'text'
@@ -76,7 +76,7 @@
      </div>
      <div class="divHeight">
 	     <label class="labelWidth">角色</label>
-	     <input id="roleCode" name="roleCode" size="20" value="${user.role.roleCode }" class="easyui-combobox" data-options="required:true,validType:'notEmpty'"/>
+	     <input id="rolecode" name="rolecode" size="20" value="${user.role.rolecode }" class="easyui-combobox" data-options="required:true,validType:'notEmpty'"/>
      </div>
 </form>
 </div>

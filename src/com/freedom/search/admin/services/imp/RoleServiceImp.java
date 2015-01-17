@@ -54,24 +54,24 @@ public class RoleServiceImp implements RoleService {
 		
 		try {
 			//自动判断生成唯一的Id
-			String roleCode = "";
+			String rolecode = "";
 			while(true){
-				roleCode = UUIDUtil.autoRoleCode();
-				LzRole tempRole = roleDAO.findById(roleCode);
+				rolecode = UUIDUtil.autorolecode();
+				LzRole tempRole = roleDAO.findById(rolecode);
 				if(StringUtil.isObjectNull(tempRole)){
 					break;
 				}
 			}
 			//插入角色
-			role.setRoleCode(roleCode);
-			String roleCodeTemp = (String) roleDAO.save(role);
-			if(!StringUtil.isStrEmpty(roleCodeTemp)){
+			role.setrolecode(rolecode);
+			String rolecodeTemp = (String) roleDAO.save(role);
+			if(!StringUtil.isStrEmpty(rolecodeTemp)){
 				//插入权限
    				for(String id : moduleIds){
 					if(!StringUtil.isStrEmpty(id)){
 						LzRoleModule rm = new LzRoleModule();
 						rm.setId(UUIDUtil.autoUUID());
-						rm.setRoleCode(roleCodeTemp);
+						rm.setrolecode(rolecodeTemp);
 						rm.setModuleId(id);
 						roleModuleDAO.save(rm);
 					}
@@ -110,19 +110,19 @@ public class RoleServiceImp implements RoleService {
 	}
 
 	@Override
-	public boolean deleteRole(String roleCode) {
+	public boolean deleteRole(String rolecode) {
 		try {
 			
-			String qHql = "select count(u) from LzUser u where u.role='"+roleCode+"'";
+			String qHql = "select count(u) from LzUser u where u.role='"+rolecode+"'";
 			long count = Long.parseLong(roleDAO.queryUniqueResultByHQL(qHql).toString());
 			if(count>0){
-				throw new ModuleRoleExistException("角色("+roleCode+")已被授权("+count+"次,不可删除!)");
+				throw new ModuleRoleExistException("角色("+rolecode+")已被授权("+count+"次,不可删除!)");
 			}
 			//删除权限
-			String deleteRoleModele = "delete LzRoleModule t where t.roleCode='"+roleCode+"'";
+			String deleteRoleModele = "delete LzRoleModule t where t.rolecode='"+rolecode+"'";
 			roleModuleDAO.executeHQL(deleteRoleModele);
 			//删除角色
-			roleDAO.delete(roleDAO.findById(roleCode));
+			roleDAO.delete(roleDAO.findById(rolecode));
 			return true;
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -131,9 +131,9 @@ public class RoleServiceImp implements RoleService {
 	}
 
 	@Override
-	public LzRole searchRole(String roleCode) {
+	public LzRole searchRole(String rolecode) {
 		try {
-			return roleDAO.findById(roleCode);
+			return roleDAO.findById(rolecode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -141,13 +141,13 @@ public class RoleServiceImp implements RoleService {
 	}
 
 	@Override
-	public List<VoTree> searchTreeByRoleCode(String roleCode, String id) {
+	public List<VoTree> searchTreeByRolecode(String rolecode, String id) {
 		
 		List<VoTree> trees = new ArrayList<VoTree>();
 		try {
 			//查询模块权限
-			String qHql = "select m from LzModule m where m.moduleId in (select rm.moduleId from LzRoleModule rm where rm.roleCode=?) and m.parentId=?";
-			List<LzModule> modules = moduleDAO.queryListByParams(qHql, new Object[]{roleCode,id});
+			String qHql = "select m from LzModule m where m.moduleId in (select rm.moduleId from LzRoleModule rm where rm.rolecode=?) and m.parentId=?";
+			List<LzModule> modules = moduleDAO.queryListByParams(qHql, new Object[]{rolecode,id});
 			//模块转树对象
 			for(LzModule m : modules){
 				VoTree tree = new VoTree();
@@ -167,16 +167,16 @@ public class RoleServiceImp implements RoleService {
 	}
 
 	@Override
-	public List<VoTree> searchEdutTreeByRoleCode(String roleCode, String id) {
+	public List<VoTree> searchEdutTreeByRolecode(String rolecode, String id) {
 		
 		List<VoTree> trees = new ArrayList<VoTree>();
 		try {
 			//查询模块权限
-			String qHql = "select m from LzModule m where m.moduleId in (select rm.moduleId from LzRoleModule rm where rm.roleCode=?) and m.parentId=?";
-			List<LzModule> modules = moduleDAO.queryListByParams(qHql, new Object[]{roleCode,id});
+			String qHql = "select m from LzModule m where m.moduleId in (select rm.moduleId from LzRoleModule rm where rm.rolecode=?) and m.parentId=?";
+			List<LzModule> modules = moduleDAO.queryListByParams(qHql, new Object[]{rolecode,id});
 			//无权限的模块
-			String qNHql = "select m from LzModule m where m.moduleId not in (select rm.moduleId from LzRoleModule rm where rm.roleCode=?) and m.parentId=?";
-			List<LzModule> nModules = moduleDAO.queryListByParams(qNHql, new Object[]{roleCode,id});
+			String qNHql = "select m from LzModule m where m.moduleId not in (select rm.moduleId from LzRoleModule rm where rm.rolecode=?) and m.parentId=?";
+			List<LzModule> nModules = moduleDAO.queryListByParams(qNHql, new Object[]{rolecode,id});
 			
 			//权限模块节点设置为checked
 			for(LzModule m : modules){
@@ -214,7 +214,7 @@ public class RoleServiceImp implements RoleService {
 	public boolean editRole(LzRole role, String[] moduleIds) {
 		try {
 			//查询角色
-			LzRole tmpRole = roleDAO.findById(role.getRoleCode());
+			LzRole tmpRole = roleDAO.findById(role.getrolecode());
 			if(StringUtil.isObjectNull(tmpRole)){
 				return false;
 			}
@@ -223,14 +223,14 @@ public class RoleServiceImp implements RoleService {
 			tmpRole.setUdpateDate(role.getUdpateDate());
 			roleDAO.update(tmpRole);
 			//删除历史权限
-			String delHql = "delete LzRoleModule rm where rm.roleCode = '"+role.getRoleCode()+"'";
+			String delHql = "delete LzRoleModule rm where rm.rolecode = '"+role.getrolecode()+"'";
 			roleModuleDAO.executeHQL(delHql);
 			//插入新权限
 			for(String id : moduleIds){
 				if(!StringUtil.isStrEmpty(id)){
 					LzRoleModule rm = new LzRoleModule();
 					rm.setId(UUIDUtil.autoUUID());
-					rm.setRoleCode(role.getRoleCode());
+					rm.setrolecode(role.getrolecode());
 					rm.setModuleId(id);
 					roleModuleDAO.save(rm);
 				}

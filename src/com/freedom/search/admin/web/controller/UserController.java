@@ -128,7 +128,7 @@ public class UserController extends BaseController {
 			String username = request.getParameter("username");
 			String telPhone = request.getParameter("telPhone");
 			String email = request.getParameter("email");
-			String roleCode = request.getParameter("roleCode");
+			String rolecode = request.getParameter("rolecode");
 			if(StringUtil.isStrEmpty(usercode) || StringUtil.isStrEmpty(password)){
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名或密码为空!").toJSON());
 				return;
@@ -143,7 +143,7 @@ public class UserController extends BaseController {
 			user.setUsercode(usercode);
 			user.setUsername(username);
 			user.setPassword(MD5.md5crypt(password));
-			user.setRole(roleService.searchRole(roleCode));
+			user.setRole(roleService.searchRole(rolecode));
 			user.setTelPhone(telPhone);
 			user.setEmail(email);
 			user.setCreateDate(new Date());
@@ -183,7 +183,7 @@ public class UserController extends BaseController {
 			String username = request.getParameter("username");
 			String telPhone = request.getParameter("telPhone");
 			String email = request.getParameter("email");
-			String roleCode = request.getParameter("roleCode");
+			String rolecode = request.getParameter("rolecode");
 			if(StringUtil.isStrEmpty(usercode)){
 				write(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名或密码为空!").toJSON());
 				return;
@@ -191,7 +191,7 @@ public class UserController extends BaseController {
 			
 			LzUser user = userService.searchUserByCode(usercode);
 			user.setUsername(username);
-			user.setRole(roleService.searchRole(roleCode));
+			user.setRole(roleService.searchRole(rolecode));
 			user.setTelPhone(telPhone);
 			user.setEmail(email);
 			user.setUpdateDate(new Date());

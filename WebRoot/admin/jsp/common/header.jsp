@@ -2,14 +2,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
 	.divUser{
-		margin-top: 60px;
-		margin-right: 20px;
+		margin-right: 40px;
 		text-align: right;
+		margin-top:45px;
+		height: 20px;
 		color: white;
 	}
 	
 	.divUser a{
 		color: white;
+	}
+	
+	div.sysdate{
+		color: white;
+		text-align: right;
+		margin-right: 20px;
+		margin-bottom:0px;
+		height: 20px;
 	}
 	
 </style>
@@ -18,7 +27,15 @@
 	var userMenu;
 	$(function(){
 		userMenu = $('#userMenu').menu({});
+		//系统时间
+		setSysTime();
 	});
+	
+	/*定时更新系统时间*/
+	var setSysTime = function(){
+		$('div.sysdate label').text(common.getSysTime());
+		setTimeout('setSysTime()',1000);
+	}
 
 	/*显示用户菜单*/
 	var showUserMenuFun = function(e){
@@ -80,25 +97,20 @@
 	} 
 
 </script>
-<table width="100%" >
-		<tr >
-			<td width="80%">
-			</td>
-			<td width="20%">
-				<table width="100%">
-					<tr>
-						<td height="100%">
-							<div class="divUser">
-									<c:if test="${not empty context}">
-										用户名:<a onclick="showUserMenuFun(event)" href="javascript:void(0);">${context.user.usercode }</a>
-									</c:if>
-							</div>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	
+
+<table width="100%">
+	<tr>
+		<td height="100%">
+			<div class="divUser">
+				<c:if test="${not empty context}">
+					用户名:<a onclick="showUserMenuFun(event);" href="javascript:void(0);">${context.user.usercode }</a>
+				</c:if>
+			</div>
+			<div class="sysdate">
+				<label></label>
+			</div>
+		</td>
+	</tr>
 </table>
 
 <div id="userMenu">

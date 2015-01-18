@@ -42,10 +42,10 @@ public interface ModuleService {
 	/**
 	 * 根据父模块Id查询子模块集合
 	 */
-	public List<LzModule> searchChildModules(String id);
+	public List<LzModule> searchChildModules(String rolecode,String id);
 	
 	/**
 	 * 查询子节点Tree
 	 */
-	public List<Tree> searchChildTree(String id);
+	public List<Tree> searchChildTree(String usercode,String id);
 }	

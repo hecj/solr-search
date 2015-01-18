@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.dao.RoleModuleDAO;
+import com.freedom.search.admin.dao.UserDAO;
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.Tree;
@@ -30,12 +31,19 @@ public class ModuleServiceImp implements ModuleService{
 	@Resource
 	private RoleModuleDAO roleModuleDAO;
 	
+	@Resource
+	private UserDAO userDAO;
+	
 	public void setModuleDAO(ModuleDAO moduleDAO) {
 		this.moduleDAO = moduleDAO;
 	}
 	
 	public void setRoleModuleDAO(RoleModuleDAO roleModuleDAO) {
 		this.roleModuleDAO = roleModuleDAO;
+	}
+
+	public void setUserDAO(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 
 	@Override
@@ -312,16 +320,19 @@ public class ModuleServiceImp implements ModuleService{
 	}
 
 	@Override
-	public List<LzModule> searchChildModules(String id) {
+	public List<LzModule> searchChildModules(String rolecode,String id) {
 		
-		String query = "select m from LzModule m where m.parentId=?";
-		return moduleDAO.queryListByParams(query, new Object[]{id});
+		String query = "select m from LzModule m where m.parentId=? and m.moduleId in " +
+				"(select rm.moduleId from LzRoleModule rm where rm.rolecode=?)";
+		return moduleDAO.queryListByParams(query, new Object[]{id,rolecode});
 	}
 
 	@Override
-	public List<Tree> searchChildTree(String id) {
+	public List<Tree> searchChildTree(String usercode,String id) {
+		//查询用户角色代码
+		String rolecode = userDAO.findById(usercode).getRole().getRolecode();
 		List<Tree> trees = new ArrayList<Tree>();
-		List<LzModule> modules = this.searchChildModules(id);
+		List<LzModule> modules = this.searchChildModules(rolecode,id);
 		//模块转vo类
 		for(LzModule m:modules){
 			Tree tree = new Tree();

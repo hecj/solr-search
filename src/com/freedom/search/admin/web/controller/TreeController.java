@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.Tree;
+import com.freedom.search.admin.vo.UserContext;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.StringUtil;
 import com.freedom.search.web.controller.base.BaseController;
@@ -50,8 +51,11 @@ public class TreeController extends BaseController {
 			if(StringUtil.isStrEmpty(id)){
 				id = rootId;
 			}
+			//获取当前登陆的用户名
+			UserContext context = (UserContext) request.getSession().getAttribute("context");
+			String usercode = context.getUser().getUsercode();
 			//查询子节点
-			List<Tree> trees = moduleService.searchChildTree(id);
+			List<Tree> trees = moduleService.searchChildTree(usercode,id);
 			writeToJSON(response, trees);
 		} catch (Exception e) {
 			writeToJSON(response, new Tree());

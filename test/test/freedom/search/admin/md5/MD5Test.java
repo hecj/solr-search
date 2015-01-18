@@ -8,6 +8,6 @@ public class MD5Test {
 	
 	@Test
 	public void test01(){
-		System.out.println(MD5.md5crypt("admin"));
+		System.out.println(MD5.md5crypt("hecj"));
 	}
 }

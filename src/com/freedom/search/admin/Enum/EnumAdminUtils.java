@@ -62,11 +62,13 @@ public class EnumAdminUtils {
 	 * 菜单树
 	 */	
 	public enum Tree {
+		
 		RootParent("root"),Root("0");
 		public String code;
 		Tree(String code) {
 			this.code = code ;
 		}
+		
 		/*树展开状态*/
 		public enum State {
 			Open("open"),Closed("closed");
@@ -75,6 +77,7 @@ public class EnumAdminUtils {
 				this.code = code ;
 			}
 		}
+		
 		/*叶子属性*/
 		public enum Leaf {
 			True("1"), False("0");
@@ -90,6 +93,15 @@ public class EnumAdminUtils {
 			public String code;
 			Checked(String code) {
 				this.code = code ;
+			}
+		}
+		
+		/*属性*/
+		public enum Attributes{
+			URL("url");
+			public String code;
+			Attributes(String code) {
+				this.code = code;
 			}
 		}
 		

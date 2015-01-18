@@ -1,8 +1,10 @@
 package com.freedom.search.admin.services;
 
+import java.util.List;
+
 import com.freedom.search.admin.entity.LzModule;
-import com.freedom.search.admin.vo.VoTree;
 import com.freedom.search.admin.vo.VoModule;
+import com.freedom.search.admin.vo.VoTree;
 
 public interface ModuleService {
 	
@@ -37,4 +39,13 @@ public interface ModuleService {
 	 */
 	public boolean updateNode(LzModule module);
 	
-}
+	/**
+	 * 根据父模块Id查询子模块集合
+	 */
+	public List<LzModule> searchChildModules(String id);
+	
+	/**
+	 * 查询子节点Tree
+	 */
+	public List<VoTree> searchChildTree(String id);
+}	

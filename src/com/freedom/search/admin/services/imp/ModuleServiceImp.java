@@ -311,4 +311,33 @@ public class ModuleServiceImp implements ModuleService{
 		}
 	}
 
+	@Override
+	public List<LzModule> searchChildModules(String id) {
+		
+		String query = "select m from LzModule m where m.parentId=?";
+		return moduleDAO.queryListByParams(query, new Object[]{id});
+	}
+
+	@Override
+	public List<VoTree> searchChildTree(String id) {
+		List<VoTree> trees = new ArrayList<VoTree>();
+		List<LzModule> modules = this.searchChildModules(id);
+		//模块转vo类
+		for(LzModule m:modules){
+			VoTree tree = new VoTree();
+			tree.setId(m.getModuleId());
+			tree.setText(m.getName());
+			Map<String,String> map = new HashMap<String,String>();
+			map.put(EnumAdminUtils.Tree.Attributes.URL.code, m.getUrl());
+			tree.setAttributes(map);
+			if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
+				tree.setState(EnumAdminUtils.Tree.State.Closed.code);
+			}else{
+				tree.setIconCls(m.getIcons());
+			}
+			trees.add(tree);
+		}
+		return trees;
+	}
+
 }

@@ -1,7 +1,9 @@
 package com.freedom.search.admin.web.controller;
 
+import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,26 @@ public class TreeController extends BaseController {
 			}
 		}else{
 			Log4jUtil.log("moduleId is null!");
+		}
+	}
+	
+	@RequestMapping(params="operator=init")
+	public void init(HttpServletRequest request,HttpServletResponse response){
+		
+		try {
+			//根节点Id
+			String rootId = request.getParameter("rootId");
+			//展开时枝干节点Id
+			String id = request.getParameter("id");
+			if(StringUtil.isStrEmpty(id)){
+				id = rootId;
+			}
+			//查询子节点
+			List<VoTree> trees = moduleService.searchChildTree(id);
+			writeToJSON(response, trees);
+		} catch (Exception e) {
+			writeToJSON(response, new VoTree());
+			e.printStackTrace();
 		}
 	}
 	

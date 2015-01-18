@@ -8,7 +8,8 @@
 			customMenu = $('#customMenu').tree( {
 				//url : app.basePath+'admin/js/common/tree3.json',
 				//url : app.basePath+'admin/tree/tree.htm?operator=initTree&moduleId=0001',
-				url : app.basePath+'admin/tree/tree.htm?operator=init&rootId=0001',
+				url : app.basePath+'admin/tree/tree.htm?operator=init&rootId=0',
+				border:false,
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
 						if(node.state == "open"){
@@ -27,8 +28,9 @@
 					//});
 				},
 				onLoadSuccess:function(node, data){
-					$.messager.progress('close');
-				},
+					$(this).tree('expandAll',$(this).tree('getRoot').target);
+					//$.messager.progress('close');
+				}
 			});
 			
 			systemTools = $('#systemTools').tree( {

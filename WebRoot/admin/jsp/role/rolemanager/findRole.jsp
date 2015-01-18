@@ -15,7 +15,7 @@
 			url: app.basePath+'admin/role/role.htm?operator=initModule&rolecode='+rolecode,
 			border:false,
 			onLoadSuccess:function(row, data){
-				$(this).tree('expandAll',$(this).tree('getRoot').target)
+				$(this).tree('expandAll',$(this).tree('getRoot').target);
 				$.messager.progress('close');
 			},
 			onBeforeLoad:function(row, param){

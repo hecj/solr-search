@@ -17,7 +17,7 @@ import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.dao.RoleModuleDAO;
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.services.ModuleService;
-import com.freedom.search.admin.vo.VoTree;
+import com.freedom.search.admin.vo.Tree;
 import com.freedom.search.admin.vo.VoModule;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.StringUtil;
@@ -39,14 +39,14 @@ public class ModuleServiceImp implements ModuleService{
 	}
 
 	@Override
-	public VoTree searchMenuTree(String moduleId) {
+	public Tree searchMenuTree(String moduleId) {
 		
 		List<LzModule> list = moduleDAO.queryListByParams("select m from LzModule m where m.id=?", new Object[]{moduleId});
 		if(list.size() == 0){
 			return null;
 		}
 		LzModule module = list.get(0);
-		VoTree menuTree = new VoTree();
+		Tree menuTree = new Tree();
 		menuTree.setId(module.getModuleId());
 		menuTree.setText(module.getName());
 		menuTree.setState(module.getState());
@@ -55,15 +55,15 @@ public class ModuleServiceImp implements ModuleService{
 	/* 
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
-	private VoTree searchMenuTree(VoTree voTree,Set<LzModule> set) {
+	private Tree searchMenuTree(Tree voTree,Set<LzModule> set) {
 		String hql = "select m from LzModule m where m.parentId=?";
 		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getId()});
 		if(modules.size() == 0){
 			return voTree;
 		}else{
-			List<VoTree> chiledTree = new ArrayList<VoTree>();
+			List<Tree> chiledTree = new ArrayList<Tree>();
 			for(LzModule m : modules){
-				VoTree t = new VoTree();
+				Tree t = new Tree();
 				t.setId(m.getModuleId());
 				t.setText(m.getName());
 				t.setState(m.getState());
@@ -319,12 +319,12 @@ public class ModuleServiceImp implements ModuleService{
 	}
 
 	@Override
-	public List<VoTree> searchChildTree(String id) {
-		List<VoTree> trees = new ArrayList<VoTree>();
+	public List<Tree> searchChildTree(String id) {
+		List<Tree> trees = new ArrayList<Tree>();
 		List<LzModule> modules = this.searchChildModules(id);
 		//模块转vo类
 		for(LzModule m:modules){
-			VoTree tree = new VoTree();
+			Tree tree = new Tree();
 			tree.setId(m.getModuleId());
 			tree.setText(m.getName());
 			Map<String,String> map = new HashMap<String,String>();

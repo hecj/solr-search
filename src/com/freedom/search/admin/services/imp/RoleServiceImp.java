@@ -18,7 +18,7 @@ import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.entity.LzRoleModule;
 import com.freedom.search.admin.exception.ModuleRoleExistException;
 import com.freedom.search.admin.services.RoleService;
-import com.freedom.search.admin.vo.VoTree;
+import com.freedom.search.admin.vo.Tree;
 import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.Pagination;
@@ -141,16 +141,16 @@ public class RoleServiceImp implements RoleService {
 	}
 
 	@Override
-	public List<VoTree> searchTreeByRolecode(String rolecode, String id) {
+	public List<Tree> searchTreeByRolecode(String rolecode, String id) {
 		
-		List<VoTree> trees = new ArrayList<VoTree>();
+		List<Tree> trees = new ArrayList<Tree>();
 		try {
 			//查询模块权限
 			String qHql = "select m from LzModule m where m.moduleId in (select rm.moduleId from LzRoleModule rm where rm.rolecode=?) and m.parentId=?";
 			List<LzModule> modules = moduleDAO.queryListByParams(qHql, new Object[]{rolecode,id});
 			//模块转树对象
 			for(LzModule m : modules){
-				VoTree tree = new VoTree();
+				Tree tree = new Tree();
 				tree.setId(m.getModuleId());
 				tree.setText(m.getName());
 				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
@@ -167,9 +167,9 @@ public class RoleServiceImp implements RoleService {
 	}
 
 	@Override
-	public List<VoTree> searchEdutTreeByRolecode(String rolecode, String id) {
+	public List<Tree> searchEdutTreeByRolecode(String rolecode, String id) {
 		
-		List<VoTree> trees = new ArrayList<VoTree>();
+		List<Tree> trees = new ArrayList<Tree>();
 		try {
 			//查询模块权限
 			String qHql = "select m from LzModule m where m.moduleId in (select rm.moduleId from LzRoleModule rm where rm.rolecode=?) and m.parentId=?";
@@ -180,7 +180,7 @@ public class RoleServiceImp implements RoleService {
 			
 			//权限模块节点设置为checked
 			for(LzModule m : modules){
-				VoTree tree = new VoTree();
+				Tree tree = new Tree();
 				tree.setId(m.getModuleId());
 				tree.setText(m.getName());
 				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){
@@ -193,7 +193,7 @@ public class RoleServiceImp implements RoleService {
 			}
 			//无权限模块设置不设置checked
 			for(LzModule m : nModules){
-				VoTree tree = new VoTree();
+				Tree tree = new Tree();
 				tree.setId(m.getModuleId());
 				tree.setText(m.getName());
 				if(m.getLeaf().equals(EnumAdminUtils.Tree.Leaf.False.code)){

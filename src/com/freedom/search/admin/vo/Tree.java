@@ -13,7 +13,7 @@ import java.util.Map;
  * @创建时间：2015-1-6 下午08:08:31
  * @版本：V1.0
  */
-public class VoTree implements Serializable {
+public class Tree implements Serializable {
 	
 	/**
 	 * @Fields serialVersionUID : TODO
@@ -26,7 +26,7 @@ public class VoTree implements Serializable {
 	private String iconCls;
 	private String checked;
 	private Map<String,String> attributes;//节点链接地址或按钮属性
-	private List<VoTree> children;
+	private List<Tree> children;
 	
 	public String getId() {
 		return id;
@@ -76,16 +76,16 @@ public class VoTree implements Serializable {
 		this.attributes = attributes;
 	}
 
-	public List<VoTree> getChildren() {
+	public List<Tree> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<VoTree> children) {
+	public void setChildren(List<Tree> children) {
 		this.children = children;
 	}
 
-	public List<VoTree> parentTree() {
-		List<VoTree> list = new ArrayList<VoTree>();
+	public List<Tree> parentTree() {
+		List<Tree> list = new ArrayList<Tree>();
 		list.add(this);
 		return list ;
 	}

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.freedom.search.admin.entity.LzRole;
-import com.freedom.search.admin.vo.VoTree;
+import com.freedom.search.admin.vo.Tree;
 import com.freedom.search.util.Result;
 
 public interface RoleService {
@@ -36,13 +36,13 @@ public interface RoleService {
 	/**
 	 * 根据角色代码查询子节点权限
 	 */
-	public List<VoTree> searchTreeByRolecode(String rolecode,String id);
+	public List<Tree> searchTreeByRolecode(String rolecode,String id);
 	
 	/**
 	 * 根据角色代码查询子节点权限
 	 * 有权限的模块打勾
 	 */
-	public List<VoTree> searchEdutTreeByRolecode(String rolecode,String id);
+	public List<Tree> searchEdutTreeByRolecode(String rolecode,String id);
 
 	/**
 	 * 修改角色

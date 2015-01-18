@@ -15,11 +15,11 @@
 			url: app.basePath+'admin/role/role.htm?operator=initEditModule&rolecode='+rolecode+'',
 			border:false,
 			checkbox:true,
-			onLoadSuccess:function(row, data){
-				$(this).tree('expandAll',$(this).tree('getRoot').target)
+			onLoadSuccess:function(node, data){
+				$(this).tree('expandAll',$(this).tree('getRoot').target);
 				$.messager.progress('close');
 			},
-			onBeforeLoad:function(row, param){
+			onBeforeLoad:function(node, param){
 				$.messager.progress({
 					text : '数据加载中....'
 				});

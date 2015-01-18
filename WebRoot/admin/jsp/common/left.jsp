@@ -26,9 +26,9 @@
 					//	text : '数据加载中....'
 					//});
 				},
-				onLoadSuccess:function(){
-					//$.messager.progress('close');
-				}
+				onLoadSuccess:function(node, data){
+					$.messager.progress('close');
+				},
 			});
 			
 			systemTools = $('#systemTools').tree( {

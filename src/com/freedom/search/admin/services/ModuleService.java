@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.vo.VoModule;
-import com.freedom.search.admin.vo.VoTree;
+import com.freedom.search.admin.vo.Tree;
 
 public interface ModuleService {
 	
 	/**
 	 * 根据节点Id，递归查询菜单树
 	 */
-	public VoTree searchMenuTree(String moduleId);
+	public Tree searchMenuTree(String moduleId);
 	/**
 	 * 根据节点Id,递归查询节点树
 	 */
@@ -47,5 +47,5 @@ public interface ModuleService {
 	/**
 	 * 查询子节点Tree
 	 */
-	public List<VoTree> searchChildTree(String id);
+	public List<Tree> searchChildTree(String id);
 }	

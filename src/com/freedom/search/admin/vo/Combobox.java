@@ -2,7 +2,7 @@ package com.freedom.search.admin.vo;
 
 import java.io.Serializable;
 
-public class VoCombobox implements Serializable {
+public class Combobox implements Serializable {
 
 	/**
 	 * @Fields serialVersionUID : TODO
@@ -13,12 +13,12 @@ public class VoCombobox implements Serializable {
 	private String value;
 	private String text;
 
-	public VoCombobox() {
+	public Combobox() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public VoCombobox(String value, String text) {
+	public Combobox(String value, String text) {
 		super();
 		this.value = value;
 		this.text = text;

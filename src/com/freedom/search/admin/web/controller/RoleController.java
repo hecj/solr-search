@@ -17,8 +17,8 @@ import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.exception.ModuleRoleExistException;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.services.RoleService;
-import com.freedom.search.admin.vo.VoCombobox;
-import com.freedom.search.admin.vo.VoTree;
+import com.freedom.search.admin.vo.Combobox;
+import com.freedom.search.admin.vo.Tree;
 import com.freedom.search.util.DateFormatUtil;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Log4jUtil;
@@ -171,7 +171,7 @@ public class RoleController extends BaseController {
 	public void initTree(String moduleId,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			VoTree voTree = menuTreeService.searchMenuTree(moduleId);
+			Tree voTree = menuTreeService.searchMenuTree(moduleId);
 			if(voTree != null){
 				writeToJSON(response, voTree.parentTree());
 			}
@@ -190,14 +190,14 @@ public class RoleController extends BaseController {
 		}
 		//查询节点树
 		if(!StringUtil.isStrEmpty(rolecode)){
-			List<VoTree> trees = roleService.searchTreeByRolecode(rolecode, id);
+			List<Tree> trees = roleService.searchTreeByRolecode(rolecode, id);
 			if(trees.size()>0){
 				writeToJSON(response, trees);
 				return;
 			}
 		}
 		//无权限
-		VoTree defaultTree = new VoTree();
+		Tree defaultTree = new Tree();
 		defaultTree.setText("<font color=red>无权限</font>");
 		writeToJSON(response, defaultTree.parentTree());
 	}
@@ -212,14 +212,14 @@ public class RoleController extends BaseController {
 		}
 		//查询所有节点树,并在有权限的节点树上加checked
 		if(!StringUtil.isStrEmpty(rolecode)){
-			List<VoTree> trees = roleService.searchEdutTreeByRolecode(rolecode, id);
+			List<Tree> trees = roleService.searchEdutTreeByRolecode(rolecode, id);
 			if(trees.size()>0){
 				writeToJSON(response, trees);
 				return;
 			}
 		}
 		//无权限
-		VoTree defaultTree = new VoTree();
+		Tree defaultTree = new Tree();
 		defaultTree.setText("<font color=red>无权限</font>");
 		writeToJSON(response, defaultTree.parentTree());
 		
@@ -229,9 +229,9 @@ public class RoleController extends BaseController {
 	public void roleList(HttpServletRequest request,HttpServletResponse response){
 		try {
 			List<LzRole> roleList = roleService.searchRoleList();
-			List<VoCombobox> voList = new ArrayList<VoCombobox>();
+			List<Combobox> voList = new ArrayList<Combobox>();
 			for (LzRole r:roleList) {
-				voList.add(new VoCombobox(r.getRolecode(),r.getRolename()+"("+r.getRolecode()+")"));
+				voList.add(new Combobox(r.getRolecode(),r.getRolename()+"("+r.getRolecode()+")"));
 			}
 			writeToJSON(response, voList);
 		} catch (Exception e) {

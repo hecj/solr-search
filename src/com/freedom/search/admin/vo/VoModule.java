@@ -28,7 +28,6 @@ public class VoModule implements Serializable {
 	private String state;
 	private String leaf;
 	
-	@Id
 	public String getModuleId() {
 		return moduleId;
 	}

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.services.ModuleService;
-import com.freedom.search.admin.vo.VoTree;
+import com.freedom.search.admin.vo.Tree;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.StringUtil;
 import com.freedom.search.web.controller.base.BaseController;
@@ -30,7 +30,7 @@ public class TreeController extends BaseController {
 	public void initTree(String moduleId,HttpServletResponse response){
 		
 		if(!StringUtil.isStrEmpty(moduleId)){
-			VoTree voTree = moduleService.searchMenuTree(moduleId);
+			Tree voTree = moduleService.searchMenuTree(moduleId);
 			if(voTree != null){
 				writeToJSON(response, voTree.getChildren());
 			}
@@ -51,10 +51,10 @@ public class TreeController extends BaseController {
 				id = rootId;
 			}
 			//查询子节点
-			List<VoTree> trees = moduleService.searchChildTree(id);
+			List<Tree> trees = moduleService.searchChildTree(id);
 			writeToJSON(response, trees);
 		} catch (Exception e) {
-			writeToJSON(response, new VoTree());
+			writeToJSON(response, new Tree());
 			e.printStackTrace();
 		}
 	}

@@ -35,7 +35,7 @@ public class ModuleController extends BaseController {
 		if(!StringUtil.isStrEmpty(moduleId)){
 			VoModule voTree = moduleService.treeManagerSearch(moduleId);
 			if(!StringUtil.isObjectEmpty(voTree)){
-				writeToJSON(response, voTree.getChildren());
+				writeToJSON(response, voTree.parentList());
 				return;
 			}
 		}

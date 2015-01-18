@@ -86,9 +86,10 @@ public class VoModule implements Serializable {
 	public void setChildren(List<VoModule> children) {
 		this.children = children;
 	}
-	public String toJSON() {
+	
+	public List<VoModule> parentList() {
 		List<VoModule> list = new ArrayList<VoModule>();
 		list.add(this);
-		return ObjectToJson.object2json(list) ;
+		return list ;
 	}
 }

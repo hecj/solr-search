@@ -71,7 +71,7 @@ public class RoleServiceImp implements RoleService {
 					if(!StringUtil.isStrEmpty(id)){
 						LzRoleModule rm = new LzRoleModule();
 						rm.setId(UUIDUtil.autoUUID());
-						rm.setrolecode(rolecodeTemp);
+						rm.setRolecode(rolecodeTemp);
 						rm.setModuleId(id);
 						roleModuleDAO.save(rm);
 					}
@@ -230,7 +230,7 @@ public class RoleServiceImp implements RoleService {
 				if(!StringUtil.isStrEmpty(id)){
 					LzRoleModule rm = new LzRoleModule();
 					rm.setId(UUIDUtil.autoUUID());
-					rm.setrolecode(role.getRolecode());
+					rm.setRolecode(role.getRolecode());
 					rm.setModuleId(id);
 					roleModuleDAO.save(rm);
 				}

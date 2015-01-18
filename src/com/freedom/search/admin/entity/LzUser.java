@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @类功能说明：后端User表
@@ -73,7 +75,7 @@ public class LzUser implements Serializable {
 	}
 
 	@Id
-	@Column(name = "usercode", length = 32, nullable = false)
+	@Column(name = "usercode", length = 32, nullable = false,updatable=false)
 	public String getUsercode() {
 		return usercode;
 	}
@@ -81,7 +83,8 @@ public class LzUser implements Serializable {
 	public void setUsercode(String usercode) {
 		this.usercode = usercode;
 	}
-
+	
+	@Column(name="username",length=100)
 	public String getUsername() {
 		return username;
 	}
@@ -89,7 +92,8 @@ public class LzUser implements Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	
+	@Column(name = "password", length = 32, nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -98,6 +102,7 @@ public class LzUser implements Serializable {
 		this.password = password;
 	}
 
+	@Column(name="telPhone",length=20)
 	public String getTelPhone() {
 		return telPhone;
 	}
@@ -106,6 +111,7 @@ public class LzUser implements Serializable {
 		this.telPhone = telPhone;
 	}
 
+	@Column(name="email",length=50)
 	public String getEmail() {
 		return email;
 	}
@@ -114,6 +120,7 @@ public class LzUser implements Serializable {
 		this.email = email;
 	}
 	
+	@Column(name="imageHead",length=200)
 	public String getImageHead() {
 		return imageHead;
 	}
@@ -122,6 +129,8 @@ public class LzUser implements Serializable {
 		this.imageHead = imageHead;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="createDate")
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -130,6 +139,8 @@ public class LzUser implements Serializable {
 		this.createDate = createDate;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="updateDate")
 	public Date getUpdateDate() {
 		return updateDate;
 	}

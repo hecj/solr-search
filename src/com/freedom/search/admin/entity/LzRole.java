@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @类功能说明：后端角色表
@@ -64,6 +66,7 @@ public class LzRole implements Serializable{
 		this.rolecode = rolecode;
 	}
 
+	@Column(name="rolename",length=200)
 	public String getRolename() {
 		return rolename;
 	}
@@ -72,6 +75,8 @@ public class LzRole implements Serializable{
 		this.rolename = rolename;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="createDate")
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -80,6 +85,8 @@ public class LzRole implements Serializable{
 		this.createDate = createDate;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="udpateDate")
 	public Date getUdpateDate() {
 		return udpateDate;
 	}

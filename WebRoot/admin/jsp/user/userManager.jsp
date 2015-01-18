@@ -39,6 +39,9 @@
 				align : 'center',
 				width:120,
 				formatter: function(value,row,index){
+					if(!value){
+						return '';
+					}
 					return value.rolename+'('+value.rolecode+')';
 				}
 			}, {

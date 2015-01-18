@@ -2,6 +2,7 @@ package com.freedom.search.admin.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -32,6 +33,7 @@ public class LzModule implements Serializable {
 	private Integer flag; //有效状态 审核，生效，删除
 
 	@Id
+	@Column(name="moduleId",length=32,nullable=false)
 	public String getModuleId() {
 		return moduleId;
 	}
@@ -40,6 +42,7 @@ public class LzModule implements Serializable {
 		this.moduleId = moduleId;
 	}
 
+	@Column(name="name",length=100,nullable=false)
 	public String getName() {
 		return name;
 	}
@@ -48,6 +51,7 @@ public class LzModule implements Serializable {
 		this.name = name;
 	}
 
+	@Column(name="url",length=255)
 	public String getUrl() {
 		return url;
 	}
@@ -56,6 +60,7 @@ public class LzModule implements Serializable {
 		this.url = url;
 	}
 
+	@Column(name="type",length=1)
 	public Integer getType() {
 		return type;
 	}
@@ -64,6 +69,7 @@ public class LzModule implements Serializable {
 		this.type = type;
 	}
 
+	@Column(name="parentId",length=32,nullable=false)
 	public String getParentId() {
 		return parentId;
 	}
@@ -72,6 +78,7 @@ public class LzModule implements Serializable {
 		this.parentId = parentId;
 	}
 
+	@Column(name="icons",length=100)
 	public String getIcons() {
 		return icons;
 	}
@@ -80,6 +87,7 @@ public class LzModule implements Serializable {
 		this.icons = icons;
 	}
 
+	@Column(name="leaf",length=1,nullable=false)
 	public String getLeaf() {
 		return leaf;
 	}
@@ -88,6 +96,7 @@ public class LzModule implements Serializable {
 		this.leaf = leaf;
 	}
 
+	@Column(name="state",length=10,nullable=false)
 	public String getState() {
 		return state;
 	}
@@ -95,7 +104,8 @@ public class LzModule implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
-
+	
+	@Column(name="flag",length=2)
 	public Integer getFlag() {
 		return flag;
 	}

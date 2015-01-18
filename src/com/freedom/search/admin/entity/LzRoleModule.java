@@ -48,14 +48,16 @@ public class LzRoleModule implements Serializable{
 		this.id = id;
 	}
 
-	public String getrolecode() {
+	@Column(name="rolecode",length=32,nullable=false)
+	public String getRolecode() {
 		return rolecode;
 	}
 
-	public void setrolecode(String rolecode) {
+	public void setRolecode(String rolecode) {
 		this.rolecode = rolecode;
 	}
 	
+	@Column(name="moduleId",length=32,nullable=false)
 	public String getModuleId() {
 		return moduleId;
 	}

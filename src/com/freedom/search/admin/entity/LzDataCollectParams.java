@@ -54,6 +54,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
+	
 	@Column(name="ip",length=20)
 	public String getIP() {
 		return IP;
@@ -62,6 +63,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setIP(String iP) {
 		IP = iP;
 	}
+	
 	@Column(name="port",length=6)
 	public Integer getPORT() {
 		return PORT;
@@ -70,6 +72,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setPORT(Integer pORT) {
 		PORT = pORT;
 	}
+	
 	@Column(name="end",length=10)
 	public Integer getEnd() {
 		return end;
@@ -78,6 +81,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setEnd(Integer end) {
 		this.end = end;
 	}
+	
 	@Column(name="step",length=5)
 	public Integer getStep() {
 		return step;
@@ -86,6 +90,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setStep(Integer step) {
 		this.step = step;
 	}
+	
 	@Column(name="pageParams",length=20)
 	public String getPageParams() {
 		return pageParams;
@@ -94,6 +99,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setPageParams(String pageParams) {
 		this.pageParams = pageParams;
 	}
+	
 	@Column(name="encode",length=10)
 	public String getEncode() {
 		return encode;
@@ -102,6 +108,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setEncode(String encode) {
 		this.encode = encode;
 	}
+	
 	@Column(name="start",length=10)
 	public Integer getStart() {
 		return start;
@@ -110,6 +117,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setStart(Integer start) {
 		this.start = start;
 	}
+	
 	@Column(name="baseURL",length=255,nullable=false)
 	public String getBaseURL() {
 		return baseURL;
@@ -118,6 +126,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setBaseURL(String baseURL) {
 		this.baseURL = baseURL;
 	}
+	
 	@Column(name="baseSelect",length=255,nullable=false)
 	public String getBaseSelect() {
 		return baseSelect;
@@ -126,6 +135,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setBaseSelect(String baseSelect) {
 		this.baseSelect = baseSelect;
 	}
+	
 	@Column(name="dataBaseType",length=10,nullable=false)
 	public String getDataBaseType() {
 		return dataBaseType;
@@ -143,6 +153,7 @@ public class LzDataCollectParams implements Serializable{
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
 	}
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "dataCollectParams")
 	public Set<LzDataField> getDataFields() {
 		return dataFields;

@@ -23,7 +23,8 @@ total: 28
 菜单路径
 数据搜索：admin/jsp/datacollect/dataCollectManager.jsp
 用户管理：admin/jsp/user/userManager.jsp
-树管理：admin/jsp/treemanager/treemanager.jsp
+模块管理：admin/jsp/module/modelemanager.jsp
+角色管理：admin/jsp/role/rolemanager.jsp
 
 Spring事物总结：
 1.spring的事务边界是在调用业务方法之前开始的，业务方法执行完毕之后来执行commit or rollback(取决于是否抛出runtime异常).

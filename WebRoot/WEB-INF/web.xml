@@ -112,6 +112,16 @@
 		<servlet-name>adminServlet</servlet-name>
 		<url-pattern>/admin</url-pattern>
 	</servlet-mapping>
+
+	<!-- image upload servlet -->
+	<servlet>
+		<servlet-name>ImageUploadServlet</servlet-name>
+		<servlet-class>com.freedom.search.admin.web.servlet.ImageUploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ImageUploadServlet</servlet-name>
+		<url-pattern>/servlet/imageUploadServlet</url-pattern>
+	</servlet-mapping>
 	
 	<!-- error 404 page 
 	<error-page>

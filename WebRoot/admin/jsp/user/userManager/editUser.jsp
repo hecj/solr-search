@@ -106,6 +106,7 @@
 	     <div class="imgHead">
 	     	<input name="headImg" type="hidden">
 	     	<img id="headImg" alt="" src="${context.basePath}${user.imageHead}" width="80" height="80">
+		 	<img id="loading" src="<%=basePath %>admin/js/ajaxupload/loading.gif" style="display: none;">
 		 	<a href="javascript:void(0);" onclick="openBrowse();">浏览</a>
 		 </div>
 	 </div>

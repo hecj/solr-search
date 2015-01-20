@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:include page="/admin/jsp/base/easyUI.jsp" />
 <%@include file="/admin/jsp/base/basePath.jsp" %>
+<script type="text/javascript" src="<%=basePath %>admin/js/ajaxupload/ajaxfileupload.js"></script>
 <style type="text/css">
 	.divHeight{
 		height: 35px;
@@ -49,13 +50,63 @@
 	        }
 	    });
 	}
+
+	//触发选择上传文件事件
+	function openBrowse(){
+		var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false; 
+		if(ie){ 
+			document.getElementById("fileToUpload").click(); 
+		}else{
+			var a=document.createEvent("MouseEvents");
+			a.initEvent("click", true, true);  
+			document.getElementById("fileToUpload").dispatchEvent(a); 
+		} 
+	}
+
+	function ajaxFileUpload(){
+		
+		$("#loading").ajaxStart(function(){
+			$(this).show();
+		}).ajaxComplete(function(){
+			$(this).hide();
+		});
+		
+		$.ajaxFileUpload({
+			url: app.basePath+'servlet/imageUploadServlet',
+			secureuri:false,
+			method:'POST',
+			fileElementId:'fileToUpload',
+			dataType: 'json',
+			data:{name:'logan', id:'id'},
+			success: function (data, status){
+				if(data && data.code == '0'){
+					$('input[name=headImg]').val(data.message);
+					$('#headImg').attr('src',app.basePath+data.message);
+				}else{
+					alert('上传失败!');
+				}
+			},
+			error: function (data, status, e){
+				if(data){
+					alert(data.message);
+				}else{
+					alert('上传失败!');
+				}
+			}
+		});
+		return false;
+	}
 </script>
 <div><br/>
+<form name="form" enctype="multipart/form-data" style="display: none;">
+		<input id="fileToUpload" type="file" name="fileToUpload" onchange="ajaxFileUpload()">
+</form>
 <form method="post">
 	 <div>
 	     <div class="imgHead">
-	     	<img alt="" src="${context.basePath}${user.imageHead}" width="80" height="80">
-		 	<a href="javascript:void(0);">浏览</a>
+	     	<input name="headImg" type="hidden">
+	     	<img id="headImg" alt="" src="${context.basePath}${user.imageHead}" width="80" height="80">
+		 	<a href="javascript:void(0);" onclick="openBrowse();">浏览</a>
 		 </div>
 	 </div>
 	 <div class="divHeight">

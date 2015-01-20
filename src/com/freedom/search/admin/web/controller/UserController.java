@@ -126,6 +126,7 @@ public class UserController extends BaseController {
 			String usercode = request.getParameter("usercode");
 			String password = request.getParameter("password");
 			String username = request.getParameter("username");
+			String headImg = request.getParameter("headImg");
 			String telPhone = request.getParameter("telPhone");
 			String email = request.getParameter("email");
 			String rolecode = request.getParameter("rolecode");
@@ -148,7 +149,9 @@ public class UserController extends BaseController {
 			user.setEmail(email);
 			user.setCreateDate(new Date());
 			user.setUpdateDate(new Date());
-			
+			if(!StringUtil.isStrEmpty(headImg)){
+				user.setImageHead(headImg);
+			}
 			if(userService.addUser(user)){
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return;
@@ -182,6 +185,7 @@ public class UserController extends BaseController {
 			String usercode = request.getParameter("usercode");
 			String username = request.getParameter("username");
 			String telPhone = request.getParameter("telPhone");
+			String headImg = request.getParameter("headImg");
 			String email = request.getParameter("email");
 			String rolecode = request.getParameter("rolecode");
 			if(StringUtil.isStrEmpty(usercode)){
@@ -195,6 +199,9 @@ public class UserController extends BaseController {
 			user.setTelPhone(telPhone);
 			user.setEmail(email);
 			user.setUpdateDate(new Date());
+			if(!StringUtil.isStrEmpty(headImg)){
+				user.setImageHead(headImg);
+			}
 			
 			if(userService.addUser(user)){
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));

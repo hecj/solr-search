@@ -17,26 +17,36 @@
 			$.ajaxFileUpload({
 				url: app.basePath+'servlet/imageUploadServlet',
 				secureuri:false,
+				method:'POST',
 				fileElementId:'fileToUpload',
-				dataType: 'content',
+				dataType: 'json',
 				data:{name:'logan', id:'id'},
 				success: function (data, status){
-					alert(data);
+					if(data && data.code == '0'){
+						$('#headImg').attr('src',app.basePath+data.message);
+					}else{
+						alert('上传失败!');
+					}
 				},
 				error: function (data, status, e){
-					alert(data);
+					if(data){
+						alert(data.message);
+					}else{
+						alert('上传失败!');
+					}
 				}
 			});
-			
 			return false;
 		}
 	</script>	
 	</head>
 <body>
 	<img id="loading" src="loading.gif" style="display:none;">
-	<form name="form" action="" method="POST" enctype="multipart/form-data">
+	<form name="form" enctype="multipart/form-data">
 		<input id="fileToUpload" type="file" size="45" name="fileToUpload" class="input">
-		<button class="button" id="buttonUpload" onclick="return ajaxFileUpload();">上传</button>
-	</form> 
+		<button class="button" onclick="return ajaxFileUpload();">上传</button>
+	</form>
+	<img id="headImg" alt="" width="100" height="100" src="">
+	
 </body>
 </html>

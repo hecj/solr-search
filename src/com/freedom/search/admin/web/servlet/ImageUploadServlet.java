@@ -20,6 +20,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.alibaba.fastjson.JSON;
 import com.freedom.search.hibernate.util.UUIDUtil;
+import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
 /**
  * @类功能说明：图片上传
@@ -61,7 +62,7 @@ public class ImageUploadServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("上传图片============");
+		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		try {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -84,6 +85,7 @@ public class ImageUploadServlet extends HttpServlet {
 				 String filePath = uploadPath+newFileName+extensionName;
 				 itemFile.write(new File(serverPath+filePath));
 				 out.write(JSON.toJSONString(new MessageCode("0", filePath)));
+				 Log4jUtil.log("上传图片:"+filePath);
 				 //只取第一个图片
 				 return;
               }

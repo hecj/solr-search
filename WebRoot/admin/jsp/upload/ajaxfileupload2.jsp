@@ -7,6 +7,19 @@
 	<link href="<%=basePath %>admin/js/ajaxupload/ajaxfileupload.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript" src="<%=basePath %>admin/js/ajaxupload/ajaxfileupload.js"></script>
 	<script type="text/javascript">
+
+		//触发选择上传文件事件
+		function openBrowse(){
+			var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false; 
+			if(ie){ 
+				document.getElementById("fileToUpload").click(); 
+			}else{
+				var a=document.createEvent("MouseEvents");
+				a.initEvent("click", true, true);  
+				document.getElementById("fileToUpload").dispatchEvent(a); 
+			} 
+		}
+	
 		function ajaxFileUpload(){
 			
 			$("#loading").ajaxStart(function(){
@@ -39,15 +52,15 @@
 			});
 			return false;
 		}
+
 	</script>	
 	</head>
 <body>
-	<img id="loading" src="<%=basePath %>admin/js/ajaxupload/loading.gif" style="display:none;">
-	<form name="form" enctype="multipart/form-data">
-		<input id="fileToUpload" type="file" size="45" name="fileToUpload" class="input">
-		<button class="button" onclick="return ajaxFileUpload();">上传</button>
+	<img id="loading" src="<%=basePath %>admin/js/ajaxupload/loading.gif" style="display: none;">
+	<form name="form" enctype="multipart/form-data" style="display: none;">
+		<input id="fileToUpload" type="file" name="fileToUpload" onchange="ajaxFileUpload()">
 	</form>
+	<button class="button" onclick="openBrowse();">上传</button>
 	<img id="headImg" alt="" width="100" height="100" src="">
-	
 </body>
 </html>

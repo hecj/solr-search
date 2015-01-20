@@ -3,8 +3,8 @@
 	<head>
 	<title>文件上传</title>
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
-	<link href="ajaxfileupload.css" type="text/css" rel="stylesheet">
-	<script type="text/javascript" src="ajaxfileupload.js"></script>
+	<link href="admin/js/ajaxupload/ajaxfileupload.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="admin/js/ajaxupload/ajaxfileupload.js"></script>
 	<script type="text/javascript">
 		function ajaxFileUpload(){
 			

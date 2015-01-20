@@ -76,11 +76,21 @@ public class ImageUploadServlet extends HttpServlet {
 			List<FileItem> items = upload.parseRequest(request);
 			for (FileItem itemFile : items) {
               if(!itemFile.isFormField()){
+            	  
             	 //获得文件名，这个文件名包括路径
                  String fileName = itemFile.getName().toLowerCase();
                  //文件后缀名
                  String extensionName = fileName.substring(fileName.lastIndexOf("."));
-				 //新文件名
+                 boolean b = false;
+	           	 for(String type : fileType){
+	           		 if(extensionName.endsWith(type)){
+	           			 b = true;
+	           		 } 
+	           	 }
+	           	 if(!b){
+	           		 break;
+	           	 }
+                 //新文件名
                  String newFileName = UUIDUtil.autoUUID();
 				 String filePath = uploadPath+newFileName+extensionName;
 				 itemFile.write(new File(serverPath+filePath));

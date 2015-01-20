@@ -44,7 +44,7 @@
 <body>
 	<img id="loading" src="<%=basePath %>admin/js/ajaxupload/loading.gif" style="display:none;">
 	<form name="form" enctype="multipart/form-data">
-		<input id="fileToUpload" type="file" size="45" name="fileToUpload" class="input">
+		<input id="fileToUpload" type="file" size="45" style="display: none;" name="fileToUpload" class="input">
 		<button class="button" onclick="return ajaxFileUpload();">上传</button>
 	</form>
 	<img id="headImg" alt="" width="100" height="100" src="">

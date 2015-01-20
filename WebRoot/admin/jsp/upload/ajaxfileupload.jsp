@@ -1,10 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@include file="/admin/jsp/base/basePath.jsp" %>
 <html>
 	<head>
 	<title>文件上传</title>
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
-	<link href="admin/js/ajaxupload/ajaxfileupload.css" type="text/css" rel="stylesheet">
-	<script type="text/javascript" src="admin/js/ajaxupload/ajaxfileupload.js"></script>
+	<link href="<%=basePath %>admin/js/ajaxupload/ajaxfileupload.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="<%=basePath %>admin/js/ajaxupload/ajaxfileupload.js"></script>
 	<script type="text/javascript">
 		function ajaxFileUpload(){
 			

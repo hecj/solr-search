@@ -38,7 +38,7 @@
 			var dialog = parent.app.dialogModel({
 				title: '添加角色',
 				width: 400,
-				height: 350,
+				height: 360,
 				url : app.basePath+'admin/jsp/role/rolemanager/addRole.jsp',
 				buttons:[{
 					text:'提交',
@@ -96,7 +96,7 @@
 			var dialog = parent.app.dialogModel({
 				title: '查看信息  '+row.rolecode,
 				width: 400,
-				height: 350,
+				height: 360,
 				url: app.basePath+'admin/role/role.htm?operator=findRole&rolecode='+row.rolecode,
 				buttons:[{
 					text:'关闭',
@@ -117,7 +117,7 @@
 			var dialog = parent.app.dialogModel({
 				title: '编辑信息  '+row.rolecode,
 				width: 400,
-				height: 350,
+				height: 360,
 				url: app.basePath+'admin/role/role.htm?operator=editRole&rolecode='+row.rolecode,
 				buttons:[{
 					text:'提交',

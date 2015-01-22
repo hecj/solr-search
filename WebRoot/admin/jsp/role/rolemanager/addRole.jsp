@@ -36,30 +36,39 @@
 			return;
 		}
 		//获取选择的树
-		var idsSet = new Set();
 		var nodes = tree.tree('getChecked');
+		var nodeList = new Array();
+		var idList = new Array();
 		for(var i =0;i<nodes.length;i++){
 			var node = nodes[i];
 			//添加Id
-			idsSet.add(node.id);
-			//循环添加父节点Id
+			idList.push(node.id);
+			//循环添加枝干节点
 			while(true){
 				var node = tree.tree('getParent',node.target);
-				if(node){
-					idsSet.add(node.id);
+				if(!node){
+					break;
+				}
+				var b = true;
+				//判断是否存放过枝干
+				for(var j=0;j<nodeList.length;j++){
+					if(node.id == nodeList[j]){
+						b = false;
+						break;
+					}
+				}
+				//集合中没有元素则添加
+				if(b){
+					nodeList.push(node.id);
 				}else{
 					break;
 				}
 			}
 		}
-		//拼接Id
-		var ids = '';
-		idsSet.forEach(function (item) {
-		    ids+=','+item.toString();
-		});
+		idList = idList.concat(nodeList);
 		//sumbit
 	    $('form').form('submit', {
-	    	url : app.basePath+'admin/role/role.htm?operator=addRole&ids='+ids,
+	    	url : app.basePath+'admin/role/role.htm?operator=addRole&ids='+idList.join(','),
 	        success: function(data){
 		        var data = eval('(' + data + ')');
 		        if (data.code == '0'){

@@ -19,3 +19,4 @@
 <script type="text/javascript" src="<%=basePath%>admin/js/common/ValidateboxUtil.js"></script>
 <script type="text/javascript" src="<%=basePath%>admin/js/common/AppEntity.js"></script>
 <script type="text/javascript" src="<%=basePath%>admin/js/common/common.js"></script>
+<script type="text/javascript" src="<%=basePath%>admin/js/extends/jQueryExtends.js"></script>

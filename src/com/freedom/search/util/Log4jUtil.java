@@ -99,7 +99,9 @@ public class Log4jUtil {
 	private static String getStackTraceMessage() {
 		String msg = "";
 		try {
-			msg += new Exception().getStackTrace()[2].getClassName() + ".";
+//			msg += new Exception().getStackTrace()[2].getClassName() + ".";
+			String[] strs = new Exception().getStackTrace()[2].getClassName().replace(".", ",").split(",");
+			msg += strs[strs.length-1]+".";
 			msg += new Exception().getStackTrace()[2].getMethodName() + "()[";
 			msg += new Exception().getStackTrace()[2].getLineNumber() + "] ";
 		} catch (Exception mException) {

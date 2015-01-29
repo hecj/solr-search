@@ -123,12 +123,12 @@
 		<url-pattern>/servlet/imageUploadServlet</url-pattern>
 	</servlet-mapping>
 	
-	<!-- error 404 page 
+	<!-- error 404 page -->
 	<error-page>
     	<error-code>404</error-code>
-    	<location>/servlet/initIndexPage.do</location>
+    	<location>/admin/jsp/common/404.html</location>
 	</error-page>
-	-->
+	
 	<!-- error 500 page
 	<error-page>
     	<error-code>500</error-code>

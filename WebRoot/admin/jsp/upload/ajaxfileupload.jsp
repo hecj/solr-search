@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="/admin/jsp/base/basePath.jsp" %>
+<%@include file="/WEB-INF/jsp/base/basePath.jsp" %>
 <html>
 	<head>
 	<title>文件上传</title>

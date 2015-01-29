@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>测试UI</title>
-    <%@include file="/admin/jsp/base/basePath.jsp" %> 
+    <%@include file="/WEB-INF/jsp/base/basePath.jsp" %> 
     <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
   	<script type="text/javascript">
 		$(function(){

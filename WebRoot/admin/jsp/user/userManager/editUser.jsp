@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:include page="/admin/jsp/base/easyUI.jsp" />
-<%@include file="/admin/jsp/base/basePath.jsp" %>
+<%@include file="/WEB-INF/jsp/base/basePath.jsp" %>
 <script type="text/javascript" src="<%=basePath %>admin/js/ajaxupload/ajaxfileupload.js"></script>
 <style type="text/css">
 	.divHeight{

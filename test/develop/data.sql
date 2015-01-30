@@ -10,5 +10,12 @@ INSERT INTO lz_module VALUES ('0001001', null, 'tree-file', '1', '用户管理',
 INSERT INTO lz_module VALUES ('0001002', null, 'tree-file', '1', '模块管理', '0001', 'open', null, 'admin/jsp/module/modelemanager.jsp');
 INSERT INTO lz_module VALUES ('0001003', null, 'tree-file', '1', '角色管理', '0001', 'open', null, 'admin/jsp/role/rolemanager.jsp');
 INSERT INTO lz_module VALUES ('0001004', null, 'tree-file', '1', '数据搜索管理', '0001', 'open', null, 'admin/jsp/datacollect/dataCollectManager.jsp');
-
-
+/*lz_role_module*/
+INSERT INTO `lz_role_module` VALUES ('14225834253222151536', '0', 'P4275014');
+INSERT INTO `lz_role_module` VALUES ('14225834253232560628', '0001', 'P4275014');
+INSERT INTO `lz_role_module` VALUES ('14225834253248742860', '0001003', 'P4275014');
+INSERT INTO `lz_role_module` VALUES ('14225834253254176999', '0001001', 'P4275014');
+INSERT INTO `lz_role_module` VALUES ('14225834253268436107', '0001002', 'P4275014');
+INSERT INTO `lz_role_module` VALUES ('14225834253270057951', '0001004', 'P4275014');
+INSERT INTO `lz_role_module` VALUES ('14225834253280923844', '0', 'P4275014');
+INSERT INTO `lz_role_module` VALUES ('14225834253282593016', '0001', 'P4275014');

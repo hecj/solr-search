@@ -14,7 +14,9 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.freedom.search.solr.util.PropertiesUtil;
 import com.freedom.search.util.FastjsonFilter;
+import com.freedom.search.util.StringUtil;
 
 
 
@@ -58,7 +60,7 @@ public abstract class BaseController implements Controller{
 	}
 	
 	/**
-	 * @函数功能说明 网站地址
+	 * @函数功能说明 生产环境basePath从配置文件中取
 	 * @修改作者名字 HECJ  
 	 * @修改时间 2014-12-6
 	 * @修改内容
@@ -68,8 +70,11 @@ public abstract class BaseController implements Controller{
 	 */
 	protected String getBasePath(){
 		
-		String path = request.getContextPath();
-		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+		String basePath = PropertiesUtil.getProperties().getProperty("basePath");
+		if(StringUtil.isStrEmpty(basePath)){
+			String path = request.getContextPath();
+			basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+		}
 		return basePath ;
 	}
 	

@@ -1,9 +1,7 @@
 package com.freedom.search.admin.web.servlet;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -13,15 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
 import com.alibaba.fastjson.JSON;
 import com.freedom.search.hibernate.util.UUIDUtil;
+import com.freedom.search.solr.util.PropertiesUtil;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
+import com.freedom.search.util.StringUtil;
 /**
  * @类功能说明：图片上传
  * @类修改者：
@@ -35,8 +33,8 @@ public class ImageUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String uploadPath = "upload/upload/"; //上传文件的目录  
-	private String tempPath = "upload/uploadtmp/"; //临时文件目录  
+	private String uploadPath = ""; //上传文件的目录  
+	private String tempPath = ""; //临时文件目录  
 	private String[] fileType = new String[]{".jpg",".gif",".bmp",".png",".jpeg",".ico"};  
 
 	private String serverPath = null;  
@@ -44,9 +42,22 @@ public class ImageUploadServlet extends HttpServlet {
 		
 	@Override
 	public void init() throws ServletException {
-		//绝对路径
-		serverPath = getServletContext().getRealPath("/").replace("\\", "/");  
-		//Servlet初始化时执行,如果上传文件目录不存在则自动创建  
+
+		serverPath = PropertiesUtil.getProperties().getProperty("staticDir");
+		Log4jUtil.info("初始化上传图片目录："+serverPath);
+		//linux目录
+	    if(!StringUtil.isStrEmpty(serverPath)){
+	    	uploadPath = PropertiesUtil.getProperties().getProperty("headImgPath");
+	    	tempPath = PropertiesUtil.getProperties().getProperty("headImgPathTemp");
+	    }else{
+	    	//window目录
+	    	//绝对路径
+			serverPath = getServletContext().getRealPath("/").replace("\\", "/");  
+			uploadPath = "uplpad/imageHead";
+			tempPath = "uplpad/imageHeadTemp";
+	    }
+	    Log4jUtil.info(serverPath+uploadPath);
+	    //Servlet初始化时执行,如果上传文件目录不存在则自动创建  
 	    if(!new File(serverPath+uploadPath).isDirectory()){  
 	    	new File(serverPath+uploadPath).mkdirs();  
 	    }  
@@ -62,6 +73,7 @@ public class ImageUploadServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Log4jUtil.info("上传图片开始...");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		try {
@@ -95,7 +107,7 @@ public class ImageUploadServlet extends HttpServlet {
 				 String filePath = uploadPath+newFileName+extensionName;
 				 itemFile.write(new File(serverPath+filePath));
 				 out.write(JSON.toJSONString(new MessageCode("0", filePath)));
-				 Log4jUtil.log("上传图片:"+filePath);
+				 Log4jUtil.log("上传图片成功:"+filePath);
 				 //只取第一个图片
 				 return;
               }
@@ -107,6 +119,7 @@ public class ImageUploadServlet extends HttpServlet {
 			out.write(JSON.toJSONString(new MessageCode("1", e.getMessage())));
 			e.printStackTrace();
 		} finally{
+			Log4jUtil.info("上传图片结束！");
 			out.flush();
 			out.close();
 		}

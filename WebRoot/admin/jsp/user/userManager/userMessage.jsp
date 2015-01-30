@@ -20,7 +20,7 @@
 <div><br/>
 	 <div>
 	     <div class="imgHead">
-	     	<img alt="" src="<%=basePath %>${user.imageHead}" width="80" height="80">
+	     	<img alt="" src="<%=staticPath %>${user.imageHead}" width="80" height="80">
 		 </div>
 	 </div>
 	 <div class="divHeight">

@@ -81,7 +81,7 @@
 			success: function (data, status){
 				if(data && data.code == '0'){
 					$('input[name=headImg]').val(data.message);
-					$('#headImg').attr('src',app.basePath+data.message);
+					$('#headImg').attr('src',app.staticPath+data.message);
 				}else{
 					alert('上传失败!');
 				}
@@ -105,7 +105,7 @@
 	 <div>
 	     <div class="imgHead">
 	     	<input name="headImg" type="hidden">
-	     	<img id="headImg" alt="" src="${context.basePath}${user.imageHead}" width="80" height="80">
+	     	<img id="headImg" alt="" src="<%=staticPath %>${user.imageHead}" width="80" height="80">
 		 	<img id="loading" src="<%=basePath %>admin/js/ajaxupload/loading.gif" style="display: none;">
 		 	<a href="javascript:void(0);" onclick="openBrowse();">浏览</a>
 		 </div>

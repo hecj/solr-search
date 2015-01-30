@@ -82,7 +82,7 @@
 			success: function (data, status){
 				if(data && data.code == '0'){
 					$('input[name=headImg]').val(data.message);
-					$('#headImg').attr('src',app.basePath+data.message);
+					$('#headImg').attr('src',app.staticPath+data.message);
 				}else{
 					alert('上传失败!');
 				}

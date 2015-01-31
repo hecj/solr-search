@@ -84,15 +84,11 @@
 					$('input[name=headImg]').val(data.message);
 					$('#headImg').attr('src',app.staticPath+data.message);
 				}else{
-					alert('上传失败!');
+					parent.$.messager.alert('错误信息',data.message,'error');
 				}
 			},
 			error: function (data, status, e){
-				if(data){
-					alert(data.message);
-				}else{
-					alert('上传失败!');
-				}
+				parent.$.messager.alert('错误信息',data.message,'error');
 			}
 		});
 		return false;
@@ -109,7 +105,7 @@
 		     	<input name="headImg" type="hidden">
 		     	<img id="headImg" alt="" src="" width="80" height="80">
 		     	<img id="loading" src="<%=basePath %>admin/js/ajaxupload/loading.gif" style="display: none;">
-		     	<a href="javascript:void(0)" onclick="openBrowse();">浏览</a>
+		     	<a title="支持格式(.jpg,.gif,.bmp,.png,.jpeg,.ico)" href="javascript:void(0)" onclick="openBrowse();">浏览</a>
 			 </div>
 		 </div>
 		 <div class="divHeight">

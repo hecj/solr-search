@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.alibaba.fastjson.JSON;
@@ -74,6 +75,7 @@ public class ImageUploadServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Log4jUtil.info("上传图片开始...");
+		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		try {
@@ -83,7 +85,7 @@ public class ImageUploadServlet extends HttpServlet {
 			//临时文件目录 
 	        factory.setRepository(new File(serverPath+tempPath));
 			ServletFileUpload upload = new ServletFileUpload(factory);
-			//文件最大上限
+			//文件最大上限3M
 			upload.setSizeMax(sizeMax*1024*1024);
 			List<FileItem> items = upload.parseRequest(request);
 			for (FileItem itemFile : items) {
@@ -100,6 +102,7 @@ public class ImageUploadServlet extends HttpServlet {
 	           		 } 
 	           	 }
 	           	 if(!b){
+	           		 out.write(JSON.toJSONString(new MessageCode("1", "上传文件类型错误："+itemFile.getName())));
 	           		 break;
 	           	 }
                  //新文件名
@@ -112,6 +115,9 @@ public class ImageUploadServlet extends HttpServlet {
 				 return;
               }
 			}
+		} catch (SizeLimitExceededException e) {
+			out.write(JSON.toJSONString(new MessageCode("1", e.getMessage())));
+			e.printStackTrace();
 		} catch (FileUploadException e) {
 			out.write(JSON.toJSONString(new MessageCode("1", e.getMessage())));
 			e.printStackTrace();

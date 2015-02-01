@@ -21,13 +21,19 @@
 		}
 	
 		function ajaxFileUpload(){
+
+			var size = $('#fileToUpload')[0].files[0].size;
+			if(size>3*1024*1024){
+				parent.MessageUtil.errorShow('上传文件不可大于3M!');
+				return;
+			}
 			
 			$("#loading").ajaxStart(function(){
 				$(this).show();
 			}).ajaxComplete(function(){
 				$(this).hide();
 			});
-			
+
 			$.ajaxFileUpload({
 				url: app.basePath+'servlet/imageUploadServlet',
 				secureuri:false,

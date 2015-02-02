@@ -6,15 +6,15 @@
 		text-align: right;
 		margin-top:45px;
 		height: 20px;
-		color: white;
+		/*color: white;*/
 	}
 	
 	.divUser a{
-		color: white;
+		/*color: white;*/
 	}
 	
 	div.sysdate{
-		color: white;
+		/*color: white;*/
 		text-align: right;
 		margin-right: 20px;
 		margin-bottom:0px;

@@ -3,8 +3,10 @@
   		var centerTabs ;
   		var customMenu ;
   		var systemTools ;
+  		var changeTheme ;
   		
 		$(function(){
+			changeTheme = $('#changeTheme').menu({});
 			customMenu = $('#customMenu').tree( {
 				//url : app.basePath+'admin/js/common/tree3.json',
 				//url : app.basePath+'admin/tree/tree.htm?operator=initTree&moduleId=0001',
@@ -66,6 +68,16 @@
 			
 			centerTabs = $('#center_tabs').tabs({
 				tools:[{
+					text : '&nbsp;更换主题',
+					iconCls:'hey-ajax',
+					handler : function(e) {
+						var p = common.mouse(e);
+						changeTheme.menu('show', {
+					        left: p.x-40,
+					        top: p.y+10
+					    });
+					}
+				},{
 					 text:'刷新',
 					 iconCls:'icon-reload',
 					 handler : function() {
@@ -128,6 +140,23 @@
 				}
 			}
 		}
+	    /*更换主题*/
+		var changeThemeFun = function(themeName){
+			var $easyUITheme = $('#easyUITheme');
+			var url = $easyUITheme.attr('href');
+			var newUrl = url.substring(0,url.indexOf('themes'))+'themes/'+themeName+'/easyui.css';
+			if(url != newUrl){
+				$easyUITheme.attr('href',newUrl);
+				var $iframe = $('iframe');
+				for(var i=0; i<$iframe.length;i++){
+					var ifm = $iframe[i];
+					$(ifm).contents().find('#easyUITheme').attr('href',newUrl);
+				}
+			}
+			$.cookie('easyuiThemeName',themeName,{
+				expires:7
+			});
+		}
   	</script>
   <div class="easyui-accordion" data-options="region:'center',fit:true,border:false">
 	<div id="customMenu" title="基本菜单" data-options="
@@ -158,6 +187,28 @@
 				}]" style="overflow:auto;">
 	</div>
 	
+	
+	<div id="changeTheme" class="easyui-menu" >
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('default')">
+			default
+		</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('gray')">
+			gray
+		</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('black')">
+			black
+		</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('bootstrap')">
+			bootstrap
+		</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('metro')">
+			metro
+		</div>
+    </div>
 	
 	
 	

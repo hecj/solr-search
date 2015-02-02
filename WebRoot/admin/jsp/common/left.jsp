@@ -208,6 +208,26 @@
 		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('metro')">
 			metro
 		</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('metro-blue')">
+			metro-blue
+		</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('metro-gray')">
+			metro-gray
+		</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('metro-green')">
+			metro-green
+		</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('metro-orange')">
+			metro-orange
+		</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'hey-ajax'" onclick="changeThemeFun('metro-red')">
+			metro-red
+		</div>
     </div>
 	
 	

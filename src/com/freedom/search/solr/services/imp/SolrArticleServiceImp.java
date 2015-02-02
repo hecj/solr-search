@@ -36,12 +36,12 @@ public class SolrArticleServiceImp implements SolrArticleService {
 			Log4jUtil.log("end "+pArticleBean.getArticleNo());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			Log4jUtil.error("fail "+pArticleBean.getArticleNo());
+			Log4jUtil.error("fail "+pArticleBean.getArticleNo()+e.getMessage());
 		} catch (SolrServerException e) {
 			e.printStackTrace();
-			Log4jUtil.error("fail "+pArticleBean.getArticleNo());
+			Log4jUtil.error("fail "+pArticleBean.getArticleNo()+e.getMessage());
 		} catch (IOException e) {
-			Log4jUtil.error("fail "+pArticleBean.getArticleNo());
+			Log4jUtil.error("fail "+pArticleBean.getArticleNo()+e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -94,7 +94,7 @@ public class SolrArticleServiceImp implements SolrArticleService {
 			Log4jUtil.info("end "+queryString);
 
 		} catch (SolrServerException e) {
-			Log4jUtil.error("fail "+queryString);
+			Log4jUtil.error("fail "+queryString+e.getMessage());
 			e.printStackTrace();
 			mList.clear();
 			mList.add(0,mArticleBeanList);

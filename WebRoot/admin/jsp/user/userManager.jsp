@@ -105,7 +105,7 @@
 		}
 		var dialog = parent.app.dialogModel({
 			title: '查看信息  '+row.usercode,
-			width: 350,
+			width: 380,
 			height: 450,
 			url: app.basePath+'admin/user/user.htm?operator=findUser&usercode='+row.usercode,
 			buttons:[{
@@ -120,7 +120,7 @@
 	var addFun = function(){
 		var dialog = parent.app.dialogModel({
 			title: '添加用户',
-			width: 350,
+			width: 380,
 			height: 450,
 			url: app.basePath+'admin/jsp/user/userManager/addUser.jsp',
 			buttons:[{
@@ -145,7 +145,7 @@
 		}
 		var dialog = parent.app.dialogModel({
 			title: '编辑信息  '+row.usercode,
-			width: 350,
+			width: 380,
 			height: 450,
 			url: app.basePath+'admin/user/user.htm?operator=editUser&usercode='+row.usercode,
 			buttons:[{

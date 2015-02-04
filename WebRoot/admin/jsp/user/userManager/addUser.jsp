@@ -116,23 +116,23 @@
 		 </div>
 		 <div class="divHeight">
 		     <label class="labelWidth">用户名:</label>
-		     <input name="usercode" size="20" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'"/>
+		     <input name="usercode" size="20" class="easyui-validatebox" data-options="required:true,validType:'userValidator'"/>
 	     </div>
 		 <div class="divHeight">
 		     <label class="labelWidth">密码:</label>
-		     <input name="password" type="password" size="20" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'"/>
+		     <input name="password" type="password" size="20" class="easyui-validatebox" data-options="required:true,validType:'pwdValidator'"/>
 	     </div>
 	     <div class="divHeight">
 		     <label class="labelWidth">昵称:</label>
-		     <input name="username" size="20" />
+		     <input name="username" size="20" class="easyui-validatebox" data-options="validType:'baseValidator'"/>
 	     </div>
 	     <div class="divHeight">
 		     <label class="labelWidth">手机号:</label>
-		     <input name="telPhone"/>
+		     <input name="telPhone" class="easyui-validatebox" data-options="validType:'phoneValidator'"/>
 	     </div>
 	     <div class="divHeight">
 		     <label class="labelWidth">邮箱:</label>
-		     <input name="email" size="20" />
+		     <input name="email" size="20" class="easyui-validatebox" data-options="validType:'emailValidator'"/>
 	     </div>
 	     <div class="divHeight">
 		     <label class="labelWidth">角色:</label>

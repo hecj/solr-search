@@ -118,15 +118,15 @@
      </div>
      <div class="divHeight">
 	     <label class="labelWidth">昵称:</label>
-	     <input name="username" size="20" value="${user.username }" />
+	     <input name="username" size="20" value="${user.username }" class="easyui-validatebox" data-options="validType:'baseValidator'"/>
      </div>
      <div class="divHeight">
 	     <label class="labelWidth">手机号:</label>
-	     <input name="telPhone" size="20" value="${user.telPhone }" />
+	     <input name="telPhone" class="easyui-validatebox" data-options="validType:'phoneValidator'" size="20" value="${user.telPhone }" />
      </div>
      <div class="divHeight">
 	     <label class="labelWidth">邮箱:</label>
-	     <input name="email" size="20" value="${user.email }" />
+	     <input name="email" size="20" value="${user.email }" class="easyui-validatebox" data-options="validType:'emailValidator'"/>
      </div>
      <div class="divHeight">
 	     <label class="labelWidth">角色</label>

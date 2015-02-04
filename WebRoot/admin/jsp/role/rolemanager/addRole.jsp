@@ -100,7 +100,7 @@
 		<form method="post">
 		     <div>
 			    <label for="name" >角色名称:</label>
-				<input name="rolename" size="25" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'" />
+				<input name="rolename" size="25" class="easyui-validatebox" data-options="required:true,validType:'baseValidator'" />
 		     </div>
 		</form>
 		<div class="easyui-panel" border="false" style="padding:2px;margin:5px;height:200px;width:360px">

@@ -67,7 +67,7 @@
 			 <div style="margin-top: 20px">
 			 	 <input name="moduleId" type="hidden" value="${module.moduleId }"/>
 			     <label for="name">名称:</label>
-			     <input name="name" size="30" value="${module.name }" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'"/>
+			     <input name="name" size="30" value="${module.name }" class="easyui-validatebox" data-options="required:true,validType:'baseValidator'"/>
 		     </div>
 		     <div>
 		     	<label for="name" >父模块:</label>
@@ -76,7 +76,7 @@
 		     <div>
 		     	<label for="name">路径:</label>
 			    <input name="url" size="28" value="${module.url }" class="easyui-validatebox"/>
-			    <a id="testURL" href="#" class="easyui-linkbutton" onclick="testURL();">测试</a>
+			    <a id="testURL" href="#" class="easyui-linkbutton" onclick="testURL();">验证</a>
 		     </div>
 			 <div>
 			     <label for="name">状态:</label>

@@ -1,11 +1,16 @@
 [ {
 	"id" : 1,
-	"text" : "工具菜单",
+	"text" : "系统工具",
 	"state":"closed",	
 	"children" : [ {
-		"text" : "模块管理",
+		"text" : "数据源监控",
 		"attributes":{
-			"url" : "http://localhost:8080/search/admin/jsp/module/modelemanager.jsp"
+			"url" : "druid"
+		}
+	}, {
+		"text" : "资源目录",
+		"attributes":{
+			"url" : "admin/jsp/system/resource.html"
 		}
 	}]
 }]

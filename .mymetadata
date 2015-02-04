@@ -3,7 +3,7 @@
   type="WEB"
   name="solr-search"
   id="myeclipse.1417422742529"
-  context-root="/search"
+  context-root="/solr-search"
   j2ee-spec="5.0"
   archive="solr-search.war">
   <attributes>

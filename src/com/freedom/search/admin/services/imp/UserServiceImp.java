@@ -97,7 +97,6 @@ public class UserServiceImp implements UserService {
 				mQueryHQL += " and u.usercode='"+usercode+"'";
 				mContHQL += " and u.usercode='"+usercode+"'";
 			}
-			System.out.println(mQueryHQL);
 			List<LzUser> userList = userDAO.queryListByParamsAndPagination(mQueryHQL, pagination.startCursor().intValue(), pagination.getPageSize(),new Object[]{});
 			long count = Long.parseLong(userDAO.queryUniqueResultByHQL(mContHQL).toString());
 			pagination.setCountSize(count);

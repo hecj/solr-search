@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.freedom.search.admin.exception.SessionTimeOutException;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.Tree;
 import com.freedom.search.admin.vo.UserContext;
@@ -53,6 +54,9 @@ public class TreeController extends BaseController {
 			}
 			//获取当前登陆的用户名
 			UserContext context = (UserContext) request.getSession().getAttribute("context");
+			if(StringUtil.isObjectNull(context)){
+				throw new SessionTimeOutException("用户未登陆或登陆超时！");
+			}
 			String usercode = context.getUser().getUsercode();
 			//查询子节点
 			List<Tree> trees = moduleService.searchChildTree(usercode,id);

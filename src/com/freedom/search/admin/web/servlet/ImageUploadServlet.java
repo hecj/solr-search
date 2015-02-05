@@ -97,7 +97,7 @@ public class ImageUploadServlet extends HttpServlet {
 	           	 }
                  //新文件名
                  String newFileName = UUIDUtil.autoUUID();
-				 String filePath = imageDir+newFileName+extensionName;
+				 String filePath = imageDirTmp+newFileName+extensionName;
 				 itemFile.write(new File(serverPath+filePath));
 				 out.write(JSON.toJSONString(new MessageCode("0", filePath)));
 				 Log4jUtil.log("上传图片成功:"+filePath);

@@ -44,6 +44,13 @@ public class UserServiceImp implements UserService {
 	@Override
 	public boolean addUser(LzUser user) {
 		try {
+			//将临时图片移动到图片目录
+			String tmpFileName = AppContext.getParentDir()+user.getImageHead();
+			File tmpFile = new File(tmpFileName);
+			if(tmpFile.isFile()){
+				File nFile = new File(AppContext.getParentDir()+user.getImageHead().replace(AppContext.getImageDirTmp(), AppContext.getImageDir()));
+				tmpFile.renameTo(nFile);
+			}
 			Serializable serializable = userDAO.save(user);
 			if(!StringUtil.isObjectNull(serializable)){
 				return true;
@@ -81,12 +88,22 @@ public class UserServiceImp implements UserService {
 			oldUser.setUpdateDate(new Date());
 			//判断更新
 			if(!oldUser.getImageHead().equals(user.getImageHead())){
-				String fileName = AppContext.getParentDir()+oldUser.getImageHead();
-				File file = new File(fileName);
-				if(file.isFile()){
-					file.delete();
+				//将临时图片移动到图片目录
+				String tmpFileName = AppContext.getParentDir()+user.getImageHead();
+				File tmpFile = new File(tmpFileName);
+				String newImageHead =user.getImageHead().replace(AppContext.getImageDirTmp(), AppContext.getImageDir());
+				if(tmpFile.isFile()){
+					File nFile = new File(AppContext.getParentDir()+newImageHead);
+					tmpFile.renameTo(nFile);
 				}
-				oldUser.setImageHead(user.getImageHead());
+				
+				//删除旧图片
+				String oldFileName = AppContext.getParentDir()+oldUser.getImageHead();
+				File oFile = new File(oldFileName);
+				if(oFile.isFile()){
+					oFile.delete();
+				}
+				oldUser.setImageHead(newImageHead);
 			}
 			if(!user.getRole().getRolecode().equals(oldUser.getRole().getRolecode())){
 				oldUser.setRole(roleService.searchRole(user.getRole().getRolecode()));

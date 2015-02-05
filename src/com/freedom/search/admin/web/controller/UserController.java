@@ -150,9 +150,7 @@ public class UserController extends BaseController {
 			user.setEmail(email);
 			user.setCreateDate(new Date());
 			user.setUpdateDate(new Date());
-			if(!StringUtil.isStrEmpty(headImg)){
-				user.setImageHead(headImg);
-			}
+			user.setImageHead(headImg);
 			if(userService.addUser(user)){
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return;

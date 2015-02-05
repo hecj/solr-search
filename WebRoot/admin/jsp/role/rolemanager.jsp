@@ -9,7 +9,7 @@
 		$(function(){
 
 			grid = $('#grid').datagrid({
-				url: app.basePath+'admin/role/role.htm?operator=searchList',
+				url: app.contextPath+'admin/role/role.htm?operator=searchList',
 				toolbar:'#toolbar',
 				fit:true,
 				border:false,
@@ -39,7 +39,7 @@
 				title: '添加角色',
 				width: 400,
 				height: 360,
-				url : app.basePath+'admin/jsp/role/rolemanager/addRole.jsp',
+				url : app.contextPath+'admin/jsp/role/rolemanager/addRole.jsp',
 				buttons:[{
 					text:'提交',
 					handler:function(){
@@ -63,7 +63,7 @@
 			parent.$.messager.confirm('提示信息','确定要删除吗?',function(r){
 				if (r){
 					$.ajax({
-						url:app.basePath+'admin/role/role.htm?operator=deleteRole',
+						url:app.contextPath+'admin/role/role.htm?operator=deleteRole',
 						data:{rolecode:row.rolecode},
 						async:true,
 						dataType:'json',
@@ -97,7 +97,7 @@
 				title: '查看信息  '+row.rolecode,
 				width: 400,
 				height: 360,
-				url: app.basePath+'admin/role/role.htm?operator=findRole&rolecode='+row.rolecode,
+				url: app.contextPath+'admin/role/role.htm?operator=findRole&rolecode='+row.rolecode,
 				buttons:[{
 					text:'关闭',
 					handler:function(){
@@ -118,7 +118,7 @@
 				title: '编辑信息  '+row.rolecode,
 				width: 400,
 				height: 360,
-				url: app.basePath+'admin/role/role.htm?operator=editRole&rolecode='+row.rolecode,
+				url: app.contextPath+'admin/role/role.htm?operator=editRole&rolecode='+row.rolecode,
 				buttons:[{
 					text:'提交',
 					handler:function(){

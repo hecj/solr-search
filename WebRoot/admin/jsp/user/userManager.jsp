@@ -12,7 +12,7 @@
 	*/
 	var initFun = function() {
 		grid = $('#grid').datagrid( {
-			url : app.basePath+'admin/user/user.htm?operator=searchUser',
+			url : app.contextPath+'admin/user/user.htm?operator=searchUser',
 			columns : [ [ {
 				field : 'usercode',
 				title : '用户名',
@@ -107,7 +107,7 @@
 			title: '查看信息  '+row.usercode,
 			width: 380,
 			height: 450,
-			url: app.basePath+'admin/user/user.htm?operator=findUser&usercode='+row.usercode,
+			url: app.contextPath+'admin/user/user.htm?operator=findUser&usercode='+row.usercode,
 			buttons:[{
 				text:'关闭',
 				handler:function(){
@@ -122,7 +122,7 @@
 			title: '添加用户',
 			width: 380,
 			height: 450,
-			url: app.basePath+'admin/jsp/user/userManager/addUser.jsp',
+			url: app.contextPath+'admin/jsp/user/userManager/addUser.jsp',
 			buttons:[{
 				text:'提交',
 				handler:function(){
@@ -147,7 +147,7 @@
 			title: '编辑信息  '+row.usercode,
 			width: 380,
 			height: 450,
-			url: app.basePath+'admin/user/user.htm?operator=editUser&usercode='+row.usercode,
+			url: app.contextPath+'admin/user/user.htm?operator=editUser&usercode='+row.usercode,
 			buttons:[{
 				text:'提交',
 				handler:function(){
@@ -171,7 +171,7 @@
 		parent.$.messager.confirm('提示信息','确定要删除吗?',function(r){
 			if (r){
 				$.ajax({
-					url: app.basePath+'admin/user/user.htm?operator=deleteUser',
+					url: app.contextPath+'admin/user/user.htm?operator=deleteUser',
 					data:{usercode:row.usercode},
 					async:true,
 					dataType:'json',

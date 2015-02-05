@@ -2,10 +2,11 @@
 <%@page import="com.freedom.search.util.StringUtil" %>
 <%
 String basePath = PropertiesUtil.getProperties().getProperty("basePath");
+String contextPath = request.getContextPath()+"/";
 if(StringUtil.isStrEmpty(basePath)){
-	String path = request.getContextPath();
-	basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+contextPath;
 }
+
 
 String staticPath = PropertiesUtil.getProperties().getProperty("staticPath");
 if(StringUtil.isStrEmpty(staticPath)){

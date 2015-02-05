@@ -8,9 +8,9 @@
 		$(function(){
 			changeTheme = $('#changeTheme').menu({});
 			customMenu = $('#customMenu').tree( {
-				//url : app.basePath+'admin/js/common/tree3.json',
-				//url : app.basePath+'admin/tree/tree.htm?operator=initTree&moduleId=0001',
-				url : app.basePath+'admin/tree/tree.htm?operator=init&rootId=0',
+				//url : app.contextPath+'admin/js/common/tree3.json',
+				//url : app.contextPath+'admin/tree/tree.htm?operator=initTree&moduleId=0001',
+				url : app.contextPath+'admin/tree/tree.htm?operator=init&rootId=0',
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
 						if(node.state == "open"){
@@ -35,7 +35,7 @@
 			});
 			
 			systemTools = $('#systemTools').tree( {
-				url : app.basePath+'admin/js/common/systemtools.json',
+				url : app.contextPath+'admin/js/common/systemtools.json',
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
 						if(node.state == "open"){
@@ -51,7 +51,7 @@
 			});
 			
 			$('#easyUIAPI').tree( {
-				url : app.basePath+'admin/tree/tree.htm?operator=initTree&moduleId=0002',
+				url : app.contextPath+'admin/tree/tree.htm?operator=initTree&moduleId=0002',
 				onClick : function(node) {
 					if(!StringUtils.isObjEmpty(node.state)){
 						if(node.state == "open"){

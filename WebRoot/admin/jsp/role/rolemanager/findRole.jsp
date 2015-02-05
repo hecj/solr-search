@@ -12,7 +12,7 @@
 	var initFun = function(){
 		var rolecode = $('input[name=rolecode]').val();
 		tree = $('#tree').tree({
-			url: app.basePath+'admin/role/role.htm?operator=initModule&rolecode='+rolecode,
+			url: app.contextPath+'admin/role/role.htm?operator=initModule&rolecode='+rolecode,
 			border:false,
 			onLoadSuccess:function(row, data){
 				$(this).tree('expandAll',$(this).tree('getRoot').target);

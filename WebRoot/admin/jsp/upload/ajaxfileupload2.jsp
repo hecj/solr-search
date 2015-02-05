@@ -35,7 +35,7 @@
 			});
 
 			$.ajaxFileUpload({
-				url: app.basePath+'servlet/imageUploadServlet',
+				url: app.contextPath+'servlet/imageUploadServlet',
 				secureuri:false,
 				method:'POST',
 				fileElementId:'fileToUpload',
@@ -43,7 +43,7 @@
 				data:{name:'logan', id:'id'},
 				success: function (data, status){
 					if(data && data.code == '0'){
-						$('#headImg').attr('src',app.basePath+data.message);
+						$('#headImg').attr('src',app.contextPath+data.message);
 					}else{
 						alert('上传失败!');
 					}

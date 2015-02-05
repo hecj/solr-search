@@ -259,7 +259,7 @@
 			var dataCollect = new AppEntity.DataCollect('', IP, PORT, baseURL, pageParams, start, end, step, baseSelect, encode, dataBaseType, tableName, fieldList);
 			var json = $.toJSON(dataCollect);
 			$.ajax({
-				url:app.basePath+'admin/data/dataCollect.htm?operator=add',
+				url:app.contextPath+'admin/data/dataCollect.htm?operator=add',
 				data:{data:json},
 				dataType:'json',
 				timeout:3000,

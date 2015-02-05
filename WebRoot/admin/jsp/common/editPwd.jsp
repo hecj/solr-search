@@ -47,7 +47,7 @@
 			
 			//sumbit
 		    $('form').form('submit', {
-		    	url : app.basePath+'admin/user/user.htm?operator=editPwd',
+		    	url : app.contextPath+'admin/user/user.htm?operator=editPwd',
 		        success: function(data){
 			        var data = eval('(' + data + ')');
 			        if (data.code == '0'){

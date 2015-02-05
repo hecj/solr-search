@@ -11,7 +11,7 @@
 	
 	var initFun = function(){
 		tree = $('#tree').tree({
-			url: app.basePath+'admin/role/role.htm?operator=initTree&moduleId=0',
+			url: app.contextPath+'admin/role/role.htm?operator=initTree&moduleId=0',
 			border:false,
 			checkbox:true,
 			cascadeCheck:true,
@@ -68,7 +68,7 @@
 		idList = idList.concat(nodeList);
 		//sumbit
 	    $('form').form('submit', {
-	    	url : app.basePath+'admin/role/role.htm?operator=addRole&ids='+idList.join(','),
+	    	url : app.contextPath+'admin/role/role.htm?operator=addRole&ids='+idList.join(','),
 	        success: function(data){
 		        var data = eval('(' + data + ')');
 		        if (data.code == '0'){

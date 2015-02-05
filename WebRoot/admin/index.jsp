@@ -12,7 +12,7 @@
     				width: 330,
     				height: 200,
     				closable:false,
-    				url : app.basePath+'admin/jsp/common/login.jsp',
+    				url : app.contextPath+'admin/jsp/common/login.jsp',
     				buttons:[{
     					text:'登陆',
     					handler:function(){

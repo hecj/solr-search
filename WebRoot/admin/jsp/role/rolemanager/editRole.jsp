@@ -12,7 +12,7 @@
 	var initFun = function(){
 		var rolecode = $('input[name=rolecode]').val();
 		tree = $('#tree').tree({
-			url: app.basePath+'admin/role/role.htm?operator=initEditModule&rolecode='+rolecode+'',
+			url: app.contextPath+'admin/role/role.htm?operator=initEditModule&rolecode='+rolecode+'',
 			border:false,
 			checkbox:true,
 			onLoadSuccess:function(node, data){
@@ -66,7 +66,7 @@
 		idList = idList.concat(nodeList);
 		//sumbit
 	    $('form').form('submit', {
-	    	url : app.basePath+'admin/role/role.htm?operator=editRoleSub&ids='+idList.join(','),
+	    	url : app.contextPath+'admin/role/role.htm?operator=editRoleSub&ids='+idList.join(','),
 	        success: function(data){
 		        var data = eval('(' + data + ')');
 		        if (data.code == '0'){

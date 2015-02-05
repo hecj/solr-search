@@ -13,7 +13,7 @@
 		}
 		//sumbit
 	    $('form').form('submit', {
-	    	url : app.basePath+'admin/module/module.htm?operator=addBrotherNodeSumbit',
+	    	url : app.contextPath+'admin/module/module.htm?operator=addBrotherNodeSumbit',
 	        success: function(data){
 		        var data = eval('(' + data + ')');
 		        if (data.code == '0'){
@@ -31,7 +31,7 @@
 	var testURL = function(){
 		var url = $("input[name=url]").val();
 		$.ajax({
-			url:app.basePath+'admin/module/module.htm?operator=testURL',
+			url:app.contextPath+'admin/module/module.htm?operator=testURL',
 			data:{url:url},
 			dataType:'json',
 			timeout:3000,

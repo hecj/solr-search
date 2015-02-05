@@ -74,7 +74,7 @@
 			/*初始化表格*/
 			var id = $('#id').val();
 			grid = $('#grid').datagrid( {
-				url: app.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
+				url: app.contextPath+'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 				rownumbers : true,
 				singleSelect:true,
 				fitColumns: true,
@@ -328,7 +328,7 @@
 				var dataCollect = new AppEntity.DataCollect(id, IP, PORT, baseURL, pageParams, start, end, step, baseSelect, encode, dataBaseType, tableName, fieldList);
 				var json = $.toJSON(dataCollect);
 				$.ajax({
-					url: app.basePath+'admin/data/dataCollect.htm?operator=edit',
+					url: app.contextPath+'admin/data/dataCollect.htm?operator=edit',
 					data:{data:json},
 					dataType:'json',
 					timeout:3000,

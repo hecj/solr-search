@@ -54,7 +54,7 @@
 		
 		var id = $("#Id_dataCollectMsg").val();
 		var grid = $('#Id_Add_footGridMsg').datagrid( {
-			url: app.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
+			url: app.contextPath+'admin/data/dataCollect.htm?operator=toEdit&id='+id+"&type=2",
 			rownumbers : true,
 			singleSelect:true,
 			fitColumns: true,

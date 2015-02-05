@@ -53,7 +53,7 @@
 			width: 350,
 			height: 230,
 			closable:false,
-			url : app.basePath+'admin/jsp/common/editPwd.jsp',
+			url : app.contextPath+'admin/jsp/common/editPwd.jsp',
 			buttons:[{
 				text:'提交',
 				handler:function(){
@@ -73,7 +73,7 @@
 		parent.$.messager.confirm('提示信息','确定要注销吗?',function(r){
 			if (r){
 				$.ajax({
-					url:app.basePath+'admin/user/user.htm?operator=logout',
+					url:app.contextPath+'admin/user/user.htm?operator=logout',
 					data:{},
 					async:true,
 					dataType:'json',

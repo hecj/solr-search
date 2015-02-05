@@ -12,7 +12,7 @@
 	*/
 	var initFun = function() {
 		grid = $('#grid').datagrid( {
-			url : app.basePath+'admin/data/dataCollect.htm?operator=seacherDataCollect',
+			url : app.contextPath+'admin/data/dataCollect.htm?operator=seacherDataCollect',
 			columns : [ [ {
 				field : 'id',
 				title : '编号',
@@ -113,7 +113,7 @@
 			title: '添加信息',
 			width: 850,
 			height: 450,
-			url : app.basePath+'admin/data/dataCollect.htm?operator=toAdd',
+			url : app.contextPath+'admin/data/dataCollect.htm?operator=toAdd',
 			buttons:[{
 				text:'提交',
 				handler:function(){
@@ -137,7 +137,7 @@
 		parent.$.messager.confirm('提示信息','确定要删除吗?',function(r){
 			if (r){
 				$.ajax({
-					url:app.basePath+'admin/data/dataCollect.htm?operator=delete',
+					url:app.contextPath+'admin/data/dataCollect.htm?operator=delete',
 					data:{id:row.id},
 					async:true,
 					dataType:'json',
@@ -170,7 +170,7 @@
 			title: '编辑信息 Id:'+row.id,
 			width: 850,
 			height: 450,
-			url: app.basePath+'admin/data/dataCollect.htm?operator=toEdit&id='+row.id+"&type=1",
+			url: app.contextPath+'admin/data/dataCollect.htm?operator=toEdit&id='+row.id+"&type=1",
 			buttons:[{
 				text:'提交',
 				handler:function(){
@@ -196,7 +196,7 @@
 			title: '查看信息 Id:'+row.id,
 			width: 850,
 			height: 450,
-			url: app.basePath+'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id+"",
+			url: app.contextPath+'admin/data/dataCollect.htm?operator=toDataCollectMessage&id='+row.id+"",
 			buttons:[{
 				text:'关闭',
 				handler:function(){

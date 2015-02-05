@@ -22,7 +22,7 @@
 	$(function(){
 		
 	    $('#rolecode').combobox({
-	        url: app.basePath+'admin/role/role.htm?operator=roleList',
+	        url: app.contextPath+'admin/role/role.htm?operator=roleList',
 	        valueField:'value',
 	        textField:'text'
 	    });
@@ -37,7 +37,7 @@
 		}
 		//sumbit
 	    $('form').form('submit', {
-	    	url : app.basePath+'admin/user/user.htm?operator=addUserSub',
+	    	url : app.contextPath+'admin/user/user.htm?operator=addUserSub',
 	        success: function(data){
 		        var data = eval('(' + data + ')');
 		        if (data.code == '0'){
@@ -79,7 +79,7 @@
 		});
 		
 		$.ajaxFileUpload({
-			url: app.basePath+'servlet/imageUploadServlet',
+			url: app.contextPath+'servlet/imageUploadServlet',
 			secureuri:false,
 			method:'POST',
 			fileElementId:'fileToUpload',

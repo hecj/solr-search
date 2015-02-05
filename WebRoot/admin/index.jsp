@@ -37,7 +37,7 @@
     <div region="center"  style="padding:0px;background:#eee;" style="overflow: hidden;">
     	<div id="center_tabs" class="easyui-tabs" fit="true">
     		<div title="欢迎页">
-    			<iframe src="admin/jsp/system/commitLog.html" style="border:0;width:100%;height:99%;" frameBorder="0"></iframe>
+    			<iframe src="admin/jsp/system/commitLog.html?v=20150205" style="border:0;width:100%;height:99%;" frameBorder="0"></iframe>
     		</div>
     	</div>
     </div>  

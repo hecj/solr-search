@@ -1,7 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="/hey" prefix="hey" %>
 <html>
-	<jsp:include page="/admin/jsp/base/easyUI.jsp" />
 	<head>
+	<jsp:include page="/admin/jsp/base/easyUI.jsp" />
 <script type="text/javascript">
 	$(function(){
 		initFun();
@@ -226,9 +227,11 @@
 								<td>
 									<div class="datagrid-btn-separator"></div>
 								</td>
+								<hey:permission radiocode="dddd" usercode="${context.user.usercode }">
 								<td>
 									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="deleteFun();">删除</a>
 								</td>
+								</hey:permission>
 								<td>
 									<div class="datagrid-btn-separator"></div>
 								</td>

@@ -2,6 +2,7 @@ package com.freedom.search.admin.web.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class AdminServlet extends HttpServlet {
 	}
 
 	public void init() throws ServletException {
+
 
 		// WebApplicationContext wac =
 		// WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());

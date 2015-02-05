@@ -1,6 +1,8 @@
 package com.freedom.search.admin.services.imp;
 
+import java.io.File;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.freedom.search.admin.dao.UserDAO;
 import com.freedom.search.admin.entity.LzUser;
+import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.services.UserService;
+import com.freedom.search.admin.vo.AppContext;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
@@ -24,10 +28,18 @@ public class UserServiceImp implements UserService {
 	
 	@Resource
 	private UserDAO userDAO;
-
+	@Resource
+	private RoleService roleService;
+	
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
+	
+	public void setRoleService(RoleService roleService) {
+		this.roleService = roleService;
+	}
+
+
 
 	@Override
 	public boolean addUser(LzUser user) {
@@ -62,7 +74,24 @@ public class UserServiceImp implements UserService {
 	@Override
 	public boolean editUser(LzUser user) {
 		try {
-			userDAO.merge(user);
+			LzUser oldUser = userDAO.findById(user.getUsercode());
+			oldUser.setEmail(user.getEmail());
+			oldUser.setTelPhone(user.getTelPhone());
+			oldUser.setUsername(user.getUsername());
+			oldUser.setUpdateDate(new Date());
+			//判断更新
+			if(!oldUser.getImageHead().equals(user.getImageHead())){
+				String fileName = AppContext.getParentDir()+oldUser.getImageHead();
+				File file = new File(fileName);
+				if(file.isFile()){
+					file.delete();
+				}
+				oldUser.setImageHead(user.getImageHead());
+			}
+			if(!user.getRole().getRolecode().equals(oldUser.getRole().getRolecode())){
+				oldUser.setRole(roleService.searchRole(user.getRole().getRolecode()));
+			}
+			userDAO.merge(oldUser);
 			return true;
 		} catch (RuntimeException e) {
 			Log4jUtil.error("usercode:"+user.getUsercode());

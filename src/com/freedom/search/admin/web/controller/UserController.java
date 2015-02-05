@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.Enum.EnumAdminUtils;
+import com.freedom.search.admin.entity.LzRole;
 import com.freedom.search.admin.entity.LzUser;
 import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.services.UserService;
@@ -193,17 +194,17 @@ public class UserController extends BaseController {
 				return;
 			}
 			
-			LzUser user = userService.searchUserByCode(usercode);
+			LzUser user = new LzUser();
+			user.setUsercode(usercode);
 			user.setUsername(username);
-			user.setRole(roleService.searchRole(rolecode));
+			LzRole role = new LzRole();
+			role.setRolecode(rolecode);
+			user.setRole(role);
 			user.setTelPhone(telPhone);
 			user.setEmail(email);
-			user.setUpdateDate(new Date());
-			if(!StringUtil.isStrEmpty(headImg)){
-				user.setImageHead(headImg);
-			}
+			user.setImageHead(headImg);
 			
-			if(userService.addUser(user)){
+			if(userService.editUser(user)){
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return;
 			}

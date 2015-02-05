@@ -77,6 +77,11 @@
 	<listener>
 		<listener-class>com.freedom.search.web.listener.TempIndexRecoverListener</listener-class>
 	</listener>
+	
+	<!-- 初始化全局变量 -->
+	<listener>
+		<listener-class>com.freedom.search.web.listener.InitAppContextListener</listener-class>
+	</listener>
 
 	<!-- spring web config -->
 	<servlet>

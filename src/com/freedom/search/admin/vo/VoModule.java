@@ -19,7 +19,7 @@ public class VoModule implements Serializable {
 
 	private String moduleId;
 	private String name;//模块名称
-	private Integer type;//模块类型1是菜单，2是按钮
+	private String type;//模块类型1是菜单，2是按钮
 	private String iconCls;
 	private String parentId;//父Id
 	private String url;
@@ -39,10 +39,10 @@ public class VoModule implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public String getUrl() {

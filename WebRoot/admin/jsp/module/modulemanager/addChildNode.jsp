@@ -5,9 +5,18 @@
 <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
 <script type="text/javascript">
 
-
 	$(function(){
-
+		$('#type').combobox({
+			onSelect:function(record){
+				if(record.value == '0'){
+					$('#moduleIdDIV').hide();
+					$('#iconsDiv').show();
+				}else{
+					$('#moduleIdDIV').show();
+					$('#iconsDiv').hide();
+				}
+			}
+		});		
 	});
 
 	var submitForm = function(dialog,parentGrid){
@@ -71,24 +80,31 @@
 	<div>
 		<form method="post">
 			 <div class="height" style="margin-top: 20px">
+			     <label for="name">类型:</label>
+			     <select name="type" id="type" class="easyui-combobox" style="width: 220px" data-options="panelHeight:50,panelWidth:220,editable:false">
+					<option value="0">菜单</option>
+					<option value="1">按钮</option>
+				</select>
+		     </div>
+			 <div class="height">
 			     <label for="name">名称:</label>
 			     <input name="name" size="30" class="easyui-validatebox" data-options="required:true,validType:'baseValidator'"/>
 		     </div>
-		     <div class="height">
-		     	<label for="name" >父模块:</label>
-			    <input name="parentId" size="30" value="${module.moduleId }" readonly="readonly" />
+		     <div class="height" id="moduleIdDIV" style="display: none;">
+			     <label for="name">代码:</label>
+			     <input name="moduleId" size="30" class="easyui-validatebox" />
 		     </div>
-		     <div class="height">
-		     	<label for="name">路径:</label>
-			    <input name="url" size="28" class="easyui-validatebox" />
-			    <a id="testURL" href="#" class="easyui-linkbutton" onclick="testURL();">验证</a>
-		     </div>
-			 <div class="height">
+			 <div class="height" id="iconsDiv">
 			     <label for="name">状态:</label>
-			     <select name="state" class="easyui-combobox" data-options="panelHeight:50,editable:false">
+			     <select name="state" class="easyui-combobox" style="width: 220px" data-options="panelHeight:50,panelWidth:220,editable:false">
 					<option value="open">打开</option>
 					<option value="closed">关闭</option>
 				</select>
+		     </div>
+		     <div class="height">
+			     	<label for="name">路径:</label>
+				    <input name="url" size="28" class="easyui-validatebox" />
+				    <a id="testURL" href="#" class="easyui-linkbutton" onclick="testURL();">验证</a>
 		     </div>
 			 <div class="height">
 			     <label for="name">图标:</label>
@@ -96,9 +112,13 @@
 		     </div>
 		     <div class="height">
 		     	<label for="name">叶子:</label>
-			    <select name="leaf" class="easyui-combobox" disabled="disabled" data-options="panelHeight:75,editable:false">
+			    <select name="leaf" class="easyui-combobox" disabled="disabled" style="width: 220px" data-options="panelHeight:50,panelWidth:220,editable:false">
 					<option value="1">是</option>
 				</select>
+		     </div>
+		     <div class="height">
+		     	<label for="name" >父模块:</label>
+			    <input name="parentId" size="30" value="${module.moduleId }" readonly="readonly" />
 		     </div>
 		</form>
 	</div>

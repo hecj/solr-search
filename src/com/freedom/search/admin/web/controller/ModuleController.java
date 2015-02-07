@@ -76,6 +76,8 @@ public class ModuleController extends BaseController {
 	public void addChildNodeSumbit(HttpServletRequest request,HttpServletResponse response){
 		try{
 			String name = request.getParameter("name");
+			String moduleId = request.getParameter("moduleId");
+			String type = request.getParameter("type");
 			String parentId = request.getParameter("parentId");
 			String url = request.getParameter("url");
 			String state = request.getParameter("state");
@@ -85,9 +87,15 @@ public class ModuleController extends BaseController {
 			module.setIcons(icons);
 			module.setLeaf(leaf);
 			module.setName(name);
-			module.setState(state);
 			module.setUrl(url);
 			module.setParentId(parentId);
+			module.setType(type);
+			if(EnumAdminUtils.Tree.Type.Menu.code.equals(type)){
+				module.setState(state);
+			}else{
+				module.setModuleId(moduleId);
+				module.setState(EnumAdminUtils.Tree.State.Open.code);
+			}
 			
 			if(moduleService.addChildNode(module)){
 				writeToJSON(response, new MessageCode("0", "处理成功!"));

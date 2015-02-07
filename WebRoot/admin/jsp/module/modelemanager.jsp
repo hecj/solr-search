@@ -38,14 +38,6 @@
 					{title:'名称',field:'name',align:'left', width:220},
 					{title:'模块Id',field:'moduleId',align:'left',width:80},
 					{title:'父模块Id',field:'parentId',align:'left',width:80},
-					{title:'属性',field:'type',align:'center',width:80,
-						formatter: function(value,row,index){
-					  		if(value == 0){
-						  		return '菜单';
-						  	}
-						  	return '按钮';
-	  					}
-	  				},
 					{title:'状态',field:'state',align:'center',width:80,
 				  		formatter: function(value,row,index){
 					  		if(value == 'open'){
@@ -100,7 +92,7 @@
 				var dialog = parent.app.dialogModel({
 					title: '添加兄弟节点',
 					width: 400,
-					height: 380,
+					height: 330,
 					url : app.contextPath+'admin/module/module.htm?operator=addBrotherNode&moduleId='+row.moduleId,
 					buttons:[{
 						text:'提交',
@@ -119,7 +111,7 @@
 				var dialog = parent.app.dialogModel({
 					title: '添加子节点',
 					width: 400,
-					height: 380,
+					height: 330,
 					url : app.contextPath+'admin/module/module.htm?operator=addChildNode&moduleId='+row.moduleId,
 					buttons:[{
 						text:'提交',
@@ -173,7 +165,7 @@
 				var dialog = parent.app.dialogModel({
 					title: '编辑节点 Id:'+row.moduleId,
 					width: 400,
-					height: 380,
+					height: 330,
 					url : app.contextPath+'admin/module/module.htm?operator=editNode&moduleId='+row.moduleId,
 					buttons:[{
 						text:'提交',

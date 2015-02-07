@@ -1,7 +1,6 @@
 package com.freedom.search.admin.vo;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import com.freedom.search.admin.entity.LzUser;
 
@@ -29,19 +28,6 @@ public class UserContext implements Serializable {
 	 * 网站基本目录
 	 */
 	private String basePath;
-	
-	/**
-	 * 按钮权限
-	 */
-	private Map<String,String> permission;
-	
-	public Map<String, String> getPermission() {
-		return permission;
-	}
-
-	public void setPermission(Map<String, String> permission) {
-		this.permission = permission;
-	}
 
 	public LzUser getUser() {
 		return user;

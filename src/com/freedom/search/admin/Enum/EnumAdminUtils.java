@@ -87,15 +87,6 @@ public class EnumAdminUtils {
 			}
 		}
 		
-		/*按钮或菜单*/
-		public enum Type {
-			Menu("0"), Radio("1");
-			public String code;
-			Type(String code) {
-				this.code = code ;
-			}
-		}
-		
 		/*选中*/
 		public enum Checked {
 			Checked("checked");

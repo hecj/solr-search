@@ -158,11 +158,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- session -->
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
-	
 	<!-- error 404 page -->
 	<error-page>
     	<error-code>404</error-code>

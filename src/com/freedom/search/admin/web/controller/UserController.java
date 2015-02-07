@@ -61,11 +61,6 @@ public class UserController extends BaseController {
 					context.setBasePath(getBasePath());
 					request.getSession().setAttribute("context", context);
 					Log4jUtil.log("login success:"+usercode);
-					
-					Map permission = new HashMap();
-					permission.put("hecj", "hechaojie");
-					context.setPermission(permission);
-					
 					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "登陆成功!"));
 					return;
 				}else{

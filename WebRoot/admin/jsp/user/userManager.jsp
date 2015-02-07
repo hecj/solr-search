@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <html>
-	<head>
 	<jsp:include page="/admin/jsp/base/easyUI.jsp" />
+	<head>
 <script type="text/javascript">
 	$(function(){
 		initFun();

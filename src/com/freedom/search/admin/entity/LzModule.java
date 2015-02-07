@@ -25,7 +25,7 @@ public class LzModule implements Serializable {
 	private String moduleId;
 	private String name;// 模块名称
 	private String url;
-	private String type;// 模块类型1是菜单，2是按钮
+	private Integer type;// 模块类型1是菜单，2是按钮
 	private String parentId;// 父Id
 	private String icons;// 图标
 	private String state; //状态 打开/关闭
@@ -61,11 +61,11 @@ public class LzModule implements Serializable {
 	}
 
 	@Column(name="type",length=1)
-	public String getType() {
+	public Integer getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 

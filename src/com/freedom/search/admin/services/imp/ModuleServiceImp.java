@@ -111,7 +111,6 @@ public class ModuleServiceImp implements ModuleService{
 			voModule.setParentId(module.getParentId());
 			voModule.setState(module.getState());
 			voModule.setLeaf(module.getLeaf());
-			voModule.setType(module.getType());
 			if(module.getLeaf().equals(EnumAdminUtils.Tree.Leaf.True.code)){
 				voModule.setIconCls(module.getIcons());
 			}
@@ -140,7 +139,6 @@ public class ModuleServiceImp implements ModuleService{
 				voModule.setLeaf(m.getLeaf());
 				voModule.setState(m.getState());
 				voModule.setParentId(m.getParentId());
-				voModule.setType(m.getType());
 				//属性在数据库用,分隔，如:urlEQhttp://localhost,nameEQhecj
 				if(!StringUtil.isStrEmpty(m.getUrl())){
 					voModule.setUrl(m.getUrl());
@@ -212,18 +210,15 @@ public class ModuleServiceImp implements ModuleService{
 	@Override
 	public boolean addChildNode(LzModule module) {
 		try{
-			//若为菜单,则分配Id
-			if(module.getType().equals(EnumAdminUtils.Tree.Type.Menu.code)){
-				String qHql = "select m from LzModule m where m.parentId = ? and m.type=? order by m.moduleId asc";
-				List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId(),EnumAdminUtils.Tree.Type.Menu.code});
-				String newModuleId ;
-				if(list.size()>0){
-					newModuleId = module.getParentId()+ getNewModuleId(list);
-				}else{
-					newModuleId = module.getParentId()+ "001";
-				}
-				module.setModuleId(newModuleId);
+			String qHql = "select m from LzModule m where m.parentId = ? order by m.moduleId asc";
+			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
+			String newModuleId ;
+			if(list.size()>0){
+				newModuleId = module.getParentId()+ getNewModuleId(list);
+			}else{
+				newModuleId = module.getParentId()+ "001";
 			}
+			module.setModuleId(newModuleId);
 			LzModule parentModule = moduleDAO.findById(module.getParentId());
 			//更新父节点为枝干
 			if(parentModule.getLeaf().equals(EnumAdminUtils.Tree.Leaf.True.code)){

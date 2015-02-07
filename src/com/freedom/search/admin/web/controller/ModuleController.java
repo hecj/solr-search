@@ -1,6 +1,9 @@
 package com.freedom.search.admin.web.controller;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +16,11 @@ import com.freedom.search.admin.Enum.EnumAdminUtils.ModuleType;
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.VoModule;
+import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
+import com.freedom.search.util.Pagination;
+import com.freedom.search.util.Result;
 import com.freedom.search.util.StringUtil;
 import com.freedom.search.util.http.HtmlUtils;
 import com.freedom.search.web.controller.base.BaseController;
@@ -225,4 +231,128 @@ public class ModuleController extends BaseController {
 		}
 		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
+	
+	@RequestMapping(params="operator=radioList")
+	public void radioList(Integer page,Integer rows,HttpServletRequest request,HttpServletResponse response){
+		try {
+			Pagination mPagination = new Pagination(10);
+			if(!StringUtil.isObjectNull(page)){
+				mPagination.setCurrPage(page.longValue());
+			}
+			if(!StringUtil.isObjectNull(page)){
+				mPagination.setPageSize(rows);
+			}
+			Map<String,Object> mMap = new HashMap<String,Object>();
+			mMap.put("pagination", mPagination);
+			
+			Result result = moduleService.searchRadioList(mMap);
+			if(result.isSuccess()){
+				writeToJSON(response,new EasyGridData(result.getPagination().getCountSize(),result.getData()));
+				return;
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		writeToJSON(response,new EasyGridData());
+	}
+	
+	/**
+	 * 添加按钮
+	 */
+	@RequestMapping(params="operator=addRadioSub")
+	public void addRadioSub(HttpServletRequest request,HttpServletResponse response){
+		
+		try {
+			String radiocode = request.getParameter("radiocode");
+			if(!StringUtil.isObjectNull(moduleService.searchModuleById(radiocode))){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "按钮代码已存在!"));
+				return ;
+			}
+			String radioname = request.getParameter("radioname");
+			String url = request.getParameter("url");
+			String icon = request.getParameter("icon");
+			
+			LzModule module = new LzModule();
+			module.setIcons(icon);
+			module.setModuleId(radiocode);
+			module.setName(radioname);
+			module.setUrl(url);
+			module.setType(EnumAdminUtils.ModuleType.Radio.code);
+			
+			if(moduleService.addRadio(module)){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
+				return ;
+			}
+			
+		} catch (Exception e) {
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()));
+			e.printStackTrace();
+		}
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
+	}
+	
+	/**
+	 * 删除按钮
+	 */
+	@RequestMapping(params="operator=delRadioSub")
+	public void delRadioSub(HttpServletRequest request,HttpServletResponse response){
+		
+		try {
+			String moduleId = request.getParameter("moduleId");
+			if(moduleService.delRadio(moduleId)){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
+				return;
+			}
+		} catch (Exception e) {
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()));
+			e.printStackTrace();
+		}
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
+	}
+	
+	/**
+	 * to修改按钮
+	 */
+	@RequestMapping(params="operator=toEditRadio")
+	public String toEditRadio(HttpServletRequest request,HttpServletResponse response){
+		try {
+			String radiocode = request.getParameter("radiocode");
+			LzModule module = moduleService.searchModuleById(radiocode);
+			request.setAttribute("module", module);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "admin/jsp/module/radiomanager/editRadio";
+	}
+	
+	/**
+	 * 修改按钮
+	 */
+	@RequestMapping(params="operator=editRadioSub")
+	public void editRadioSub(HttpServletRequest request,HttpServletResponse response){
+		
+		try {
+			
+			String radiocode = request.getParameter("radiocode");
+			String radioname = request.getParameter("radioname");
+			String url = request.getParameter("url");
+			String icon = request.getParameter("icon");
+			
+			LzModule module = moduleService.searchModuleById(radiocode);
+			module.setIcons(icon);
+			module.setName(radioname);
+			module.setUrl(url);
+			
+			if(moduleService.editRadio(module)){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
+				return ;
+			}
+			
+		} catch (Exception e) {
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()));
+			e.printStackTrace();
+		}
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
+	}
+	
 }

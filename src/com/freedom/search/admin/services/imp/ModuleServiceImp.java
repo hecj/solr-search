@@ -20,7 +20,11 @@ import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.Tree;
 import com.freedom.search.admin.vo.VoModule;
+import com.freedom.search.admin.vo.VoRadio;
 import com.freedom.search.util.Log4jUtil;
+import com.freedom.search.util.Pagination;
+import com.freedom.search.util.Result;
+import com.freedom.search.util.ResultSupport;
 import com.freedom.search.util.StringUtil;
 @Transactional
 @Service("moduleService")
@@ -349,6 +353,59 @@ public class ModuleServiceImp implements ModuleService{
 			trees.add(tree);
 		}
 		return trees;
+	}
+
+	@Override
+	public boolean addRadio(LzModule module) {
+		moduleDAO.save(module);
+		return true;
+	}
+
+	@Override
+	public boolean delRadio(String moduleId) {
+		moduleDAO.delete(moduleDAO.findById(moduleId));
+		return true;
+	}
+
+	@Override
+	public boolean editRadio(LzModule module) {
+		moduleDAO.merge(module);
+		return true;
+	}
+
+	@Override
+	public Result searchRadioList(Map<String, Object> map) {
+		Result result = new ResultSupport();
+		try{
+			
+			Pagination pagination = (Pagination) map.get("pagination");
+			String mQueryHQL = "select u from LzModule u where u.type=?";
+			String mContHQL = "select count(u) from LzModule u where u.type="+EnumAdminUtils.ModuleType.Radio.code+"";
+			
+			List<LzModule> moduleList = moduleDAO.queryListByParamsAndPagination(mQueryHQL, pagination.startCursor().intValue(), pagination.getPageSize(),
+					new Object[]{EnumAdminUtils.ModuleType.Radio.code});
+			long count = Long.parseLong(moduleDAO.queryUniqueResultByHQL(mContHQL).toString());
+			pagination.setCountSize(count);
+			
+			List<VoRadio> radioList = new ArrayList<VoRadio>();
+			for(LzModule m : moduleList){
+				VoRadio radio = new VoRadio();
+				radio.setRadiocode(m.getModuleId());
+				radio.setRadioname(m.getName());
+				radio.setUrl(m.getUrl());
+				radio.setIcon(m.getIcons());
+				radioList.add(radio);
+			}
+			result.setData(radioList);
+			result.setPagination(pagination);
+			result.setResult(true);
+		}catch(Exception ex){
+			
+			result.setResult(false);
+			Log4jUtil.log(ex.getMessage());
+			ex.printStackTrace();
+		}
+		return result;
 	}
 
 }

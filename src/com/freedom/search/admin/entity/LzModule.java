@@ -87,7 +87,7 @@ public class LzModule implements Serializable {
 		this.icons = icons;
 	}
 
-	@Column(name="leaf",length=1,nullable=false)
+	@Column(name="leaf",length=1)
 	public String getLeaf() {
 		return leaf;
 	}
@@ -96,7 +96,7 @@ public class LzModule implements Serializable {
 		this.leaf = leaf;
 	}
 
-	@Column(name="state",length=10,nullable=false)
+	@Column(name="state",length=10)
 	public String getState() {
 		return state;
 	}

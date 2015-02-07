@@ -6,6 +6,7 @@ import java.util.Map;
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.vo.VoModule;
 import com.freedom.search.admin.vo.Tree;
+import com.freedom.search.admin.vo.VoRadio;
 import com.freedom.search.util.Result;
 
 public interface ModuleService {
@@ -70,4 +71,9 @@ public interface ModuleService {
 	 * 删除按钮
 	 */
 	public boolean delRadio(String moduleId);
+	
+	/**
+	 * 查询有权限的按钮
+	 */
+	public List<VoRadio> searchPermissionRadios(String rolecode);
 }	

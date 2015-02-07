@@ -2,6 +2,7 @@ package com.freedom.search.admin.web.controller;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,7 +16,9 @@ import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.Enum.EnumAdminUtils.ModuleType;
 import com.freedom.search.admin.entity.LzModule;
 import com.freedom.search.admin.services.ModuleService;
+import com.freedom.search.admin.vo.UserContext;
 import com.freedom.search.admin.vo.VoModule;
+import com.freedom.search.admin.vo.VoRadio;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.MessageCode;
@@ -353,6 +356,24 @@ public class ModuleController extends BaseController {
 			e.printStackTrace();
 		}
 		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
+	}
+	
+	@RequestMapping(params="operator=permissionRadioList")
+	public void permissionRadioList(HttpServletRequest request,HttpServletResponse response){
+		try {
+			
+			String rolecode = request.getParameter("rolecode");
+			
+			List<VoRadio> radios = moduleService.searchPermissionRadios(rolecode);
+			if(radios.size()>0){
+				writeToJSON(response,new EasyGridData(Long.valueOf(radios.size()),radios));
+				return;
+			}
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		writeToJSON(response,new EasyGridData());
 	}
 	
 }

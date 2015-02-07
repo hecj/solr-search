@@ -5,6 +5,7 @@
 <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
 <script type="text/javascript">
 	var tree ;
+	var grid ;
 	$(function(){
 		initFun();
 	});
@@ -27,6 +28,37 @@
 
 			}
 		});
+
+		$('#tree').panel({
+			title:'菜单权限',
+			border: false
+		}); 
+
+		grid = $('#grid').datagrid({
+			url: app.contextPath+'admin/module/module.htm?operator=radioList',
+			fitColumns: true,
+			pageSize:600,
+			pageList : [ 15, 30, 45, 600 ],
+			columns:[[
+			    {checkbox:true},
+				{title:'按钮代码',field:'radiocode',align:'left', width:80},
+				{title:'名称',field:'radioname',align:'left', width:80}
+			]],
+			onLoadSuccess:function(row, data){
+				$.messager.progress('close');
+			},
+			onBeforeLoad:function(row, param){
+				$.messager.progress({
+					text : '数据加载中....'
+				});
+			}
+		});
+
+		$('#grid').panel({
+			title:'按钮权限',
+			border: false
+		}); 
+		
 	}
 
 	var submitForm = function(dialog,parentGrid){
@@ -66,6 +98,13 @@
 			}
 		}
 		idList = idList.concat(nodeList);
+		//选中的按钮
+		var rows = grid.datagrid('getChecked');
+		for(var i=0;i<rows.length;i++){
+			var row = rows[i];
+			idList.push(row.radiocode);
+		}
+		
 		//sumbit
 	    $('form').form('submit', {
 	    	url : app.contextPath+'admin/role/role.htm?operator=addRole&ids='+idList.join(','),
@@ -103,8 +142,9 @@
 				<input name="rolename" size="25" class="easyui-validatebox" data-options="required:true,validType:'baseValidator'" />
 		     </div>
 		</form>
-		<div class="easyui-panel" border="false" style="padding:2px;margin:5px;height:200px;width:360px">
+		<div class="easyui-panel" border="true" style="padding:2px;margin:5px;height:200px;width:360px">
 	    		<div id="tree"></div>
+	    		<div id="grid"></div>
 	    </div>
    	 </div>
 </body>

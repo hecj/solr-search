@@ -29,6 +29,10 @@ public class VoRadio implements Serializable {
 	 * 按钮图标
 	 */
 	private String icon;
+	/**
+	 * 是否选择
+	 */
+	private boolean check;
 	
 	public VoRadio() {
 		super();
@@ -57,5 +61,10 @@ public class VoRadio implements Serializable {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-	
+	public boolean getCheck() {
+		return check;
+	}
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
 }

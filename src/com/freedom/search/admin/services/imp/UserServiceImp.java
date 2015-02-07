@@ -87,7 +87,7 @@ public class UserServiceImp implements UserService {
 			oldUser.setUsername(user.getUsername());
 			oldUser.setUpdateDate(new Date());
 			//判断更新
-			if(!oldUser.getImageHead().equals(user.getImageHead())){
+			if(oldUser.getImageHead() == null || !oldUser.getImageHead().equals(user.getImageHead())){
 				//将临时图片移动到图片目录
 				String tmpFileName = AppContext.getParentDir()+user.getImageHead();
 				File tmpFile = new File(tmpFileName);

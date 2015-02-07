@@ -64,8 +64,8 @@ public class ModuleServiceImp implements ModuleService{
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
 	private Tree searchMenuTree(Tree voTree,Set<LzModule> set) {
-		String hql = "select m from LzModule m where m.parentId=?";
-		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getId()});
+		String hql = "select m from LzModule m where m.parentId=? and m.type=?";
+		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getId(),EnumAdminUtils.ModuleType.Menu.code});
 		if(modules.size() == 0){
 			return voTree;
 		}else{
@@ -123,8 +123,8 @@ public class ModuleServiceImp implements ModuleService{
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
 	private VoModule treeManagerSearch(VoModule voTree,Set<LzModule> set) {
-		String hql = "select m from LzModule m where m.parentId=?";
-		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getModuleId()});
+		String hql = "select m from LzModule m where m.parentId=? and m.type=?";
+		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{voTree.getModuleId(),EnumAdminUtils.ModuleType.Menu.code});
 		if(modules.size() == 0){
 			return voTree;
 		}else{
@@ -166,8 +166,8 @@ public class ModuleServiceImp implements ModuleService{
 	public boolean addBrotherNode(LzModule module) {
 		try{
 			Log4jUtil.log("添加兄弟节点:"+module.getName());
-			String qHql = "select m from LzModule m where m.parentId=? order by m.moduleId asc";
-			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
+			String qHql = "select m from LzModule m where m.parentId=? and m.type=? order by m.moduleId asc";
+			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId(),EnumAdminUtils.ModuleType.Menu.code});
 			if(list.size()>0){
 				//拼接Id组成新的Id
 				module.setModuleId(module.getParentId()+getNewModuleId(list));
@@ -210,8 +210,8 @@ public class ModuleServiceImp implements ModuleService{
 	@Override
 	public boolean addChildNode(LzModule module) {
 		try{
-			String qHql = "select m from LzModule m where m.parentId = ? order by m.moduleId asc";
-			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId()});
+			String qHql = "select m from LzModule m where m.parentId = ? and m.type=? order by m.moduleId asc";
+			List<LzModule> list = moduleDAO.queryListByParams(qHql, new Object[]{module.getParentId(),EnumAdminUtils.ModuleType.Menu.code});
 			String newModuleId ;
 			if(list.size()>0){
 				newModuleId = module.getParentId()+ getNewModuleId(list);
@@ -255,9 +255,9 @@ public class ModuleServiceImp implements ModuleService{
 			//删除模块及子模块
 			String dHql;
 			if(!StringUtil.isStrEmpty(ids)){
-				dHql = "delete LzModule m where m.moduleId in ('"+module.getModuleId()+"',"+ids+")";
+				dHql = "delete LzModule m where m.moduleId in ('"+module.getModuleId()+"',"+ids+") and m.type="+EnumAdminUtils.ModuleType.Menu.code+"";
 			}else{
-				dHql = "delete LzModule m where m.moduleId in ('"+module.getModuleId()+"')";
+				dHql = "delete LzModule m where m.moduleId in ('"+module.getModuleId()+"') and m.type="+EnumAdminUtils.ModuleType.Menu.code+"";
 			}
 			moduleDAO.executeHQL(dHql);
 			
@@ -289,8 +289,8 @@ public class ModuleServiceImp implements ModuleService{
 	 * 递归遍历菜单,加入递归死循环容错处理.
 	 */
 	private String searchIds(String ids,String id,Set<String> set) {
-		String hql = "select m from LzModule m where m.parentId=?";
-		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{id});
+		String hql = "select m from LzModule m where m.parentId=? and m.type=?";
+		List<LzModule> modules = (List<LzModule>) moduleDAO.queryListByParams(hql,new Object[]{id,EnumAdminUtils.ModuleType.Menu.code});
 		if(modules.size() == 0){
 			return ids;
 		}else{
@@ -323,8 +323,8 @@ public class ModuleServiceImp implements ModuleService{
 	public List<LzModule> searchChildModules(String rolecode,String id) {
 		
 		String query = "select m from LzModule m where m.parentId=? and m.moduleId in " +
-				"(select rm.moduleId from LzRoleModule rm where rm.rolecode=?)";
-		return moduleDAO.queryListByParams(query, new Object[]{id,rolecode});
+				"(select rm.moduleId from LzRoleModule rm where rm.rolecode=?) and m.type=?";
+		return moduleDAO.queryListByParams(query, new Object[]{id,rolecode,EnumAdminUtils.ModuleType.Menu.code});
 	}
 
 	@Override

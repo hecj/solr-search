@@ -69,7 +69,7 @@ public class LzModule implements Serializable {
 		this.type = type;
 	}
 
-	@Column(name="parentId",length=32,nullable=false)
+	@Column(name="parentId",length=32)
 	public String getParentId() {
 		return parentId;
 	}

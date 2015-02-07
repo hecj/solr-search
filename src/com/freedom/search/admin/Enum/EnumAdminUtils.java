@@ -59,6 +59,17 @@ public class EnumAdminUtils {
 	}
 	
 	/**
+	 * 模块类型（菜单，按钮） 
+	 */
+	public enum ModuleType{
+		Menu(0),Radio(1);
+		public Integer code;
+		ModuleType(Integer code) {
+			this.code = code ;
+		}
+	}
+	
+	/**
 	 * 菜单树
 	 */	
 	public enum Tree {

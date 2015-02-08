@@ -5,6 +5,7 @@
 <jsp:include page="/admin/jsp/base/easyUI.jsp"/>
 <script type="text/javascript">
 	var tree ;
+	var grid ;
 	$(function(){
 		initFun();
 	});
@@ -23,6 +24,36 @@
 					text : '数据加载中....'
 				});
 			}
+		});
+
+		$('#tree').panel({
+			title:'菜单权限',
+			border: false
+		});
+
+		grid = $('#grid').datagrid({
+			url: app.contextPath+'admin/module/module.htm?operator=existPermissionRadioList&rolecode='+rolecode,
+			fitColumns: true,
+			pageSize:600,
+			idField: 'radiocode',
+			pageList : [ 15, 30, 45, 600 ],
+			columns:[[
+				{title:'按钮名称',field:'radioname',align:'left'},
+				{title:'按钮代码',field:'radiocode',align:'left', width:80}
+			]],
+			onLoadSuccess:function(row, data){
+				$.messager.progress('close');
+			},
+			onBeforeLoad:function(row, param){
+				$.messager.progress({
+					text : '数据加载中....'
+				});
+			}
+		});
+
+		$('#gridPanel').panel({
+			title:'按钮权限',
+			border: false
 		});
 	}
 </script>
@@ -48,8 +79,11 @@
 				<input size="25" value="${role.rolename }" readonly="readonly" />
 		     </div>
 		</form>
-		<div class="easyui-panel" border="false" style="padding:2px;margin:5px;height:200px;width:360px">
+		<div class="easyui-panel" border="true" style="padding:2px;margin:5px;height:200px;width:360px">
 	    		<div id="tree"></div>
+	    		<div id="gridPanel">
+	    			<div id="grid"></div>
+	    		</div>
 	    </div>
    	 </div>
 </body>

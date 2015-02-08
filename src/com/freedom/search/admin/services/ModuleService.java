@@ -76,4 +76,8 @@ public interface ModuleService {
 	 * 查询有权限的按钮
 	 */
 	public List<VoRadio> searchPermissionRadios(String rolecode);
+	/**
+	 * 查询已有权限按钮
+	 */
+	public List<VoRadio> searchExistPermissionRadios(String rolecode);
 }	

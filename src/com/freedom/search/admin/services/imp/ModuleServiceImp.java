@@ -438,4 +438,23 @@ public class ModuleServiceImp implements ModuleService{
 		return radios;
 	}
 
+	@Override
+	public List<VoRadio> searchExistPermissionRadios(String rolecode) {
+		String queryRoleRadio = "select m from LzModule m where m.type=? and m.moduleId in " +
+		"(select rm.moduleId from LzRoleModule rm where rm.rolecode=?)";
+		List<LzModule> roleModules = moduleDAO.queryListByParams(queryRoleRadio, new Object[]{EnumAdminUtils.ModuleType.Radio.code,rolecode});
+		
+		List<VoRadio> radios = new ArrayList<VoRadio>();
+		for(LzModule m:roleModules){
+			VoRadio r = new VoRadio();
+			r.setRadiocode(m.getModuleId());
+			r.setRadioname(m.getName());
+			r.setIcon(m.getIcons());
+			r.setUrl(m.getUrl());
+			r.setCheck(true);
+			radios.add(r);
+		}
+		return radios;
+	}
+
 }

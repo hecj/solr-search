@@ -40,7 +40,11 @@
 			pageSize:600,
 			pageList : [ 15, 30, 45, 600 ],
 			columns:[[
-			    {checkbox:true},
+			    {width:20,field:'check',title:'<input type="checkbox" onclick="selectFun(this)" title="全选/取消全选">',
+			    	formatter: function(value,row,index){
+			    		return '<input type="checkbox" id='+index+' name="checkRadio" onclick="selectRadioFun(this)"/>';
+			    	}
+	    		},
 				{title:'按钮代码',field:'radiocode',align:'left', width:80},
 				{title:'名称',field:'radioname',align:'left', width:80}
 			]],
@@ -51,14 +55,24 @@
 				$.messager.progress({
 					text : '数据加载中....'
 				});
+			},
+			onClickRow:function(index,row){
+				var c = $('#'+index).attr('checked');
+				if(c){
+					$('#'+index).attr('checked',false);
+					grid.datagrid('unSelectRow',index);
+				}else{
+					$('#'+index).attr('checked',true);
+					grid.datagrid('SelectRow',index);
+				}
 			}
 		});
 
-		$('#grid').panel({
+		$('#gridPanel').panel({
 			title:'按钮权限',
 			border: false
-		}); 
-		
+		});
+
 	}
 
 	var submitForm = function(dialog,parentGrid){
@@ -98,11 +112,10 @@
 			}
 		}
 		idList = idList.concat(nodeList);
-		//选中的按钮
-		var rows = grid.datagrid('getChecked');
+		//选中行
+		var rows = grid.datagrid('getSelections');
 		for(var i=0;i<rows.length;i++){
-			var row = rows[i];
-			idList.push(row.radiocode);
+			idList.push(rows[i].radiocode);
 		}
 		
 		//sumbit
@@ -119,6 +132,25 @@
 			    }
 	        }
 	    });
+	}
+
+	//全选/取消
+	var selectFun = function(obj){
+		var c = $(obj).attr('checked');
+		if(c){
+			$('input[name=checkRadio]').attr('checked',true);
+		}else{
+			$('input[name=checkRadio]').attr('checked',false);
+		}
+	}
+
+	var selectRadioFun = function(obj){
+		var c = $(obj).attr('checked');
+		if(c){
+			$(obj).attr('checked',false);
+		}else{
+			$(obj).attr('checked',true);
+		}
 	}
 </script>
 <style type="text/css">
@@ -144,7 +176,9 @@
 		</form>
 		<div class="easyui-panel" border="true" style="padding:2px;margin:5px;height:200px;width:360px">
 	    		<div id="tree"></div>
-	    		<div id="grid"></div>
+	    		<div id="gridPanel">
+	    			<div id="grid"></div>
+	    		</div>
 	    </div>
    	 </div>
 </body>

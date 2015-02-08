@@ -37,14 +37,28 @@
 	</filter-mapping>
 	-->
 	
+	<!-- filter Session -->
+	<filter>
+		<filter-name>filterSession</filter-name>
+		<filter-class>com.freedom.search.web.filter.FilterSession</filter-class>
+		<init-param>
+			<param-name>sessionPage</param-name>
+			<param-value>/admin/jsp/common/login.jsp</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>filterSession</filter-name>
+		<url-pattern>*.htm</url-pattern>
+	</filter-mapping>
+	
 	<!-- filter user -->
 	<filter>
-		<filter-name>userFilter</filter-name>
+		<filter-name>filterUser</filter-name>
 		<filter-class>com.freedom.search.web.filter.FilterUser</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>userFilter</filter-name>
-		<url-pattern>*.htm</url-pattern>
+		<filter-name>filterUser</filter-name>
+		<url-pattern>*.jsp,*.htm</url-pattern>
 	</filter-mapping>
 	
 	<!-- session question -->
@@ -158,11 +172,27 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>
+	
+	<error-page>
+    	<exception-type>java.lang.Exception</exception-type>
+    	<location>/page/init/404.jsp</location>
+  	</error-page>
+	
 	<!-- error 404 page -->
 	<error-page>
     	<error-code>404</error-code>
     	<location>/admin/jsp/common/404.html</location>
 	</error-page>
+	
+	<!-- error 500 page  -->
+	<error-page>
+    	<error-code>500</error-code>
+    	<location>/admin/jsp/common/404.html</location>
+	</error-page>
+	
 	
 	<!-- error 500 page
 	<error-page>

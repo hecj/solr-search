@@ -21,6 +21,9 @@ public class UserContext implements Serializable {
 	 */
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String SESSION_KEY = "context";
+	
 	/**
 	 * 用户对象
 	 */

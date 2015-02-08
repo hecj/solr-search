@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
     <title>Seacher</title>
@@ -147,24 +148,30 @@
 					<td colspan="4"><br/></td>
 				</tr>
 				<tr>
+					<c:if test="${!empty context.radios.addRole}">
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addFun();">添加</a>
 					</td>
 					<td>
 						<div class="datagrid-btn-separator"></div>
 					</td>
+					</c:if>
+					<c:if test="${!empty context.radios.deleteRole}">
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="deleteFun();">删除</a>
 					</td>
 					<td>
 						<div class="datagrid-btn-separator"></div>
 					</td>
+					</c:if>
+					<c:if test="${!empty context.radios.editRoleSub}">
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="editFun();">编辑</a>
 					</td>
 					<td>
 						<div class="datagrid-btn-separator"></div>
 					</td>
+					</c:if>
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="findFun();">查看</a>
 					</td>

@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
   <head>
     <title>Seacher</title>
@@ -197,27 +198,35 @@
 					<td colspan="4"><br/></td>
 				</tr>
 				<tr>
+					<c:if test="${!empty context.radios.addBrotherNodeSumbit}">
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(11);">兄弟节点</a>
 					</td>
 					<td>
 						<div class="datagrid-btn-separator"></div>
 					</td>
+					</c:if>
+					<c:if test="${!empty context.radios.addChildNodeSumbit}">
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="menuHandler(12);">子节点</a>
 					</td>
 					<td>
 						<div class="datagrid-btn-separator"></div>
 					</td>
+					</c:if>
+					<c:if test="${!empty context.radios.deleteNode}">
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="menuHandler(2);">删除</a>
 					</td>
 					<td>
 						<div class="datagrid-btn-separator"></div>
 					</td>
+					</c:if>
+					<c:if test="${!empty context.radios.editNodeSumbit}">
 					<td>
 						<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="menuHandler(3);">编辑</a>
 					</td>
+					</c:if>
 				</tr>
 			</table>
 		</div>

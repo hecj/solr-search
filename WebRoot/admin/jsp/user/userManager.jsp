@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 	<jsp:include page="/admin/jsp/base/easyUI.jsp" />
 	<head>
@@ -220,24 +221,30 @@
 					<td>
 						<table>
 							<tr>
+								<c:if test="${!empty context.radios.addUserSub}">
 								<td>
 									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addFun();">添加</a>
 								</td>
 								<td>
 									<div class="datagrid-btn-separator"></div>
 								</td>
+								</c:if>
+								<c:if test="${!empty context.radios.deleteUser}">
 								<td>
 									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="deleteFun();">删除</a>
 								</td>
 								<td>
 									<div class="datagrid-btn-separator"></div>
 								</td>
+								</c:if>
+								<c:if test="${!empty context.radios.editUserSub}">
 								<td>
 									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="editFun();">编辑</a>
 								</td>
 								<td>
 									<div class="datagrid-btn-separator"></div>
 								</td>
+								</c:if>
 								<td>
 									<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="findFun();">查看</a>
 								</td>

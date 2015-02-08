@@ -38,7 +38,7 @@
 			idField: 'radiocode',
 			pageList : [ 15, 30, 45, 600 ],
 			columns:[[
-				{title:'按钮名称',field:'radioname',align:'left'},
+				{title:'按钮名称',field:'radioname',align:'left', width:80},
 				{title:'按钮代码',field:'radiocode',align:'left', width:80}
 			]],
 			onLoadSuccess:function(row, data){

@@ -3,6 +3,7 @@ package com.freedom.search.admin.services.imp;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,10 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.freedom.search.admin.dao.UserDAO;
 import com.freedom.search.admin.entity.LzUser;
+import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.services.RoleService;
 import com.freedom.search.admin.services.UserService;
 import com.freedom.search.admin.vo.AppContext;
+import com.freedom.search.admin.vo.UserContext;
+import com.freedom.search.admin.vo.VoRadio;
 import com.freedom.search.util.Log4jUtil;
+import com.freedom.search.util.MD5;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
 import com.freedom.search.util.ResultSupport;
@@ -30,6 +35,8 @@ public class UserServiceImp implements UserService {
 	private UserDAO userDAO;
 	@Resource
 	private RoleService roleService;
+	@Resource
+	private ModuleService moduleService;
 	
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
@@ -38,8 +45,10 @@ public class UserServiceImp implements UserService {
 	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
-
-
+	
+	public void setModuleService(ModuleService moduleService) {
+		this.moduleService = moduleService;
+	}
 
 	@Override
 	public boolean addUser(LzUser user) {
@@ -157,6 +166,30 @@ public class UserServiceImp implements UserService {
 			ex.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public UserContext login(String usercode, String pwd) {
+		
+		UserContext context = new UserContext();
+		LzUser user = searchUserByCode(usercode);
+		if(!StringUtil.isObjectNull(user)){
+			if(MD5.md5crypt(pwd).equals(user.getPassword())){
+				context.setUser(user);
+				List<VoRadio> radios = moduleService.searchExistPermissionRadios(user.getRole().getRolecode());
+				Map<String,VoRadio> map = new HashMap<String,VoRadio>(); 
+				for(VoRadio radio:radios){
+					map.put(radio.getRadiocode(), radio);
+				}
+				context.setRadios(map);
+			}else{
+				throw new RuntimeException("用户登陆密码错误!");
+			}
+		}else{
+			throw new RuntimeException("用户不存在!");
+		}
+		
+		return context;
 	}
 	
 	

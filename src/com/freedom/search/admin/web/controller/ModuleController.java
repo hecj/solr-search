@@ -301,6 +301,7 @@ public class ModuleController extends BaseController {
 		
 		try {
 			String moduleId = request.getParameter("moduleId");
+			
 			if(moduleService.delRadio(moduleId)){
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return;

@@ -1,6 +1,7 @@
 package com.freedom.search.admin.vo;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import com.freedom.search.admin.entity.LzUser;
 
@@ -28,6 +29,11 @@ public class UserContext implements Serializable {
 	 * 网站基本目录
 	 */
 	private String basePath;
+	
+	/**
+	 * 用户按钮权限
+	 */
+	private Map<String,VoRadio> radios;
 
 	public LzUser getUser() {
 		return user;
@@ -43,6 +49,14 @@ public class UserContext implements Serializable {
 
 	public void setBasePath(String basePath) {
 		this.basePath = basePath;
+	}
+
+	public Map<String, VoRadio> getRadios() {
+		return radios;
+	}
+
+	public void setRadios(Map<String, VoRadio> radios) {
+		this.radios = radios;
 	}
 
 }

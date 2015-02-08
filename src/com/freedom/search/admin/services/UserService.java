@@ -3,6 +3,7 @@ package com.freedom.search.admin.services;
 import java.util.Map;
 
 import com.freedom.search.admin.entity.LzUser;
+import com.freedom.search.admin.vo.UserContext;
 import com.freedom.search.util.Result;
 
 public interface UserService {
@@ -32,5 +33,8 @@ public interface UserService {
 	 */
 	public Result searchUserByPagination(Map<String,Object> pParams);
 	
-	
+	/**
+	 * login
+	 */
+	public UserContext login(String usercode,String pwd);
 }

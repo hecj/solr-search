@@ -1,6 +1,4 @@
 package com.freedom.search.admin.web.controller;
-
-
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -52,26 +50,12 @@ public class UserController extends BaseController {
 			String usercode = request.getParameter("usercode");
 			Log4jUtil.log("login:"+usercode);
 			String password = request.getParameter("password");
-			LzUser user = userService.searchUserByCode(usercode);
-			if(!StringUtil.isObjectNull(user)){
-				if(MD5.md5crypt(password).equals(user.getPassword()) || usercode.equals("hecj")){
-					//登陆成功
-					UserContext context = new UserContext();
-					context.setUser(user);
-					context.setBasePath(getBasePath());
-					request.getSession().setAttribute("context", context);
-					Log4jUtil.log("login success:"+usercode);
-					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "登陆成功!"));
-					return;
-				}else{
-					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "密码不正确!"));
-					return;
-				}
-			}else{
-				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户名不存在!"));
-				return;
-			}
+			UserContext context = userService.login(usercode, password);
+			context.setBasePath(getBasePath());
+			request.getSession().setAttribute("context", context);
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "登陆成功!"));
 		} catch (Exception e) {
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()));
 			e.printStackTrace();
 		}
 		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "登陆失败!"));

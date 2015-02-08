@@ -17,6 +17,7 @@ import com.freedom.search.admin.dao.ModuleDAO;
 import com.freedom.search.admin.dao.RoleModuleDAO;
 import com.freedom.search.admin.dao.UserDAO;
 import com.freedom.search.admin.entity.LzModule;
+import com.freedom.search.admin.entity.LzRoleModule;
 import com.freedom.search.admin.services.ModuleService;
 import com.freedom.search.admin.vo.Tree;
 import com.freedom.search.admin.vo.VoModule;
@@ -363,6 +364,12 @@ public class ModuleServiceImp implements ModuleService{
 
 	@Override
 	public boolean delRadio(String moduleId) {
+		
+		String query = "select rm from LzRoleModule rm where rm.moduleId=?";
+		List<LzRoleModule> list = roleModuleDAO.queryListByParams(query, new Object[]{moduleId});
+		if(list.size()>0){
+			throw new RuntimeException("按钮已被授权"+list.size()+"次，不可删除！");
+		}
 		moduleDAO.delete(moduleDAO.findById(moduleId));
 		return true;
 	}

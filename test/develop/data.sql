@@ -19,6 +19,7 @@ INSERT INTO lz_role_module VALUES ('14225834253268436107', '0001002', 'P4275014'
 INSERT INTO lz_role_module VALUES ('14225834253270057951', '0001004', 'P4275014');
 INSERT INTO lz_role_module VALUES ('14225834253280923844', '0', 'P4275014');
 INSERT INTO lz_role_module VALUES ('14225834253282593016', '0001', 'P4275014');
+INSERT INTO lz_role_module VALUES ('14225834253270057952', 'editRoleSub', 'P4275014');
 
 
 INSERT INTO lz_module VALUES ('addBrotherNodeSumbit', null, '', null, '添加兄节点', null, null, '1', '');

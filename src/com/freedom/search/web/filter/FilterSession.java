@@ -1,6 +1,7 @@
 package com.freedom.search.web.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -31,6 +32,11 @@ public class FilterSession implements Filter {
 	 * session超时页面
 	 */
 	private String sessionPage = null;
+	
+	/**
+	 * 请求方法
+	 */
+	private String OPERATOR = "operator";
 
 	/**
 	 * 不过滤session页面
@@ -48,12 +54,13 @@ public class FilterSession implements Filter {
 		sessionPage = filterConfig.getInitParameter("sessionPage");
 		
 		//不过滤
-		noFiltersRegex.add(".*user[.]htm[?]operator[=]login.*");
-		noFiltersRegex.add(".*login[.]jsp.*");
-		noFiltersRegex.add(".*[/]admin$");
+		noFiltersRegex.add(".*user\\.htm\\?operator=login.*");
+		noFiltersRegex.add(".*login\\.jsp.*");
+		noFiltersRegex.add(".*/admin$");
 
 		//过滤
-		filtersRegex.add(".*[.]htm[?](operator=)|(.*&operator=).*");
+		filtersRegex.add(".*\\.htm\\?operator=.*");
+		filtersRegex.add(".*\\.jsp.*");
 	}
 
 	@Override
@@ -62,25 +69,36 @@ public class FilterSession implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest)servletRequest;
 		HttpServletResponse response = (HttpServletResponse)servletResponse;
+		
+		//拼接请求的URI
 		String URI = request.getRequestURI();
-		System.out.println(URI);
+		String operatorName = request.getParameter(OPERATOR);
+		if(operatorName != null){
+			URI +="?"+OPERATOR+"="+operatorName;
+		}
+		
 		//不过滤Session
 		for(String regex : noFiltersRegex){
-			System.out.println("noFiltersRegex正则："+regex+"--"+URI);
 			if(Pattern.matches(regex, URI)){
 				filterChain.doFilter(servletRequest, servletResponse);
 				return;
 			}
 		}
-		System.out.println("过滤URI："+URI);
+
 		UserContext context = (UserContext) request.getSession().getAttribute(UserContext.SESSION_KEY);
 		String contextPath=request.getContextPath();
 		//过滤Session
 		for(String regex : filtersRegex){
-			System.out.println("filtersRegex正则："+regex+"--"+URI);
-			if(Pattern.matches(regex, URI) && context == null){
-				response.sendRedirect(contextPath+sessionPage);
-				return;
+			if(Pattern.matches(regex, URI)){
+				if(context == null){
+					//session失效,跳转到首页
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.print("<script language='javascript'>top.location.href='"+contextPath+sessionPage+"'</script>");
+					out.flush();
+					out.close();
+					return;
+				}
 			}
 		}
 		

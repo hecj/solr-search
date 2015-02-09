@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
+import com.alibaba.druid.util.PatternMatcher;
+
 public class TestMain {
 	
 	@Test
@@ -30,7 +32,9 @@ public class TestMain {
 	
 	@Test
 	public void test03(){
-		System.out.println(Pattern.matches(".*[.]htm[?](operator=)|(.*&operator=).*",
-				"/solr-search/admin/js/common/MessageUtil.htm?fds&operatoraa"));
+		
+		
+		System.out.println(Pattern.matches(".*\\.htm\\?((operator=)|(.*&operator=)).*",
+				"/solr-search/admin/user/user.htm"));
 	}
 }

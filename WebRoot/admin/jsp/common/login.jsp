@@ -50,11 +50,11 @@
   		<br/>
   		<div>
   			<label for="name">用户名:</label>
-			<input type="text" name="usercode" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'">
+			<input type="text" name="usercode" value="hecj" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'">
   		</div>
   		<div>
   			<label for="name">密码:</label>
-			<input type="password" name="password" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'"/>
+			<input type="password" name="password" value="hecj" class="easyui-validatebox" data-options="required:true,validType:'notEmpty'"/>
   		</div>
   	</form>
   </body>

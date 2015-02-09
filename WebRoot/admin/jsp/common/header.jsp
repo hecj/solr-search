@@ -103,7 +103,7 @@
 		<td height="100%">
 			<div class="divUser">
 				<c:if test="${not empty context}">
-					用户名:<a title="点击弹出用户菜单" onclick="showUserMenuFun(event);" href="javascript:void(0);">${context.user.usercode }</a>
+					用户名:<a title="点击弹出用户菜单" onclick="showUserMenuFun(event);" href="javascript:void(0);">${context.user.usercode }(${context.user.role.rolename})</a>
 				</c:if>
 			</div>
 			<div class="sysdate">

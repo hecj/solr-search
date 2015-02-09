@@ -1,6 +1,7 @@
 package test.freedom.search.admin.test;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -25,5 +26,11 @@ public class TestMain {
 		File f = new File("D:/workspace/xinhua/apache-tomcat-6.0.33/webapps/solr-search/uplpad/imageHead/14231505427374136232.jpg");
 		System.out.println(f.isFile());
 		System.out.println(f.delete());
+	}
+	
+	@Test
+	public void test03(){
+		System.out.println(Pattern.matches(".*[.]htm[?](operator=)|(.*&operator=).*",
+				"/solr-search/admin/js/common/MessageUtil.htm?fds&operatoraa"));
 	}
 }

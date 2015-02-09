@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
 	<!--spring filter encode --> 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -18,9 +19,33 @@
 	</filter> 
 	<filter-mapping>
 		<filter-name>encodingFilter </filter-name>
-		<url-pattern>*.htm</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- filter Session -->
+	<filter>
+		<filter-name>filterSession</filter-name>
+		<filter-class>com.freedom.search.web.filter.FilterSession</filter-class>
+		<init-param>
+			<param-name>sessionPage</param-name>
+			<!-- <param-value>/admin/jsp/common/login.jsp</param-value> -->
+			<param-value>/admin</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>filterSession</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- filter user -->
+	<filter>
+		<filter-name>filterUser</filter-name>
+		<filter-class>com.freedom.search.web.filter.FilterUser</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>filterUser</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
 	
 	<!-- filter encode 
 	<filter>
@@ -37,30 +62,6 @@
 	</filter-mapping>
 	-->
 	
-	<!-- filter Session -->
-	<filter>
-		<filter-name>filterSession</filter-name>
-		<filter-class>com.freedom.search.web.filter.FilterSession</filter-class>
-		<init-param>
-			<param-name>sessionPage</param-name>
-			<param-value>/admin/jsp/common/login.jsp</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>filterSession</filter-name>
-		<url-pattern>*.htm</url-pattern>
-	</filter-mapping>
-	
-	<!-- filter user -->
-	<filter>
-		<filter-name>filterUser</filter-name>
-		<filter-class>com.freedom.search.web.filter.FilterUser</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>filterUser</filter-name>
-		<url-pattern>*.jsp,*.htm</url-pattern>
-	</filter-mapping>
-	
 	<!-- session question -->
 	<filter>
 		<filter-name>hibernateFilter</filter-name>
@@ -72,7 +73,28 @@
 		<url-pattern>*</url-pattern>
 	</filter-mapping>
 	
-	 <!-- spring配置文件 -->
+	<filter>
+		<filter-name>druidWebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+		<init-param>
+			<param-name>exclusions</param-name>
+			<param-value>/public/*,*.js,*.css,/druid*,*.jsp,*.swf</param-value>
+		</init-param>
+		<init-param>
+			<param-name>principalSessionName</param-name>
+			<param-value>sessionInfo</param-value>
+		</init-param>
+		<init-param>
+			<param-name>profileEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>druidWebStatFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	 <!-- spring config -->
   	<context-param>
     	<param-name>contextConfigLocation</param-name>
     	<param-value>classpath:spring/applicationContext.xml</param-value>
@@ -87,12 +109,12 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 	
-	<!-- 恢复临时索引监听器 -->
+	<!-- init temp index -->
 	<listener>
 		<listener-class>com.freedom.search.web.listener.TempIndexRecoverListener</listener-class>
 	</listener>
 	
-	<!-- 初始化全局变量 -->
+	<!-- init app const -->
 	<listener>
 		<listener-class>com.freedom.search.web.listener.InitAppContextListener</listener-class>
 	</listener>
@@ -151,34 +173,16 @@
 		<servlet-name>DruidStatView</servlet-name>
 		<url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
-	<filter>
-		<filter-name>druidWebStatFilter</filter-name>
-		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
-		<init-param>
-			<param-name>exclusions</param-name>
-			<param-value>/public/*,*.js,*.css,/druid*,*.jsp,*.swf</param-value>
-		</init-param>
-		<init-param>
-			<param-name>principalSessionName</param-name>
-			<param-value>sessionInfo</param-value>
-		</init-param>
-		<init-param>
-			<param-name>profileEnable</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>druidWebStatFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 	
+	<!-- session time out -->
 	<session-config>
 		<session-timeout>1</session-timeout>
 	</session-config>
 	
+	<!-- exception -->
 	<error-page>
     	<exception-type>java.lang.Exception</exception-type>
-    	<location>/page/init/404.jsp</location>
+    	<location>/page/init/500.jsp</location>
   	</error-page>
 	
 	<!-- error 404 page -->
@@ -190,16 +194,9 @@
 	<!-- error 500 page  -->
 	<error-page>
     	<error-code>500</error-code>
-    	<location>/admin/jsp/common/404.html</location>
+    	<location>/admin/jsp/common/500.html</location>
 	</error-page>
 	
-	
-	<!-- error 500 page
-	<error-page>
-    	<error-code>500</error-code>
-    	<location>/servlet/initIndexPage.do</location>
-	</error-page>
-	 -->
 	<!-- default Index Page -->
 	<welcome-file-list>
 		<welcome-file>servlet/initIndexPage.do</welcome-file>

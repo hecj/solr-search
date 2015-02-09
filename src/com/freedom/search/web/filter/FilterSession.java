@@ -1,7 +1,9 @@
 package com.freedom.search.web.filter;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -25,10 +27,33 @@ import com.freedom.search.admin.vo.UserContext;
  */
 public class FilterSession implements Filter {
 
-	String sessionPage = null;
+	/**
+	 * session超时页面
+	 */
+	private String sessionPage = null;
+
+	/**
+	 * 不过滤session页面
+	 */
+	private List<String> noFiltersRegex = new ArrayList<String>();
+	
+	/**
+	 * 过滤session页面
+	 */
+	private List<String> filtersRegex = new ArrayList<String>();
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		
 		sessionPage = filterConfig.getInitParameter("sessionPage");
+		
+		//不过滤
+		noFiltersRegex.add(".*user[.]htm[?]operator[=]login.*");
+		noFiltersRegex.add(".*login[.]jsp.*");
+		noFiltersRegex.add(".*[/]admin$");
+
+		//过滤
+		filtersRegex.add(".*[.]htm[?](operator=)|(.*&operator=).*");
 	}
 
 	@Override
@@ -37,23 +62,26 @@ public class FilterSession implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest)servletRequest;
 		HttpServletResponse response = (HttpServletResponse)servletResponse;
-		
-		String uri = request.getRequestURI();
-		String operator = request.getParameter("operator");
-		//登陆不限制
-		if(uri.contains("user.htm")&&operator.equals("login")){
-			filterChain.doFilter(servletRequest, servletResponse);
-			return;
+		String URI = request.getRequestURI();
+		System.out.println(URI);
+		//不过滤Session
+		for(String regex : noFiltersRegex){
+			System.out.println("noFiltersRegex正则："+regex+"--"+URI);
+			if(Pattern.matches(regex, URI)){
+				filterChain.doFilter(servletRequest, servletResponse);
+				return;
+			}
 		}
-		
-		System.out.println(uri);
-		System.out.println(operator);
+		System.out.println("过滤URI："+URI);
 		UserContext context = (UserContext) request.getSession().getAttribute(UserContext.SESSION_KEY);
-		System.out.println("===="+context);
-		if(context == null){
-			String contextPath=request.getContextPath();
-			response.sendRedirect(contextPath+sessionPage);
-			return;
+		String contextPath=request.getContextPath();
+		//过滤Session
+		for(String regex : filtersRegex){
+			System.out.println("filtersRegex正则："+regex+"--"+URI);
+			if(Pattern.matches(regex, URI) && context == null){
+				response.sendRedirect(contextPath+sessionPage);
+				return;
+			}
 		}
 		
 		filterChain.doFilter(servletRequest, servletResponse);

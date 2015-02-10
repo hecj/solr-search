@@ -55,7 +55,7 @@ public class FilterSession implements Filter {
 		
 		//不过滤
 		noFiltersRegex.add(".*user\\.htm\\?operator=login.*");
-		noFiltersRegex.add(".*user\\.tree\\?operator=init.*");
+		noFiltersRegex.add(".*tree\\.htm\\?operator=init.*");
 		noFiltersRegex.add(".*login\\.jsp.*");
 		noFiltersRegex.add(".*/admin$");
 

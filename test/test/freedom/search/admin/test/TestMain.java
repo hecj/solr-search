@@ -34,7 +34,8 @@ public class TestMain {
 	public void test03(){
 		
 		
-		System.out.println(Pattern.matches(".*\\.htm\\?((operator=)|(.*&operator=)).*",
-				"/solr-search/admin/user/user.htm"));
+		System.out.println(Pattern.matches
+				(".*\\.htm\\?operator=login.*",
+				"/solr-search/admin/tree/tree.htm?operator=initTree"));
 	}
 }

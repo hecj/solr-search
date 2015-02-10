@@ -31,8 +31,11 @@
 	<div>
 		<label>2015/02/10</label>
 		<ul>
-		  	<li>
-		  		增加登陆页面。
+		  	<li>增加登陆页面。</li>
+		  	<li>AJAX请求Session超时处理，在Filter中设置response返回状态码。<br/>
+		  		eg:request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")<br/>
+		  		&nbsp;&nbsp;&nbsp;response.setStatus(999);<br/>
+		  		&nbsp;&nbsp;&nbsp;window.top.location = app.basePath+'admin';
 		  	</li>
 		</ul>
 	</div>

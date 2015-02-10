@@ -8,7 +8,7 @@
     	<script type="text/javascript">
     		$(function(){
     			var dialog = parent.app.dialogModel({
-    				title: '用户登陆',
+    				title: '<font color=red>会话超时,请重新登陆</font>',
     				width: 330,
     				height: 200,
     				closable:false,

@@ -178,9 +178,9 @@
 		<url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
 	
-	<!-- session time out -->
+	<!-- session time out 5 min -->
 	<session-config>
-		<session-timeout>1</session-timeout>
+		<session-timeout>5</session-timeout>
 	</session-config>
 	
 	<!-- exception -->

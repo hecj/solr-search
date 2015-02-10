@@ -77,32 +77,50 @@ public class FilterSession implements Filter {
 			URI +="?"+OPERATOR+"="+operatorName;
 		}
 		
+		UserContext context = (UserContext) request.getSession().getAttribute(UserContext.SESSION_KEY);
+		if(validateSessionTimeOut(URI) && context == null){
+			System.out.println("会话超时："+URI+"--"+request.getHeader("x-requested-with"));
+			String contextPath=request.getContextPath();
+			//AJAX请求
+			if(request.getHeader("x-requested-with") !=null && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){
+				//给个状态码
+				response.setStatus(999);
+				return;
+			}else{
+				//普通请求，session失效,跳转到首页
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.print("<script language='javascript'>top.location.href='"+contextPath+sessionPage+"'</script>");
+				out.flush();
+				out.close();
+				return;
+			}
+			
+		}
+		filterChain.doFilter(servletRequest, servletResponse);
+	}
+	
+	/**
+	 * 判断是否需要校验Session超时
+	 * true：校验,false:不校验
+	 */
+	private boolean validateSessionTimeOut(String URI){
+		
 		//不过滤Session
 		for(String regex : noFiltersRegex){
 			if(Pattern.matches(regex, URI)){
-				filterChain.doFilter(servletRequest, servletResponse);
-				return;
+				return false;
 			}
 		}
 
-		UserContext context = (UserContext) request.getSession().getAttribute(UserContext.SESSION_KEY);
-		String contextPath=request.getContextPath();
 		//过滤Session
 		for(String regex : filtersRegex){
 			if(Pattern.matches(regex, URI)){
-				if(context == null){
-					//session失效,跳转到首页
-					response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.print("<script language='javascript'>top.location.href='"+contextPath+sessionPage+"'</script>");
-					out.flush();
-					out.close();
-					return;
-				}
+				return true;
 			}
 		}
 		
-		filterChain.doFilter(servletRequest, servletResponse);
+		return false;
 	}
 
 	@Override

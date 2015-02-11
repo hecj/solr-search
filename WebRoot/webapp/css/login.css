@@ -1,0 +1,23 @@
+
+#footer{
+	text-align: center;
+	height:40px;  
+    line-height:40px;  
+    overflow:hidden;  
+}
+
+#formLogin .ui-field-contain label{
+	width: 60px;
+	display: inline-block;
+	text-align: right;
+}
+
+#login {
+	float: left;
+	margin-left: 40px;
+}
+
+#reset {
+	float: right;
+	margin-right: 40px;
+}

@@ -15,13 +15,13 @@
 <body>
 
 <!-- login page -->
-<div data-role="page" >
+<div data-role="page" id="page_login">
 
-	<div data-role="header" data-theme="b">
+	<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" >
 		<h1>从这里进入</h1>
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
-	
+	    <a id="login_success" href="#page_main" data-transition="slide"></a>
 		<div id="loginMessage" data-role="popup" class="ui-content" data-theme="a" data-transition="slide">
 		</div>
 		<form id="formLogin">
@@ -41,11 +41,31 @@
 		
 	</div><!-- /content -->
 	
-	<div id="footer" data-role="footer" data-theme="b" data-position="fixed">
+	<div id="footer" data-role="footer" data-theme="b" data-position="fixed" data-tap-toggle="false" >
 		<label>Just want to hurt you more @ hecj</label>
 	</div>
 
 </div><!-- /page -->
+
+
+<!-- main page -->
+<div data-role="page" id="page_main">
+  	<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" >
+		<a href="#page_login" data-icon="back" data-transition="slide" data-direction="reverse">返回</a>
+    	<h1>我们的世界</h1>
+    	<a href="#" data-icon="home">设置</a>
+	</div><!-- /header -->
+
+  <div data-role="content">
+    <p>点击链接查看相反方向的淡入效果 (页面从左至右淡入)。</p>
+    <a href="#page_login" data-transition="slide" data-direction="reverse">淡入第一个页面(reversed)</a>
+  </div>
+
+  <div id="footer" data-role="footer" data-theme="b" data-position="fixed" data-tap-toggle="false" >
+		<label>Just want to hurt you more @ hecj</label>
+  </div>
+  
+</div> 
 
 </body>
 </html>

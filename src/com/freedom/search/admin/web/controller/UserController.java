@@ -61,6 +61,23 @@ public class UserController extends BaseController {
 		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "登陆失败!"));
 	}
 	
+	@RequestMapping(params="operator=webappLogin")
+	public void webappLogin(HttpServletRequest request,HttpServletResponse response){
+		try {
+			String usercode = request.getParameter("usercode");
+			Log4jUtil.log("login:"+usercode);
+			String password = request.getParameter("password");
+			UserContext context = userService.login(usercode, password);
+			context.setBasePath(getBasePath());
+			request.getSession().setAttribute("context", context);
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, context.getUser()));
+		} catch (Exception e) {
+			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()));
+			e.printStackTrace();
+		}
+		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "登陆失败!"));
+	}
+	
 	@RequestMapping(params="operator=searchUser")
 	public void searchUser(Integer page,Integer rows,HttpServletRequest request,HttpServletResponse response){
 		try {

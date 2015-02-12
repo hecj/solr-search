@@ -54,7 +54,7 @@ public class FilterSession implements Filter {
 		sessionPage = filterConfig.getInitParameter("sessionPage");
 		
 		//不过滤
-		noFiltersRegex.add(".*user\\.htm\\?operator=login.*");
+		noFiltersRegex.add(".*user\\.htm\\?operator=(login|webappLogin).*");
 		noFiltersRegex.add(".*tree\\.htm\\?operator=init.*");
 		noFiltersRegex.add(".*login\\.jsp.*");
 		noFiltersRegex.add(".*/admin$");

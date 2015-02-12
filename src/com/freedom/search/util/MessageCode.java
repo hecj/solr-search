@@ -11,13 +11,13 @@ package com.freedom.search.util;
 public class MessageCode {
 
 	String code;
-	String message;
+	Object message;
 
 	public MessageCode() {
 		super();
 	}
 
-	public MessageCode(String code, String message) {
+	public MessageCode(String code, Object message) {
 		super();
 		this.code = code;
 		this.message = message;
@@ -31,11 +31,11 @@ public class MessageCode {
 		this.code = code;
 	}
 
-	public String getMessage() {
+	public Object getMessage() {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	public void setMessage(Object message) {
 		this.message = message;
 	}
 	

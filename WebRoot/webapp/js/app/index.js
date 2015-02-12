@@ -13,12 +13,13 @@ app = {
 	submit: function(){
 		$.ajax({
 			type: 'POST',
-			url: app.basePath+'admin/user/user.htm?operator=login',
+			url: app.basePath+'admin/user/user.htm?operator=webappLogin',
 			data: $('#formLogin').serialize(),
 			dataType: 'json',
 			success: function(data){
 			     if(data.code == '0'){
-			    	 $.mobile.changePage("main.html", "slide"); 
+			    	 //$.mobile.changePage("#page_main", {reverse:false}); 
+			    	 $('#login_success').click();
 			     }else{
 			    	 $('#loginMessage').text(data.message);
 			    	 $('#loginMessage').popup('open');

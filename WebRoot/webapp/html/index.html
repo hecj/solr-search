@@ -5,22 +5,25 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../js/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.css" />
-	<link rel="stylesheet" href="../css/login.css?v=1.1.5" charset="UTF-8">
+	<link rel="stylesheet" href="../css/index.css?v=1.1.5" charset="UTF-8">
 	<script src="../js/common/jquery-1.8.1.min.js"></script>
 	<script src="../js/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.js"></script>
-	<script src="../js/app/login.js?v=1.0"></script>
+	<script src="../js/app/index.js?v=1.0"></script>
+	<script src="../js/app/common.js?v=1.0"></script>
 
 </head>
 <body>
 
-<!-- Start of first page -->
+<!-- login page -->
 <div data-role="page" >
 
 	<div data-role="header" data-theme="b">
 		<h1>从这里进入</h1>
 	</div><!-- /header -->
-
 	<div role="main" class="ui-content">
+	
+		<div id="loginMessage" data-role="popup" class="ui-content" data-theme="a" data-transition="slide">
+		</div>
 		<form id="formLogin">
 			<div class="ui-field-contain">
 			    <label>用户名:</label>

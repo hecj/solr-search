@@ -9,45 +9,30 @@ $(function(){
 });
 var app = app || {};
 app = {
+	basePath :'http://localhost:8080/solr-search/',
 	submit: function(){
 		$.ajax({
 			type: 'POST',
-			url: '../../admin/user/user.htm?operator=login',
+			url: app.basePath+'admin/user/user.htm?operator=login',
 			data: $('#formLogin').serialize(),
 			dataType: 'json',
 			success: function(data){
 			     if(data.code == '0'){
-			    	 $.mobile.changePage("main.html", "pop"); 
+			    	 $.mobile.changePage("main.html", "slide"); 
 			     }else{
-			    	 //alert('登陆失败');
+			    	 $('#loginMessage').text(data.message);
+			    	 $('#loginMessage').popup('open');
 			     }
 			},
 			beforeSend: function(XMLHttpRequest){
-				showLoader();
+				common.showLoader();
 			},
 			complete: function(XMLHttpRequest){
-				hideLoader();
+				common.hideLoader();
 			}
 		});
-	
-		
 	},
 	reset: function(){
 		$('#formLogin')[0].reset();
 	}
 }
-
-
-function showLoader() {  
-    $.mobile.loading('show', {  
-        text: '登陆中...',
-        textVisible: true,
-        theme: 'a',
-        textonly: false,
-        html: ""
-    });  
-}  
-  
-function hideLoader(){  
-    $.mobile.loading('hide');  
-}  

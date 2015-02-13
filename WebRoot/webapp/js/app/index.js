@@ -85,9 +85,14 @@ var app = app || {};
 	
 /**
  * ------------------------主页-------------------------------------
- */	
+*/	
 	$(document).on('pageinit', '#page_index', function() {
 		$('#loadMore').bind('click', app.loadMore);
+		$('#sysMenu').bind('click', app.openMenu);
+	});
+ 		
+	$(document).on('pagebeforeshow', '#page_index', function() {
+		$('#listView').html('');
 		app.loadListView(1);
 	});
 	
@@ -112,6 +117,7 @@ var app = app || {};
 				if (data) {
 					var rows = data.rows;
 					app.total = data.total;
+					app.page = p;
 					$('#total').text('共'+data.total+'篇文章');
 					for ( var i = 0; i < rows.length; i++) {
 						var row = rows[i];
@@ -121,11 +127,9 @@ var app = app || {};
 				        		   '<p>'+row.content+'</p>'+
 				        		   '</a></li>');
 						listView.append(item).find("li:last").hide();  
-						listView.append(item);
 						listView.listview('refresh');  
 						listView.find("li:last").slideDown(300);  
 					}
-					app.page = p;
 					var size = $('#listView li').size();
 					if (size == app.total){
 						$('#loadMore span').text('亲,没有数据了');

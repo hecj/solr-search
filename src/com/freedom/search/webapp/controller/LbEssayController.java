@@ -68,8 +68,7 @@ public class LbEssayController extends BaseController {
 	@RequestMapping(params="operator=searchEssays")
 	public void searchEssays(Integer page,Integer rows,HttpServletRequest request,HttpServletResponse response){
 		try {
-			System.out.println(page+"===========");
-			Pagination p = new Pagination(10);
+			Pagination p = new Pagination(5);
 			if(!StringUtil.isObjectNull(page)){
 				p.setCurrPage(page.longValue());
 			}

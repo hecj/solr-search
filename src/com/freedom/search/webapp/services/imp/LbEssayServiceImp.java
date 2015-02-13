@@ -54,8 +54,8 @@ public class LbEssayServiceImp implements LbEssayService {
 		try{
 			
 			Pagination p = (Pagination) map.get("pagination");
-			String query = "select e from LbEssay e where 1=1";
-			String count = "select count(e) from LbEssay e where 1=1";
+			String query = "select e from LbEssay e where 1=1 order by e.updateDate desc";
+			String count = "select count(e) from LbEssay e where 1=1 order by e.updateDate desc";
 			
 			List<LbEssay> list = lbEssayDAO.queryListByParamsAndPagination(query, p.startCursor().intValue(), p.getPageSize(),new Object[]{});
 			long total = Long.parseLong(lbEssayDAO.queryUniqueResultByHQL(count).toString());

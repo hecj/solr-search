@@ -9,6 +9,11 @@
 	.divCenter {
 		text-align: center;
 	}
+	
+	.divRight {
+		text-align: right;
+		margin-right: 10px;
+	}
 	/**
 	 * ----------------µÇÂ½Ò³Ãæ----------------------------
 	 */

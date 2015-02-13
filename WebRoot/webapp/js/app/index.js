@@ -87,25 +87,32 @@ var app = app || {};
  * ------------------------主页-------------------------------------
  */	
 	$(document).on('pageinit', '#page_index', function() {
-		app.loadListView();
+		$('#loadMore').bind('click', app.loadMore);
+		app.loadListView(1);
 	});
+	
+	// 分页参数
+	app.page = 1;
+	app.total = 0;
 	
 	// 打开系统菜单
 	app.openMenu = function (){
 		$('#sysMenu').panel('open');
 	}
 	
-	//初始化ListView
-	app.loadListView = function(){
+	//加载数据
+	app.loadListView = function(p){
 		var listView = $('#listView');
 		$.ajax( {
 			type : 'POST',
 			url : app.basePath + 'webapp/essay/essay.htm?operator=searchEssays',
-			data : {},
+			data : {page:p},
 			dataType : 'json',
 			success : function(data) {
 				if (data) {
 					var rows = data.rows;
+					app.total = data.total;
+					$('#total').text('共'+data.total+'篇文章');
 					for ( var i = 0; i < rows.length; i++) {
 						var row = rows[i];
 						var item = $('<li><a href="#">'+
@@ -118,6 +125,11 @@ var app = app || {};
 						listView.listview('refresh');  
 						listView.find("li:last").slideDown(300);  
 					}
+					app.page = p;
+					var size = $('#listView li').size();
+					if (size == app.total){
+						$('#loadMore span').text('亲,没有数据了');
+					}
 				}
 			},
 			beforeSend : function(XMLHttpRequest) {
@@ -129,6 +141,16 @@ var app = app || {};
 		});
 	}
 	
+	// 加载更多
+	app.loadMore = function(){
+		var size = $('#listView li').size();
+		if (size < app.total){
+			app.loadListView(app.page+1);
+		}else{
+			$('#loadMore span').text('亲,没有数据了');
+		}
+	}
+	
 /**
  * ------------------------发表新文章-------------------------------------
 */
@@ -136,6 +158,7 @@ var app = app || {};
 		$('#addEssaySub').bind('click', app.addEssaySub);
 	});
 	
+	// 添加新文章
 	app.addEssaySub = function(){
 		$.ajax({
 			type : 'POST',
@@ -159,3 +182,4 @@ var app = app || {};
 			}
 		});
 	}
+	

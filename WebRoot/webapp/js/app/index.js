@@ -1,4 +1,7 @@
-	var app = app || {};
+//缓存页面
+//$.mobile.page.prototype.options.domCache = true;
+
+var app = app || {};
 	app.basePath = 'http://localhost:8080/solr-search/';
 
 	
@@ -8,6 +11,7 @@
 	$(document).on('pageinit', '#page_reg', function() {
 		$('#register').bind('click', app.reg);
 	});
+	// 注册
 	app.reg = function() {
 		$.ajax( {
 			type : 'POST',
@@ -43,6 +47,7 @@
 		$('#reset').bind('click', app.reset);
 
 	});
+	// 登陆
 	app.login = function() {
 		$.ajax( {
 			type : 'POST',
@@ -77,3 +82,16 @@
 	app.reset = function() {
 		$('#formLogin')[0].reset();
 	}
+	
+/**
+ * ------------------------主页-------------------------------------
+ */	
+	$(document).on('pageinit', '#page_index', function() {
+		$('#home').bind('click', app.openMenu);
+	});
+	// 打开系统菜单
+	app.openMenu = function (){
+		$('#sysMenu').panel('open');
+	}
+	
+	

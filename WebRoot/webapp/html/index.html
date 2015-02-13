@@ -10,42 +10,50 @@
 	<script src="../js/common/jquery.cookie.js"></script>
 	<script src="../js/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.js"></script>
 	<script src="../js/app/common.js?v=1.1.1"></script>
+	<script src="../js/app/index.js"></script>
 
 </head>
 <body>
 
 <!-- main page -->
-<div data-role="page" id="page_main">
+<div data-role="page" id="page_index">
   	<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" >
 		<a href="login.html" data-icon="back" data-transition="slide" data-direction="reverse">登录</a>
     	<h1>我们的世界</h1>
-    	<a href="#" data-icon="home"><label id="show_usercode">匿名</label></a>
+    	<a id="home" href="#" data-icon="home"><label id="show_usercode">匿名</label></a>
 	</div><!-- /header -->
 
   <div data-role="content">
-    <p>
-    	<img alt="只想爱你多一点..." src="../imgs/love/psb1.jpg" width="40%" height="50%">
-    </p>
-    <p>
-    	<img alt="只想爱你多一点..." src="../imgs/love/psb1.jpg" width="40%" height="50%">
-    </p>
-    <p>
-    	<img alt="只想爱你多一点..." src="../imgs/love/psb1.jpg" width="40%" height="50%">
-    </p>
-    <p>
-    	<img alt="只想爱你多一点..." src="../imgs/love/psb1.jpg" width="40%" height="50%">
-    </p>
-    <p>
-    	<img alt="只想爱你多一点..." src="../imgs/love/psb1.jpg" width="40%" height="50%">
-    </p>
-    <p>
-    	<img alt="只想爱你多一点..." src="../imgs/love/psb1.jpg" width="40%" height="50%">
-    </p>
+		<ul id="listView" data-role="listview" data-inset="true">
+		    <li><a href="#">
+			        <img src="../imgs/love/psb1.jpg">
+			        <h2>Broken Bells</h2>
+			        <p>Broken Bells</p>
+		        </a>
+		    </li>
+		    <li><a href="#">
+			        <img src="../imgs/love/psb1.jpg">
+			        <h2>Warning</h2>
+			        <p>Hot Chip</p>
+		        </a>
+		    </li>
+		    <li><a href="#">
+			        <img src="../imgs/love/psb1.jpg">
+			        <h2>Wolfgang Amadeus Phoenix</h2>
+			        <p>Phoenix</p>
+		        </a>
+		    </li>
+		</ul>
   </div>
-
   <div id="footer" data-role="footer" data-theme="b" data-position="fixed" data-tap-toggle="false" >
 		<label>Just want to hurt you more @ hecj</label>
   </div>
+  
+  <div id="sysMenu" data-role="panel" data-position="right" data-display="overlay" data-theme="a">
+	   <p>
+	   	   <label>用户名</label>
+	   </p>   
+  </div><!-- /panel -->
   
 </div> 
 

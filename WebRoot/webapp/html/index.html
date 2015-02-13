@@ -9,8 +9,7 @@
 	<script src="../js/common/jquery-1.8.1.min.js"></script>
 	<script src="../js/common/jquery.cookie.js"></script>
 	<script src="../js/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.js"></script>
-	<script src="../js/app/index.js?v=1.1"></script>
-	<script src="../js/app/common.js?v=1.1"></script>
+	<script src="../js/app/common.js?v=1.1.1"></script>
 
 </head>
 <body>
@@ -18,9 +17,9 @@
 <!-- main page -->
 <div data-role="page" id="page_main">
   	<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" >
-		<a href="#page_login" data-icon="back" data-transition="slide" data-direction="reverse">返回</a>
+		<a href="login.html" data-icon="back" data-transition="slide" data-direction="reverse">登录</a>
     	<h1>我们的世界</h1>
-    	<a href="#" data-icon="home"><label id="show_usercode"></label></a>
+    	<a href="#" data-icon="home"><label id="show_usercode">匿名</label></a>
 	</div><!-- /header -->
 
   <div data-role="content">
@@ -49,40 +48,6 @@
   </div>
   
 </div> 
-
-<!-- login page -->
-<div data-role="page" id="page_login">
-
-	<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" >
-		<h1>从这里进入</h1>
-	</div><!-- /header -->
-	<div role="main" class="ui-content">
-	    <a id="login_success" href="#page_main" data-transition="slide"></a>
-		<div id="loginMessage" data-role="popup" class="ui-content" data-theme="a" data-transition="slide">
-		</div>
-		<form id="formLogin">
-			<div class="ui-field-contain">
-			    <label>用户名:</label>
-			    <input name="usercode" placeholder="请输入用户名" value="" type="text">
-			</div>
-			<div class="ui-field-contain">
-			    <label>密&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
-			    <input name="password" placeholder="请输入密码" value="" type="password">
-			</div>
-			<div>
-				<a id="login" data-role="button" data-theme="b" >登陆</a>
-				<a id="reset" data-role="button" data-theme="b" >重置</a>
-			</div>
-		</form>
-		
-	</div><!-- /content -->
-	
-	<div id="footer" data-role="footer" data-theme="b" data-position="fixed" data-tap-toggle="false" >
-		<label>Just want to hurt you more @ hecj</label>
-	</div>
-
-</div><!-- /page -->
-
 
 </body>
 </html>

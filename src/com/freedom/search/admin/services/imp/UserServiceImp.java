@@ -192,5 +192,23 @@ public class UserServiceImp implements UserService {
 		return context;
 	}
 	
+	@Override
+	public UserContext webappLogin(String usercode, String pwd) {
+		
+		UserContext context = new UserContext();
+		LzUser user = searchUserByCode(usercode);
+		if(!StringUtil.isObjectNull(user)){
+			if(MD5.md5crypt(pwd).equals(user.getPassword())){
+				context.setUser(user);
+			}else{
+				throw new RuntimeException("用户登陆密码错误!");
+			}
+		}else{
+			throw new RuntimeException("用户不存在!");
+		}
+		
+		return context;
+	}
+	
 	
 }

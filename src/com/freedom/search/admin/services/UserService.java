@@ -37,4 +37,9 @@ public interface UserService {
 	 * login
 	 */
 	public UserContext login(String usercode,String pwd);
+	
+	/**
+	 * webapp login
+	 */
+	public UserContext webappLogin(String usercode,String pwd);
 }

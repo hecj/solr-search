@@ -1,23 +1,44 @@
-
-#footer{
-	text-align: center;
-	height:40px;  
-    line-height:40px;  
-    overflow:hidden;  
-}
-
-#formLogin .ui-field-contain label{
-	width: 60px;
-	display: inline-block;
-	text-align: right;
-}
-
-#login {
-	float: left;
-	margin-left: 40px;
-}
-
-#reset {
-	float: right;
-	margin-right: 40px;
-}
+	
+	#footer{
+		text-align: center;
+		height:40px;  
+	    line-height:40px;  
+	    overflow:hidden;  
+	}
+	/**
+	 * ----------------µÇÂ½Ò³Ãæ----------------------------
+	 */
+	#formLogin .ui-field-contain label{
+		width: 60px;
+		display: inline-block;
+		text-align: right;
+	}
+	
+	#login {
+		float: left;
+		margin-left: 40px;
+	}
+	
+	#reset {
+		float: right;
+		margin-right: 40px;
+	}
+	/**
+	 * ----------------×¢²áÒ³Ãæ----------------------------
+	 */
+	#footer{
+		text-align: center;
+		height:40px;  
+	    line-height:40px;  
+	    overflow:hidden;  
+	}
+	
+	#formReg .ui-field-contain label{
+		width: 80px;
+		display: inline-block;
+		text-align: right;
+	}
+	
+	
+	
+	

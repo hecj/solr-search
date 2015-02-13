@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>注册新用户</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../js/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.css" />
+	<link rel="stylesheet" href="../css/index.css" />
+	<script src="../js/common/jquery-1.8.1.min.js"></script>
+	<script src="../js/common/jquery.cookie.js"></script>
+	<script src="../js/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.js"></script>
+	<script src="../js/app/common.js"></script>
+	<script src="../js/app/index.js"></script>
+</head>
+<body>
+
+<!-- login page -->
+<div data-role="page" id="page_reg">
+
+	<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" >
+		<h1>注册新用户</h1>
+		<a href="login.html" data-icon="forward" class="ui-btn-right" data-ajax="false">已注册,去登录</a>
+	</div><!-- /header -->
+	<div role="main" class="ui-content">
+		<div id="regMessage" data-role="popup" class="ui-content" data-theme="a" data-transition="slide">
+		</div>
+		<form id="formReg">
+			<div class="ui-field-contain">
+			    <label>用户名:</label>
+			    <input name="usercode" placeholder="请输入用户名" value="" type="text">
+			</div>
+			<div class="ui-field-contain">
+			    <label>昵称:</label>
+			    <input name="username" placeholder="请输入昵称" value="" type="text">
+			</div>
+			<div class="ui-field-contain">
+			    <label>密码:</label>
+			    <input name="password" placeholder="请输入密码" value="" type="password">
+			</div>
+			<div class="ui-field-contain">
+			    <label>确认密码:</label>
+			    <input name="repassword" placeholder="请输入确认密码" value="" type="password">
+			</div>
+			<div>
+				<a id="register" data-role="button" data-theme="b" >提交</a>
+			</div>
+		</form>
+		
+		<div style="margin-top: 50px;text-align: center;">
+			<a href="index.html">匿名浏览</a>
+		</div>
+		
+	</div><!-- /content -->
+	
+	<div id="footer" data-role="footer" data-theme="b" data-position="fixed" data-tap-toggle="false" >
+		<label>Just want to hurt you more @ hecj</label>
+	</div>
+
+</div><!-- /page -->
+
+
+</body>
+</html>

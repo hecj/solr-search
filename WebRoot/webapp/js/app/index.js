@@ -2,7 +2,7 @@
 //$.mobile.page.prototype.options.domCache = true;
 
 var app = app || {};
-	app.basePath = 'http://localhost:8080/solr-search/';
+	app.basePath = 'http://192.168.1.101:8080/solr-search/';
 
 	
 /**

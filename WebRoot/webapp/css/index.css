@@ -5,6 +5,10 @@
 	    line-height:40px;  
 	    overflow:hidden;  
 	}
+	
+	.divCenter {
+		text-align: center;
+	}
 	/**
 	 * ----------------登陆页面----------------------------
 	 */
@@ -39,6 +43,17 @@
 		text-align: right;
 	}
 	
+	/**
+	 * ----------------主页面----------------------------
+	 */
+	#formSearch {
+		display: inline-block;
+	}
+	#formSearch input {
+	}
 	
+	/**
+	 * ----------------添加文章页面---------------------------
+	 */
 	
 	

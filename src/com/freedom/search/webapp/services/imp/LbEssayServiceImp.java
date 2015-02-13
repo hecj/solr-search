@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.freedom.search.admin.entity.LzUser;
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
@@ -52,25 +51,18 @@ public class LbEssayServiceImp implements LbEssayService {
 		Result result = new ResultSupport();
 		try{
 			
-			String usercode = (String) map.get("usercode");
-			Pagination pagination = (Pagination) map.get("pagination");
-			String mQueryHQL = "select u from LzUser u where 1=1";
-			String mContHQL = "select count(u) from LzUser u where 1=1";
+			Pagination p = (Pagination) map.get("pagination");
+			String query = "select e from LbEssay e where 1=1";
+			String count = "select count(e) from LbEssay e where 1=1";
 			
-			//动态拼接SQL
-			if(!StringUtil.isStrEmpty(usercode)){
-				mQueryHQL += " and u.usercode='"+usercode+"'";
-				mContHQL += " and u.usercode='"+usercode+"'";
-			}
-			List<LbEssay> userList = map.queryListByParamsAndPagination(mQueryHQL, pagination.startCursor().intValue(), pagination.getPageSize(),new Object[]{});
-			long count = Long.parseLong(map.queryUniqueResultByHQL(mContHQL).toString());
-			pagination.setCountSize(count);
+			List<LbEssay> list = lbEssayDAO.queryListByParamsAndPagination(query, p.startCursor().intValue(), p.getPageSize(),new Object[]{});
+			long total = Long.parseLong(lbEssayDAO.queryUniqueResultByHQL(count).toString());
+			p.setCountSize(total);
 			
-			result.setData(userList);
-			result.setPagination(pagination);
+			result.setData(list);
+			result.setPagination(p);
 			result.setResult(true);
 		}catch(Exception ex){
-			
 			result.setResult(false);
 			Log4jUtil.log(ex.getMessage());
 			ex.printStackTrace();

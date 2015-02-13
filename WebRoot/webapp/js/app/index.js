@@ -88,7 +88,7 @@ var app = app || {};
 */	
 	$(document).on('pageinit', '#page_index', function() {
 		$('#loadMore').bind('click', app.loadMore);
-		$('#sysMenu').bind('click', app.openMenu);
+		$('#home').bind('click', app.openMenu);
 	});
  		
 	$(document).on('pagebeforeshow', '#page_index', function() {
@@ -102,7 +102,8 @@ var app = app || {};
 	app.total = 0;
 	
 	// 打开系统菜单
-	app.openMenu = function (){
+	app.openMenu = function(){
+		$('#sysMenu').html('功能即将实现');
 		$('#sysMenu').panel('open');
 	}
 	

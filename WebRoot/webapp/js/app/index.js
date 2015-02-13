@@ -97,7 +97,6 @@ var app = app || {};
 	
 /**
  * ------------------------发表新文章-------------------------------------
- */
 	$(document).on('pageinit', '#page_addEssay', function() {
 		$('#addEssaySub').bind('click', app.addEssaySub);
 	});
@@ -110,11 +109,7 @@ var app = app || {};
 			dataType : 'json',
 			success : function(data) {
 				if (data.code == '0') {
-					/*$.mobile.changePage('index.html', {
-					     transition : "slide",
-					     reverse : false,
-					     changeHash : true
-					});*/
+					
 				} else {
 					//$('#addEssayMessage').text(data.message);
 					//$('#addEssayMessage').popup('open');
@@ -128,6 +123,6 @@ var app = app || {};
 			}
 		});
 	}
-	
+	 */
 	
 	

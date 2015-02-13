@@ -57,9 +57,7 @@ public class UserController extends BaseController {
 		} catch (Exception e) {
 			writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, e.getMessage()==null?"登陆失败!":e.getMessage()));
 			e.printStackTrace();
-			return;
 		}
-		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "登陆失败!"));
 	}
 	
 	@RequestMapping(params="operator=searchUser")

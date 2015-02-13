@@ -2,7 +2,7 @@
 //$.mobile.page.prototype.options.domCache = true;
 
 var app = app || {};
-	app.basePath = 'http://localhost:8080/solr-search/';
+	app.basePath = 'http://192.168.1.101:8080/solr-search/';
 
 	
 /**
@@ -93,6 +93,7 @@ var app = app || {};
  		
 	$(document).on('pagebeforeshow', '#page_index', function() {
 		$('#listView').html('');
+		$('#loadMore span').text('加载更多');
 		app.loadListView(1);
 	});
 	
@@ -121,7 +122,7 @@ var app = app || {};
 					$('#total').text('共'+data.total+'篇文章');
 					for ( var i = 0; i < rows.length; i++) {
 						var row = rows[i];
-						var item = $('<li><a href="#">'+
+						var item = $('<li onclick="app.detailFun('+row.id+')"><a href="#">'+
 								   '<img src="../imgs/love/psb1.jpg">'+
 								   '<h2>'+row.title+'</h2>'+
 				        		   '<p>'+row.content+'</p>'+
@@ -153,6 +154,12 @@ var app = app || {};
 		}else{
 			$('#loadMore span').text('亲,没有数据了');
 		}
+	}
+	
+	app.detailFun = function(id){
+		
+		alert('功能即将实现');
+		
 	}
 	
 /**

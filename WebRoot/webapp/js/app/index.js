@@ -51,7 +51,7 @@ var app = app || {};
 	app.login = function() {
 		$.ajax( {
 			type : 'POST',
-			url : app.basePath + 'webapp/user/user.htm?operator=login&time='+new Date().getTime(),
+			url : app.basePath + 'webapp/user/user.htm?operator=login',
 			data : $('#formLogin').serialize(),
 			dataType : 'json',
 			success : function(data) {
@@ -87,13 +87,47 @@ var app = app || {};
  * ------------------------主页-------------------------------------
  */	
 	$(document).on('pageinit', '#page_index', function() {
-		$('#home').bind('click', app.openMenu);
+		app.loadListView();
 	});
+	
 	// 打开系统菜单
 	app.openMenu = function (){
 		$('#sysMenu').panel('open');
 	}
-
+	
+	//初始化ListView
+	app.loadListView = function(){
+		var listView = $('#listView');
+		$.ajax( {
+			type : 'POST',
+			url : app.basePath + 'webapp/essay/essay.htm?operator=searchEssays',
+			data : {},
+			dataType : 'json',
+			success : function(data) {
+				if (data) {
+					var rows = data.rows;
+					for ( var i = 0; i < rows.length; i++) {
+						var row = rows[i];
+						var item = $('<li><a href="#">'+
+								   '<img src="../imgs/love/psb1.jpg">'+
+								   '<h2>'+row.title+'</h2>'+
+				        		   '<p>'+row.content+'</p>'+
+				        		   '</a></li>');
+						listView.append(item).find("li:last").hide();  
+						listView.append(item);
+						listView.listview('refresh');  
+						listView.find("li:last").slideDown(300);  
+					}
+				}
+			},
+			beforeSend : function(XMLHttpRequest) {
+				common.showLoader();
+			},
+			complete : function(XMLHttpRequest) {
+				common.hideLoader();
+			}
+		});
+	}
 	
 /**
  * ------------------------发表新文章-------------------------------------
@@ -125,6 +159,3 @@ var app = app || {};
 			}
 		});
 	}
-	 
-	
-	

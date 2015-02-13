@@ -67,7 +67,7 @@ public class UserController extends BaseController {
 			if(!StringUtil.isObjectNull(page)){
 				mPagination.setCurrPage(page.longValue());
 			}
-			if(!StringUtil.isObjectNull(page)){
+			if(!StringUtil.isObjectNull(rows)){
 				mPagination.setPageSize(rows);
 			}
 			Map<String,Object> mMap = new HashMap<String,Object>();

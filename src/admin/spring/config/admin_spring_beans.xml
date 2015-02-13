@@ -13,7 +13,9 @@
 										  com.freedom.search.admin.database.factory,
 										  com.freedom.search.admin.database.factory.imp,
 										  com.freedom.search.admin.services.imp,
-										  com.freedom.search.admin.dao.imp"/>
+										  com.freedom.search.admin.dao.imp,
+										  com.freedom.search.webapp.dao.imp,
+										  com.freedom.search.webapp.services.imp"/>
 	
  </beans>
  

@@ -80,6 +80,7 @@
             	<list>
             		<value>com.freedom.search.hibernate.entity</value>
             		<value>com.freedom.search.admin.entity</value>
+            		<value>com.freedom.search.webapp.entity</value>
             	</list>
             </property>
 			<property name="hibernateProperties">

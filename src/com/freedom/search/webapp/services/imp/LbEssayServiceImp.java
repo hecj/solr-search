@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.freedom.search.util.Log4jUtil;
 import com.freedom.search.util.Pagination;
@@ -16,6 +17,7 @@ import com.freedom.search.webapp.dao.LbEssayDAO;
 import com.freedom.search.webapp.entity.LbEssay;
 import com.freedom.search.webapp.services.LbEssayService;
 
+@Transactional
 @Service("lbEssayService")
 public class LbEssayServiceImp implements LbEssayService {
 	

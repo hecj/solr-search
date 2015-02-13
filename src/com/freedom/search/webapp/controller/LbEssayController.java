@@ -40,7 +40,6 @@ public class LbEssayController extends BaseController {
 			System.out.println(image);
 			System.out.println(content);
 			
-			/*
 			LbEssay essay = new LbEssay();
 			essay.setId(UUIDUtil.autoUUID());
 			essay.setTitle(title);
@@ -54,10 +53,8 @@ public class LbEssayController extends BaseController {
 				return;
 			}
 			
-			*/
 		} catch (Exception e) {
 			e.printStackTrace();
-			return;
 		}
 		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}	

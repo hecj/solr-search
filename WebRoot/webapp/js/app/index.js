@@ -2,7 +2,7 @@
 //$.mobile.page.prototype.options.domCache = true;
 
 var app = app || {};
-	app.basePath = 'http://192.168.1.101:8080/solr-search/';
+	app.basePath = 'http://localhost:8080/solr-search/';
 
 	
 /**
@@ -51,7 +51,7 @@ var app = app || {};
 	app.login = function() {
 		$.ajax( {
 			type : 'POST',
-			url : app.basePath + 'webapp/user/user.htm?operator=login',
+			url : app.basePath + 'webapp/user/user.htm?operator=login&time='+new Date().getTime(),
 			data : $('#formLogin').serialize(),
 			dataType : 'json',
 			success : function(data) {
@@ -97,22 +97,24 @@ var app = app || {};
 	
 /**
  * ------------------------发表新文章-------------------------------------
+*/
 	$(document).on('pageinit', '#page_addEssay', function() {
 		$('#addEssaySub').bind('click', app.addEssaySub);
 	});
 	
 	app.addEssaySub = function(){
-		$.ajax( {
+		$.ajax({
 			type : 'POST',
 			url : app.basePath + 'webapp/essay/essay.htm?operator=add',
 			data : $('#formAddEssay').serialize(),
 			dataType : 'json',
 			success : function(data) {
 				if (data.code == '0') {
-					
+					$('#addEssayMessage').text('发表新文章成功');
+					$('#addEssayMessage').popup('open');
 				} else {
-					//$('#addEssayMessage').text(data.message);
-					//$('#addEssayMessage').popup('open');
+					$('#addEssayMessage').text(data.message);
+					$('#addEssayMessage').popup('open');
 				}
 			},
 			beforeSend : function(XMLHttpRequest) {
@@ -123,6 +125,6 @@ var app = app || {};
 			}
 		});
 	}
-	 */
+	 
 	
 	

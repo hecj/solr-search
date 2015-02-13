@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<!-- login page -->
+<!-- essay page -->
 <div data-role="page" id="page_addEssay">
 
 	<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" >
@@ -22,11 +22,14 @@
 		<a href="index.html" data-icon="forward" data-transition="slide" class="ui-btn-right">返回</a>
 	</div><!-- /header -->
 	<div role="main" class="ui-content">
-		<div id="addEssayMessage" data-role="popup" class="ui-content" data-theme="a" data-transition="slide">
+		<div id="addEssayMessage" data-role="popup" class="ui-content" data-theme="e" data-transition="slide">
 		</div>
 		<form id="formAddEssay">
 			<div class="ui-field-contain">
 			    <input type="text" name="title" placeholder="请输入标题" value="">
+			</div>
+			<div class="ui-field-contain">
+				<input type="file" data-clear-btn="true" name="image" value="">
 			</div>
 			<div class="ui-field-contain">
 				<textarea data-mini="true" cols="40" rows="20" name="content" placeholder="请输入文章内容"></textarea>

@@ -93,5 +93,41 @@ var app = app || {};
 	app.openMenu = function (){
 		$('#sysMenu').panel('open');
 	}
+
+	
+/**
+ * ------------------------发表新文章-------------------------------------
+ */
+	$(document).on('pageinit', '#page_addEssay', function() {
+		$('#addEssaySub').bind('click', app.addEssaySub);
+	});
+	
+	app.addEssaySub = function(){
+		$.ajax( {
+			type : 'POST',
+			url : app.basePath + 'webapp/essay/essay.htm?operator=add',
+			data : $('#formAddEssay').serialize(),
+			dataType : 'json',
+			success : function(data) {
+				if (data.code == '0') {
+					/*$.mobile.changePage('index.html', {
+					     transition : "slide",
+					     reverse : false,
+					     changeHash : true
+					});*/
+				} else {
+					//$('#addEssayMessage').text(data.message);
+					//$('#addEssayMessage').popup('open');
+				}
+			},
+			beforeSend : function(XMLHttpRequest) {
+				common.showLoader();
+			},
+			complete : function(XMLHttpRequest) {
+				common.hideLoader();
+			}
+		});
+	}
+	
 	
 	

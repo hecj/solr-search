@@ -35,7 +35,12 @@ public class LbEssayController extends BaseController {
 			String title = request.getParameter("title");
 			String image = request.getParameter("image");
 			String content = request.getParameter("content");
+		
+			System.out.println(title);
+			System.out.println(image);
+			System.out.println(content);
 			
+			/*
 			LbEssay essay = new LbEssay();
 			essay.setId(UUIDUtil.autoUUID());
 			essay.setTitle(title);
@@ -48,6 +53,8 @@ public class LbEssayController extends BaseController {
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
 				return;
 			}
+			
+			*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;

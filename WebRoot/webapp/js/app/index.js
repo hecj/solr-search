@@ -1,8 +1,14 @@
 //缓存页面
 //$.mobile.page.prototype.options.domCache = true;
 
+$(document).bind("mobileinit",function(){    
+	$.extend($.mobile ,{
+		defaultPageTransition:'none' 
+    });    
+}); 
+
 var app = app || {};
-	app.basePath = 'http://localhost:8080/solr-search/';
+	app.basePath = 'http://192.168.1.100:8080/solr-search/';
 //	app.basePath = 'http://121.40.56.87/solr-search/';
 
 	
@@ -22,7 +28,7 @@ var app = app || {};
 			success : function(data) {
 				if (data.code == '0') {
 					$.mobile.changePage('login.html', {
-					     transition : "slide",
+					     transition : "none",
 					     reverse : true,
 					     changeHash : true
 					});
@@ -63,7 +69,7 @@ var app = app || {};
 						expires : 1
 					});
 					$.mobile.changePage('index.html', {
-					     transition : "slide",
+					     transition : "none",
 					     reverse : false,
 					     changeHash : true
 					});
@@ -132,7 +138,7 @@ var app = app || {};
 				        		    '</a></li>');
 						listView.append(item).find("li:last").hide();  
 						listView.listview('refresh');  
-						listView.find("li:last").slideDown(300);  
+						listView.find("li:last").slideDown(100);  
 					}
 					var size = $('#listView li').size();
 					if (size == app.total){
@@ -170,7 +176,7 @@ var app = app || {};
 			success : function(data) {
 				if(data.code == 0){
 					$.mobile.changePage('detail.html?data='+$.toJSON(data.message), {
-					     transition : "slide",
+					     transition : "none",
 					     reverse : false,
 					     changeHash : true
 					});

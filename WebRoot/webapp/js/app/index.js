@@ -85,7 +85,7 @@ var app = app || {};
 	
 /**
  * ------------------------主页-------------------------------------
-*/	
+ */	
 	$(document).on('pageinit', '#page_index', function() {
 		$('#loadMore').bind('click', app.loadMore);
 		$('#home').bind('click', app.openMenu);
@@ -168,11 +168,15 @@ var app = app || {};
 			dataType : 'json',
 			success : function(data) {
 				if(data.code == 0){
-					$.mobile.changePage('detail.html', {
+					$.mobile.changePage('detail.html?data='+$.toJSON(data.message), {
 					     transition : "slide",
 					     reverse : false,
 					     changeHash : true
 					});
+				}else{
+					var indexMes = $('#indexMessage');
+					indexMes.text(data.message);
+					indexMes.popup('open');
 				}
 			},
 			beforeSend : function(XMLHttpRequest) {
@@ -187,7 +191,7 @@ var app = app || {};
 	
 /**
  * ------------------------发表新文章-------------------------------------
-*/
+ */
 	$(document).on('pageinit', '#page_addEssay', function() {
 		$('#addEssaySub').bind('click', app.addEssaySub);
 	});
@@ -216,4 +220,15 @@ var app = app || {};
 			}
 		});
 	}
+	
+/**
+ * ------------------------detail.html-------------------------------------
+ */
+	$(document).on('pageinit', '#page_detail', function(e, data) {
+		var data = common.getParams(e);
+		var obj = $.evalJSON(decodeURIComponent(data));
+		$('.detail_title').text(obj.title);
+		$('.detail_content').text(obj.content);
+		$('.detail_createDate').text(obj.createDate);
+	});
 	

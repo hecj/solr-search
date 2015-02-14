@@ -35,6 +35,8 @@ public class LbEssay implements Serializable {
 	
 	private Date updateDate ;
 	
+	private String usercode ;
+	
 	public LbEssay() {
 		
 	}
@@ -49,6 +51,7 @@ public class LbEssay implements Serializable {
 		this.id = id;
 	}
 	
+	@Column(length=200,nullable=false)
 	public String getTitle() {
 		return title;
 	}
@@ -57,6 +60,7 @@ public class LbEssay implements Serializable {
 		this.title = title;
 	}
 
+	@Column(length=200)
 	public String getImage() {
 		return image;
 	}
@@ -68,7 +72,8 @@ public class LbEssay implements Serializable {
 	public String getContent() {
 		return content;
 	}
-
+	
+	@Column(length=5000,nullable=false)
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -91,4 +96,13 @@ public class LbEssay implements Serializable {
 		this.updateDate = updateDate;
 	}
 
+	@Column(length=32)
+	public String getUsercode() {
+		return usercode;
+	}
+
+	public void setUsercode(String usercode) {
+		this.usercode = usercode;
+	}
+	
 }

@@ -102,7 +102,7 @@ public class LbEssayController extends BaseController {
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		writeToJSON(response,new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, ""));
+		writeToJSON(response,new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
 	}
 	
 }

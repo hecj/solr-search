@@ -21,4 +21,14 @@ common.showLoader = function(option) {
 
 common.hideLoader = function(){
     $.mobile.loading('hide');  
-}  
+}
+
+common.getParams = function(e,name){
+	if(!name){
+		name = 'data';
+	}
+	var p = '?'+name+'=';
+	var baseURI = $.mobile.path.parseUrl(e.target.baseURI);
+	var search = baseURI.search ;
+	return search.substring(search.indexOf(p)+p.length, search.length);
+}

@@ -38,15 +38,17 @@ public class LbEssayController extends BaseController {
 	@RequestMapping(params="operator=add")
 	public void add(HttpServletRequest request,HttpServletResponse response){
 		try {
-			
 			String title = request.getParameter("title");
 			String image = request.getParameter("image");
 			String content = request.getParameter("content");
-		
-			System.out.println(title);
-			System.out.println(image);
-			System.out.println(content);
-			
+			if(StringUtil.isStrEmpty(title)){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "请输入标题!"));
+				return;
+			}
+			if(StringUtil.isStrEmpty(content)){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "请输入内容!"));
+				return;
+			}
 			LbEssay essay = new LbEssay();
 			essay.setId(UUIDUtil.autoUUID());
 			essay.setTitle(title);
@@ -93,8 +95,11 @@ public class LbEssayController extends BaseController {
 	@RequestMapping(params="operator=get")
 	public void get(HttpServletRequest request,HttpServletResponse response){
 		try {
-			
 			String id = request.getParameter("id");
+			if(StringUtil.isStrEmpty(id)){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "Id不可为空!"));
+				return;
+			}
 			LbEssay essay = lbEssayService.searchEssay(id);
 			if(!StringUtil.isObjectNull(essay)){
 				writeToJSON(response,new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, essay));
@@ -109,11 +114,17 @@ public class LbEssayController extends BaseController {
 	@RequestMapping(params="operator=addComment")
 	public void addComment(HttpServletRequest request,HttpServletResponse response){
 		try {
-
 			String content = request.getParameter("commentContent");
 			String essayId = request.getParameter("essayId");
 			String usercode = request.getParameter("usercode");
-			
+			if(StringUtil.isStrEmpty(essayId)){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "文章Id不可为空!"));
+				return;
+			}
+			if(StringUtil.isStrEmpty(content)){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "请输入评论内容!"));
+				return;
+			}
 			LbComment comment = new LbComment();
 			comment.setId(UUIDUtil.autoUUID());
 			comment.setContent(content);
@@ -141,9 +152,11 @@ public class LbEssayController extends BaseController {
 			if(!StringUtil.isObjectNull(rows)){
 				p.setPageSize(rows);
 			}
-			
 			String essayId = request.getParameter("essayId");
-			
+			if(StringUtil.isStrEmpty(essayId)){
+				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "文章Id不可为空!"));
+				return;
+			}
 			Map<String,Object> map = new HashMap<String,Object>();
 			map.put("pagination", p);
 			map.put("essayId", essayId);

@@ -235,6 +235,7 @@ var app = app || {};
 	$(document).on('pageinit', '#page_detail', function(e, data) {
 		
 		$('#addCommentSub').bind('click',app.addCommentSub);
+		$('#loadMoreComment').bind('click',app.loadMoreComment);
 		
 		var data = common.getParams(e);
 		var obj = $.evalJSON(decodeURIComponent(data));
@@ -243,9 +244,14 @@ var app = app || {};
 		$('.detail_usercode').text(obj.usercode?obj.usercode:'匿名');
 		$('.detail_content').text(obj.content);
 		$('.detail_createDate').text(obj.createDate);
-		app.loadCommentList();
+		
+		app.loadCommentList(1);
 		
 	});
+	
+	// 分页参数
+	app.pageComment = 1;
+	app.totalComment = 0;
 	
 	// 提交评论
 	app.addCommentSub = function(){
@@ -261,6 +267,9 @@ var app = app || {};
 					var indexMes = $('#detailMessage');
 					indexMes.text('评论成功!');
 					indexMes.popup('open');
+					$('#commentList').html('');
+					$('#fomAddComment textarea[name=commentContent]').val('');
+					app.loadCommentList(1);
 				}else{
 					var indexMes = $('#detailMessage');
 					indexMes.text(data.message);
@@ -276,27 +285,48 @@ var app = app || {};
 		});
 	}
 	
+	// 加载更多
+	app.loadMoreComment = function(){
+		var size = $('#commentList .commentLi').size();
+		if (size < app.totalComment){
+			app.loadCommentList(app.pageComment+1);
+		}else{
+			$('#loadMoreComment span').text('亲,没有评论了');
+		}
+	}
+	
 	// 加载评论
-	app.loadCommentList = function(){
+	app.loadCommentList = function(p){
+		
 		var essayId = $('#essayId').val();
 		var commentList = $('#commentList');
 		$.ajax( {
 			type : 'POST',
 			url : app.basePath + 'webapp/essay/essay.htm?operator=searchComments',
-			data : {essayId:essayId},
+			data : {page:p,essayId:essayId},
 			dataType : 'json',
 			success : function(data) {
 				if (data) {
 					var rows = data.rows;
+					app.totalComment = data.total;
+					app.pageComment = p;
+					$('.showCommentTotal').text('共'+data.total+'条');
 					for ( var i = 0; i < rows.length; i++) {
 						var row = rows[i];
-						var item = ('<div>'+
+						var item = ('<div class="commentLi">'+
 				        		    '<p>'+row.content+'</p>'+
 				        		    '<div style="text-align: right">'+(row.usercode?row.usercode:'匿名')+'</div>'+
 				        		    '<div style="text-align: right">'+row.createDate+'</div>'+
 				        		    '<hr>'+
 				        		    '</div>');
 						commentList.append(item);  
+					}
+					
+					var size = $('#commentList .commentLi').size();
+					if (size == app.totalComment){
+						$('#loadMoreComment span').text('亲,没有评论了');
+					}else{
+						$('#loadMoreComment span').text('加载更多');
 					}
 				}
 			},

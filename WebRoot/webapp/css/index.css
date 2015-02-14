@@ -82,6 +82,10 @@
 		margin-right: 40px;
 		margin-left: 70px;
 	}
-	 
+	
+	.showCommentTotal {
+		display: inline-block;
+		float: right;
+	} 
 	
 	

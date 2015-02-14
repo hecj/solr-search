@@ -274,6 +274,7 @@ var app = app || {};
 					var indexMes = $('#detailMessage');
 					indexMes.text(data.message);
 					indexMes.popup('open');
+					setTimeout('closePopup('+indexMes+')',1000);
 				}
 			},
 			beforeSend : function(XMLHttpRequest) {
@@ -343,3 +344,7 @@ var app = app || {};
 		
 	}
 	
+	
+	function closePopup(obj){
+		obj.popup('closed');
+	}

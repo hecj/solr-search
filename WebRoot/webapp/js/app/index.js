@@ -127,7 +127,7 @@ var app = app || {};
 					var rows = data.rows;
 					app.total = data.total;
 					app.page = p;
-					$('#total').text('共'+data.total+'篇文章');
+					$('#total').text('共'+data.total+'篇');
 					for ( var i = 0; i < rows.length; i++) {
 						var row = rows[i];
 						var item = $('<li onclick="app.detail(this)"><input type="hidden" name="eId" value="'+row.id+'"/>'+
@@ -292,7 +292,7 @@ var app = app || {};
 						var row = rows[i];
 						var item = ('<div>'+
 				        		    '<p>'+row.content+'</p>'+
-				        		    '<div style="text-align: right;margin-right:20px;">'+(row.usercode?row.usercode:'匿名')+'</div>'+
+				        		    '<div style="text-align: right">'+(row.usercode?row.usercode:'匿名')+'</div>'+
 				        		    '<div style="text-align: right">'+row.createDate+'</div>'+
 				        		    '<hr>'+
 				        		    '</div>');

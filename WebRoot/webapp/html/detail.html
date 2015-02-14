@@ -28,29 +28,32 @@
 		</div>
 		<input id="essayId" type="hidden"/>
 		<div>
-			<b>标题：</b>
-			<label class="detail_title">
-			</label>
+			<table>
+				<tr>
+					<td width="50"><b>标题：</b></td>
+					<td><label class="detail_title"></label></td>
+				</tr>
+			</table>
 		</div>
 		<hr>
 		<div>
 			<article class="detail_content indent">
 			</article>
-			<div class="divRight">
+			<div style="text-align: right;">
 				<div class="detail_usercode"></div>
 				<label class="detail_createDate"></label>
 			</div>
 		</div>
 		<hr>
 		<div>
-			<b>评论</b>
+			<b style="f">评论：</b>
 		</div>
 		<hr>
 		<div id="commentList">
 		</div>
 		<form id="fomAddComment" style="text-align: center">
 			<div class="ui-field-contain">
-				<textarea data-mini="true" cols="40" rows="20" name="commentContent" placeholder="请输入评论内容"></textarea>
+				<textarea data-mini="true" cols="40" rows="40" name="commentContent" placeholder="请输入评论内容"></textarea>
 			</div>
 			<a id="addCommentSub" data-role="button" data-theme="b" >提交</a>
 		</form>

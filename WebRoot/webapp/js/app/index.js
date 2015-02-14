@@ -2,7 +2,7 @@
 //$.mobile.page.prototype.options.domCache = true;
 
 var app = app || {};
-	app.basePath = 'http://192.168.1.101:8080/solr-search/';
+	app.basePath = 'http://localhost:8080/solr-search/';
 
 	
 /**
@@ -123,11 +123,12 @@ var app = app || {};
 					$('#total').text('共'+data.total+'篇文章');
 					for ( var i = 0; i < rows.length; i++) {
 						var row = rows[i];
-						var item = $('<li onclick="app.detailFun('+row.id+')"><a href="#">'+
-								   '<img src="../imgs/love/psb1.jpg">'+
-								   '<h2>'+row.title+'</h2>'+
-				        		   '<p>'+row.content+'</p>'+
-				        		   '</a></li>');
+						var item = $('<li onclick="app.detail(this)"><input type="hidden" name="eId" value="'+row.id+'"/>'+
+									'<a href="#">'+
+								    '<img src="../imgs/love/psb1.jpg">'+
+								    '<h2>'+row.title+'</h2>'+
+				        		    '<p>'+row.content+'</p>'+
+				        		    '</a></li>');
 						listView.append(item).find("li:last").hide();  
 						listView.listview('refresh');  
 						listView.find("li:last").slideDown(300);  
@@ -157,9 +158,30 @@ var app = app || {};
 		}
 	}
 	
-	app.detailFun = function(id){
-		
-		alert('功能即将实现');
+	// 详细文章
+	app.detail = function(obj){
+		var id = $(obj).find('input[name=eId]').val();
+		$.ajax( {
+			type : 'POST',
+			url : app.basePath + 'webapp/essay/essay.htm?operator=get',
+			data : {id:id},
+			dataType : 'json',
+			success : function(data) {
+				if(data.code == 0){
+					$.mobile.changePage('detail.html', {
+					     transition : "slide",
+					     reverse : false,
+					     changeHash : true
+					});
+				}
+			},
+			beforeSend : function(XMLHttpRequest) {
+				common.showLoader();
+			},
+			complete : function(XMLHttpRequest) {
+				common.hideLoader();
+			}
+		});
 		
 	}
 	

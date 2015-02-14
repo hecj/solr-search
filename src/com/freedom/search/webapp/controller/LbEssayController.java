@@ -89,4 +89,20 @@ public class LbEssayController extends BaseController {
 		writeToJSON(response,new EasyGridData());
 	}
 	
+	@RequestMapping(params="operator=get")
+	public void get(HttpServletRequest request,HttpServletResponse response){
+		try {
+			
+			String id = request.getParameter("id");
+			LbEssay essay = lbEssayService.searchEssay(id);
+			if(!StringUtil.isObjectNull(essay)){
+				writeToJSON(response,new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, essay));
+				return;
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		writeToJSON(response,new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, ""));
+	}
+	
 }

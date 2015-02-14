@@ -71,6 +71,12 @@ public class LbEssayServiceImp implements LbEssayService {
 		}
 		return result;
 	}
+
+	@Override
+	public LbEssay searchEssay(String id) {
+
+		return lbEssayDAO.findById(id);
+	}
 	
 	
 }

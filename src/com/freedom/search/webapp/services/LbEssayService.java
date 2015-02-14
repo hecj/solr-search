@@ -11,6 +11,8 @@ public interface LbEssayService {
 	
 	public boolean delLbEssay(String id);
 	
+	public LbEssay searchEssay(String id);
+	
 	public boolean editLbEssay(LbEssay lbEssay);
 	
 	public Result searchEssayList(Map<String,Object> map);

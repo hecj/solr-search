@@ -311,13 +311,16 @@ var app = app || {};
 					app.totalComment = data.total;
 					app.pageComment = p;
 					$('.showCommentTotal').text('共'+data.total+'条');
+					var n = 5 * (p-1) ;
 					for ( var i = 0; i < rows.length; i++) {
 						var row = rows[i];
 						var item = ('<div class="commentLi">'+
 				        		    '<p>'+row.content+'</p>'+
 				        		    '<div style="text-align: right">'+(row.usercode?row.usercode:'匿名')+'</div>'+
-				        		    '<div style="text-align: right">'+row.createDate+'</div>'+
-				        		    '<hr>'+
+				        		    '<div>'+
+				        			'<span style="display: inline-block;float: right">'+(n+i+1)+'楼&nbsp;&nbsp;'+row.createDate+'</span>'+
+				        			'</div>'+
+				        		    '<br/><hr>'+
 				        		    '</div>');
 						commentList.append(item);  
 					}

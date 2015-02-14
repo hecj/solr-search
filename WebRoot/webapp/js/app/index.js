@@ -3,6 +3,7 @@
 
 var app = app || {};
 	app.basePath = 'http://localhost:8080/solr-search/';
+//	app.basePath = 'http://121.40.56.87/solr-search/';
 
 	
 /**
@@ -198,6 +199,7 @@ var app = app || {};
 	
 	// 添加新文章
 	app.addEssaySub = function(){
+		
 		$.ajax({
 			type : 'POST',
 			url : app.basePath + 'webapp/essay/essay.htm?operator=add',
@@ -225,10 +227,80 @@ var app = app || {};
  * ------------------------detail.html-------------------------------------
  */
 	$(document).on('pageinit', '#page_detail', function(e, data) {
+		
+		$('#addCommentSub').bind('click',app.addCommentSub);
+		
 		var data = common.getParams(e);
 		var obj = $.evalJSON(decodeURIComponent(data));
+		$('#essayId').val(obj.id);
 		$('.detail_title').text(obj.title);
+		$('.detail_usercode').text(obj.usercode?obj.usercode:'匿名');
 		$('.detail_content').text(obj.content);
 		$('.detail_createDate').text(obj.createDate);
+		app.loadCommentList();
+		
 	});
+	
+	// 提交评论
+	app.addCommentSub = function(){
+		var essayId = $('#essayId').val();
+		var commentContent = $('#fomAddComment textarea[name=commentContent]').val();
+		$.ajax( {
+			type : 'POST',
+			url : app.basePath + 'webapp/essay/essay.htm?operator=addComment',
+			data : {essayId:essayId,commentContent:commentContent},
+			dataType : 'json',
+			success : function(data) {
+				if(data.code == 0){
+					var indexMes = $('#detailMessage');
+					indexMes.text('评论成功!');
+					indexMes.popup('open');
+				}else{
+					var indexMes = $('#detailMessage');
+					indexMes.text(data.message);
+					indexMes.popup('open');
+				}
+			},
+			beforeSend : function(XMLHttpRequest) {
+				common.showLoader();
+			},
+			complete : function(XMLHttpRequest) {
+				common.hideLoader();
+			}
+		});
+	}
+	
+	// 加载评论
+	app.loadCommentList = function(){
+		var essayId = $('#essayId').val();
+		var commentList = $('#commentList');
+		$.ajax( {
+			type : 'POST',
+			url : app.basePath + 'webapp/essay/essay.htm?operator=searchComments',
+			data : {essayId:essayId},
+			dataType : 'json',
+			success : function(data) {
+				if (data) {
+					var rows = data.rows;
+					for ( var i = 0; i < rows.length; i++) {
+						var row = rows[i];
+						var item = ('<div>'+
+				        		    '<p>'+row.content+'</p>'+
+				        		    '<div style="text-align: right;margin-right:20px;">'+(row.usercode?row.usercode:'匿名')+'</div>'+
+				        		    '<div style="text-align: right">'+row.createDate+'</div>'+
+				        		    '<hr>'+
+				        		    '</div>');
+						commentList.append(item);  
+					}
+				}
+			},
+			beforeSend : function(XMLHttpRequest) {
+				common.showLoader();
+			},
+			complete : function(XMLHttpRequest) {
+				common.hideLoader();
+			}
+		});
+		
+	}
 	

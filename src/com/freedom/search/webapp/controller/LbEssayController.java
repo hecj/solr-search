@@ -19,6 +19,7 @@ import com.freedom.search.util.Pagination;
 import com.freedom.search.util.Result;
 import com.freedom.search.util.StringUtil;
 import com.freedom.search.web.controller.base.BaseController;
+import com.freedom.search.webapp.entity.LbComment;
 import com.freedom.search.webapp.entity.LbEssay;
 import com.freedom.search.webapp.services.LbEssayService;
 
@@ -103,6 +104,59 @@ public class LbEssayController extends BaseController {
 			ex.printStackTrace();
 		}
 		writeToJSON(response,new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
+	}
+	
+	@RequestMapping(params="operator=addComment")
+	public void addComment(HttpServletRequest request,HttpServletResponse response){
+		try {
+
+			String content = request.getParameter("commentContent");
+			String essayId = request.getParameter("essayId");
+			String usercode = request.getParameter("usercode");
+			
+			LbComment comment = new LbComment();
+			comment.setId(UUIDUtil.autoUUID());
+			comment.setContent(content);
+			comment.setEssayId(essayId);
+			comment.setUsercode(usercode);
+			comment.setCreateDate(new Date());
+			
+			if(lbEssayService.addLbComment(comment)){
+				writeToJSON(response,new MessageCode(EnumAdminUtils.MessageCode.SUCCESS.code, "处理成功!"));
+				return;
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		writeToJSON(response,new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
+	}
+	
+	@RequestMapping(params="operator=searchComments")
+	public void searchComments(Integer page,Integer rows,HttpServletRequest request,HttpServletResponse response){
+		try {
+			Pagination p = new Pagination(5);
+			if(!StringUtil.isObjectNull(page)){
+				p.setCurrPage(page.longValue());
+			}
+			if(!StringUtil.isObjectNull(rows)){
+				p.setPageSize(rows);
+			}
+			
+			String essayId = request.getParameter("essayId");
+			
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("pagination", p);
+			map.put("essayId", essayId);
+			
+			Result result = lbEssayService.searchCommentList(map);
+			if(result.isSuccess()){
+				writeToJSON(response,new EasyGridData(result.getPagination().getCountSize(),result.getData()));
+				return;
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		writeToJSON(response,new EasyGridData());
 	}
 	
 }

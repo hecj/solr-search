@@ -3,6 +3,7 @@ package com.freedom.search.webapp.services;
 import java.util.Map;
 
 import com.freedom.search.util.Result;
+import com.freedom.search.webapp.entity.LbComment;
 import com.freedom.search.webapp.entity.LbEssay;
 
 public interface LbEssayService {
@@ -16,4 +17,9 @@ public interface LbEssayService {
 	public boolean editLbEssay(LbEssay lbEssay);
 	
 	public Result searchEssayList(Map<String,Object> map);
+	
+	public Result searchCommentList(Map<String,Object> map);
+	
+	public boolean addLbComment(LbComment lbComment);
+	
 }

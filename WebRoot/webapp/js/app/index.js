@@ -1,16 +1,43 @@
-//缓存页面
-//$.mobile.page.prototype.options.domCache = true;
+/**
+ * ----------------------------common--------------------------------------
+ */
 
-$(document).bind("mobileinit",function(){    
-	$.extend($.mobile ,{
-		defaultPageTransition:'none' 
-    });    
-}); 
+	//缓存页面
+	//$.mobile.page.prototype.options.domCache = true;
 
-var app = app || {};
-	app.basePath = 'http://192.168.1.100:8080/solr-search/';
+	$(document).bind("mobileinit",function(){    
+		$.extend($.mobile ,{
+			defaultPageTransition:'none' 
+	    });    
+	}); 
+
+	var app = app || {};
+	app.basePath = 'http://pos-hecj:8080/solr-search/';
 //	app.basePath = 'http://121.40.56.87/solr-search/';
 
+	app.user ;
+	// 获取用户名
+	app.getUserCode = function(){
+		if(app.user && app.user != null){
+			return app.user.usercode ;
+		}
+		return '' ; 
+	}
+	
+	$(document).on("pagebeforecreate", function(event) {
+		var u = $.cookie('user');
+		if (u) {
+			app.user = $.evalJSON(u);
+		}
+	});
+	
+	$(document).on("pagecreate", function(event) {
+		
+	});
+	
+	$(document).on("pageinit", function(event) {
+		
+	});
 	
 /**
  * ---------------------------注册页面---------------------------------------
@@ -96,6 +123,8 @@ var app = app || {};
 	$(document).on('pageinit', '#page_index', function() {
 		$('#loadMore').bind('click', app.loadMore);
 		$('#home').bind('click', app.openMenu);
+		$('#goLogin').bind('click', app.goLogin);
+		app.initUserMessage();
 	});
  		
 	$(document).on('pagebeforeshow', '#page_index', function() {
@@ -107,6 +136,26 @@ var app = app || {};
 	// 分页参数
 	app.page = 1;
 	app.total = 0;
+
+	// 初始化用户信息
+	app.initUserMessage = function(){
+		if ( app.user || app.user != null){
+			$('#show_usercode').text(app.user.usercode);
+			$('#show_login').text('注销');
+		} else {
+			$('#show_usercode').text('匿名');
+			$('#show_login').text('登录');
+		}
+	}
+	
+	// 清除user cookie,转login.html页面
+	app.goLogin = function (){
+		if(app.user || app.user != null){
+			app.user = null;
+			$.cookie('user',null);
+		}
+		$.mobile.changePage('login.html', {});
+	}
 	
 	// 打开系统菜单
 	app.openMenu = function(){
@@ -205,7 +254,6 @@ var app = app || {};
 	
 	// 添加新文章
 	app.addEssaySub = function(){
-		
 		$.ajax({
 			type : 'POST',
 			url : app.basePath + 'webapp/essay/essay.htm?operator=add',
@@ -260,7 +308,7 @@ var app = app || {};
 		$.ajax( {
 			type : 'POST',
 			url : app.basePath + 'webapp/essay/essay.htm?operator=addComment',
-			data : {essayId:essayId,commentContent:commentContent},
+			data : {essayId:essayId,commentContent:commentContent,usercode:app.getUserCode()},
 			dataType : 'json',
 			success : function(data) {
 				if(data.code == 0){

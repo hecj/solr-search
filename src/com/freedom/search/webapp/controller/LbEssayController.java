@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freedom.search.admin.Enum.EnumAdminUtils;
+import com.freedom.search.admin.services.UserService;
 import com.freedom.search.hibernate.util.UUIDUtil;
 import com.freedom.search.util.EasyGridData;
 import com.freedom.search.util.MessageCode;
@@ -30,17 +31,33 @@ public class LbEssayController extends BaseController {
 	
 	@Resource
 	private LbEssayService lbEssayService;
+	
+	@Resource
+	private UserService userService;
 
 	public void setEssayService(LbEssayService lbEssayService) {
 		this.lbEssayService = lbEssayService;
 	}
 	
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 	@RequestMapping(params="operator=add")
 	public void add(HttpServletRequest request,HttpServletResponse response){
 		try {
 			String title = request.getParameter("title");
 			String image = request.getParameter("image");
 			String content = request.getParameter("content");
+			String usercode = request.getParameter("usercode");
+			LbEssay essay = new LbEssay();
+			if(!StringUtil.isStrEmpty(usercode)){
+				if(StringUtil.isObjectNull(userService.searchUserByCode(usercode))){
+					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户不存在!"));
+					return;
+				}
+				essay.setUsercode(usercode);
+			}
 			if(StringUtil.isStrEmpty(title)){
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "请输入标题!"));
 				return;
@@ -49,7 +66,6 @@ public class LbEssayController extends BaseController {
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "请输入内容!"));
 				return;
 			}
-			LbEssay essay = new LbEssay();
 			essay.setId(UUIDUtil.autoUUID());
 			essay.setTitle(title);
 			essay.setContent(content);
@@ -117,6 +133,14 @@ public class LbEssayController extends BaseController {
 			String content = request.getParameter("commentContent");
 			String essayId = request.getParameter("essayId");
 			String usercode = request.getParameter("usercode");
+			LbComment comment = new LbComment();
+			if(!StringUtil.isStrEmpty(usercode)){
+				if(StringUtil.isObjectNull(userService.searchUserByCode(usercode))){
+					writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "用户不存在!"));
+					return;
+				}
+				comment.setUsercode(usercode);
+			}
 			if(StringUtil.isStrEmpty(essayId)){
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "文章Id不可为空!"));
 				return;
@@ -125,11 +149,9 @@ public class LbEssayController extends BaseController {
 				writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "请输入评论内容!"));
 				return;
 			}
-			LbComment comment = new LbComment();
 			comment.setId(UUIDUtil.autoUUID());
 			comment.setContent(content);
 			comment.setEssayId(essayId);
-			comment.setUsercode(usercode);
 			comment.setCreateDate(new Date());
 			
 			if(lbEssayService.addLbComment(comment)){

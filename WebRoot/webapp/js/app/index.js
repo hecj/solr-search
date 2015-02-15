@@ -254,10 +254,14 @@
 	
 	// 添加新文章
 	app.addEssaySub = function(){
+		var title = $('#formAddEssay input[name=title]').val();
+		var content = $('#formAddEssay textarea[name=content]').val();
+		var usercode = app.getUserCode();
 		$.ajax({
 			type : 'POST',
 			url : app.basePath + 'webapp/essay/essay.htm?operator=add',
-			data : $('#formAddEssay').serialize(),
+//			data : $('#formAddEssay').serialize(),
+			data : {usercode:usercode,title:title,content:content},
 			dataType : 'json',
 			success : function(data) {
 				if (data.code == '0') {

@@ -62,6 +62,7 @@
 				} else {
 					$('#regMessage').text(data.message);
 					$('#regMessage').popup('open');
+					setTimeout('common.closePopup("regMessage")',2000);
 				}
 			},
 			beforeSend : function(XMLHttpRequest) {
@@ -103,6 +104,7 @@
 				} else {
 					$('#loginMessage').text(data.message);
 					$('#loginMessage').popup('open');
+					setTimeout('common.closePopup("loginMessage")',2000);
 				}
 			},
 			beforeSend : function(XMLHttpRequest) {
@@ -267,6 +269,7 @@
 				if (data.code == '0') {
 					$('#addEssayMessage').text('发表新文章成功');
 					$('#addEssayMessage').popup('open');
+					setTimeout('common.closePopup("addEssayMessage")',2000);
 				} else {
 					$('#addEssayMessage').text(data.message);
 					$('#addEssayMessage').popup('open');
@@ -317,8 +320,9 @@
 			success : function(data) {
 				if(data.code == 0){
 					var indexMes = $('#detailMessage');
-					indexMes.text('评论成功!');
+					indexMes.text('评论成功');
 					indexMes.popup('open');
+					setTimeout('common.closePopup("detailMessage")',2000);
 					$('#commentList').html('');
 					$('#fomAddComment textarea[name=commentContent]').val('');
 					app.loadCommentList(1);
@@ -326,7 +330,6 @@
 					var indexMes = $('#detailMessage');
 					indexMes.text(data.message);
 					indexMes.popup('open');
-					setTimeout('closePopup('+indexMes+')',1000);
 				}
 			},
 			beforeSend : function(XMLHttpRequest) {
@@ -394,9 +397,4 @@
 			}
 		});
 		
-	}
-	
-	
-	function closePopup(obj){
-		obj.popup('closed');
 	}

@@ -32,3 +32,10 @@ common.getParams = function(e,name){
 	var search = baseURI.search ;
 	return search.substring(search.indexOf(p)+p.length, search.length);
 }
+
+/**
+ * 关闭popup
+ */
+common.closePopup = function (Id){
+	$('#'+Id).popup('close');
+}

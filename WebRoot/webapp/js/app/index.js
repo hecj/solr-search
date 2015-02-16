@@ -3,7 +3,7 @@
  */
 
 	//缓存页面
-	//$.mobile.page.prototype.options.domCache = true;
+	$.mobile.page.prototype.options.domCache = false;
 
 	$(document).bind("mobileinit",function(){    
 		$.extend($.mobile ,{
@@ -13,7 +13,7 @@
 
 	var app = app || {};
 	app.basePath = 'http://pos-hecj:8080/solr-search/';
-//	app.basePath = 'http://121.40.56.87/solr-search/';
+	//	app.basePath = 'http://121.40.56.87/solr-search/';
 
 	app.user ;
 	// 获取用户名
@@ -184,8 +184,8 @@
 						var item = $('<li onclick="app.detail(this)"><input type="hidden" name="eId" value="'+row.id+'"/>'+
 									'<a href="#">'+
 								    '<img src="../imgs/love/psb1.jpg">'+
-								    '<h2>'+row.title+'</h2>'+
-				        		    '<p>'+row.content+'</p>'+
+								    '<h2 style="margin-left: -40px">'+row.title+'</h2>'+
+				        		    '<p style="margin-left: -40px">'+row.content+'</p>'+
 				        		    '</a></li>');
 						listView.append(item).find("li:last").hide();  
 						listView.listview('refresh');  

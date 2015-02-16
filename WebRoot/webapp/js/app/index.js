@@ -12,8 +12,8 @@
 	}); 
 
 	var app = app || {};
-	app.basePath = 'http://pos-hecj:8080/solr-search/';
-	//	app.basePath = 'http://121.40.56.87/solr-search/';
+//	app.basePath = 'http://pos-hecj:8080/solr-search/';
+		app.basePath = 'http://121.40.56.87/solr-search/';
 
 	app.user ;
 	// 获取用户名
@@ -131,7 +131,7 @@
  		
 	$(document).on('pagebeforeshow', '#page_index', function() {
 		$('#listView').html('');
-		$('#loadMore span').text('加载更多');
+		$('#loadMore span').text('加载中...');
 		app.loadListView(1);
 	});
 	
@@ -194,6 +194,8 @@
 					var size = $('#listView li').size();
 					if (size == app.total){
 						$('#loadMore span').text('亲,没有数据了');
+					}else{
+						$('#loadMore span').text('加载更多');
 					}
 				}
 			},

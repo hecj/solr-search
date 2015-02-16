@@ -12,8 +12,8 @@
 	}); 
 
 	var app = app || {};
-//	app.basePath = 'http://pos-hecj:8080/solr-search/';
-		app.basePath = 'http://121.40.56.87/solr-search/';
+	app.basePath = 'http://pos-hecj:8080/solr-search/';
+//		app.basePath = 'http://121.40.56.87/solr-search/';
 
 	app.user ;
 	// 获取用户名

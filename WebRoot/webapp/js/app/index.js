@@ -132,6 +132,7 @@
 	$(document).on('pagebeforeshow', '#page_index', function() {
 		$('#listView').html('');
 		$('#loadMore span').text('加载中...');
+		app.initUserMessage();
 		app.loadListView(1);
 	});
 	
@@ -185,8 +186,9 @@
 									'<a href="#">'+
 								    '<img src="../imgs/love/psb1.jpg">'+
 								    '<h2 style="margin-left: -40px">'+row.title+'</h2>'+
-				        		    '<p style="margin-left: -40px">'+row.content+'</p>'+
-				        		    '</a></li>');
+				        		    '<p style="margin-left: -40px;">'+row.content+'</p>'+
+				        		    '<p style="float:right;margin-right: -30px">'+(row.usercode?row.usercode:'匿名')+'&nbsp;&nbsp;'+row.createDate+'</p>'+
+									'</a></li>');
 						listView.append(item).find("li:last").hide();  
 						listView.listview('refresh');  
 						listView.find("li:last").slideDown(100);  

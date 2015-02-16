@@ -230,7 +230,9 @@
 			dataType : 'json',
 			success : function(data) {
 				if(data.code == 0){
-					$.mobile.changePage('detail.html?data='+$.toJSON(data.message), {
+					sessionStorage.removeItem("essay");
+					sessionStorage.setItem("essay", $.toJSON(data.message));
+					$.mobile.changePage('detail.html', {
 					     transition : "none",
 					     reverse : false,
 					     changeHash : true
@@ -295,31 +297,42 @@
 		
 		$('#addCommentSub').bind('click',app.addCommentSub);
 		$('#loadMoreComment').bind('click',app.loadMoreComment);
-		
-		var data = common.getParams(e);
-		var obj = $.evalJSON(decodeURIComponent(data));
-		$('#essayId').val(obj.id);
-		$('.detail_title').text(obj.title);
-		$('.detail_usercode').text(obj.usercode?obj.usercode:'匿名');
-		$('.detail_content').text(obj.content);
-		$('.detail_createDate').text(obj.createDate);
-		
-		app.loadCommentList(1);
-		
 	});
 	
+	$(document).on('pagebeforeshow', '#page_detail', function() {
+		var o = sessionStorage.getItem("essay");
+		if( o ){
+			var essay = $.evalJSON(o);
+			$('#essayId').val(essay.id);
+			$('.detail_title').text(essay.title);
+			$('.detail_usercode').text(essay.usercode?essay.usercode:'匿名');
+			$('.detail_content').text(essay.content);
+			$('.detail_createDate').text(essay.createDate);
+			app.essayId = essay.id;
+			$('#commentList').html('');
+			app.loadCommentList(1);
+		}else{
+			$('#essayId').val('');
+			$('.detail_title').text('');
+			$('.detail_usercode').text('');
+			$('.detail_content').text('');
+			$('.detail_createDate').text('');
+			$('#commentList').html('');
+		}
+		
+	});
+	app.essayId = '';
 	// 分页参数
 	app.pageComment = 1;
 	app.totalComment = 0;
 	
 	// 提交评论
 	app.addCommentSub = function(){
-		var essayId = $('#essayId').val();
 		var commentContent = $('#fomAddComment textarea[name=commentContent]').val();
 		$.ajax( {
 			type : 'POST',
 			url : app.basePath + 'webapp/essay/essay.htm?operator=addComment',
-			data : {essayId:essayId,commentContent:commentContent,usercode:app.getUserCode()},
+			data : {essayId:app.essayId ,commentContent:commentContent,usercode:app.getUserCode()},
 			dataType : 'json',
 			success : function(data) {
 				if(data.code == 0){
@@ -327,8 +340,8 @@
 					indexMes.text('评论成功');
 					indexMes.popup('open');
 					setTimeout('common.closePopup("detailMessage")',2000);
-					$('#commentList').html('');
 					$('#fomAddComment textarea[name=commentContent]').val('');
+					$('#commentList').html('');
 					app.loadCommentList(1);
 				}else{
 					var indexMes = $('#detailMessage');
@@ -358,12 +371,11 @@
 	// 加载评论
 	app.loadCommentList = function(p){
 		
-		var essayId = $('#essayId').val();
 		var commentList = $('#commentList');
 		$.ajax( {
 			type : 'POST',
 			url : app.basePath + 'webapp/essay/essay.htm?operator=searchComments',
-			data : {page:p,essayId:essayId},
+			data : {page:p,essayId:app.essayId },
 			dataType : 'json',
 			success : function(data) {
 				if (data) {

@@ -1,19 +1,21 @@
 Ext.onReady(function(){
 	
 	var store = Ext.create('Ext.data.TreeStore', {
-	    root: {
-	        expanded: true,
-	        children: [
-	            { text: "detention", leaf: true },
-	            { text: "homework", expanded: true, children: [
-	                { text: "book report", leaf: true },
-	                { text: "algebra", leaf: true}
-	            ] },
-	            { text: "buy lottery tickets", leaf: true }
-	        ]
-	    }
+		proxy : {
+			type : 'ajax',
+			url : 'ddddd.do',
+			reader : {
+				type : 'json',
+				root : 'nodes'
+			}
+		},
+		root : {
+			expanded : true
+		},
+		autoLoad : true
 	});
-
+	
+	
 	var accordionMenu = Ext.create("Ext.panel.Panel", {
 	    width: 200,
 	    defaults: {

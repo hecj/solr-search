@@ -1,6 +1,20 @@
 Ext.onReady(function(){
+	
+	var store = Ext.create('Ext.data.TreeStore', {
+	    root: {
+	        expanded: true,
+	        children: [
+	            { text: "detention", leaf: true },
+	            { text: "homework", expanded: true, children: [
+	                { text: "book report", leaf: true },
+	                { text: "algebra", leaf: true}
+	            ] },
+	            { text: "buy lottery tickets", leaf: true }
+	        ]
+	    }
+	});
 
-	var panel = Ext.create("Ext.panel.Panel", {
+	var accordionMenu = Ext.create("Ext.panel.Panel", {
 	    width: 200,
 	    defaults: {
 	        // 应用到所有子panel
@@ -15,7 +29,8 @@ Ext.onReady(function(){
 	    },
 	    items: [{
 	        title: 'Panel 1',
-	        html: 'Panel content!'
+	        xtype: 'treepanel',
+	        store: store
 	    }, {
 	        title: 'Panel 2',
 	        html: 'Panel content!'
@@ -25,4 +40,6 @@ Ext.onReady(function(){
 	    }],
 	    renderTo: 'menu-container-body'
 	});
+	
+
 });

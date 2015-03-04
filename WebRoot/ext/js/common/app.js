@@ -21,8 +21,8 @@ Ext.application( {
 		        height: 30,
 		        split: false,
 		        margins: '0 0 5 0'
-		    }, {
-		        title: '系统菜单',
+		    },{
+		        title: '导航栏',
 		        region: 'west',
 		        xtype: 'panel',
 		        margins: '5 0 0 5',
@@ -30,8 +30,7 @@ Ext.application( {
 		        collapsible: true,
 		        id: 'menu-container',
 		        layout: 'fit'
-		        	
-		    }, {
+		    },{
 		        title: 'Center Region',
 		        region: 'center',
 		        xtype: 'panel',

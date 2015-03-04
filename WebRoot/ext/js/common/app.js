@@ -10,31 +10,30 @@ Ext.application( {
 			rederTo: Ext.getBody(),
 			layout : 'border',
 			items: [{
-		        title: 'South Region (可调整大小)',
-		        region: 'north',     // 所在的位置
+		        region: 'north',
 		        xtype: 'panel',
-		        height: 100,
-		        split: true,         // 允许调整大小
-		        margins: '0 5 5 5'
+		        height: 80,
+		        split: false,
+		        margins: '0 0 0 0'
 		    },{
-		        title: 'South Region (可调整大小)',
-		        region: 'south',     // 所在的位置
+		        region: 'south',
 		        xtype: 'panel',
-		        height: 100,
-		        split: true,         // 允许调整大小
-		        margins: '0 5 5 5'
+		        height: 30,
+		        split: false,
+		        margins: '0 0 5 0'
 		    }, {
-		        title: 'West Region (可折叠/展开)',
+		        title: '系统菜单',
 		        region: 'west',
 		        xtype: 'panel',
 		        margins: '5 0 0 5',
 		        width: 200,
-		        collapsible: true,   // 可折叠/展开
-		        id: 'west-region-container',
+		        collapsible: true,
+		        id: 'menu-container',
 		        layout: 'fit'
+		        	
 		    }, {
-		        title: 'Center Region (必须)',
-		        region: 'center',     // 必须指定中间区域
+		        title: 'Center Region',
+		        region: 'center',
 		        xtype: 'panel',
 		        layout: 'fit',
 		        margins: '5 5 0 0'

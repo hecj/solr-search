@@ -22,9 +22,13 @@ Ext.application( {
 			region : 'center',
 			layout : 'fit',
 			tabWidth : 120,
-			items : [ {
-				title : '首页'
-			} ]
+			items : [{
+				title : '变更记录',
+				loader: {
+			        url: 'html/first.html',
+			        autoLoad: true
+			    }
+			}]
 		});
 		
 		/**
@@ -79,8 +83,11 @@ Ext.application( {
 						var text = record.get('text');
 						var leaf = record.get('leaf');
 						if (leaf) {
-							alert('id-' + id + ',text-' + text + ',leaf-'
-									+ leaf);
+							var tabPanel = Ext.create('Ext.panel.Panel', {
+							    title: text,
+							    html: '<p>World!</p>'
+							});
+							app.rightPanel.add(tabPanel);
 						}
 					},
 					scope : this

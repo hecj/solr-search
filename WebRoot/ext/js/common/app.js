@@ -64,7 +64,7 @@ Ext.application( {
 		 * 组建树
 		 */
 		var buildTree = function(json) {
-			return Ext.create('Ext.tree.Panel', {
+			var tree =  Ext.create('Ext.tree.Panel', {
 				rootVisible : false,
 				border : false,
 				store : Ext.create('Ext.data.TreeStore', {
@@ -79,31 +79,35 @@ Ext.application( {
 						var text = record.get('text');
 						var leaf = record.get('leaf');
 						if (leaf) {
-							alert('id-' + id + ',text-' + text + ',leaf-'
-									+ leaf);
+							alert('id-' + id + ',text-' + text + ',leaf-'+ leaf);
+							app.rightPanel.add(app.bottomPanel);
 						}
 					},
 					scope : this
 				}
 			});
-		};
+			return tree;
+		}
 
 		/**
 		 * 加载菜单树
 		 */
 		Ext.Ajax.request( {
 			url : '../ext/tree/tree.htm?operator=initTree',
+			method : 'post',
 			success : function(response) {
-				var json = Ext.JSON.decode(response.responseText)
-				Ext.each(json.data, function(el) {
-					var panel = Ext.create('Ext.panel.Panel', {
-						id : el.id,
-						title : el.text,
-						layout : 'fit'
+				var data = Ext.JSON.decode(response.responseText);
+				if(data.success){
+					Ext.each(data.data, function(c) {
+						var panel = Ext.create('Ext.panel.Panel', {
+							id : c.id,
+							title : c.text,
+							layout : 'fit'
+						});
+						panel.add(buildTree(c));
+						app.leftPanel.add(panel);
 					});
-					panel.add(buildTree(el));
-					app.leftPanel.add(panel);
-				});
+				}
 			},
 			failure : function(request) {
 				Ext.MessageBox.show( {
@@ -112,8 +116,7 @@ Ext.application( {
 					buttons : Ext.MessageBox.OK,
 					icon : Ext.MessageBox.ERROR
 				});
-			},
-			method : 'post'
+			}
 		});
 		
 	}

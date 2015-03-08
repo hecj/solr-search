@@ -331,6 +331,13 @@ public class ModuleServiceImp implements ModuleService{
 				"(select rm.moduleId from LzRoleModule rm where rm.rolecode=?) and m.type=?";
 		return moduleDAO.queryListByParams(query, new Object[]{id,rolecode,EnumAdminUtils.ModuleType.Menu.code});
 	}
+	
+	@Override
+	public List<LzModule> searchChildModules(String id) {
+		
+		String query = "select m from LzModule m where m.parentId=? and m.type=?";
+		return moduleDAO.queryListByParams(query, new Object[]{id,EnumAdminUtils.ModuleType.Menu.code});
+	}
 
 	@Override
 	public List<Tree> searchChildTree(String usercode,String id) {

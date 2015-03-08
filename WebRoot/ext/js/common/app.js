@@ -22,6 +22,7 @@ Ext.application( {
 			region : 'center',
 			layout : 'fit',
 			tabWidth : 120,
+			frame : true,
 			items : [{
 				title : '变更记录',
 				loader: {
@@ -67,15 +68,22 @@ Ext.application( {
 		/**
 		 * 组建树
 		 */
-		var buildTree = function(json) {
+		var buildTree = function(node) {
 			return Ext.create('Ext.tree.Panel', {
 				rootVisible : false,
 				border : false,
 				store : Ext.create('Ext.data.TreeStore', {
+					autoLoad : true,
+					nodeParam : 'id',
 					root : {
 						expanded : true,
-						children : json.children
-					}
+						id :node.id
+					},
+					proxy: {
+				        type: 'ajax',
+				        url : '../ext/tree/tree.htm?operator=initTree',
+				        reader: 'json'
+				    }
 				}),
 				listeners : {
 					itemclick : function(view, record, item, index, e) {
@@ -83,11 +91,13 @@ Ext.application( {
 						var text = record.get('text');
 						var leaf = record.get('leaf');
 						if (leaf) {
-							var tabPanel = Ext.create('Ext.panel.Panel', {
+							var panel = Ext.create('Ext.panel.Panel', {
 							    title: text,
+							    closable : true,
 							    html: '<p>World!</p>'
 							});
-							app.rightPanel.add(tabPanel);
+							alert(app.rightPanel);
+							app.rightPanel.add(panel);
 						}
 					},
 					scope : this
@@ -99,16 +109,16 @@ Ext.application( {
 		 * 加载菜单树
 		 */
 		Ext.Ajax.request( {
-			url : '../ext/tree/tree.htm?operator=initTree',
+			url : '../ext/tree/tree.htm?operator=initTree&id=0',
 			success : function(response) {
 				var json = Ext.JSON.decode(response.responseText)
-				Ext.each(json.data, function(el) {
+				Ext.each(json, function(node) {
 					var panel = Ext.create('Ext.panel.Panel', {
-						id : el.id,
-						title : el.text,
+						id : node.id,
+						title : node.text,
 						layout : 'fit'
 					});
-					panel.add(buildTree(el));
+					panel.add(buildTree(node));
 					app.leftPanel.add(panel);
 				});
 			},

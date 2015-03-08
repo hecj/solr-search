@@ -48,6 +48,11 @@ public interface ModuleService {
 	public List<LzModule> searchChildModules(String rolecode,String id);
 	
 	/**
+	 * 根据父模块Id查询子模块集合
+	 */
+	public List<LzModule> searchChildModules(String id);
+	
+	/**
 	 * 查询子节点Tree
 	 */
 	public List<Tree> searchChildTree(String usercode,String id);

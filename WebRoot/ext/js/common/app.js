@@ -94,10 +94,26 @@ Ext.application( {
 							var panel = Ext.create('Ext.panel.Panel', {
 							    title: text,
 							    closable : true,
-							    html: '<p>World!</p>'
+							    loader: {
+						        	url: 'jsp/user/usermanager.jsp',
+						        	autoLoad: true
+								}
 							});
-							alert(app.rightPanel);
-							app.rightPanel.add(panel);
+							var tabs = app.rightPanel.items.items;
+							var isExist = false;
+							var tabId ;
+							for(var i = 0; i <tabs.length ; i++){
+								if(tabs[i].title == text) {
+									tabId = tabs[i].id;
+									isExist = true;
+								}
+							}
+							if(isExist){
+								app.rightPanel.setActiveTab(tabId);
+							}else{
+								app.rightPanel.add(panel);
+								app.rightPanel.setActiveTab(panel);
+							}
 						}
 					},
 					scope : this

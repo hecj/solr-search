@@ -15,6 +15,12 @@ public class ExtTree implements Serializable {
 	private String href ;
 	private boolean leaf;
 	
+	public String getHref() {
+		return href;
+	}
+	public void setHref(String href) {
+		this.href = href;
+	}
 	public boolean isLeaf() {
 		return leaf;
 	}
@@ -38,12 +44,6 @@ public class ExtTree implements Serializable {
 	}
 	public void setText(String text) {
 		this.text = text;
-	}
-	public String getHref() {
-		return href;
-	}
-	public void setHref(String href) {
-		this.href = href;
 	}
 	
 }

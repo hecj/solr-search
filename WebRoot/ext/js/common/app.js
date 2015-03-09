@@ -26,7 +26,7 @@ Ext.application( {
 			items : [{
 				title : '变更记录',
 				loader: {
-			        url: 'html/first.html',
+			        url: 'html/log.html',
 			        autoLoad: true
 			    }
 			}]
@@ -49,7 +49,8 @@ Ext.application( {
 			title : '导航栏',
 			width : 230,
 			layout : 'accordion',
-			collapsible : true
+			collapsible : true,
+			resizable : true,
 		});
 		
 		/**

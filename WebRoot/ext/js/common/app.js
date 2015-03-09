@@ -100,10 +100,8 @@ Ext.application( {
 				                    type: 'fit',
 				                    align: 'stretch'
 				                },
-				               // html: '<iframe src="http://localhost:8080/solr-search/ext/jsp/user/usermanager.jsp" width=100% height="100%" frameBorder="0"></iframe>',
-				                mask : '加载中...'
+				                html: '<iframe src="'+app.basePath+url+'" width=100% height="100%" frameBorder="0"></iframe>'
 							});
-							panel.html='<iframe src="'+app.basePath+url+'" width=100% height="100%" frameBorder="0"></iframe>';
 							var tabs = app.rightPanel.items.items;
 							var isExist = false;
 							var tabId ;

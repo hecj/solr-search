@@ -43,12 +43,20 @@
 		    ],
 		    dockedItems: [{
 		        xtype: 'pagingtoolbar',
+		        dock: 'bottom',
 		        store: Ext.data.StoreManager.lookup('userStore'),
 		        displayMsg: '显示{0}~{1}条, 共{2}条记录',
 		        beforePageText : '第',
 		        afterPageText : '页 共{0}页',
-		        dock: 'bottom',
 		        displayInfo: true
+		    },{
+		        xtype: 'toolbar',
+		        dock: 'top',
+		        items: [{
+			        xtype: 'button',
+			        iconCls: 'add',
+			        text: '添加' 
+			    }]
 		    }]
 		});
 

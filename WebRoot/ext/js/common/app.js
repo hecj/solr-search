@@ -22,9 +22,14 @@ Ext.application( {
 			region : 'center',
 			layout : 'fit',
 			tabWidth : 120,
-			items : [ {
-				title : '首页'
-			} ]
+			frame : true,
+			items : [{
+				title : '变更记录',
+				loader: {
+			        url: 'html/first.html',
+			        autoLoad: true
+			    }
+			}]
 		});
 		
 		/**
@@ -63,24 +68,59 @@ Ext.application( {
 		/**
 		 * 组建树
 		 */
-		var buildTree = function(json) {
-			var tree =  Ext.create('Ext.tree.Panel', {
+		var buildTree = function(node) {
+			return Ext.create('Ext.tree.Panel', {
 				rootVisible : false,
 				border : false,
 				store : Ext.create('Ext.data.TreeStore', {
+					autoLoad : true,
+					nodeParam : 'id',
 					root : {
 						expanded : true,
-						children : json.children
-					}
+						id :node.id
+					},
+					proxy: {
+				        type: 'ajax',
+				        url : '../ext/tree/tree.htm?operator=initTree',
+				        reader: 'json'
+				    }
 				}),
 				listeners : {
 					itemclick : function(view, record, item, index, e) {
 						var id = record.get('id');
 						var text = record.get('text');
 						var leaf = record.get('leaf');
+						var href = record.get('href');
+						alert(href);
 						if (leaf) {
 							alert('id-' + id + ',text-' + text + ',leaf-'+ leaf);
 							app.rightPanel.add(app.bottomPanel);
+							var panel = Ext.create('Ext.panel.Panel', {
+							    title: text,
+							    closable : true,
+							    layout: {
+				                    type: 'fit',
+				                    align: 'stretch'
+				                },
+				               // html: '<iframe src="http://localhost:8080/solr-search/ext/jsp/user/usermanager.jsp" width=100% height="100%" frameBorder="0"></iframe>',
+				                mask : '加载中...'
+							});
+							panel.html='<iframe src="'+href+'" width=100% height="100%" frameBorder="0"></iframe>';
+							var tabs = app.rightPanel.items.items;
+							var isExist = false;
+							var tabId ;
+							for(var i = 0; i <tabs.length ; i++){
+								if(tabs[i].title == text) {
+									tabId = tabs[i].id;
+									isExist = true;
+								}
+							}
+							if(isExist){
+								app.rightPanel.setActiveTab(tabId);
+							}else{
+								app.rightPanel.add(panel);
+								app.rightPanel.setActiveTab(panel);
+							}
 						}
 					},
 					scope : this
@@ -93,21 +133,19 @@ Ext.application( {
 		 * 加载菜单树
 		 */
 		Ext.Ajax.request( {
-			url : '../ext/tree/tree.htm?operator=initTree',
 			method : 'post',
+			url : '../ext/tree/tree.htm?operator=initTree&id=0',
 			success : function(response) {
-				var data = Ext.JSON.decode(response.responseText);
-				if(data.success){
-					Ext.each(data.data, function(c) {
-						var panel = Ext.create('Ext.panel.Panel', {
-							id : c.id,
-							title : c.text,
-							layout : 'fit'
-						});
-						panel.add(buildTree(c));
-						app.leftPanel.add(panel);
+				var json = Ext.JSON.decode(response.responseText)
+				Ext.each(json, function(node) {
+					var panel = Ext.create('Ext.panel.Panel', {
+						id : node.id,
+						title : node.text,
+						layout : 'fit'
 					});
-				}
+					panel.add(buildTree(node));
+					app.leftPanel.add(panel);
+				});
 			},
 			failure : function(request) {
 				Ext.MessageBox.show( {

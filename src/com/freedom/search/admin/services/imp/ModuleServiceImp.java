@@ -193,6 +193,7 @@ public class ModuleServiceImp implements ModuleService{
 	private String getNewModuleId(List<LzModule> list){
 		//截图Id最后3位
 		String newModuleId = list.get(0).getModuleId();
+		String pId = list.get(0).getParentId();
 		int last3IndexId = Integer.parseInt(newModuleId.substring(newModuleId.length()-3));
 		for(LzModule m : list){
 			//判断最后3位Id是否相等
@@ -208,6 +209,21 @@ public class ModuleServiceImp implements ModuleService{
 		int length = last3IndexIdStr.length();
 		for(int i=0;i<3-length;i++){
 			last3IndexIdStr = "0"+last3IndexIdStr;
+		}
+		
+		while(true){
+			LzModule m = moduleDAO.findById(pId+last3IndexIdStr);
+			if(m != null){
+				last3IndexId = Integer.parseInt(last3IndexIdStr)+1;
+				//不足3位时前面补0
+				last3IndexIdStr = String.valueOf(last3IndexId);
+				length = last3IndexIdStr.length();
+				for(int i=0;i<3-length;i++){
+					last3IndexIdStr = "0"+last3IndexIdStr;
+				}
+			}else{
+				break;
+			}
 		}
 		return last3IndexIdStr;
 	}
@@ -330,6 +346,13 @@ public class ModuleServiceImp implements ModuleService{
 		String query = "select m from LzModule m where m.parentId=? and m.moduleId in " +
 				"(select rm.moduleId from LzRoleModule rm where rm.rolecode=?) and m.type=?";
 		return moduleDAO.queryListByParams(query, new Object[]{id,rolecode,EnumAdminUtils.ModuleType.Menu.code});
+	}
+	
+	@Override
+	public List<LzModule> searchChildModules(String id) {
+		
+		String query = "select m from LzModule m where m.parentId=? and m.type=?";
+		return moduleDAO.queryListByParams(query, new Object[]{id,EnumAdminUtils.ModuleType.Menu.code});
 	}
 
 	@Override

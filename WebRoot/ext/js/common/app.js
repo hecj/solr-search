@@ -102,7 +102,8 @@ Ext.application( {
 				               // html: '<iframe src="http://localhost:8080/solr-search/ext/jsp/user/usermanager.jsp" width=100% height="100%" frameBorder="0"></iframe>',
 				                mask : '加载中...'
 							});
-							panel.html='<iframe src="'+href+'" width=100% height="100%" frameBorder="0"></iframe>';
+							alert(app.basePath+href);
+							panel.html='<iframe src="'+app.basePath+href+'" width=100% height="100%" frameBorder="0"></iframe>';
 							var tabs = app.rightPanel.items.items;
 							var isExist = false;
 							var tabId ;

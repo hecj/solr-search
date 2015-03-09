@@ -7,5 +7,6 @@
 <script type="text/javascript">
 
 	var app = app || {} ;
+	app.basePath = '<%=basePath%>';
 	
 </script>

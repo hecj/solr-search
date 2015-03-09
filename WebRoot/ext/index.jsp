@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hey-Ext</title>
 <jsp:include page="./jsp/base/extlib.jsp"/>
+<script type="text/javascript" src="js/common/app.js"></script>
 </head>
 <body>
 </body>

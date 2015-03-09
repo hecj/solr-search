@@ -91,10 +91,7 @@ Ext.application( {
 						var text = record.get('text');
 						var leaf = record.get('leaf');
 						var href = record.get('href');
-						alert(href);
 						if (leaf) {
-							alert('id-' + id + ',text-' + text + ',leaf-'+ leaf);
-							app.rightPanel.add(app.bottomPanel);
 							var panel = Ext.create('Ext.panel.Panel', {
 							    title: text,
 							    closable : true,
@@ -126,7 +123,6 @@ Ext.application( {
 					scope : this
 				}
 			});
-			return tree;
 		}
 
 		/**

@@ -39,7 +39,7 @@ public class TreeController extends BaseController {
 		List<ExtTree> trees = new ArrayList<ExtTree>();
 		for(LzModule m :modules){
 			ExtTree t = new ExtTree();
-			t.setHref(m.getUrl());
+			t.setUrl(m.getUrl());
 			t.setText(m.getName());
 			t.setId(m.getModuleId());
 			if(m.getLeaf().equals("0")){

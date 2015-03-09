@@ -12,14 +12,14 @@ public class ExtTree implements Serializable {
 	private String id ;
 	private boolean expanded = false;
 	private String text ;
-	private String href ;
+	private String url ;
 	private boolean leaf;
 	
-	public String getHref() {
-		return href;
+	public String getUrl() {
+		return url;
 	}
-	public void setHref(String href) {
-		this.href = href;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public boolean isLeaf() {
 		return leaf;

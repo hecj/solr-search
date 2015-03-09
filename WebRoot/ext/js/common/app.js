@@ -83,7 +83,8 @@ Ext.application( {
 				        type: 'ajax',
 				        url : '../ext/tree/tree.htm?operator=initTree',
 				        reader: 'json'
-				    }
+				    },
+				    fields: ['id', 'expanded', 'text', 'url','leaf']
 				}),
 				listeners : {
 					itemclick : function(view, record, item, index, e) {
@@ -103,7 +104,7 @@ Ext.application( {
 				                mask : '加载中...'
 							});
 							alert(app.basePath+href);
-							panel.html='<iframe src="'+app.basePath+href+'" width=100% height="100%" frameBorder="0"></iframe>';
+							//panel.html='<iframe src="'+app.basePath+href+'" width=100% height="100%" frameBorder="0"></iframe>';
 							var tabs = app.rightPanel.items.items;
 							var isExist = false;
 							var tabId ;

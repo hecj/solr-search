@@ -91,7 +91,7 @@ Ext.application( {
 						var id = record.get('id');
 						var text = record.get('text');
 						var leaf = record.get('leaf');
-						var href = record.get('href');
+						var url = record.get('url');
 						if (leaf) {
 							var panel = Ext.create('Ext.panel.Panel', {
 							    title: text,
@@ -103,8 +103,7 @@ Ext.application( {
 				               // html: '<iframe src="http://localhost:8080/solr-search/ext/jsp/user/usermanager.jsp" width=100% height="100%" frameBorder="0"></iframe>',
 				                mask : '加载中...'
 							});
-							alert(app.basePath+href);
-							//panel.html='<iframe src="'+app.basePath+href+'" width=100% height="100%" frameBorder="0"></iframe>';
+							panel.html='<iframe src="'+app.basePath+url+'" width=100% height="100%" frameBorder="0"></iframe>';
 							var tabs = app.rightPanel.items.items;
 							var isExist = false;
 							var tabId ;

@@ -33,20 +33,20 @@
 		    autoHeight : true,
 		    autoScroll : true,
 		    columns: [
-		        { text: '用户名',  dataIndex: 'usercode' , flex:1},
-		        { text: '姓名', dataIndex: 'username' ,flex:1},
-		        { text: '手机号', dataIndex: 'telPhone' ,flex:1},
-		        { text: '邮箱', dataIndex: 'email'  ,flex:1},
-		        { text: '角色代码', dataIndex: 'role' ,flex:1},
-		        { text: '头像', dataIndex: 'imageHead' ,flex:1},
-		        { text: '创建时间', dataIndex: 'createDate',flex:1}
+		        { text: '用户名',  dataIndex: 'usercode' , flex:5},
+		        { text: '姓名', dataIndex: 'username' ,flex:5},
+		        { text: '手机号', dataIndex: 'telPhone' ,flex:5},
+		        { text: '邮箱', dataIndex: 'email'  ,flex:5},
+		        { text: '角色代码', dataIndex: 'role' ,flex:5},
+		        { text: '头像', dataIndex: 'imageHead' ,flex:10},
+		        { text: '创建时间', dataIndex: 'createDate',flex:8}
 		    ],
 		    dockedItems: [{
 		        xtype: 'pagingtoolbar',
 		        store: Ext.data.StoreManager.lookup('userStore'),
-		        displayMsg: '显示{0}到{1}, 共{2}记录',
+		        displayMsg: '显示{0}~{1}条, 共{2}条记录',
 		        beforePageText : '第',
-		        afterPageText : '共{0}页',
+		        afterPageText : '页 共{0}页',
 		        dock: 'bottom',
 		        displayInfo: true
 		    }]

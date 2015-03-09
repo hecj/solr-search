@@ -30,17 +30,17 @@
 		    store: Ext.data.StoreManager.lookup('userStore'),
 		    disableSelection: true,
 		    loadMask: true,
+		    autoHeight : true,
+		    autoScroll : true,
 		    columns: [
-		        { text: '用户名',  dataIndex: 'usercode' },
-		        { text: '姓名', dataIndex: 'username' },
-		        { text: '手机号', dataIndex: 'telPhone' },
-		        { text: '邮箱', dataIndex: 'email' },
-		        { text: '角色代码', dataIndex: 'role' },
-		        { text: '头像', dataIndex: 'imageHead' },
-		        { text: '创建时间', dataIndex: 'createDate' }
+		        { text: '用户名',  dataIndex: 'usercode' , flex:1},
+		        { text: '姓名', dataIndex: 'username' ,flex:1},
+		        { text: '手机号', dataIndex: 'telPhone' ,flex:1},
+		        { text: '邮箱', dataIndex: 'email'  ,flex:1},
+		        { text: '角色代码', dataIndex: 'role' ,flex:1},
+		        { text: '头像', dataIndex: 'imageHead' ,flex:1},
+		        { text: '创建时间', dataIndex: 'createDate',flex:1}
 		    ],
-		    height: 200,
-		    width: 400,
 		    dockedItems: [{
 		        xtype: 'pagingtoolbar',
 		        store: Ext.data.StoreManager.lookup('userStore'),

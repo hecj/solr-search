@@ -25,6 +25,8 @@
 		});
 	
 		Ext.create('Ext.grid.Panel', {
+			id : 'userGrid',
+			region : 'center',
 		    store: Ext.data.StoreManager.lookup('userStore'),
 		    disableSelection: true,
 		    loadMask: true,
@@ -47,9 +49,20 @@
 		        afterPageText : '共{0}页',
 		        dock: 'bottom',
 		        displayInfo: true
-		    }],
-		    renderTo: Ext.getBody()
+		    }]
 		});
+
+		/**
+		 * Viewport
+		 */
+		Ext.create('Ext.container.Viewport', {
+			layout : 'border',
+			renderTo : Ext.getBody(),
+			items : [ 
+			         Ext.getCmp('userGrid'),
+			]
+		});
+		
 	});
   
   </script>

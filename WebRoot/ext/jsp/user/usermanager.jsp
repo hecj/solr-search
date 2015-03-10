@@ -8,6 +8,15 @@
 	<link rel="stylesheet" type="text/css" href="../../css/icon/icon.css">
 	<jsp:include page="../base/extlib.jsp"/>
   <script type="text/javascript">
+
+  var user = user || {};
+  /*
+   *添加用户
+   */
+  user.add = function(){
+	alert(1);
+  }
+  
   Ext.onReady(function(){
 
 	  Ext.create('Ext.data.Store', {
@@ -73,7 +82,10 @@
 		        items: [{
 			        xtype: 'button',
 			        iconCls: 'icon-add',
-			        text: '添加' 
+			        text: '添加',
+			        listeners:{
+			        	click: user.add
+			        }
 			    },{
 			        xtype: 'button',
 			        iconCls: 'icon-delete',
@@ -87,8 +99,7 @@
 			        iconCls: 'icon-find',
 			        text: '查看' 
 			    }]
-		    }],
-		    
+		    }]
 		});
 
 		/*

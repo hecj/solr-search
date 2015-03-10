@@ -1,0 +1,15 @@
+/**
+ * 自定义图标
+ */
+.icon-add{
+	background:url('images/add.png') no-repeat center center;
+}
+.icon-delete{
+	background:url('images/delete.png') no-repeat center center;
+}
+.icon-edit{
+	background:url('images/bug_edit.png') no-repeat center center;
+}
+.icon-find{
+	background:url('images/find.png') no-repeat center center;
+}

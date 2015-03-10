@@ -5,6 +5,7 @@
     <title>用户管理</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
+	<link rel="stylesheet" type="text/css" href="../../css/icon/icon.css">
 	<jsp:include page="../base/extlib.jsp"/>
   <script type="text/javascript">
   Ext.onReady(function(){
@@ -28,7 +29,10 @@
 			id : 'userGrid',
 			region : 'center',
 		    store: Ext.data.StoreManager.lookup('userStore'),
+		    border: false,
 		    disableSelection: true,
+		    trackMouseOver: true,
+		    stripeRows: true,
 		    loadMask: true,
 		    autoHeight : true,
 		    autoScroll : true,
@@ -54,10 +58,23 @@
 		        dock: 'top',
 		        items: [{
 			        xtype: 'button',
-			        iconCls: 'add',
+			        iconCls: 'icon-add',
 			        text: '添加' 
+			    },{
+			        xtype: 'button',
+			        iconCls: 'icon-delete',
+			        text: '删除' 
+			    },{
+			        xtype: 'button',
+			        iconCls: 'icon-edit',
+			        text: '修改' 
+			    },{
+			        xtype: 'button',
+			        iconCls: 'icon-find',
+			        text: '查询' 
 			    }]
-		    }]
+		    }],
+		    
 		});
 
 		/**
@@ -66,7 +83,7 @@
 		Ext.create('Ext.container.Viewport', {
 			layout : 'border',
 			renderTo : Ext.getBody(),
-			items : [ 
+			items : [
 			         Ext.getCmp('userGrid'),
 			]
 		});

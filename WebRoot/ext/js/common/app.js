@@ -12,7 +12,7 @@ Ext.application( {
 		 */
 		app.topPanel = Ext.create('Ext.panel.Panel', {
 			region : 'north',
-			height : 55
+			height : 100
 		});
 		
 		/**
@@ -47,7 +47,7 @@ Ext.application( {
 		app.leftPanel = Ext.create('Ext.panel.Panel', {
 			region : 'west',
 			title : '导航栏',
-			width : 230,
+			width : 180,
 			layout : 'accordion',
 			collapsible : true,
 			resizable : true,

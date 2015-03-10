@@ -14,7 +14,49 @@
    *添加用户
    */
   user.add = function(){
-	alert(1);
+	  var win = parent.Ext.create('Ext.window.Window', {
+		    title: '添加用户',
+		    height: 400,
+		    width: 450,
+		    layout: 'fit',
+		    modal: true,
+		    resizable: false,
+		    buttonAlign: 'center', 
+		    html: '<iframe src="'+app.basePath+'ext/jsp/user/usermgr/adduser.jsp" width=100% height="100%" frameBorder="0"></iframe>',
+		    dockedItems: [{
+		        xtype: 'toolbar',
+		        border:false,
+		        dock: 'bottom',
+		        items: ['->',
+				{
+			        xtype: 'button',
+			        text: '提交',
+			        listeners:{
+			        	click: function(){
+
+		        		}
+			     	}
+			     },{ 
+					xtype: 'tbseparator', 
+				 },{
+			        xtype: 'button',
+			        text: '关闭',
+			        listeners:{
+			        	click: function(){
+		        			win.close();
+		        		}
+			        }
+			    }]
+		    }],
+		    listeners:{  
+	           "show": function(){
+		       },  
+	           "hide": function(){
+			   },  
+	           "close": function(){
+			   }  
+      		}
+		}).show();
   }
   
   Ext.onReady(function(){
@@ -86,15 +128,21 @@
 			        listeners:{
 			        	click: user.add
 			        }
-			    },{
+			    },{ 
+				    xtype: 'tbseparator', 
+				},{
 			        xtype: 'button',
 			        iconCls: 'icon-delete',
 			        text: '删除' 
-			    },{
+			    },{ 
+				    xtype: 'tbseparator', 
+				},{
 			        xtype: 'button',
 			        iconCls: 'icon-edit',
 			        text: '修改' 
-			    },{
+			    },{ 
+				    xtype: 'tbseparator', 
+				},{
 			        xtype: 'button',
 			        iconCls: 'icon-find',
 			        text: '查看' 

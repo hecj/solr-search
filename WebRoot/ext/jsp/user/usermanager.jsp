@@ -55,6 +55,20 @@
 		        displayInfo: true
 		    },{
 		        xtype: 'toolbar',
+		        border:false,
+		        dock: 'top',
+		        items: [{
+			        xtype: 'label',
+			        text: '用户名'
+			    },{
+			        xtype: 'textfield',
+			    },{
+			        xtype: 'button',
+			        iconCls: 'icon-search'
+			    }]
+		    },{
+		        xtype: 'toolbar',
+		        border:false,
 		        dock: 'top',
 		        items: [{
 			        xtype: 'button',
@@ -71,14 +85,14 @@
 			    },{
 			        xtype: 'button',
 			        iconCls: 'icon-find',
-			        text: '查询' 
+			        text: '查看' 
 			    }]
 		    }],
 		    
 		});
 
-		/**
-		 * Viewport
+		/*
+		 *Viewport
 		 */
 		Ext.create('Ext.container.Viewport', {
 			layout : 'border',

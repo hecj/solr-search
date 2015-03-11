@@ -16,8 +16,8 @@
   user.add = function(){
 	  var win = parent.Ext.create('Ext.window.Window', {
 		    title: '添加用户',
-		    height: 400,
-		    width: 450,
+		    width: 380,
+			height: 450,
 		    layout: 'fit',
 		    modal: true,
 		    resizable: false,
@@ -29,16 +29,6 @@
 		        dock: 'bottom',
 		        items: ['->',
 				{
-			        xtype: 'button',
-			        text: '提交',
-			        listeners:{
-			        	click: function(){
-
-		        		}
-			     	}
-			     },{ 
-					xtype: 'tbseparator', 
-				 },{
 			        xtype: 'button',
 			        text: '关闭',
 			        listeners:{

@@ -7,6 +7,20 @@
 	<meta http-equiv="cache-control" content="no-cache">
 	<link rel="stylesheet" type="text/css" href="../../../css/icon/icon.css">
 	<jsp:include page="../../base/extlib.jsp"/>
+	<style type="text/css">
+	
+	.fieldheight{
+		margin: 20 0 15 0
+	}
+	
+	.contentCenter{
+		text-align: center;
+		padding-left: 100px;
+  		width:100%;  
+  		vertical-align:center;  
+	}
+	
+	</style>
   <script type="text/javascript">
   Ext.onReady(function(){
 	  
@@ -15,25 +29,52 @@
 		    region: 'center',
 		    bodyPadding: 5,
 		    url: 'save-form.php',
+		    bodyCls: 'contentCenter',
 		    defaultType: 'textfield',
+		    frame: true,
+		    defaults: {
+		        autoScroll: true,
+		        labelAlign :'right',
+		        labelWidth :80,
+		        labelSeparator :'：',
+		        labelPad : 5,
+		        //margin : '0 0 50 0',
+		        cls:'fieldheight',
+		    },
 		    items: [{
-		        fieldLabel: 'First Name',
-		        name: 'first',
+		        fieldLabel: '用户名',
+		        name: 'usercode',
 		        allowBlank: false
 		    },{
-		        fieldLabel: 'Last Name',
-		        name: 'last',
+		        fieldLabel: '密码',
+		        name: 'password',
+		        allowBlank: false
+		    },{
+		        fieldLabel: '昵称',
+		        name: 'username',
+		        allowBlank: false
+		    },{
+		        fieldLabel: '手机号',
+		        name: 'telPhone',
+		        allowBlank: false
+		    },{
+		        fieldLabel: '邮箱',
+		        name: 'email',
+		        allowBlank: false
+		    },{
+		        fieldLabel: '角色',
+		        name: 'rolecode',
 		        allowBlank: false
 		    }],
 		    buttons: [{
-		        text: 'Reset',
+		        text: '重置',
 		        handler: function() {
 		            this.up('form').getForm().reset();
 		        }
 		    }, {
-		        text: 'Submit',
-		        formBind: true, //only enabled once the form is valid
-		        disabled: true,
+		        text: '提交',
+		        //formBind: true,
+		        //disabled: true,
 		        handler: function() {
 		            var form = this.up('form').getForm();
 		            if (form.isValid()) {
@@ -51,7 +92,7 @@
 		    renderTo: Ext.getBody()
 	  });
 
-	   /*
+	    /*
 		 *Viewport
 		 */
 		Ext.create('Ext.container.Viewport', {

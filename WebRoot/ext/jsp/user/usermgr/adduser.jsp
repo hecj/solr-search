@@ -10,7 +10,7 @@
 	<style type="text/css">
 	
 	.fieldheight{
-		margin: 20 0 15 0
+		margin: 10 0 15 25
 	}
 	
 	.contentCenter{
@@ -28,6 +28,8 @@
 		    id: 'adduserform',
 		    region: 'center',
 		    bodyPadding: 5,
+		    width: 380,
+			height: 450,
 		    url: 'save-form.php',
 		    bodyCls: 'contentCenter',
 		    defaultType: 'textfield',
@@ -42,13 +44,29 @@
 		        cls:'fieldheight',
 		    },
 		    items: [{
+		    	layout: 'column',
+		    	xtype: 'panel',
+		        items: [{
+		        	xtype:'image',
+				    height: 80,
+				    width: 80,
+			    	src: 'http://www.sencha.com/img/20110215-feat-html5.png',
+			    	columnWidth: 0.50
+		        },{
+		        	xtype:'image',
+				    height: 80,
+				    width: 80,
+			    	src: 'http://www.sencha.com/img/20110215-feat-html5.png',
+		            columnWidth: 0.50
+		        }]
+		    },{
 		        fieldLabel: '用户名',
 		        name: 'usercode',
 		        allowBlank: false
 		    },{
 		        fieldLabel: '密码',
 		        name: 'password',
-		        allowBlank: false
+		        allowBlank: false,
 		    },{
 		        fieldLabel: '昵称',
 		        name: 'username',
@@ -63,8 +81,12 @@
 		        allowBlank: false
 		    },{
 		        fieldLabel: '角色',
+		        xtype: 'combobox',
 		        name: 'rolecode',
-		        allowBlank: false
+		        allowBlank: false,
+		        queryMode: 'local',
+		        displayField: 'name',
+		        valueField: 'abbr'
 		    }],
 		    buttons: [{
 		        text: '重置',

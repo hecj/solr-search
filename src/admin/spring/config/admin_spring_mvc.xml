@@ -30,7 +30,8 @@
 	<!-- 扫描包 -->
 	<context:component-scan base-package="com.freedom.search.admin.web.controller,
 										  com.freedom.search.webapp.controller,
-										  com.freedom.search.ext.controller"/>
+										  com.freedom.search.ext.controller,
+										  test.freedom.search.controller"/>
 	
 	<!-- Jackson provider -->							  
 	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">    

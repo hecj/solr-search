@@ -49,9 +49,9 @@ public class TestController extends BaseController {
      * @param Uuser 
      * @return 
      */  
-    @RequestMapping(value = "/login/", method = RequestMethod.GET) 
-    public void login() {  
-    	System.out.println("into...");
+    @RequestMapping(value = "/login/{name}", method = RequestMethod.GET) 
+    public void login(@PathVariable String name) {  
+    	System.out.println("into..."+name);
     }
 	
     

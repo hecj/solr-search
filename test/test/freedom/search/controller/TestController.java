@@ -49,8 +49,8 @@ public class TestController extends BaseController {
      * @return 
      */  
     @RequestMapping(value = "/login", method = RequestMethod.GET) 
-    public void login(@RequestBody User u) {  
-    	System.out.println(u.getUsercode()+"~"+u.getUsername());
+    public void login() {  
+    	System.out.println("into...");
     }
 	
     

@@ -25,9 +25,9 @@ public class TestController extends BaseController {
 	
 	/** 
      * path路径传参
-     * eg:http://localhost:8080/solr-search/test/test/238
+     * eg:http://localhost:8080/solr-search/test/test/porfile/238
      */ 
-    @RequestMapping(value = "/{usercode}", method = RequestMethod.GET)  
+    @RequestMapping(value = "/porfile/{usercode}", method = RequestMethod.GET)  
     @ResponseBody
     public String porfile(@PathVariable String usercode) {
         return usercode;  
@@ -36,19 +36,20 @@ public class TestController extends BaseController {
     /** 
      * path路径传参
      */ 
-    @RequestMapping(value = "/{usercode}/{username}", method = RequestMethod.GET)  
+    @RequestMapping(value = "/porfile/{usercode}/{username}", method = RequestMethod.GET)  
     @ResponseBody
     public String porfile2(@PathVariable String usercode,@PathVariable String username) {
     	
-        return usercode;  
+        return username;  
     } 
 	
     /** 
      * 登录 
+     * http://localhost:8080/solr-search/test/test/login/
      * @param Uuser 
      * @return 
      */  
-    @RequestMapping(value = "/login", method = RequestMethod.GET) 
+    @RequestMapping(value = "/login/", method = RequestMethod.GET) 
     public void login() {  
     	System.out.println("into...");
     }

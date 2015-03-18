@@ -50,8 +50,10 @@ public class TestController extends BaseController {
      * @return 
      */  
     @RequestMapping(value = "/login/{name}", method = RequestMethod.GET) 
-    public void login(@PathVariable String name) {  
+    @ResponseBody
+    public String login(@PathVariable String name) {  
     	System.out.println("into..."+name);
+    	return name;
     }
 	
     

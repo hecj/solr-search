@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.freedom.search.admin.Enum.EnumAdminUtils;
 import com.freedom.search.admin.entity.LzRole;
@@ -276,5 +277,32 @@ public class UserController extends BaseController {
 			e.printStackTrace();
 		}
 		writeToJSON(response, new MessageCode(EnumAdminUtils.MessageCode.FAIL.code, "处理失败!"));
+	}
+	
+	@RequestMapping(params="operator=searchUserJSON")
+	public @ResponseBody EasyGridData searchUserJSON(Integer page,Integer rows,HttpServletRequest request,HttpServletResponse response){
+		try {
+			Pagination mPagination = new Pagination(10);
+			if(!StringUtil.isObjectNull(page)){
+				mPagination.setCurrPage(page.longValue());
+			}
+			if(!StringUtil.isObjectNull(rows)){
+				mPagination.setPageSize(rows);
+			}
+			Map<String,Object> mMap = new HashMap<String,Object>();
+			mMap.put("pagination", mPagination);
+			
+			String usercode = request.getParameter("usercode");
+			if(!StringUtil.isStrEmpty(usercode)){
+				mMap.put("usercode", usercode);
+			}
+			Result result = userService.searchUserByPagination(mMap);
+			if(result.isSuccess()){
+				return new EasyGridData(result.getPagination().getCountSize(),result.getData());
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return new EasyGridData();
 	}
 }

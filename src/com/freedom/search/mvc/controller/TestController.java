@@ -1,13 +1,15 @@
-package test.freedom.search.controller;
+package com.freedom.search.mvc.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import test.freedom.search.entity.User;
 
 import com.freedom.search.web.controller.base.BaseController;
 
@@ -50,12 +52,13 @@ public class TestController extends BaseController {
     @RequestMapping(value = "/login/{name}", method = RequestMethod.GET) 
     @ResponseBody
     public String login(@PathVariable String name) {  
-    	System.out.println("intodd..."+name);
+    	System.out.println("into..."+name);
     	return name;
     }
 	
-    
-    
+    public void init(){
+    	System.out.println("void com.freedom.search.mvc.controller.TestController.init()我初始化了");
+    }
     
     
     
